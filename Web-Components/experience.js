@@ -14,48 +14,40 @@ experienceTemplate.innerHTML = `
             }
 
                      
-            .root{ 
-                height:auto;
-                width:100%;
-                
+            .root{
+                width:15rem;
+                aspect-ratio:1/1.5;
+
+                color:white;
+                background-color:black;
+                border-radius:2.1em !important;
+
+                overflow:hidden;
+                box-shadow:0.3rem 0.3rem rgba(50,50,50,0.5);
+            }
+
+            .card-banner{
+                height:50%;
+
                 display:flex;
-                flex-direction:row;
-                flex-wrap:no-wrap;
+                justify-content:center;
 
-
-                justify-content:space-evenly;
-                align-items:center;
-                
+                background:linear-gradient(rgba(255,255,255,1),rgba(0,0,0,1));
             }
 
            
            
-           
-            .illustration{
-                
-                width:20%;
 
-            }
             
             .card-details{
-              width:40%;
-              aspect-ratio:2/1;
-              padding:1rem 1rem;
-
-              background-color:#f5f5f5;
-              border-radius:0.125rem;
-              box-shadow:0rem 0.125rem 0.25rem rgba(0,0,0,0.2)
-
-
+              height:50%;
+              padding:1rem;
             }
 
-            ::slotted([slot="illustrationImage"]){
-                  
-                  height:auto;
-                  width:100%;
-                
+            ::slotted([slot="illustration"]){
+                  height:100%; 
                   object-fit:contain;
-                  
+                  opacity:0.7;
             }
             
             ::slotted([slot="heading"]){
@@ -64,21 +56,15 @@ experienceTemplate.innerHTML = `
             }
             ::slotted([slot="summary"]){
                 font-size:0.75rem;
-                color:black !important;
-            }
-            ::slotted([slot="languages"]){
-                
-            }
+                color:white !important;
+            } 
 
       </style>
       <div class="root">
-          <div class="illustration">
-             <slot name="illustrationImage">Default Image</slot>
-          </div>
+          <slot name="illustration">Default Image</slot>
           <div class="card-details">
             <slot name="heading" >Default Heading</slot>
             <slot name="summary">Default Summary</slot>
-            <slot name="languages"></slot>
           </div>
       </div>
 `;
@@ -93,8 +79,6 @@ class ExperienceTemplate extends HTMLElement {
 
     this.root.append(clone);
   }
-
-  
 }
 
 customElements.define("experience-template", ExperienceTemplate);

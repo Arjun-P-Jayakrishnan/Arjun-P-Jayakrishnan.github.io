@@ -1,3 +1,37 @@
+import { Table } from "./utils/table.js";
+
+customElements.define("programming-table", Table);
+
+
+const programsTable=document.getElementById("academic");
+
+/**
+ * @type {Table}
+ */
+programsTable.data=[
+  ["1","2","3"],
+  ["","",""]
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
  * toggle Menu
  */
@@ -30,7 +64,8 @@ function navigate(site) {
       location.href = "https://github.com/Arjun-P-Jayakrishnan";
       break;
     case "linkedin":
-      location.href = "https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244";
+      location.href =
+        "https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244";
       break;
     default:
       break;
