@@ -82,9 +82,6 @@
       </div>
       
     </section>
-
-    <programming-table id="academic" data-headers="ID,Name,Place"></programming-table>
-
     <!--Profile-->
     <section id="about">
       <p class="section_text_p1">Get To Know More</p>
@@ -124,30 +121,17 @@
         <experience-template >
           <img slot="illustrationImage" src="./assets/3D/school3D.png" alt="">
           <h2 slot="heading">School and College</h2>
-          <p slot="summary">Academic wise i had learned the some programing languages and some concepts in computer science</p>
-          <table slot="languages">
-            <tr>
-                <td>Blue J</td>
-                <td><img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt=""></td>
-                <td>Basics Of Programming</td>
-            </tr>
-            <tr>
-              <td>C</td>
-              <td><img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" alt=""></td>
-              <td>Pointers, Data Structures, Memory Basics</td>
-            </tr>
-            <tr>
-              <td>My SQL</td>
-              <td><img src="https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white" alt=""></td>
-              <td>Basics Of SQL</td>
-            </tr>
-            <tr>
-              <td>Shell Script</td>
-              <td><img src="https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white" alt=""></td>
-            <td>Basics of Shell Script</td>
-            </tr>
-          </table>
+          <p slot="summary">Academic wise i had learned some main programing languages and some concepts in computer science</p>
+          <programming-table slot="languages" id="academic" data-headers="Language,Badge,Description"></programming-table>
         </experience-template>
+
+        <experience-template>
+          <img slot="illustrationImage" src='./assets/3D/Hobby.png'>
+          <h2 slot="heading">Hobby and Side Projects</h2>
+          <p slot="summary">Hobbies and Side projects i have done helped me learn the basics of how many things work machine to machine</p>
+          <programming-table slot="languages" id="hobby" data-headers="Language,Badge,Description"></programming-table>
+        <experience-template>
+
       </div>
      <img src="./assets/arrow.png" alt="arrow icon" class="icon arrow" onclick="location.href='./#projects'">
 

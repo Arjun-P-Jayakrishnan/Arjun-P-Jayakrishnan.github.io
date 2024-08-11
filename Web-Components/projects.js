@@ -86,4 +86,6 @@ class CardProjectTemplate extends HTMLElement {
   }
 }
 
-customElements.define("card-project", CardProjectTemplate);
+
+
+export  { CardProjectTemplate };
