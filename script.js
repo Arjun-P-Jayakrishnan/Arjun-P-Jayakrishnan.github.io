@@ -1,12 +1,12 @@
 import { Table } from "./utils/table.js";
 import {ExperienceTemplate} from './Web-Components/experience.js'
 import {CardProjectTemplate} from './Web-Components/projects.js'
-
+import {Icon} from './utils/icons.js'
 
 customElements.define("card-project", CardProjectTemplate);
 customElements.define("experience-template", ExperienceTemplate);
 customElements.define("programming-table", Table);
-
+customElements.define('custom-icon',Icon)
 
 
 
@@ -22,6 +22,33 @@ const programsHobbyTable=document.getElementById("hobby");
 
 
 
+//Event Listeners
+document.addEventListener('DOMContentLoaded',()=>{
+  
+  //HTML has loaded
+  
+  
+  const icons = document.querySelectorAll('custom-icon');
+  icons.forEach((icon)=>{
+      icon.addEventListener('click',navigateToPage)
+  })
+  
+})
+
+function navigateToPage(ev){
+    const target=ev.target
+
+    switch(target.link){
+
+        case 'github':
+                  navigate('github');
+                  break;
+        case 'linkedIn':
+                  navigate('linkedin');
+                  break;
+
+    }
+}
 
 
 
