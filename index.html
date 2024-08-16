@@ -64,18 +64,8 @@
         </div>
         
       <div id="socials-container">
-        <img 
-          src="./assets/github.png" 
-          alt="My Github"
-          class="icon"
-          onclick="navigate('github')"
-        >
-        <img 
-          src="./assets/linkedin.png" 
-          alt="My Linked In"
-          class="icon"
-          onclick="navigate('linkedin')"
-        >
+        <custom-icon link='github' size="2rem"></custom-icon>
+        <custom-icon link="linkedIn" size="2rem" ></custom-icon>
       </div>
     
       </div> 
@@ -130,10 +120,16 @@
           <h2 slot="heading">Hobby and Side Projects</h2>
           <p slot="summary">Hobbies and Side projects i have done helped me learn the basics of how many things work machine to machine</p>
           <programming-table slot="languages" id="hobby" data-headers="Language,Badge,Description"></programming-table>
+        </experience-template>
+
         <experience-template>
+          <img slot="illustrationImage" src='./assets/3D/project.png'>
+          <h2 slot="heading">Projects for Individuals</h2>
+          <p slot="summary">I have worked as an App developer and Mentor on projects (details can be disclosed on contact)</p>
+        </experience-template>
 
       </div>
-     <img src="./assets/arrow.png" alt="arrow icon" class="icon arrow" onclick="location.href='./#projects'">
+      <custom-icon class="arrow" link="down-arrow" onclick="location.href='./#projects'"></custom-icon> 
 
     </section>
     <section id="projects">
