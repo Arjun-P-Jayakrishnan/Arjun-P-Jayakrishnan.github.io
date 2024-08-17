@@ -1,0 +1,34 @@
+:host("rotating-details") {
+  display: block;
+}
+
+.banner {
+  
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  overflow:hidden;
+  position:absolute; 
+}
+
+.banner .slider {
+  position: absolute;
+  width: 20%;
+  height: 60%;
+  top: 10%;
+  left: calc(50%-10%);
+  transform-style:preserve-3d;
+  transform:perspective(1000px);
+}
+
+.banner .slider .item {
+  position: absolute;
+  inset: 0 0 0 0;
+  transform:translateZ(550px)
+}
+
+.banner .slider .item *{
+
+  height:100%;
+
+}
