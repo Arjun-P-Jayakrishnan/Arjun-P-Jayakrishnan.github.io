@@ -9,8 +9,6 @@ class Table extends HTMLElement {
       .split(",")
       .map((header) => header.trim());
 
-    console.log(headers);
-
     this.root.innerHTML = `
     <link rel="stylesheet" href="/utils/table.css">
           <table>
@@ -87,7 +85,7 @@ class Table extends HTMLElement {
         return cell;
       });
 
-      console.log(cells);
+      
       row.append(...cells);
       return row;
     });

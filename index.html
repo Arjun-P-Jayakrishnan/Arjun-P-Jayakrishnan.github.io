@@ -78,26 +78,23 @@
       <h1 class="title">About Me</h1>
       <div class="section-container">
         <div class="section_pic-container">
-          <img src="./assets/3D/school.png" alt="About Pic" class="about-pic">
-        </div>
-        <div class="about-details-container">
-          <div class="about-containers">
-          <div class="details-container">
-            <img src="./assets/experience.png" alt="experience icon" class="icon">
-            <h3>Experience</h3>
-            <p>Unpaid Works <br> 1+ year</p>
-          </div>
-          <div class="details-container">
-             <img src="./assets/education" alt="education icon" class="icon">
-            <h3>Education</h3>
-            <p>Bachelores in Technology Degree  </p>
- 
-          </div>
-          </div>
-          <div class="text-container">
-            <p>Lorem ipsum</p>
-          </div>
-
+          <rotating-details>
+           <about-card>
+             <img src="./assets/3D/school.png" alt="" slot="illustrationImage">
+             <h1 slot="heading">College</h1>
+             <h3 slot="sub-heading">Bachelore of Technology</h3>      
+             <h3 slot="area">Computer Science</h3>
+             <p slot="content"> i am a graduate in computer science.</p>
+           </about-card>
+           <about-card>
+             <img src="./assets/3D/school.png" alt="" slot="illustrationImage">
+             <h1 slot="heading">Side Projects</h1>
+             <h3 slot="sub-heading">Unpaid</h3>
+             <h3 slot="area">Application Development</h3>
+             <p slot="content">i am a part time application developer.</p>
+           </about-card>
+           <h1>Hi</h1>
+          </rotating-details>
         </div>
       </div>
       <img src="./assets/arrow.png" alt="arrow icon" class="icon arrow" onclick="location.href='./#experience'">
