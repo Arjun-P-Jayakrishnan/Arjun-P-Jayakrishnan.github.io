@@ -1,0 +1,21 @@
+
+.banner{
+  height:100%;
+  width:100%;
+}
+
+
+.banner .list{
+
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+
+}
+
+.banner .list .item{
+  height:60%;
+}
+
+
+
