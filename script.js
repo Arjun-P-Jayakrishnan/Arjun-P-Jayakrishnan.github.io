@@ -21,7 +21,7 @@ import {ExperienceTemplate} from './Web-Components/experience.js'
 import {CardProjectTemplate} from './Web-Components/projects.js'
 import {Icon} from './utils/icons.js'
 import { AboutCard } from "./Web-Components/about-card.js";
-import { Rotation3D } from "./Web-Components/3d-rotation.js";
+
 
 
 
@@ -31,7 +31,7 @@ customElements.define("experience-template", ExperienceTemplate);
 customElements.define("programming-table", Table);
 customElements.define('custom-icon',Icon);
 customElements.define('about-card',AboutCard);
-customElements.define('rotating-details',Rotation3D);
+
 
 
 
