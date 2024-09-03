@@ -73,11 +73,8 @@
       </div>
       
     </section>
-    <!--Profile-->
 
-
-
-           
+    <!--Profile-->        
     <section id="about">
       <p class="section_text_p1">Get To Know More</p>
       <h1 class="title">About Me</h1>
@@ -95,7 +92,7 @@
         </div>  
         <div class="item">
           <about-card>
-             <img src="./assets/3D/school.png" alt="" slot="illustrationImage">
+             <img src="./assets/3D/Projects.png" alt="" slot="illustrationImage">
              <h1 slot="heading">Side Projects</h1>
              <h3 slot="sub-heading">Unpaid</h3>
              <h3 slot="area">Application Development</h3>
@@ -104,8 +101,8 @@
         </div>  
         <div class="item">
             <about-card>
-              <img src="./assets/3D/school.png" alt="" slot="illustrationImage">
-              <h1 slot="heading">Outreach Actvities</h1>
+              <img src="./assets/3D/Mentor.png" alt="" slot="illustrationImage">
+              <h1 slot="heading">Outreach Activities</h1>
               <h3 slot="sub-heading">Mentoring</h3>
               <h3 slot="area">Programming</h3>
               <p slot="content">i had mentored about 300 plus students in various programming languages.</p>
@@ -113,12 +110,11 @@
         </div>  
        
       </div>
-  </div>
-       
+     </div>
+     <custom-arrow class="arrow" link="down-arrow" onclick="location.href='./#experience'"></custom-icon>  
+    </section>
 
-      <custom-arrow class="arrow" link="down-arrow" onclick="location.href='./#experience'"></custom-icon>  
-        </section>
-
+    <!--Experience-->
     <section id="experience">
       <p class="section_text_p1">Explore My</p>
       <h1 class="title">Experience</h1>
@@ -148,60 +144,44 @@
       <custom-icon class="arrow" link="down-arrow" onclick="location.href='./#projects'"></custom-icon> 
 
     </section>
+
+    <!--Projects-->
+
     <section id="projects">
-          <p class="section_text_p1">Browse My Recent</p>
+        <p class="section_text_p1">Browse My Recent</p>
         <h1 class="title">Projects</h1>
-        <div class="experience-details-container">
-         <div class="about-containers">
-       
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img src="./assets/project-1.png" alt="project 1" class="project-png">
-            </div>
+        <div class="projects">
+         <card-project >
+            <img slot="projectImage" src="./assets/Defaults/projectDefault.jpg" alt="">
+            <h2 slot="heading">Project 1</h2>
+            <p slot="summary">Lorem Ipsum</p>
+          </card-project>
 
- <card-project >
-        <img slot="projectImage" src="./assets/Defaults/projectDefault.jpg" alt="">
-          <h2 slot="heading">Project 1</h2>
-          <p slot="summary">Lorem Ipsum</p>
-        </card-project>
-            <h2 class="experience-sub-title project-title">Project One</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/'">Github</button>
-              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com'">Live Demo</button>
-            </div>
-          </div>
- <div class="details-container color-container">
-            <div class="article-container">
-              <img src="./assets/project-1.png" alt="project 1" class="project-png">
-            </div>
-            <h2 class="experience-sub-title project-title">Project One</h2>
-            <div class="btn-container">
-              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/'">Github</button>
-              <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com'">Live Demo</button>
-            </div>
-          </div>
-</div>
+          <card-project>
+            <img slot="projectImage" src="./assets/Defaults/projectDefault.jpg" alt="">
+            <h2 slot="heading">Project 2</h2>
+            <p slot="summary">Lorem Ipsum</p>
+          </card-project> 
         </div>
- <img src="./assets/arrow.png" alt="arrow icon" class="icon arrow" onclick="location.href='./#projects'">
-
+        <custom-icon class="arrow" link="down-arrow" onclick="location.href='./#projects'"></custom-icon> 
     </section>
+
+
   <section id="contact">
       <p class="section_text_p1">Get In Touch</p>
       <h1 class="title">Contact Me</h1>
       <div class="contact-info-upper-container">
         <div class="contact-info-container"> 
-          <img src="./assets/email.png" alt="Email icon" class="icon contact-icon">
+          <custom-icon link="gmail"></custom-icon>
           <p ><a href="htttps:mail:gmail.com">Example @gmail.com</a></p>
          
-          <img src="./assets/email.png" alt="Email icon" class="icon contact-icon">
-          <p ><a href="htttps:mail:gmail.com">Linked In</a></p>
+          <custom-icon link="linkedIn" size="1rem"></custom-icon>
+          <p ><a href="https:mail:gmail.com">Linked In</a></p>
         </div>
       </div>
 
   </section>
-  <project-template>
-    <h2 slot="title">Data</h2>
-  </project-template>
+ 
   <footer>
     <nav>
         <div class="nav-links-container">
