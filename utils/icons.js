@@ -87,6 +87,9 @@ class Icon extends HTMLElement{
         case "down-arrow":
                 link="./assets/Icons/angle-bottom-icon.png";
                 break;
+      case "gmail":
+                link="./assets/Icons/envelope.svg";
+                break;
     }
 
     return link;

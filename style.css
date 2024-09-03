@@ -363,6 +363,15 @@ article .icon {
 
 /*Projects*/
 
+.projects{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  gap:1rem;
+
+  margin:2rem
+}
+
 #projects {
   position: relative;
   margin-top:5rem;
@@ -421,4 +430,11 @@ article .icon {
 
 .contact-icon {
   cursor: default;
+}
+
+footer {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
