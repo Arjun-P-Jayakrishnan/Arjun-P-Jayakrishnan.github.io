@@ -1,0 +1,36 @@
+:host('code-snippets'){
+  display:block;
+}
+
+
+.root{
+  display:block;
+}
+
+
+
+
+
+
+
+/* Sections */
+.code-header{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.code-content{
+  display:flex;
+  flex-direction:column;
+  justify-content:start;
+  align-items:center;
+}
+
+
+
+/**/
+.code-lines{
+
+}
