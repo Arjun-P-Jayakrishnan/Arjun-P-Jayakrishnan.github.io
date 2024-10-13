@@ -1,6 +1,6 @@
 const template=document.createElement('template');
 template.innerHTML=`
-  <link rel='stylesheet' href='/utils//icons.css'>
+  <link rel='stylesheet' href='/utils/icons.css'>
   <div class="root">
   
   </div>
