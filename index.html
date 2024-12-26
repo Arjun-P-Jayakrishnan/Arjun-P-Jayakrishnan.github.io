@@ -9,8 +9,8 @@
     <link href="media_queries.css" rel="stylesheet" />
   </head>
   <body>
-    <!--Navbar -->
-    <nav id="desktop-nav">
+    <!-- Navbar -->
+    <!-- <nav id="desktop-nav">
       <div class="logo">Logo</div>
       <div>
         <ul class="nav-links">
@@ -20,28 +20,18 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
+  
+    <nav-bar></nav-bar>
+    <main>
+      
+    </main>
 
     <!--Hamburger Menu-->
-    <nav id="hamburger-nav">
-      <div class="logo">Logo</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="menu-links">
-          <li><a href="#about" onclick="toggleMenu()">About</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
-      </div>
-    </nav>
+    <!--  -->
 
     <!--Profile Section-->
-    <section id="profile">
+    <!-- <section id="profile">
       <div class="section_pic-container">
         <img src="./assets/3D/profile-pic.png" alt="My Profile Picture" />
       </div>
@@ -72,10 +62,10 @@
       </div> 
       </div>
       
-    </section>
+    </section> -->
 
     <!--Profile-->        
-    <section id="about">
+    <!-- <section id="about">
       <p class="section_text_p1">Get To Know More</p>
       <h1 class="title">About Me</h1>
       
@@ -112,10 +102,10 @@
       </div>
      </div>
      <custom-arrow class="arrow" link="down-arrow" onclick="location.href='./#experience'"></custom-icon>  
-    </section>
+    </section> -->
 
     <!--Experience-->
-    <section id="experience">
+    <!-- <section id="experience">
       <p class="section_text_p1">Explore My</p>
       <h1 class="title">Experience</h1>
     
@@ -143,10 +133,10 @@
       </div>
       <custom-icon class="arrow" link="down-arrow" onclick="location.href='./#projects'"></custom-icon> 
 
-    </section>
+    </section> -->
 
     <!--Projects-->
-
+<!-- 
     <section id="projects">
         <p class="section_text_p1">Browse My Recent</p>
         <h1 class="title">Projects</h1>
@@ -167,10 +157,10 @@
           </code-snippets>
         </div>
         <custom-icon class="arrow" link="down-arrow" onclick="location.href='./#projects'"></custom-icon> 
-    </section>
+    </section> -->
 
 
-  <section id="contact">
+  <!-- <section id="contact">
       <p class="section_text_p1">Get In Touch</p>
       <h1 class="title">Contact Me</h1>
       <div class="contact-info-upper-container">
@@ -183,8 +173,8 @@
         </div>
       </div>
 
-  </section>
- 
+  </section> -->
+<!--  
   <footer>
     <nav>
         <div class="nav-links-container">
@@ -198,8 +188,15 @@
         </div>
     </nav>
    <p>Copyright &169; 2024 .All Rights Reserved</p> 
-  </footer>
+  </footer> -->
   </body>
-  <script type="module" src="script.js"></script>
-   
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="index.js"></script>
 </html>
