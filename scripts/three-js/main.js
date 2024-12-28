@@ -1,39 +1,76 @@
-import * as THREE from 'three';
+import {Scene,PerspectiveCamera,WebGLRenderer, HemisphereLight} from 'three';
+import {Loader} from "./loader.js"
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-export const ThreeJs=()=>{
+/**
+ * @typedef {Object} ThreeConfig
+ * @property {()=>{scene:Scene,camera:PerspectiveCamera,controls:OrbitControls}} configure 
+ * @property {(fn:()=>void)=>void} runThreeJs runs the render loop with 
+ * render logic defined in the fn function passed as input
+ * @property {(innerWidth:number,innerHeight:number)=>void} resize sets the aspect ratio again as window dimensions change 
+ */
+
+/**
+ * @description creates primary three js utilities that msut be initialized during the 
+ * primary load
+ * @param {String} tag the html element that the three js canvas is going to be attached to
+ * @returns {ThreeConfig}
+ * 
+ */
+export const ThreeJs=(
+    {
+        /**@type {String} */
+        tag
+    }
+)=>{
+    /**@type {Scene} */
     let scene;
+
+    /**@type {PerspectiveCamera} */
     let camera;
+
+    /**@type {WebGLRenderer} */
     let renderer;
-    let cube;
+
+    /**@type {OrbitControls} */
+    let controls;
+   
+  
 
     const configure=()=>{
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-        
-        renderer = new THREE.WebGLRenderer();
+        scene = new Scene();
+        camera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        renderer= new WebGLRenderer();
+
         renderer.setSize( window.innerWidth, window.innerHeight );
-    
-        document.querySelector("main").appendChild( renderer.domElement );
+        document.querySelector(tag).appendChild( renderer.domElement );
+
+        //Add after the type
+        controls = new OrbitControls( camera, renderer.domElement );
+        return {scene:scene,camera:camera,controls:controls,renderer:renderer}
     }
 
-    function animate() {
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render( scene, camera );
+   
+    /**
+     * 
+     * @function fn render loop function
+     */
+    const runThreeJs=(fn)=>{
+        renderer.setAnimationLoop( ()=>{fn(); renderer.render( scene, camera );} );
     }
 
-    const runThreeJs=()=>{
-        const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        cube = new THREE.Mesh( geometry, material );
-        scene.add( cube );
-
-        camera.position.z = 5;
-        renderer.setAnimationLoop( animate );
+    /**
+     * @description automatically changes the render size
+     * @param {innerWidth:String,innerHeight:String} param0 
+     */
+    const _resize=({innerWidth,innerHeight})=>{
+        renderer.setSize( innerWidth, innerHeight );
+        camera.aspect=innerWidth / innerHeight
     }
 
     return {
         configure:configure,
-        runThreeJs:runThreeJs
+        runThreeJs:runThreeJs,
+        resize:_resize
     };
 }
