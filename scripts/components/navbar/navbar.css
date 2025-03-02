@@ -136,3 +136,13 @@ a:hover {
 .hamburger-icon span:last-child {
   transform: none;
 }
+
+@media screen and (max-width:1200px){
+  #desktop-nav {
+    display: none;
+  }
+
+  #hamburger-nav{
+    display: flex;
+ }
+}

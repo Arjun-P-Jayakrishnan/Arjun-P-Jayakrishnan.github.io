@@ -43,7 +43,7 @@ export const RenderScene = (scene, camera,renderer) => {
       hdriUrl
     }
   ) => {
-    light = new HemisphereLight(0xffffff, 0x444444);
+    light = new HemisphereLight(0xffffff, 0x444444,2);
     scene.add(light);
     loader= Loader(scene,renderer);
 
