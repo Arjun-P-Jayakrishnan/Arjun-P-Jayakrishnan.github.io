@@ -5,7 +5,7 @@ import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
 /**
  * @typedef {Object} Loader
- * @property {(props:{modelUrls:Array<String>,hdriUrl:String})=>{loadedMeshes:Mesh}} load
+ * @property { (props:{modelUrls:Array<String>,hdriUrl:String})=>{loadedMeshes:Mesh}} load
  */
 
 /**
