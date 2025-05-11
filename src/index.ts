@@ -28,6 +28,10 @@ interface Instances {
 let references: References;
 let instances: Instances;
 
+const mountWindowEventListeners = () => {
+  
+};
+
 const preMount = () => {
   /**
    * References
@@ -103,7 +107,7 @@ const main = () => {
    */
   document.addEventListener("DOMContentLoaded", () => {
     mount();
-
+    mountWindowEventListeners();
     /**
      * Unmounts everything when the window is going to unload
      */

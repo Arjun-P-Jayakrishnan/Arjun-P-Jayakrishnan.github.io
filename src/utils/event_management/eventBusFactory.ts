@@ -1,5 +1,5 @@
 import { createEventBus, EventBus } from "./eventBus";
-import { DisplayEvents, LoadingEvents } from "./eventType";
+import { DebugEvents, DisplayEvents, LoadingEvents } from "./eventType";
 
 export interface EventBusManager {
   /**
@@ -10,6 +10,10 @@ export interface EventBusManager {
    * @description Event bus for display related events
    */
   displayBus: EventBus<DisplayEvents>;
+  /**
+   * @description Event bus for debugging
+   */
+  debugBus: EventBus<DebugEvents>;
 }
 
 /**
@@ -19,9 +23,11 @@ export interface EventBusManager {
 export const createEventBusManager = (): EventBusManager => {
   const loadingBus = createEventBus<LoadingEvents>();
   const displayBus = createEventBus<DisplayEvents>();
+  const debugBus = createEventBus<DebugEvents>();
 
   return {
     loadingBus: loadingBus,
     displayBus: displayBus,
+    debugBus: debugBus,
   };
 };

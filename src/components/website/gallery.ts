@@ -35,12 +35,10 @@ export class ProjectGallery extends HTMLElement {
   }
 
   hideComponent(_: any) {
-    console.log("gallery hidden");
     this.gallery?.classList.add("hidden");
   }
 
   async connectedCallback() {
-    console.log("fetching data");
     const res = await fetch("/public/data/projects.json");
     const projects = await res.json();
 

@@ -132,6 +132,7 @@ export const createThreeJsInstance = (
     _addEvents();
 
     camera.position.set(0, 0, 0.5);
+    scene.add(camera);
 
     addAxesHelper();
     _handleResize();

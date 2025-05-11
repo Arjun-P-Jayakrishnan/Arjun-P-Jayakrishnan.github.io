@@ -1,4 +1,4 @@
-// src/components/gallery.ts
+// src/components/website/gallery.ts
 var template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" href="/style/gallery.css">
@@ -21,11 +21,9 @@ var ProjectGallery = class extends HTMLElement {
     this.gallery?.classList.remove("hidden");
   }
   hideComponent(_) {
-    console.log("gallery hidden");
     this.gallery?.classList.add("hidden");
   }
   async connectedCallback() {
-    console.log("fetching data");
     const res = await fetch("/public/data/projects.json");
     const projects = await res.json();
     projects["projects"].forEach((cardProps) => {
@@ -57,4 +55,4 @@ var ProjectGallery = class extends HTMLElement {
 export {
   ProjectGallery
 };
-//# sourceMappingURL=chunk-2IHVB7FE.js.map
+//# sourceMappingURL=chunk-ILJ6575Z.js.map

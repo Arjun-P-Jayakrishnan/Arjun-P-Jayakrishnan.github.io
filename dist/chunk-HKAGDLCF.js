@@ -1,6 +1,6 @@
 import {
   createThreeJsInstance
-} from "./chunk-Z6FJIZR7.js";
+} from "./chunk-NCT4VP26.js";
 import {
   createLoader
 } from "./chunk-ESBHI3E2.js";
@@ -39,6 +39,17 @@ var createGameEngineInstance = (props) => {
       scene: engineInstance.scene
     }
   );
+  const mountWindowEventListeners = () => {
+    window.addEventListener("keydown", (e) => {
+      if (e.key.toLowerCase() === "u" && e.shiftKey) {
+        e.preventDefault();
+        props.eventBusManager.debugBus.emit({
+          type: "debug:inspector",
+          scene: engineInstance.scene
+        });
+      }
+    });
+  };
   const mount = async (gameplay) => {
     gameplay.mount({
       renderer: engineInstance.renderer,
@@ -47,6 +58,7 @@ var createGameEngineInstance = (props) => {
       controls: engineInstance.controls
     });
     engineInstance.register(gameplay.update);
+    mountWindowEventListeners();
     loaderInstance.configure();
     await loaderInstance.loadAll();
   };
@@ -65,4 +77,4 @@ var createGameEngineInstance = (props) => {
 export {
   createGameEngineInstance
 };
-//# sourceMappingURL=chunk-XKVK7FBW.js.map
+//# sourceMappingURL=chunk-HKAGDLCF.js.map

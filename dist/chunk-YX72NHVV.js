@@ -6,13 +6,15 @@ import {
 var createEventBusManager = () => {
   const loadingBus = createEventBus();
   const displayBus = createEventBus();
+  const debugBus = createEventBus();
   return {
     loadingBus,
-    displayBus
+    displayBus,
+    debugBus
   };
 };
 
 export {
   createEventBusManager
 };
-//# sourceMappingURL=chunk-5WONOMRB.js.map
+//# sourceMappingURL=chunk-YX72NHVV.js.map

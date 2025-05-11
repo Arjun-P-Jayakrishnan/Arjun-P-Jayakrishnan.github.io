@@ -108,12 +108,12 @@ export class Navbar extends HTMLElement {
 
   handleShowEvent(_: any) {
     this.state.isProjectsShown = true;
-    console.log("shown");
+
   }
 
   handleHideEvent(_: any) {
     this.state.isProjectsShown = false;
-    console.log("hidden");
+ 
   }
 
   /**
