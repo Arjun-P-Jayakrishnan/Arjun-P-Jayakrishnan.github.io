@@ -53,6 +53,7 @@ var createThreeJsInstance = (props) => {
     _configureControls();
     _addEvents();
     camera.position.set(0, 0, 0.5);
+    scene.add(camera);
     addAxesHelper();
     _handleResize();
   };
@@ -82,4 +83,4 @@ var createThreeJsInstance = (props) => {
 export {
   createThreeJsInstance
 };
-//# sourceMappingURL=chunk-Z6FJIZR7.js.map
+//# sourceMappingURL=chunk-NCT4VP26.js.map

@@ -1,4 +1,4 @@
-// src/components/header.ts
+// src/components/website/header.ts
 var template = document.createElement("template");
 template.innerHTML = `
   <link rel="stylesheet" href="/style/header.css"/>
@@ -72,11 +72,9 @@ var Navbar = class extends HTMLElement {
   }
   handleShowEvent(_) {
     this.state.isProjectsShown = true;
-    console.log("shown");
   }
   handleHideEvent(_) {
     this.state.isProjectsShown = false;
-    console.log("hidden");
   }
   /**
    * @description called when the component is mounted
@@ -111,4 +109,4 @@ var Navbar = class extends HTMLElement {
 export {
   Navbar
 };
-//# sourceMappingURL=chunk-6LLUGI2C.js.map
+//# sourceMappingURL=chunk-GYVXQHTM.js.map

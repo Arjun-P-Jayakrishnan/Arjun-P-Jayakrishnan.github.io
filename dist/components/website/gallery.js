@@ -1,6 +1,6 @@
 import {
   ProjectGallery
-} from "../chunk-2IHVB7FE.js";
+} from "../../chunk-ILJ6575Z.js";
 export {
   ProjectGallery
 };

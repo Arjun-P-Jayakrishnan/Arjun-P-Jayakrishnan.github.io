@@ -1,6 +1,6 @@
 import {
   ProjectCard
-} from "../chunk-P47HCMVN.js";
+} from "../../chunk-SAIL7PNR.js";
 export {
   ProjectCard
 };

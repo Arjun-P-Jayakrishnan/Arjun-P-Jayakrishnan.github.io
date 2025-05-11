@@ -1,6 +1,6 @@
 import {
   LoadingModal
-} from "../chunk-JAXJMVVI.js";
+} from "../../chunk-FV5FXLPE.js";
 export {
   LoadingModal
 };

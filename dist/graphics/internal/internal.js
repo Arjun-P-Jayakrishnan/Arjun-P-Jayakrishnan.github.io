@@ -1,6 +1,6 @@
 import {
   createThreeJsInstance
-} from "../../chunk-Z6FJIZR7.js";
+} from "../../chunk-NCT4VP26.js";
 export {
   createThreeJsInstance
 };

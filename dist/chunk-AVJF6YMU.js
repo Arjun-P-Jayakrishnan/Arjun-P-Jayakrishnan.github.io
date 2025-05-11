@@ -1,15 +1,18 @@
 import {
+  SceneInspector
+} from "./chunk-MF5EUZRL.js";
+import {
   ProjectCard
-} from "./chunk-P47HCMVN.js";
+} from "./chunk-SAIL7PNR.js";
 import {
   ProjectGallery
-} from "./chunk-2IHVB7FE.js";
+} from "./chunk-ILJ6575Z.js";
 import {
   Navbar
-} from "./chunk-6LLUGI2C.js";
+} from "./chunk-GYVXQHTM.js";
 import {
   LoadingModal
-} from "./chunk-JAXJMVVI.js";
+} from "./chunk-FV5FXLPE.js";
 
 // src/components/main.ts
 var mountComponents = () => {
@@ -17,6 +20,7 @@ var mountComponents = () => {
   customElements.define("nav-bar", Navbar);
   customElements.define("project-gallery", ProjectGallery);
   customElements.define("project-card", ProjectCard);
+  customElements.define("scene-inspector", SceneInspector);
   console.log("custom components mounted");
 };
 var attachReferences = (context) => {
@@ -39,10 +43,16 @@ var attachReferences = (context) => {
   } catch (err) {
     console.error(`Missing project gallery component : ${err}`);
   }
+  try {
+    const sceneInspector = document.querySelector("scene-inspector");
+    sceneInspector.eventBusManager = context.eventBusManager;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export {
   mountComponents,
   attachReferences
 };
-//# sourceMappingURL=chunk-XMGR7NKB.js.map
+//# sourceMappingURL=chunk-AVJF6YMU.js.map

@@ -1,9 +1,10 @@
 import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { GlobalState } from "@utils/state/globalState";
-import { ProjectCard } from "./card";
-import { ProjectGallery } from "./gallery";
-import { Navbar } from "./header";
-import { LoadingModal } from "./loading";
+import { ProjectCard } from "./website/card";
+import { ProjectGallery } from "./website/gallery";
+import { Navbar } from "./website/header";
+import { LoadingModal } from "./website/loading";
+import { SceneInspector } from "./threejs/scene_inspector";
 
 export interface DesignContext {
   state: GlobalState;
@@ -18,6 +19,7 @@ export const mountComponents = () => {
   customElements.define("nav-bar", Navbar);
   customElements.define("project-gallery", ProjectGallery);
   customElements.define("project-card", ProjectCard);
+  customElements.define("scene-inspector", SceneInspector);
   console.log("custom components mounted");
 };
 
@@ -42,5 +44,12 @@ export const attachReferences = (context: DesignContext) => {
     gallery.eventBusManager = context.eventBusManager;
   } catch (err) {
     console.error(`Missing project gallery component : ${err}`);
+  }
+
+  try {
+    const sceneInspector: SceneInspector = document.querySelector("scene-inspector")!;
+    sceneInspector.eventBusManager = context.eventBusManager;
+  } catch (err) {
+    console.error(err);
   }
 };

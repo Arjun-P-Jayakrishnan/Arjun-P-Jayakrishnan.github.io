@@ -53,6 +53,18 @@ export const createGameEngineInstance = (
     }
   );
 
+  const mountWindowEventListeners = () => {
+    window.addEventListener("keydown", (e) => {
+      if (e.key.toLowerCase() === "u" && e.shiftKey) {
+        e.preventDefault();
+        props.eventBusManager.debugBus.emit({
+          type: "debug:inspector",
+          scene: engineInstance.scene,
+        });
+      }
+    });
+  };
+
   const mount = async (gameplay: Gameplay) => {
     gameplay.mount({
       renderer: engineInstance.renderer,
@@ -61,6 +73,7 @@ export const createGameEngineInstance = (
       controls: engineInstance.controls,
     });
     engineInstance.register(gameplay.update);
+    mountWindowEventListeners();
     loaderInstance.configure();
     await loaderInstance.loadAll();
   };

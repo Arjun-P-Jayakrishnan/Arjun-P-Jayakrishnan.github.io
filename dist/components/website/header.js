@@ -1,6 +1,6 @@
 import {
   Navbar
-} from "../chunk-6LLUGI2C.js";
+} from "../../chunk-GYVXQHTM.js";
 export {
   Navbar
 };

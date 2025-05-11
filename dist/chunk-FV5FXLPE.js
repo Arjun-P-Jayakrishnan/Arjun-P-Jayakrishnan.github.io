@@ -1,4 +1,4 @@
-// src/components/loading.ts
+// src/components/website/loading.ts
 var template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" href="/style/loading_modal.css"/>
@@ -45,4 +45,4 @@ var LoadingModal = class extends HTMLElement {
 export {
   LoadingModal
 };
-//# sourceMappingURL=chunk-JAXJMVVI.js.map
+//# sourceMappingURL=chunk-FV5FXLPE.js.map
