@@ -7,8 +7,8 @@ import {
 
 // src/graphics/main.ts
 var FILE_CONSTANTS = {
-  PATH_TO_MODELS: "../../assets/models/",
-  PATH_TO_HDR: "../../assets/hdr/"
+  PATH_TO_MODELS: "../../assets/Models/",
+  PATH_TO_HDR: "../../assets/HDR/"
 };
 var createGameEngineInstance = (props) => {
   const engineInstance = createThreeJsInstance({
@@ -77,4 +77,4 @@ var createGameEngineInstance = (props) => {
 export {
   createGameEngineInstance
 };
-//# sourceMappingURL=chunk-HKAGDLCF.js.map
+//# sourceMappingURL=chunk-ED2RMVDL.js.map

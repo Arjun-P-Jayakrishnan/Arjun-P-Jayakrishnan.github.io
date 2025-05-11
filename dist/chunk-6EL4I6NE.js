@@ -1,7 +1,4 @@
 import {
-  SceneInspector
-} from "./chunk-MF5EUZRL.js";
-import {
   ProjectCard
 } from "./chunk-SAIL7PNR.js";
 import {
@@ -13,6 +10,9 @@ import {
 import {
   LoadingModal
 } from "./chunk-FV5FXLPE.js";
+import {
+  SceneInspector
+} from "./chunk-MF5EUZRL.js";
 
 // src/components/main.ts
 var mountComponents = () => {
@@ -55,4 +55,4 @@ export {
   mountComponents,
   attachReferences
 };
-//# sourceMappingURL=chunk-AVJF6YMU.js.map
+//# sourceMappingURL=chunk-6EL4I6NE.js.map

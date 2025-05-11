@@ -12,19 +12,19 @@ import "./chunk-GZBB6ODF.js";
 import {
   attachReferences,
   mountComponents
-} from "./chunk-AVJF6YMU.js";
+} from "./chunk-6EL4I6NE.js";
 import {
   createGameEngineInstance
-} from "./chunk-HKAGDLCF.js";
+} from "./chunk-ED2RMVDL.js";
 import "./chunk-NCT4VP26.js";
 import "./chunk-ESBHI3E2.js";
 import "./chunk-AXJVKY2W.js";
 import "./chunk-LBGUDF2D.js";
-import "./chunk-MF5EUZRL.js";
 import "./chunk-SAIL7PNR.js";
 import "./chunk-ILJ6575Z.js";
 import "./chunk-GYVXQHTM.js";
 import "./chunk-FV5FXLPE.js";
+import "./chunk-MF5EUZRL.js";
 
 // src/index.ts
 var GLOBAL_STATE_INITIAL = {

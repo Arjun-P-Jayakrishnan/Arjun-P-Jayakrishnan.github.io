@@ -16,8 +16,8 @@ export interface GameEngineInstance {
 }
 
 const FILE_CONSTANTS = {
-  PATH_TO_MODELS: "../../assets/models/",
-  PATH_TO_HDR: "../../assets/hdr/",
+  PATH_TO_MODELS: "../../assets/Models/",
+  PATH_TO_HDR: "../../assets/HDR/",
 };
 
 export const createGameEngineInstance = (
