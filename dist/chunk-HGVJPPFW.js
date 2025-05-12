@@ -10,6 +10,7 @@ var createMeshLoader = (props) => {
   const _loadMesh = async (metaData) => {
     try {
       const model = await gltfLoader.loadAsync(metaData.path);
+      model.scene;
       scene.add(model.scene);
       model.scene.position.set(0, 0, 0);
       metaData.onSuccess?.();
@@ -38,4 +39,4 @@ var createMeshLoader = (props) => {
 export {
   createMeshLoader
 };
-//# sourceMappingURL=chunk-LBGUDF2D.js.map
+//# sourceMappingURL=chunk-HGVJPPFW.js.map
