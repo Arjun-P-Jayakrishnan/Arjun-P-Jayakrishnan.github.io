@@ -3,22 +3,14 @@ import {
   createEventBusManager,
   EventBusManager,
 } from "@utils/event_management/eventBusFactory";
+import { getGlobalContext, References } from "@utils/globalContext";
 import { createGlobalState, GlobalState } from "@utils/state/globalState";
 import { GlobalStateContext } from "@utils/state/globalStateData";
 import { createGameplay, Gameplay } from "graphics/instance/gameplay";
 import { createGameEngineInstance, GameEngineInstance } from "graphics/main";
 
-const GLOBAL_STATE_INITIAL: GlobalStateContext = {
-  loading: {
-    active: false,
-    progress: 0,
-  },
-} as const;
 
-interface References {
-  globalState: GlobalState;
-  eventBusManager: EventBusManager;
-}
+
 
 interface Instances {
   gameEngine: GameEngineInstance;
@@ -28,18 +20,15 @@ interface Instances {
 let references: References;
 let instances: Instances;
 
-const mountWindowEventListeners = () => {
-  
-};
+
+
+const mountWindowEventListeners = () => {};
 
 const preMount = () => {
   /**
    * References
    */
-  references = {
-    globalState: createGlobalState(GLOBAL_STATE_INITIAL),
-    eventBusManager: createEventBusManager(),
-  };
+  references = getGlobalContext();
 
   references.globalState.inflate();
 

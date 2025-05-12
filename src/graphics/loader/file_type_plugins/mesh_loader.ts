@@ -28,6 +28,8 @@ export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
   const _loadMesh = async (metaData: AssetMetaData) => {
     try {
       const model = await gltfLoader.loadAsync(metaData.path);
+      model.scene
+
       scene.add(model.scene);
       model.scene.position.set(0, 0, 0);
       metaData.onSuccess?.();

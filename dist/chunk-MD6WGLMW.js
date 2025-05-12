@@ -3,7 +3,7 @@ import {
 } from "./chunk-NCT4VP26.js";
 import {
   createLoader
-} from "./chunk-ESBHI3E2.js";
+} from "./chunk-ZAKNM56N.js";
 
 // src/graphics/main.ts
 var FILE_CONSTANTS = {
@@ -77,4 +77,4 @@ var createGameEngineInstance = (props) => {
 export {
   createGameEngineInstance
 };
-//# sourceMappingURL=chunk-ED2RMVDL.js.map
+//# sourceMappingURL=chunk-MD6WGLMW.js.map

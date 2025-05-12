@@ -1,9 +1,9 @@
 import {
+  createMeshLoader
+} from "./chunk-HGVJPPFW.js";
+import {
   createHDRLoader
 } from "./chunk-AXJVKY2W.js";
-import {
-  createMeshLoader
-} from "./chunk-LBGUDF2D.js";
 
 // src/graphics/loader/loader.ts
 import { LoadingManager } from "three";
@@ -106,4 +106,4 @@ var createLoader = (options, context) => {
 export {
   createLoader
 };
-//# sourceMappingURL=chunk-ESBHI3E2.js.map
+//# sourceMappingURL=chunk-ZAKNM56N.js.map
