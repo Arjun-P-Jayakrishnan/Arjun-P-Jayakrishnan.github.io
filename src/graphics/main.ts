@@ -1,5 +1,6 @@
 import { getGlobalContext } from "@utils/globalContext";
-import { createGameplay, Gameplay } from "./instance/gameplay";
+
+import { createGameplay, Gameplay } from "./gameplay/gameplay";
 import { createThreeJsInstance } from "./internal/internal";
 import { createLoader, LoaderOptions } from "./loader/loader";
 
@@ -30,7 +31,13 @@ export const createGameManager = (
     scene: scene,
   });
 
-  const gameplay: Gameplay = createGameplay({});
+  const gameplay: Gameplay = createGameplay({
+    player: {
+      ids: {
+        rootMesh: "player",
+      },
+    },
+  });
 
   /**
    * @description handle resize of the canvas
