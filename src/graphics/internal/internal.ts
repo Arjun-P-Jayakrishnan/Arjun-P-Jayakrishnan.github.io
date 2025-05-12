@@ -25,7 +25,7 @@ export interface ThreeJSRenderProps {
 
 export interface ThreeJsRenderReference {
   scene: Scene;
-  camera: Camera;
+  camera: PerspectiveCamera;
   renderer: WebGLRenderer;
   controls: OrbitControls;
 
@@ -95,24 +95,13 @@ export const createThreeJsInstance = (
     controls.maxPolarAngle = Math.PI / 2;
   };
 
-  /**
-   * @description handle resize of the canvas
-   */
-  const _handleResize = () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(width, height);
-  };
+  
 
   /**
    * @description event listener to monitor for window size changes
    */
   const _addEvents = () => {
-    window.addEventListener("resize", _handleResize);
+    
   };
 
   const addAxesHelper = () => {
@@ -135,7 +124,6 @@ export const createThreeJsInstance = (
     scene.add(camera);
 
     addAxesHelper();
-    _handleResize();
   };
 
   /**

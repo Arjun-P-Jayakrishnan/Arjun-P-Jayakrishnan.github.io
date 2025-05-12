@@ -1,26 +1,19 @@
-import { attachReferences, mountComponents } from "@components/main";
 import {
-  createEventBusManager,
-  EventBusManager,
-} from "@utils/event_management/eventBusFactory";
+  createWebComponentManager,
+  WebComponentManager,
+} from "@components/main";
 import { getGlobalContext, References } from "@utils/globalContext";
-import { createGlobalState, GlobalState } from "@utils/state/globalState";
-import { GlobalStateContext } from "@utils/state/globalStateData";
-import { createGameplay, Gameplay } from "graphics/instance/gameplay";
-import { createGameEngineInstance, GameEngineInstance } from "graphics/main";
+import { assetMetaData } from "config/assetMetaData";
+import { createGameManager, GameEngineManager } from "graphics/main";
 
-
-
-
-interface Instances {
-  gameEngine: GameEngineInstance;
-  gamePlay: Gameplay;
+interface Managers {
+  webComponent: WebComponentManager;
+  gameEngine: GameEngineManager;
 }
 
 let references: References;
-let instances: Instances;
 
-
+let managers: Managers;
 
 const mountWindowEventListeners = () => {};
 
@@ -29,60 +22,58 @@ const preMount = () => {
    * References
    */
   references = getGlobalContext();
+  /**
+   * Managers
+   */
+  managers = {
+    webComponent: createWebComponentManager(),
+    gameEngine: createGameManager({
+      loaderOptions: {
+        meshesMetaData: assetMetaData.meshes,
+        hdrMetaData: assetMetaData.hdr,
+      },
+    }),
+  };
 
-  references.globalState.inflate();
-
-  // references.eventBusManager.loadingBus.on("load:complete", () => {
-  //   console.log("loading complete");
-  // });
-
-  // references.globalState.subscribe("loading", (observable) => {
-  //   console.log("global state ", observable);
-  // });
-
-  mountComponents();
+  managers.webComponent.mountComponents();
 };
 
 /**
  * helps to add all necessary mounting function
  */
 const mount = () => {
-  attachReferences({
-    state: references.globalState,
-    eventBusManager: references.eventBusManager,
-  });
+  /**
+   * Add Event Manager reference to web components for interaction
+   */
+  managers.webComponent.attachReferences();
 
   /**
-   * Instances
+   * Loads all models , HDR  etc
    */
-
-  instances = {
-    gameEngine: createGameEngineInstance({
-      globalState: references.globalState,
-      eventBusManager: references.eventBusManager,
-    }),
-    gamePlay: createGameplay(
-      {},
-      {
-        globalState: references.globalState,
-        eventBusManager: references.eventBusManager,
+  Promise.allSettled([managers.gameEngine.mount()]).then((responses) => {
+    responses.forEach((response) => {
+      if (response.status == "rejected") {
+        throw new Error(
+          `Failed to load models and mount game engine ${response.reason}`
+        );
       }
-    ),
-  };
+    });
 
-  Promise.allSettled([instances.gameEngine.mount(instances.gamePlay)]).then(
-    () => {
-      console.log("all components mounted");
-      instances.gameEngine.update();
-    }
-  );
+    console.log("all components mounted");
+    /**
+     * @description update the game engine
+     * (uses self recursion method for rendering so only need to call once)
+     */
+    managers.gameEngine.update();
+  });
 };
 
 /**
  * helps to clear any unmounted objects
  */
 const unmount = () => {
-  instances.gameEngine.unmount();
+  managers.webComponent.unmountComponents();
+  managers.gameEngine.unmount();
 };
 
 /**
@@ -106,4 +97,10 @@ const main = () => {
   });
 };
 
-main();
+/**
+ * IIFE function
+ * (Immediately Invoked Function Expression)
+ */
+(() => {
+  main();
+})();

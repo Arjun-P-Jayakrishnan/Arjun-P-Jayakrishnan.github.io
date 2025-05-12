@@ -1,84 +1,107 @@
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
-import { GlobalState } from "@utils/state/globalState";
-import { Gameplay } from "./instance/gameplay";
+import { getGlobalContext } from "@utils/globalContext";
+import { createGameplay, Gameplay } from "./instance/gameplay";
 import { createThreeJsInstance } from "./internal/internal";
-import { createLoader } from "./loader/loader";
+import { createLoader, LoaderOptions } from "./loader/loader";
 
-interface GameEngineInstanceProps {
-  globalState: GlobalState;
-  eventBusManager: EventBusManager;
+interface GameManagerProps {
+  loaderOptions: LoaderOptions;
 }
 
-export interface GameEngineInstance {
-  mount: (gameplay: Gameplay) => Promise<void>;
+export interface GameEngineManager {
+  mount: () => Promise<void>;
   unmount: () => void;
   update: () => void;
 }
 
-const FILE_CONSTANTS = {
-  PATH_TO_MODELS: "../../assets/Models/",
-  PATH_TO_HDR: "../../assets/HDR/",
-};
-
-export const createGameEngineInstance = (
-  props: GameEngineInstanceProps
-): GameEngineInstance => {
+export const createGameManager = (
+  props: GameManagerProps
+): GameEngineManager => {
+  const { globalState, eventBusManager } = getGlobalContext();
   const engineInstance = createThreeJsInstance({
     camera: {},
     domMountTag: "game-engine",
   });
+  const { scene, renderer, camera, controls } = engineInstance;
 
-  const loaderInstance = createLoader(
-    {
-      meshesMetaData: [
-        // {
-        //   path: FILE_CONSTANTS.PATH_TO_MODELS + "carved_wooden_elephant_1k.glb",
-        // },
-        // {
-        //   path: FILE_CONSTANTS.PATH_TO_MODELS + "environment.glb",
-        // },
-        {
-          path: FILE_CONSTANTS.PATH_TO_MODELS + "room.glb",
-        },
-      ],
-      hdrMetaData: {
-        path: FILE_CONSTANTS.PATH_TO_HDR + "environment.hdr",
-      },
-    },
-    {
-      globalState: props.globalState,
-      loaderEventBus: props.eventBusManager.loadingBus,
-      renderer: engineInstance.renderer,
-      scene: engineInstance.scene,
-    }
-  );
+  const loaderInstance = createLoader(props.loaderOptions, {
+    globalState: globalState,
+    loaderEventBus: eventBusManager.loadingBus,
+    renderer: renderer,
+    scene: scene,
+  });
 
-  const mountWindowEventListeners = () => {
-    window.addEventListener("keydown", (e) => {
-      if (e.key.toLowerCase() === "u" && e.shiftKey) {
-        e.preventDefault();
-        props.eventBusManager.debugBus.emit({
-          type: "debug:inspector",
-          scene: engineInstance.scene,
-        });
-      }
-    });
+  const gameplay: Gameplay = createGameplay({});
+
+  /**
+   * @description handle resize of the canvas
+   */
+  const _handleResize = () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
   };
 
-  const mount = async (gameplay: Gameplay) => {
+  const _handleDebug = (e: KeyboardEvent) => {
+    if (e.key.toLowerCase() === "u" && e.shiftKey) {
+      e.preventDefault();
+      eventBusManager.debugBus.emit({
+        type: "debug:inspector",
+        scene: scene,
+      });
+    }
+  };
+
+  /**
+   * @description creates event listeners for various tasks
+   */
+  const _mountWindowEventListeners = () => {
+    /**
+     * Primary initialization to ensure correct aspect ratios
+     */
+    _handleResize();
+
+    window.addEventListener("resize", _handleResize);
+    window.addEventListener("keydown", _handleDebug);
+  };
+
+  const mount = async () => {
+    /**
+     * Attach Event Listeners
+     */
+    _mountWindowEventListeners();
+
+    /**
+     * Initialize the gameplay mechanics and then pass update logic to renderer
+     */
     gameplay.mount({
-      renderer: engineInstance.renderer,
-      scene: engineInstance.scene,
-      camera: engineInstance.camera,
-      controls: engineInstance.controls,
+      renderer: renderer,
+      scene: scene,
+      camera: camera,
+      controls: controls,
     });
     engineInstance.register(gameplay.update);
-    mountWindowEventListeners();
+
+    /**
+     * load all meshes ,objects and animations as per the given props
+     */
     loaderInstance.configure();
     await loaderInstance.loadAll();
   };
 
-  const unmount = () => {};
+  /**
+   * @description unmount
+   */
+  const unmount = () => {
+    /**
+     * Release all event listeners to prevent memory leaks
+     */
+    window.removeEventListener("resize", _handleResize);
+    window.removeEventListener("keydown", _handleDebug);
+  };
 
   const update = () => {
     engineInstance.render();
