@@ -28,6 +28,9 @@ export const getGlobalContext = () => {
       eventBusManager: createEventBusManager(),
       globalStorage: createGlobalStorage({}),
     };
+
+    references.globalState.inflate();
+    references.globalStorage.mount();
   }
 
   return references;

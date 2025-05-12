@@ -1,5 +1,6 @@
 import { createEventBus } from "@utils/event_management/eventBus";
 import type { LoadingEvents } from "@utils/event_management/eventType";
+import { getGlobalContext } from "@utils/globalContext";
 import { Scene } from "three";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -15,6 +16,7 @@ export interface MeshLoaderProps {
 
 export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
   const { assets, scene, loadingManager, loadingEventBus } = props;
+  const { globalStorage } = getGlobalContext();
 
   const gltfLoader: GLTFLoader = new GLTFLoader(loadingManager);
   const dracoLoader = new DRACOLoader();
@@ -28,7 +30,9 @@ export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
   const _loadMesh = async (metaData: AssetMetaData) => {
     try {
       const model = await gltfLoader.loadAsync(metaData.path);
-      model.scene
+      globalStorage
+        .getStorage("animations")
+        .store(metaData.name, model.animations);
 
       scene.add(model.scene);
       model.scene.position.set(0, 0, 0);

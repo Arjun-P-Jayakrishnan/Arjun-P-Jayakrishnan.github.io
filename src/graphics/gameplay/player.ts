@@ -1,5 +1,4 @@
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
-import { GlobalState } from "@utils/state/globalState";
+import { getGlobalContext } from "@utils/globalContext";
 import { AnimationMixer, Object3D, Scene } from "three";
 
 export interface PlayerProps {
@@ -10,8 +9,6 @@ export interface PlayerProps {
 
 export interface PlayerContext {
   scene: Scene;
-  globalState: GlobalState;
-  eventBusManager: EventBusManager;
 }
 
 export interface Player {
@@ -28,15 +25,23 @@ export const createPlayer = (
   props: PlayerProps,
   context: PlayerContext
 ): Player => {
-  const { scene, globalState, eventBusManager } = context;
+  const { scene } = context;
+  const { eventBusManager, globalState, globalStorage } = getGlobalContext();
   let objects: ObjectReferences;
+  let mixer: AnimationMixer | null;
 
   const create = () => {
     try {
       const playerRoot = scene.getObjectByName(props.ids.rootMesh) as Object3D;
 
-      const mixer = new AnimationMixer(playerRoot);
+      if (!playerRoot) {
+        throw new Error(`Player doesn't exist`);
+      }
 
+      mixer = new AnimationMixer(playerRoot);
+      const animations = globalStorage
+        .getStorage("animations")
+        .retrieve("Room");
       //Local References
       objects = {
         playerRoot: playerRoot,
@@ -46,7 +51,11 @@ export const createPlayer = (
     }
   };
 
-  const update = (deltaTime: number) => {};
+  const update = (deltaTime: number) => {
+    if (mixer) {
+      mixer.update(deltaTime);
+    }
+  };
 
   const destroy = () => {
     try {
