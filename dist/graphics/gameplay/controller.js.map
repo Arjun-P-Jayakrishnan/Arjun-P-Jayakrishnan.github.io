@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/graphics/gameplay/controller.ts"],"sourcesContent":["export interface Controllers{\r\n\r\n}\r\n\r\nexport const createMouseController=()=>{\r\n\r\n}\r\n\r\nexport const createKeyboardController=()=>{\r\n\r\n}"],"mappings":";AAIO,IAAM,wBAAsB,MAAI;AAEvC;AAEO,IAAM,2BAAyB,MAAI;AAE1C;","names":[]}
