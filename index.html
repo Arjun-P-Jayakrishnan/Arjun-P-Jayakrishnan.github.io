@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <loading-modal id="#loading-modal"></loading-modal>
+    <nav-bar></nav-bar>
+    <project-gallery></project-gallery>
+
+    <scene-inspector></scene-inspector>
+    <main>
+      <div id="game-engine"></div>
+    </main>
+
+    <!-- Import Maps for three js -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+          "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <!-- Load The Javascript -->
+    <script type="module" src="./dist/index.js"></script>
+  </body>
+</html>

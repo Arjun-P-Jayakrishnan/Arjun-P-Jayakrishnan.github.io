@@ -1,0 +1,46 @@
+{
+  "projects": [
+    {
+      "title": "LCVS",
+      "description": "Localized Version Control System",
+      "imageUrl": "/assets/images/layers.svg",
+      "tags": "version control,sqlite,git",
+      "linkUrl": ""
+    },
+    {
+      "title": "OpenGL",
+      "description": "Project that focuses on the fundamentals of game engine using open gl",
+      "imageUrl": "/assets/images/game-development.png",
+      "tags": "cpp,glsl,glad,opengl,cmake",
+      "linkUrl": ""
+    },
+    {
+      "title": "Dev Tools",
+      "description": "Personalized set of tools and resource management site",
+      "imageUrl": "/assets/images/coding.png",
+      "tags": "nextjs,vercel,react",
+      "linkUrl": ""
+    },
+    {
+      "title": "AGI",
+      "description": "Animated Graphical Interface is an npm package that is meant for svg animations",
+      "imageUrl": "",
+      "tags": "svg,react,npm",
+      "linkUrl": ""
+    },
+    {
+      "title": "GLSL Vs Code Extension",
+      "description": "A Vs Code extension to syntax highlight .glsl,.vert.frag code",
+      "imageUrl": "",
+      "tags": "glsl,vs-code",
+      "linkUrl": ""
+    },
+    {
+      "title": "Other projects",
+      "description": "Rust encryption,AI fundamentals etc are on making",
+      "imageUrl": "",
+      "tags": "python,rust,encryption,ai",
+      "linkUrl": ""
+    }
+  ]
+}

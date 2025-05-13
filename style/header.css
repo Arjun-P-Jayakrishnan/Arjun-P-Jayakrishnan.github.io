@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  --accent: #00c2ff;
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(10, 10, 10, 0.7); /* Semi-transparent dark background */
+  color: white;
+  position: absolute; /* Fixed positioning on top */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Softer shadow for a floating effect */
+  backdrop-filter: blur(
+    10px
+  ); /* Apply blur effect to content behind the navbar */
+}
+
+.logo {
+  font-size: 1.5rem; /* Slightly larger logo */
+  font-weight: 700;
+  color: #00ffd0;
+  text-shadow: 0px 0px 10px rgba(0, 255, 208, 0.8); /* Glow effect */
+}
+
+.toggle-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none;
+  position: relative;
+  z-index: 11;
+}
+
+ul.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.3s ease;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 8px 12px; /* Padding around the links for better clickable area */
+}
+
+ul.nav-links li a :hover {
+  color: #00ffd0;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .toggle-btn {
+    display: block;
+  }
+
+  ul.nav-links {
+    flex-direction: column;
+    background: rgba(
+      17,
+      17,
+      17,
+      0.9
+    ); /* Dark background with some transparency */
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    padding: 1rem;
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.5); /* Soft shadow */
+    border-radius: 0.25em;
+  }
+
+  ul.nav-links.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  ul.nav-links.closing {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+}

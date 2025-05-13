@@ -1,0 +1,131 @@
+.card {
+  display: flex;
+  background-color: #0d0d0d;
+  border: 2px solid #00ff88;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: "Courier New", Courier, monospace;
+  color: #00ffaa;
+  max-width: 560px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+
+  align-items: stretch;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+}
+
+/* Optional scan line effect */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 136, 0.05) 3px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-image {
+  width: 160px;
+  border-right: 2px dashed #00ff88;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-image img {
+  width: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(1.2) contrast(1.2);
+}
+.card-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.card-content h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-content p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #00ffaa;
+  margin: 0 0 0.75rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tags span {
+  background-color: #001d13;
+  border: 1px solid #00ff88;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  text-transform: lowercase;
+  color: #00ff88;
+  box-shadow: 0 0 4px rgba(0, 255, 136, 0.2);
+  transition: background 0.2s ease;
+}
+
+.tags span:hover {
+  background-color: #003f2b;
+}
+
+.github-link {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00ff88;  /* Green text */
+  font-size: 0.9rem;  /* Slightly larger font */
+  text-decoration: none;
+  border-radius: 50px;  /* Fully rounded corners */
+  padding: 0.45rem 1.2rem;
+  background-color: #000;  /* Black background */
+  border: 2px solid #00ff88;  /* Green border */
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);  /* Soft green glow around the button */
+  font-family: inherit;
+  transition: all 0.3s ease;  /* Smooth all transitions */
+  cursor: pointer;
+}
+
+.github-link:hover {
+  color: #00ff88;  /* Keep green text on hover */
+  background-color: #111;  /* Slightly darker background on hover */
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.7);  /* Brighter green glow on hover */
+  border-color: #00ffaa;  /* Slightly lighter green border on hover */
+  transform: translateY(-4px);  /* Smooth lift effect */
+}
+
+.github-link img {
+  width: 18px;  /* Slightly larger icon */
+  height: 18px;
+  filter: invert(67%) sepia(100%) saturate(545%) hue-rotate(90deg);
+}
