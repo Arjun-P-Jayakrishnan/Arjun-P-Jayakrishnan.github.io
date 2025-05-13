@@ -1,7 +1,2 @@
-import {
-  assetMetaData
-} from "../chunk-B6YRUXKO.js";
-export {
-  assetMetaData
-};
+import{a}from"../chunk-EJYJP2SR.js";export{a as assetMetaData};
 //# sourceMappingURL=assetMetaData.js.map

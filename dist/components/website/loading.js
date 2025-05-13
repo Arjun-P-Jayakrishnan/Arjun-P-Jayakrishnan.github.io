@@ -1,7 +1,2 @@
-import {
-  LoadingModal
-} from "../../chunk-VG4EIVRD.js";
-export {
-  LoadingModal
-};
+import{a}from"../../chunk-LGIB4RUY.js";export{a as LoadingModal};
 //# sourceMappingURL=loading.js.map

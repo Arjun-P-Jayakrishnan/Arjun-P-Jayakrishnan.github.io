@@ -1,0 +1,2 @@
+var u=a=>{let t=a.initial,s=new Set,o=!1;return Object.freeze({getValue:()=>t,setValue:e=>{t!==e&&(t=e,o||setTimeout(()=>{s.forEach(r=>r(e))},0))},subscribeToChanges:e=>(s.add(e),()=>{s.delete(e)}),dispose:()=>{s.clear()}})};export{u as a};
+//# sourceMappingURL=chunk-XVCKZLMV.js.map

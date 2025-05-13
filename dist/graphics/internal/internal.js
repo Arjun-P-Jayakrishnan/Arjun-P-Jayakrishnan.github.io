@@ -1,7 +1,2 @@
-import {
-  createThreeJsInstance
-} from "../../chunk-HE3AK42F.js";
-export {
-  createThreeJsInstance
-};
+import{a}from"../../chunk-LPRWXLIG.js";export{a as createThreeJsInstance};
 //# sourceMappingURL=internal.js.map

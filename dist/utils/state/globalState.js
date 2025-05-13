@@ -1,8 +1,2 @@
-import {
-  createGlobalState
-} from "../../chunk-5CXWWAPA.js";
-import "../../chunk-Q3X5D5A7.js";
-export {
-  createGlobalState
-};
+import{a}from"../../chunk-XSWGHLEF.js";import"../../chunk-XVCKZLMV.js";export{a as createGlobalState};
 //# sourceMappingURL=globalState.js.map

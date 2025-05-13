@@ -1,0 +1,2 @@
+import{a as e}from"./chunk-TMX2SHVF.js";var u=n=>{let t;return{mount:()=>{t={animations:e(),groups:e()}},unmount:()=>{t=void 0},getStorage:o=>{if(t===void 0)throw new Error("Must mount the storage first");return t[o]}}};export{u as a};
+//# sourceMappingURL=chunk-EVMZ26YK.js.map

@@ -1,7 +1,2 @@
-import {
-  createStorageUnit
-} from "../../chunk-FD3PG7P2.js";
-export {
-  createStorageUnit
-};
+import{a}from"../../chunk-TMX2SHVF.js";export{a as createStorageUnit};
 //# sourceMappingURL=storageUnit.js.map

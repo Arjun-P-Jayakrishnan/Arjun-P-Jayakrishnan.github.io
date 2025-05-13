@@ -1,15 +1,2 @@
-import {
-  getGlobalContext,
-  references
-} from "../chunk-SST3M2JD.js";
-import "../chunk-XPVTQ5X4.js";
-import "../chunk-C7GSUODC.js";
-import "../chunk-5CXWWAPA.js";
-import "../chunk-Q3X5D5A7.js";
-import "../chunk-WQAD2CJ7.js";
-import "../chunk-FD3PG7P2.js";
-export {
-  getGlobalContext,
-  references
-};
+import{a,b}from"../chunk-P5V7ULDZ.js";import"../chunk-EKSEU2WX.js";import"../chunk-QPA5K4VS.js";import"../chunk-XSWGHLEF.js";import"../chunk-XVCKZLMV.js";import"../chunk-EVMZ26YK.js";import"../chunk-TMX2SHVF.js";export{b as getGlobalContext,a as references};
 //# sourceMappingURL=globalContext.js.map

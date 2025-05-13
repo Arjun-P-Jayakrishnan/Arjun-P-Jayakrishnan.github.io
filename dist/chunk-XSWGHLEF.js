@@ -1,0 +1,2 @@
+import{a as b}from"./chunk-XVCKZLMV.js";var O=s=>{let a={};return Object.freeze({inflate:()=>{for(let e in s){let t=b({initial:s[e]});a[e]=t}},getState:()=>{let e={};for(let t in a)e[t]=a[t].getValue();return e},setState:e=>{for(let t in e)a[t]&&a[t].setValue(e[t])},getObservable:e=>a[e],subscribe:(e,t)=>a[e].subscribeToChanges(t),dispose:()=>{for(let e in a)a[e].dispose()}})};export{O as a};
+//# sourceMappingURL=chunk-XSWGHLEF.js.map

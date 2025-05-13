@@ -1,7 +1,2 @@
-import {
-  ProjectGallery
-} from "../../chunk-5I4CIZ7R.js";
-export {
-  ProjectGallery
-};
+import{a}from"../../chunk-JZPDRWMW.js";export{a as ProjectGallery};
 //# sourceMappingURL=gallery.js.map

@@ -1,6 +1,2 @@
-// src/graphics/loader/loaderPlugins.ts
-var loaderPlugins = [];
-export {
-  loaderPlugins
-};
+var e=[];export{e as loaderPlugins};
 //# sourceMappingURL=loaderPlugins.js.map

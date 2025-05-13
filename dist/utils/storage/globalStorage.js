@@ -1,8 +1,2 @@
-import {
-  createGlobalStorage
-} from "../../chunk-WQAD2CJ7.js";
-import "../../chunk-FD3PG7P2.js";
-export {
-  createGlobalStorage
-};
+import{a}from"../../chunk-EVMZ26YK.js";import"../../chunk-TMX2SHVF.js";export{a as createGlobalStorage};
 //# sourceMappingURL=globalStorage.js.map
