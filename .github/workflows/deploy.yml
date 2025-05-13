@@ -21,9 +21,17 @@ jobs:
 
       - name: Build Project
         run: npm run build
+      
+      - name : Prepare Deployment Folder
+      - run : |
+          mkdir deploy
+          #Copy only public files/folders (not src/not dev files)
+          cp -r index.html index.css assets public style deploy/ || true
+          #Copy dist
+          cp -r dist deploy/dist
 
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
-          publish_dir: ./dist
+          publish_dir: ./deploy
