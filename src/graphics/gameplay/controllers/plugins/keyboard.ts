@@ -1,6 +1,7 @@
-import { Controllers } from "./controller";
+import { ControllerPlugin } from "../plugins";
 
-export interface KeyboardController extends Controllers {
+
+export interface KeyboardController extends ControllerPlugin {
   getPressedKeys: () => string[];
   isKeyPressed: (key: string) => boolean;
 }
