@@ -1,7 +1,7 @@
 import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { getGlobalContext } from "@utils/globalContext";
 import { GlobalState } from "@utils/state/globalState";
-import { Camera, Scene, WebGLRenderer } from "three";
+import { Camera, Clock, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { createPlayer, Player, PlayerProps } from "./player";
 
@@ -31,18 +31,34 @@ interface References {
   player: Player;
 }
 
+interface State {
+  deltaTime: number;
+}
+
+interface TempData {
+  deltaTime: number;
+}
+
 export const createGameplay = (options: GameplayOptions): Gameplay => {
   const { globalState, eventBusManager, globalStorage } = getGlobalContext();
 
+  let state: State = {
+    deltaTime: 0,
+  };
   let references: References;
+  let context: ThreeJSContext;
+  let clock: Clock = new Clock();
+  let tempData: TempData = {
+    deltaTime: 0,
+  };
 
-  const mount = (context: ThreeJSContext) => {
+  const mount = (_context: ThreeJSContext) => {
     const player = createPlayer(
       {
         ids: options.player.ids,
       },
       {
-        scene: context.scene,
+        scene: _context.scene,
       }
     );
     player.create();
@@ -50,10 +66,21 @@ export const createGameplay = (options: GameplayOptions): Gameplay => {
     references = {
       player: player,
     };
+
+    context = _context;
+  };
+
+  const updateDeltaTime = () => {
+    tempData.deltaTime = clock.getDelta();
+
+    if (!isNaN(tempData.deltaTime)) {
+      state.deltaTime = tempData.deltaTime;
+    }
   };
 
   const update = () => {
-    references.player.update(0);
+    updateDeltaTime();
+    references.player.update(state.deltaTime);
   };
 
   const unmount = () => {

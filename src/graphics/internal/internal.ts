@@ -1,10 +1,4 @@
-import {
-  AxesHelper,
-  Camera,
-  PerspectiveCamera,
-  Scene,
-  WebGLRenderer,
-} from "three";
+import { AxesHelper, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 export interface ThreeJSRenderProps {
@@ -31,6 +25,11 @@ export interface ThreeJsRenderReference {
 
   /**
    * @description Mount
+   */
+  mount: () => void;
+  /**
+   * @description
+   * @param loop the callback for updating
    */
   register: (loop: () => void) => void;
   /**
@@ -66,7 +65,7 @@ export const createThreeJsInstance = (
 
   let controls: OrbitControls = new OrbitControls(camera, renderer.domElement);
 
-  let animationLoop: () => void;
+  let animationLoop: () => void | undefined;
 
   /**
    * @description add the renderer so that it can display the 3d
@@ -95,35 +94,23 @@ export const createThreeJsInstance = (
     controls.maxPolarAngle = Math.PI / 2;
   };
 
-  
-
-  /**
-   * @description event listener to monitor for window size changes
-   */
-  const _addEvents = () => {
-    
-  };
-
   const addAxesHelper = () => {
     const axes_helper = new AxesHelper();
     scene.add(axes_helper);
   };
 
-  /**
-   * @description Life cycle method similar to Mount
-   * @param loop callback for all rendering
-   */
-  const register = (loop: () => void) => {
-    animationLoop = loop;
-
+  const mount = () => {
     _mountRenderer(props.domMountTag);
     _configureControls();
-    _addEvents();
 
     camera.position.set(0, 0, 0.5);
     scene.add(camera);
 
     addAxesHelper();
+  };
+
+  const register = (loop: () => void) => {
+    animationLoop = loop;
   };
 
   /**
@@ -135,7 +122,9 @@ export const createThreeJsInstance = (
 
     controls.update();
 
-    animationLoop();
+    if (animationLoop) {
+      animationLoop();
+    }
 
     //Render scene from cameras perspective
     renderer.render(scene, camera);
@@ -148,8 +137,6 @@ export const createThreeJsInstance = (
   const dispose = (disposeCallbacks: Array<() => void>) => {
     disposeCallbacks.forEach((fn) => fn());
 
-    window.removeEventListener("window", _addEvents);
-
     renderer.dispose();
     controls.dispose();
   };
@@ -160,6 +147,7 @@ export const createThreeJsInstance = (
     controls: controls,
     renderer: renderer,
 
+    mount: mount,
     register: register,
     render: render,
     dispose: dispose,

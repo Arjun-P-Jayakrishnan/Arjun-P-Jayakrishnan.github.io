@@ -9,9 +9,10 @@ interface GameManagerProps {
 }
 
 export interface GameEngineManager {
-  mount: () => Promise<void>;
+  mount: () => void;
   unmount: () => void;
   update: () => void;
+  load: () => Promise<void>;
 }
 
 export const createGameManager = (
@@ -75,12 +76,20 @@ export const createGameManager = (
     window.addEventListener("keydown", _handleDebug);
   };
 
-  const mount = async () => {
+  const mount = () => {
     /**
      * Attach Event Listeners
      */
     _mountWindowEventListeners();
+    engineInstance.mount();
 
+    /**
+     * load all meshes ,objects and animations as per the given props
+     */
+    loaderInstance.configure();
+  };
+
+  const _onLoad = () => {
     /**
      * Initialize the gameplay mechanics and then pass update logic to renderer
      */
@@ -90,13 +99,17 @@ export const createGameManager = (
       camera: camera,
       controls: controls,
     });
-    engineInstance.register(gameplay.update);
 
     /**
-     * load all meshes ,objects and animations as per the given props
+     * Register gameplay loop
      */
-    loaderInstance.configure();
+    engineInstance.register(gameplay.update);
+  };
+
+  const load = async () => {
     await loaderInstance.loadAll();
+
+    _onLoad();
   };
 
   /**
@@ -118,5 +131,6 @@ export const createGameManager = (
     mount: mount,
     unmount: unmount,
     update: update,
+    load: load,
   };
 };

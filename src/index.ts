@@ -12,10 +12,7 @@ interface Managers {
 }
 
 let references: References;
-
 let managers: Managers;
-
-const mountWindowEventListeners = () => {};
 
 const preMount = () => {
   /**
@@ -46,11 +43,12 @@ const mount = () => {
    * Add Event Manager reference to web components for interaction
    */
   managers.webComponent.attachReferences();
+  managers.gameEngine.mount();
 
   /**
    * Loads all models , HDR  etc
    */
-  Promise.allSettled([managers.gameEngine.mount()]).then((responses) => {
+  Promise.allSettled([managers.gameEngine.load()]).then((responses) => {
     responses.forEach((response) => {
       if (response.status == "rejected") {
         throw new Error(
@@ -59,7 +57,6 @@ const mount = () => {
       }
     });
 
-    console.log("all components mounted");
     /**
      * @description update the game engine
      * (uses self recursion method for rendering so only need to call once)
@@ -87,7 +84,6 @@ const main = () => {
    */
   document.addEventListener("DOMContentLoaded", () => {
     mount();
-    mountWindowEventListeners();
     /**
      * Unmounts everything when the window is going to unload
      */

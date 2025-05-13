@@ -76,7 +76,6 @@ export class SceneInspector extends HTMLElement {
   }
 
   set eventBusManager(eventBusManager: EventBusManager) {
-    console.log("event bus manager done for scene inspect");
     this.eventBus = eventBusManager.debugBus;
     this.eventBus?.on("debug:inspector", (data) => {
       this.handleShowHideEvent(data);
@@ -99,27 +98,22 @@ export class SceneInspector extends HTMLElement {
   handleResize() {
     const resizer: HTMLElement = this.root.querySelector(".resizer")!;
     const panel: HTMLElement = this.root.querySelector(".scene-inspector")!;
-    console.log("resizer", resizer);
+
     resizer.addEventListener("mousedown", (e) => {
       this.state.isResizing = true;
       document.body.style.cursor = "ew-resize";
       e.preventDefault();
-      console.log("mousedown resizer");
     });
 
     window.addEventListener("mousemove", (e) => {
-      console.log("mousemove", this.state.isResizing);
       if (!this.state.isResizing) return;
 
       const newWidth = window.innerWidth - (e as MouseEvent).clientX;
 
       panel.style.width = `${Math.min(Math.max(newWidth, 200), 600)}px`;
-
-      console.log("mousemove", newWidth);
     });
 
     window.addEventListener("mouseup", (e) => {
-      console.log("mouse up", this.state.isResizing);
       if (this.state.isResizing) {
         this.state.isResizing = false;
         document.body.style.cursor = "";
@@ -186,8 +180,6 @@ export class SceneInspector extends HTMLElement {
 
     const treeNode = this.root.querySelector(".tree-view")!;
     treeNode.innerHTML = ``;
-
-    console.log(this.treeView);
 
     this.addCategory("Objects", treeNode, this.treeView.Objects);
     this.addCategory("Materials", treeNode, this.treeView.Materials);

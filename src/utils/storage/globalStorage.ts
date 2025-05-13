@@ -42,7 +42,6 @@ export const createGlobalStorage = <K extends keyof StorageMap>(
     if (storage === undefined) {
       throw new Error(`Must mount the storage first`);
     }
-
     return storage[key];
   };
 

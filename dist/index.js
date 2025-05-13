@@ -1,6 +1,6 @@
 import {
   createWebComponentManager
-} from "./chunk-XNOJY5EL.js";
+} from "./chunk-VPNTWSQP.js";
 import "./chunk-GYVXQHTM.js";
 import "./chunk-FV5FXLPE.js";
 import {
@@ -8,31 +8,30 @@ import {
 } from "./chunk-XDB3IDUD.js";
 import {
   createGameManager
-} from "./chunk-SG2G6X6H.js";
-import "./chunk-L5V5HRGJ.js";
-import "./chunk-EQI662BS.js";
-import "./chunk-VF3YSWXH.js";
-import "./chunk-4XQ26LJR.js";
+} from "./chunk-447P7X5V.js";
+import "./chunk-YLB7TJSH.js";
+import "./chunk-OFMDL3CG.js";
+import "./chunk-OLXLSJIZ.js";
+import "./chunk-HHAQB2Z2.js";
+import "./chunk-MJG6QX2M.js";
 import "./chunk-AXJVKY2W.js";
-import "./chunk-IZZD5KRL.js";
+import "./chunk-2HOXMPIN.js";
 import {
   getGlobalContext
-} from "./chunk-VPKETTYQ.js";
+} from "./chunk-VEIAASVO.js";
 import "./chunk-YX72NHVV.js";
 import "./chunk-GZBB6ODF.js";
 import "./chunk-7BMUEPDY.js";
 import "./chunk-5TTCCEAH.js";
-import "./chunk-KRR62UQE.js";
+import "./chunk-JXWZWTEW.js";
 import "./chunk-N4NUAA62.js";
-import "./chunk-MF5EUZRL.js";
+import "./chunk-QQFHRQGR.js";
 import "./chunk-SAIL7PNR.js";
 import "./chunk-ILJ6575Z.js";
 
 // src/index.ts
 var references;
 var managers;
-var mountWindowEventListeners = () => {
-};
 var preMount = () => {
   references = getGlobalContext();
   managers = {
@@ -48,7 +47,8 @@ var preMount = () => {
 };
 var mount = () => {
   managers.webComponent.attachReferences();
-  Promise.allSettled([managers.gameEngine.mount()]).then((responses) => {
+  managers.gameEngine.mount();
+  Promise.allSettled([managers.gameEngine.load()]).then((responses) => {
     responses.forEach((response) => {
       if (response.status == "rejected") {
         throw new Error(
@@ -56,7 +56,6 @@ var mount = () => {
         );
       }
     });
-    console.log("all components mounted");
     managers.gameEngine.update();
   });
 };
@@ -68,7 +67,6 @@ var main = () => {
   preMount();
   document.addEventListener("DOMContentLoaded", () => {
     mount();
-    mountWindowEventListeners();
     window.addEventListener("beforeunload", () => {
       unmount();
     });
