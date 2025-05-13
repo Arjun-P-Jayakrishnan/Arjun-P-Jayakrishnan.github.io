@@ -1,6 +1,6 @@
 import {
   SceneInspector
-} from "../../chunk-MF5EUZRL.js";
+} from "../../chunk-QQFHRQGR.js";
 export {
   SceneInspector
 };

@@ -30,13 +30,18 @@ export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
   const _loadMesh = async (metaData: AssetMetaData) => {
     try {
       const model = await gltfLoader.loadAsync(metaData.path);
-      globalStorage
-        .getStorage("animations")
-        .store(metaData.name, model.animations);
 
       scene.add(model.scene);
       model.scene.position.set(0, 0, 0);
       metaData.onSuccess?.();
+
+      globalStorage
+        .getStorage("animations")
+        .store(metaData.name + ":animations", model.animations);
+      globalStorage
+        .getStorage("groups")
+        .store(metaData.name + ":groups", model.scene);
+      console.log("loading mesh", metaData.name);
     } catch (err) {
       metaData.onError?.(err as Error);
       loadingEventBus.emit({ type: "load:error", url: metaData.path });

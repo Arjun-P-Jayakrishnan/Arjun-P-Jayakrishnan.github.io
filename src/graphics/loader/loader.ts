@@ -137,7 +137,7 @@ export const createLoader = (
       promises.push(plugin.load());
     });
 
-    Promise.allSettled(promises);
+    await Promise.allSettled(promises);
 
     return {
       success: [],
