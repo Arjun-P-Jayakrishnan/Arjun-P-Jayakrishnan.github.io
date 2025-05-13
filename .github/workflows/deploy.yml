@@ -23,7 +23,7 @@ jobs:
         run: npm run build
       
       - name : Prepare Deployment Folder
-      - run : |
+        run : |
           mkdir deploy
           #Copy only public files/folders (not src/not dev files)
           cp -r index.html index.css assets public style deploy/ || true
