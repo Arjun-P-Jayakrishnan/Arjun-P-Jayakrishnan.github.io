@@ -1,0 +1,8 @@
+var o=document.createElement("template");o.innerHTML=`
+    <link rel="stylesheet" href="/style/gallery.css">
+    <div class="gallery hidden" id="gallery">
+    </div>
+`;var n=class extends HTMLElement{constructor(){super();this.onShow=e=>this.showComponent(e);this.onHide=e=>this.hideComponent(e);this.root=this.attachShadow({mode:"open"});let e=o.content.cloneNode(true);this.root.appendChild(e),this.gallery=this.root.getElementById("gallery");}set eventBusManager(e){this.displayEventBus=e.displayBus;}showComponent(e){console.log("gallery shown "),this.gallery?.classList.remove("hidden");}hideComponent(e){this.gallery?.classList.add("hidden");}async connectedCallback(){if(!this.gallery)return;let e=await fetch("/public/data/projects.json");if(!e.ok){this.gallery.innerHTML=`
+        <p> Failed to load projects</p>
+      `;return}let a=await e.json(),t=document.createDocumentFragment();a.projects.forEach(r=>{let s=document.createElement("project-card");s.setData(r),t.appendChild(s);}),this.gallery.appendChild(t),this.displayEventBus&&(this.displayEventBus.on("project:show",this.onShow),this.displayEventBus.on("project:hide",this.onHide));}disconnectedCallback(){this.displayEventBus&&(this.displayEventBus.off("project:show",this.onShow),this.displayEventBus.off("project:hide",this.onHide));}};export{n as a};//# sourceMappingURL=chunk-IMT4XHMW.js.map
+//# sourceMappingURL=chunk-IMT4XHMW.js.map

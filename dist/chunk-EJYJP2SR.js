@@ -1,2 +1,2 @@
-var e={PATH_TO_MODELS:"../../assets/Models/",PATH_TO_HDR:"../../assets/HDR/"},t={meshes:[{name:"Room",path:e.PATH_TO_MODELS+"room.glb"}],hdr:{name:"environment_hdr",path:e.PATH_TO_HDR+"environment.hdr"}};export{t as a};
+var e={PATH_TO_MODELS:"../../assets/Models/",PATH_TO_HDR:"../../assets/HDR/"},t={meshes:[{name:"Room",path:e.PATH_TO_MODELS+"room.glb"}],hdr:{name:"environment_hdr",path:e.PATH_TO_HDR+"environment.hdr"}};export{t as a};//# sourceMappingURL=chunk-EJYJP2SR.js.map
 //# sourceMappingURL=chunk-EJYJP2SR.js.map

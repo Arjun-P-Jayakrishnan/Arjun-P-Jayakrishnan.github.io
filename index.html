@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <title>Portfolio</title>
     <link rel="stylesheet" href="index.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
   </head>
   <body>
     <loading-modal id="#loading-modal"></loading-modal>
@@ -22,13 +22,13 @@
     <script type="importmap">
       {
         "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+          "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.min.js",
           "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
         }
       }
     </script>
 
     <!-- Load The Javascript -->
-    <script type="module" src="./dist/index.js"></script>
+    <script type="module" src="./dist/index.js" defer></script>
   </body>
 </html>

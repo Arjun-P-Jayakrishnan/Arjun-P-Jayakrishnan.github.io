@@ -1,2 +1,2 @@
-import{a}from"../../chunk-XVCKZLMV.js";export{a as createObservable};
+export{a as createObservable}from'../../chunk-XVCKZLMV.js';//# sourceMappingURL=observable.js.map
 //# sourceMappingURL=observable.js.map

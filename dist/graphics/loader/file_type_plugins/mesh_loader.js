@@ -1,2 +1,2 @@
-import{a}from"../../../chunk-DOA63GLT.js";import"../../../chunk-P5V7ULDZ.js";import"../../../chunk-EKSEU2WX.js";import"../../../chunk-QPA5K4VS.js";import"../../../chunk-XSWGHLEF.js";import"../../../chunk-XVCKZLMV.js";import"../../../chunk-EVMZ26YK.js";import"../../../chunk-TMX2SHVF.js";export{a as createMeshLoader};
+export{a as createMeshLoader}from'../../../chunk-DOA63GLT.js';import'../../../chunk-P5V7ULDZ.js';import'../../../chunk-EKSEU2WX.js';import'../../../chunk-QPA5K4VS.js';import'../../../chunk-XSWGHLEF.js';import'../../../chunk-XVCKZLMV.js';import'../../../chunk-EVMZ26YK.js';import'../../../chunk-TMX2SHVF.js';//# sourceMappingURL=mesh_loader.js.map
 //# sourceMappingURL=mesh_loader.js.map

@@ -13,5 +13,5 @@ var i=`
         gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);
     }
 
-`;export{i as a};
+`;export{i as a};//# sourceMappingURL=chunk-N7TW4HJ3.js.map
 //# sourceMappingURL=chunk-N7TW4HJ3.js.map

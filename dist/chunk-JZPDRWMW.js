@@ -1,6 +1,0 @@
-var o=document.createElement("template");o.innerHTML=`
-    <link rel="stylesheet" href="/style/gallery.css">
-    <div class="gallery hidden" id="gallery">
-    </div>
-`;var n=class extends HTMLElement{constructor(){super(),this.root=this.attachShadow({mode:"open"});let t=o.content.cloneNode(!0);this.root.appendChild(t),this.gallery=this.root.getElementById("gallery")}set eventBusManager(t){this.displayEventBus=t.displayBus}showComponent(t){console.log("gallery shown "),this.gallery?.classList.remove("hidden")}hideComponent(t){this.gallery?.classList.add("hidden")}async connectedCallback(){(await(await fetch("/public/data/projects.json")).json()).projects.forEach(e=>{let s=document.createElement("project-card");s.setAttribute("title",e.title),s.setAttribute("image",e.imageUrl),s.setAttribute("description",e.description),s.setAttribute("tags",e.tags??""),s.setAttribute("github_link",e.linkUrl),this.gallery?.appendChild(s)}),this.displayEventBus?.on("project:show",e=>{this.showComponent(e)}),this.displayEventBus?.on("project:hide",e=>{this.hideComponent(e)})}disconnectedCallback(){this.displayEventBus?.off("project:show",t=>{this.showComponent(t)}),this.displayEventBus?.off("project:hide",t=>{this.hideComponent(t)})}};export{n as a};
-//# sourceMappingURL=chunk-JZPDRWMW.js.map
