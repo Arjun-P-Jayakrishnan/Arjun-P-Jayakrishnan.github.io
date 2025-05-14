@@ -1,6 +1,7 @@
 import { getGlobalContext } from "@utils/globalContext";
+import { getThreeJsContext } from "graphics/internal/context";
 import { AnimationMixer, Euler, Object3D, Scene, Vector3 } from "three";
-import { getControllers } from "./controllers/controller";
+import { getControllers } from "../controllers/controller";
 
 export interface PlayerProps {
   ids: {
@@ -19,6 +20,9 @@ export interface Player {
     rotation: {
       yaw: number;
       pitch: number;
+    },
+    camera: {
+      rotation: Euler;
     }
   ) => {
     position: Vector3;
@@ -53,12 +57,9 @@ interface TempData {
   inputDirection: Vector3;
 }
 
-export const createPlayer = (
-  props: PlayerProps,
-  context: PlayerContext
-): Player => {
-  const { scene } = context;
+export const createPlayer = (props: PlayerProps): Player => {
   const { eventBusManager, globalState, globalStorage } = getGlobalContext();
+  const contextManager = getThreeJsContext();
 
   let state: PlayerState = {
     direction: new Vector3(0, 0, -1),
@@ -78,7 +79,9 @@ export const createPlayer = (
 
   const create = () => {
     try {
-      let playerRoot = scene.getObjectByName(props.ids.rootMesh);
+      let playerRoot = contextManager
+        .getProperty("scene")
+        .getObjectByName(props.ids.rootMesh);
 
       // const playerRoot=scene.getObjectByName(props.ids.rootMesh) as Object3D;
 
@@ -101,7 +104,10 @@ export const createPlayer = (
     }
   };
 
-  const updateMouse = (mouse: { yaw: number; pitch: number }) => {
+  const updateMouse = (
+    mouse: { yaw: number; pitch: number },
+    camera: { rotation: Euler }
+  ) => {
     state.rotationApplied = mouse;
     objects.playerRoot.rotation.y += state.rotationApplied.yaw;
   };
@@ -151,9 +157,10 @@ export const createPlayer = (
 
   const updateControllers = (
     deltaTime: number,
-    rotation: { yaw: number; pitch: number }
+    rotation: { yaw: number; pitch: number },
+    camera: { rotation: Euler }
   ) => {
-    updateMouse(rotation);
+    updateMouse(rotation, camera);
     updateKeyboard(deltaTime);
   };
 
@@ -163,13 +170,14 @@ export const createPlayer = (
 
   const update = (
     deltaTime: number,
-    rotation: { yaw: number; pitch: number }
+    rotation: { yaw: number; pitch: number },
+    camera: { rotation: Euler }
   ) => {
     if (animations.mixer) {
       updateAnimation(deltaTime);
     }
 
-    updateControllers(deltaTime, rotation);
+    updateControllers(deltaTime, rotation, camera);
 
     return {
       position: objects.playerRoot.position,

@@ -1,5 +1,6 @@
 import { AxesHelper, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { getThreeJsContext } from "./context";
 
 export interface ThreeJSRenderProps {
   /**
@@ -67,6 +68,8 @@ export const createThreeJsInstance = (
 
   let animationLoop: () => void | undefined;
 
+  const contextManager = getThreeJsContext();
+
   /**
    * @description add the renderer so that it can display the 3d
    * @param tag the dom tag to which the renderer is to be attached
@@ -99,6 +102,15 @@ export const createThreeJsInstance = (
     scene.add(axes_helper);
   };
 
+  const _mountThreeJsContext = () => {
+    contextManager.mount({
+      scene: scene,
+      camera: camera,
+      renderer: renderer,
+      orbit: controls,
+    });
+  };
+
   const mount = () => {
     _mountRenderer(props.domMountTag);
     _configureControls();
@@ -107,6 +119,8 @@ export const createThreeJsInstance = (
     scene.add(camera);
 
     addAxesHelper();
+
+    _mountThreeJsContext();
   };
 
   const register = (loop: () => void) => {
