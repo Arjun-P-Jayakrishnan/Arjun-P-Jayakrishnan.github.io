@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Vector3 } from "three";
+import { Euler, PerspectiveCamera, Vector3 } from "three";
 
 export interface CameraProps {
   camera: PerspectiveCamera;
@@ -8,7 +8,9 @@ export interface CameraControls {
   update: (
     playerPosition: Vector3,
     rotation: { yaw: number; pitch: number }
-  ) => void;
+  ) => {
+    rotation: Euler;
+  };
 }
 
 interface State {
@@ -95,10 +97,18 @@ export const createCameraControls = (props: CameraProps): CameraControls => {
 
       //Focus
       lookTarget.copy(playerPosition);
-      lookTarget.y+=CAMERA_CONSTANTS.THIRD_PERSON.HEIGHT_OFFSET;
+      lookTarget.y += CAMERA_CONSTANTS.THIRD_PERSON.HEIGHT_OFFSET;
       camera.lookAt(lookTarget);
+
+      return {
+        rotation: camera.rotation,
+      };
     } else {
       /**TODO: FPV */
+
+      return {
+        rotation: new Euler(0, 0, 0, "XYZ"),
+      };
     }
   };
 

@@ -1,30 +1,21 @@
 import { getGlobalContext } from "@utils/globalContext";
 import {
-  Clock,
-  Euler,
-  PerspectiveCamera,
-  Scene,
-  Vector3,
-  WebGLRenderer,
-} from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { CameraControls, createCameraControls } from "./camera";
+  getThreeJsContext,
+  ThreeJsContextManager,
+} from "graphics/internal/context";
+import { Clock, Euler, Vector3 } from "three";
 import { ControllerManger, getControllers } from "./controllers/controller";
-import { createPlayer, Player, PlayerProps } from "./player";
+import { CameraControls, createCameraControls } from "./modules/camera";
+import { createGround, Ground, GroundProps } from "./modules/ground";
+import { createPlayer, Player, PlayerProps } from "./modules/player";
 
 export interface GameplayOptions {
   player: PlayerProps;
-}
-
-export interface ThreeJSContext {
-  scene: Scene;
-  renderer: WebGLRenderer;
-  camera: PerspectiveCamera;
-  controls: OrbitControls;
+  ground: GroundProps;
 }
 
 export interface Gameplay {
-  mount: (context: ThreeJSContext) => void;
+  mount: () => void;
   update: () => void;
   unmount: () => void;
 }
@@ -32,6 +23,7 @@ export interface Gameplay {
 interface References {
   player: Player;
   camera: CameraControls;
+  ground: Ground;
   controllers: ControllerManger;
 }
 
@@ -40,6 +32,9 @@ interface State {
   mouseRotation: {
     yaw: number;
     pitch: number;
+  };
+  camera: {
+    rotation: Euler;
   };
 }
 
@@ -56,7 +51,7 @@ export const createGameplay = (options: GameplayOptions): Gameplay => {
   const { globalState, eventBusManager, globalStorage } = getGlobalContext();
 
   const clock: Clock = new Clock();
-  let context: ThreeJSContext;
+  let contextManager: ThreeJsContextManager;
   let references: References;
 
   //Re usable state (no re-allocation)
@@ -66,6 +61,9 @@ export const createGameplay = (options: GameplayOptions): Gameplay => {
       yaw: 0,
       pitch: 0,
     },
+    camera: {
+      rotation: new Euler(0, 0, 0, "XYZ"),
+    },
   };
 
   let tempData: TempData = {
@@ -73,8 +71,8 @@ export const createGameplay = (options: GameplayOptions): Gameplay => {
     playerData: null,
   };
 
-  const mount = (_context: ThreeJSContext): void => {
-    context = _context;
+  const mount = (): void => {
+    contextManager = getThreeJsContext();
 
     const controllers: ControllerManger = getControllers();
     controllers.mount({
@@ -83,21 +81,19 @@ export const createGameplay = (options: GameplayOptions): Gameplay => {
       },
     });
 
-    const player = createPlayer(
-      {
-        ids: options.player.ids,
-      },
-      {
-        scene: _context.scene,
-      }
-    );
+    const player = createPlayer({
+      ids: options.player.ids,
+    });
     player.create();
 
     const camera = createCameraControls({
-      camera: _context.camera,
+      camera: contextManager.getProperty("camera"),
     });
 
-    references = { player, camera, controllers };
+    const ground = createGround(options.ground);
+    ground.mount();
+
+    references = { player, camera, ground, controllers };
   };
 
   const updateDeltaTime = (): void => {
@@ -115,19 +111,27 @@ export const createGameplay = (options: GameplayOptions): Gameplay => {
       ?.getRotation()!;
     tempData.playerData = references.player.update(
       state.deltaTime,
+      state.mouseRotation,
+      state.camera
+    );
+
+    state.camera = references.camera.update(
+      tempData.playerData.position,
       state.mouseRotation
     );
 
-    references.camera.update(tempData.playerData.position, state.mouseRotation);
+    references.ground.update();
   };
 
   const unmount = () => {
     references.player.destroy();
     references.controllers.unmount();
+    references.ground.unmount();
+    contextManager.unmount();
 
     ///De reference
     references = null!;
-    context = null!;
+    contextManager = null!;
   };
 
   return {

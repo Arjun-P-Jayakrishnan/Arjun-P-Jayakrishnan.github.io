@@ -38,6 +38,11 @@ export const createGameManager = (
         rootMesh: "player",
       },
     },
+    ground: {
+      ids: {
+        groundRoot: "ground",
+      },
+    },
   });
 
   /**
@@ -93,12 +98,7 @@ export const createGameManager = (
     /**
      * Initialize the gameplay mechanics and then pass update logic to renderer
      */
-    gameplay.mount({
-      renderer: renderer,
-      scene: scene,
-      camera: camera,
-      controls: controls,
-    });
+    gameplay.mount();
 
     /**
      * Register gameplay loop
