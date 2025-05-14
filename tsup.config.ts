@@ -9,6 +9,7 @@ export default defineConfig({
   sourcemap: true,
   minify: true, // ✅ ensures JavaScript is minified
   splitting: true,
+  treeshake: true,
   clean: true,
   outExtension: () => ({ js: ".js" }),
 });

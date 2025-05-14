@@ -1,7 +1,7 @@
 import { EventBus } from "@utils/event_management/eventBus";
 import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { DisplayEvents } from "@utils/event_management/eventType";
-import { CardMarshall } from "./card";
+import { CardMarshall, ProjectCard } from "./card";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -38,35 +38,44 @@ export class ProjectGallery extends HTMLElement {
     this.gallery?.classList.add("hidden");
   }
 
+  private onShow = (data: any) => this.showComponent(data);
+  private onHide = (data: any) => this.hideComponent(data);
+
   async connectedCallback() {
+    if (!this.gallery) return;
+
     const res = await fetch("/public/data/projects.json");
+    if (!res.ok) {
+      this.gallery.innerHTML = `
+        <p> Failed to load projects</p>
+      `;
+      return;
+    }
+
     const projects = await res.json();
 
+    const fragment = document.createDocumentFragment();
+
     (projects["projects"] as Array<CardMarshall>).forEach((cardProps) => {
-      const projectElement = document.createElement("project-card");
-      projectElement.setAttribute("title", cardProps.title);
-      projectElement.setAttribute("image", cardProps.imageUrl);
-      projectElement.setAttribute("description", cardProps.description);
-      projectElement.setAttribute("tags", cardProps.tags ?? "");
-      projectElement.setAttribute("github_link", cardProps.linkUrl);
-
-      this.gallery?.appendChild(projectElement);
+      const card: ProjectCard = document.createElement(
+        "project-card"
+      ) as ProjectCard;
+      card.setData(cardProps);
+      fragment.appendChild(card);
     });
 
-    this.displayEventBus?.on("project:show", (data) => {
-      this.showComponent(data);
-    });
-    this.displayEventBus?.on("project:hide", (data) => {
-      this.hideComponent(data);
-    });
+    this.gallery.appendChild(fragment);
+
+    if (!this.displayEventBus) return;
+
+    this.displayEventBus.on("project:show", this.onShow);
+    this.displayEventBus.on("project:hide", this.onHide);
   }
 
   disconnectedCallback() {
-    this.displayEventBus?.off("project:show", (data) => {
-      this.showComponent(data);
-    });
-    this.displayEventBus?.off("project:hide", (data) => {
-      this.hideComponent(data);
-    });
+    if (!this.displayEventBus) return;
+
+    this.displayEventBus.off("project:show", this.onShow);
+    this.displayEventBus.off("project:hide", this.onHide);
   }
 }
