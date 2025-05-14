@@ -3,21 +3,21 @@
     {
       "title": "LCVS",
       "description": "Localized Version Control System",
-      "imageUrl": "/assets/images/layers.svg",
+      "imageUrl": "",
       "tags": "version control,sqlite,git",
       "linkUrl": ""
     },
     {
       "title": "OpenGL",
       "description": "Project that focuses on the fundamentals of game engine using open gl",
-      "imageUrl": "/assets/images/game-development.png",
+      "imageUrl": "",
       "tags": "cpp,glsl,glad,opengl,cmake",
       "linkUrl": ""
     },
     {
       "title": "Dev Tools",
       "description": "Personalized set of tools and resource management site",
-      "imageUrl": "/assets/images/coding.png",
+      "imageUrl": "",
       "tags": "nextjs,vercel,react",
       "linkUrl": ""
     },
