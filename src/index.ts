@@ -3,7 +3,7 @@ import {
   WebComponentManager,
 } from "@components/main";
 import { getGlobalContext, References } from "@utils/globalContext";
-import { assetMetaData } from "config/assetMetaData";
+import { GAME_MANAGER_PROPS } from "config/assets";
 import { createGameManager, GameEngineManager } from "graphics/main";
 
 interface Managers {
@@ -32,12 +32,7 @@ const preMount = () => {
      */
     managers = {
       webComponent: createWebComponentManager(),
-      gameEngine: createGameManager({
-        loaderOptions: {
-          meshesMetaData: assetMetaData.meshes,
-          hdrMetaData: assetMetaData.hdr,
-        },
-      }),
+      gameEngine: createGameManager(GAME_MANAGER_PROPS),
     };
 
     managers.webComponent.mountComponents();

@@ -3,42 +3,42 @@
     {
       "title": "LCVS",
       "description": "Localized Version Control System",
-      "imageUrl": "",
+      "imageUrl": "/assets/images/lcvs.svg",
       "tags": "version control,sqlite,git",
       "linkUrl": ""
     },
     {
       "title": "OpenGL",
       "description": "Project that focuses on the fundamentals of game engine using open gl",
-      "imageUrl": "",
+      "imageUrl": "/assets/images/opengl.svg",
       "tags": "cpp,glsl,glad,opengl,cmake",
       "linkUrl": ""
     },
     {
       "title": "Dev Tools",
       "description": "Personalized set of tools and resource management site",
-      "imageUrl": "",
+      "imageUrl": "/assets/images/tools.svg",
       "tags": "nextjs,vercel,react",
       "linkUrl": ""
     },
     {
       "title": "AGI",
       "description": "Animated Graphical Interface is an npm package that is meant for svg animations",
-      "imageUrl": "",
+      "imageUrl": "/assets/images/animation.svg",
       "tags": "svg,react,npm",
       "linkUrl": ""
     },
     {
       "title": "GLSL Vs Code Extension",
       "description": "A Vs Code extension to syntax highlight .glsl,.vert.frag code",
-      "imageUrl": "",
+      "imageUrl": "/assets/images/extension.svg",
       "tags": "glsl,vs-code",
       "linkUrl": ""
     },
     {
       "title": "Other projects",
       "description": "Rust encryption,AI fundamentals etc are on making",
-      "imageUrl": "",
+      "imageUrl": "/assets/images/other.svg",
       "tags": "python,rust,encryption,ai",
       "linkUrl": ""
     }
