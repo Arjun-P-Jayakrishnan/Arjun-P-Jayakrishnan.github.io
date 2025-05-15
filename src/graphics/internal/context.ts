@@ -23,7 +23,9 @@ export const getThreeJsContext = (): ThreeJsContextManager => {
     }
   };
 
-  const unmount = () => {};
+  const unmount = () => {
+    context = null;
+  };
 
   const getProperty = <K extends keyof ThreeJsContext>(key: K) => {
     if (!context) {

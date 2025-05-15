@@ -1,10 +1,12 @@
 import { getGlobalContext } from "@utils/globalContext";
 
+import { GAMEPLAY_OPTIONS } from "config/assets";
 import { createGameplay, Gameplay } from "./gameplay/gameplay";
+import { getThreeJsContext, ThreeJsContext } from "./internal/context";
 import { createThreeJsInstance } from "./internal/internal";
-import { createLoader, LoaderOptions } from "./loader/loader";
+import { createLoader, Loader, LoaderOptions } from "./loader/loader";
 
-interface GameManagerProps {
+export interface GameManagerProps {
   loaderOptions: LoaderOptions;
 }
 
@@ -19,51 +21,43 @@ export const createGameManager = (
   props: GameManagerProps
 ): GameEngineManager => {
   const { globalState, eventBusManager } = getGlobalContext();
+  let flags = {
+    isMounted: false,
+  };
+
   const engineInstance = createThreeJsInstance({
     camera: {},
     domMountTag: "game-engine",
   });
-  const { scene, renderer, camera, controls } = engineInstance;
 
-  const loaderInstance = createLoader(props.loaderOptions, {
-    globalState: globalState,
-    loaderEventBus: eventBusManager.loadingBus,
-    renderer: renderer,
-    scene: scene,
-  });
+  const gameplay: Gameplay = createGameplay(GAMEPLAY_OPTIONS);
 
-  const gameplay: Gameplay = createGameplay({
-    player: {
-      ids: {
-        rootMesh: "player",
-      },
-    },
-    ground: {
-      ids: {
-        groundRoot: "ground",
-      },
-    },
-  });
+  let gameContext: ThreeJsContext | null = null;
+  let loaderInstance: Loader | null = null;
 
   /**
    * @description handle resize of the canvas
    */
   const _handleResize = () => {
+    if (!gameContext) return;
+
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    gameContext.camera.aspect = width / height;
+    gameContext.camera.updateProjectionMatrix();
 
-    renderer.setSize(width, height);
+    gameContext.renderer.setSize(width, height);
   };
 
   const _handleDebug = (e: KeyboardEvent) => {
+    if (!gameContext) return;
+
     if (e.key.toLowerCase() === "u" && e.shiftKey) {
       e.preventDefault();
       eventBusManager.debugBus.emit({
         type: "debug:inspector",
-        scene: scene,
+        scene: gameContext.scene,
       });
     }
   };
@@ -81,17 +75,70 @@ export const createGameManager = (
     window.addEventListener("keydown", _handleDebug);
   };
 
+  const _getContext = () => {
+    gameContext = {
+      scene: getThreeJsContext().getProperty("scene"),
+      camera: getThreeJsContext().getProperty("camera"),
+      renderer: getThreeJsContext().getProperty("renderer"),
+      orbit: getThreeJsContext().getProperty("orbit"),
+    };
+
+    loaderInstance = createLoader(props.loaderOptions, {
+      globalState: globalState,
+      loaderEventBus: eventBusManager.loadingBus,
+      renderer: gameContext.renderer,
+      scene: gameContext.scene,
+    });
+  };
+
   const mount = () => {
+    if (flags.isMounted) return;
+
+    engineInstance.mount();
+
+    _getContext();
     /**
      * Attach Event Listeners
      */
     _mountWindowEventListeners();
-    engineInstance.mount();
 
     /**
      * load all meshes ,objects and animations as per the given props
      */
-    loaderInstance.configure();
+    loaderInstance!.configure();
+
+    flags.isMounted = true;
+  };
+
+  const update = () => {
+    engineInstance.render();
+  };
+
+  /**
+   * @description unmount
+   */
+  const unmount = () => {
+    if (!flags.isMounted) return;
+    /**
+     * Release all event listeners to prevent memory leaks
+     */
+    window.removeEventListener("resize", _handleResize);
+    window.removeEventListener("keydown", _handleDebug);
+
+    if (gameplay) {
+      gameplay.unmount();
+    }
+
+    engineInstance.dispose();
+
+    if (loaderInstance) {
+      loaderInstance.dispose();
+      loaderInstance = null;
+    }
+
+    gameContext = null;
+
+    flags.isMounted = false;
   };
 
   const _onLoad = () => {
@@ -107,24 +154,15 @@ export const createGameManager = (
   };
 
   const load = async () => {
-    await loaderInstance.loadAll();
+    try {
+      if (!flags.isMounted) throw new Error(`Try to load before mounting`);
 
-    _onLoad();
-  };
+      await loaderInstance!.loadAll();
 
-  /**
-   * @description unmount
-   */
-  const unmount = () => {
-    /**
-     * Release all event listeners to prevent memory leaks
-     */
-    window.removeEventListener("resize", _handleResize);
-    window.removeEventListener("keydown", _handleDebug);
-  };
-
-  const update = () => {
-    engineInstance.render();
+      _onLoad();
+    } catch (err) {
+      console.error(`Error while loading :${err}`);
+    }
   };
 
   return {

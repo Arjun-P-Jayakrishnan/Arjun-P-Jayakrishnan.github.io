@@ -19,11 +19,6 @@ export interface ThreeJSRenderProps {
 }
 
 export interface ThreeJsRenderReference {
-  scene: Scene;
-  camera: PerspectiveCamera;
-  renderer: WebGLRenderer;
-  controls: OrbitControls;
-
   /**
    * @description Mount
    */
@@ -40,7 +35,7 @@ export interface ThreeJsRenderReference {
   /**
    * @description UnMount
    */
-  dispose: (disposeCallbacks: Array<() => void>) => void;
+  dispose: () => void;
 }
 
 /**
@@ -52,14 +47,20 @@ export const createThreeJsInstance = (
   props: ThreeJSRenderProps
 ): ThreeJsRenderReference => {
   //Local references
+  const { fov, aspectRatio, near, far } = {
+    fov: 75,
+    aspectRatio: window.innerWidth / window.innerHeight,
+    near: 0.1,
+    far: 1000,
+  };
 
   let scene: Scene = new Scene();
 
   let camera: PerspectiveCamera = new PerspectiveCamera(
-    props.camera.fov,
-    props.camera.aspect,
-    props.camera.near,
-    props.camera.far
+    props.camera.fov ?? fov,
+    props.camera.aspect ?? aspectRatio,
+    props.camera.near ?? near,
+    props.camera.far ?? far
   );
 
   let renderer: WebGLRenderer = new WebGLRenderer({ antialias: true });
@@ -67,6 +68,7 @@ export const createThreeJsInstance = (
   let controls: OrbitControls = new OrbitControls(camera, renderer.domElement);
 
   let animationLoop: () => void | undefined;
+  let animationFrameId: number = 0;
 
   const contextManager = getThreeJsContext();
 
@@ -116,7 +118,7 @@ export const createThreeJsInstance = (
     _configureControls();
 
     camera.position.set(0, 0, 0.5);
-    scene.add(camera);
+    // scene.add(camera);
 
     addAxesHelper();
 
@@ -127,14 +129,13 @@ export const createThreeJsInstance = (
     animationLoop = loop;
   };
 
-  /**
-   * @description Life cycle method similar to update
-   */
   const render = () => {
     //Recursive callback function
-    requestAnimationFrame(render);
+    animationFrameId = requestAnimationFrame(render);
 
-    controls.update();
+    if (controls.enabled || controls.enableDamping) {
+      controls.update();
+    }
 
     if (animationLoop) {
       animationLoop();
@@ -148,19 +149,21 @@ export const createThreeJsInstance = (
    * @description Life cycle method similar to UnMount
    * @param disposeCallbacks array of dispose callbacks to be executed
    */
-  const dispose = (disposeCallbacks: Array<() => void>) => {
-    disposeCallbacks.forEach((fn) => fn());
+  const dispose = () => {
+    const container = document.getElementById(props.domMountTag);
+    if (container && renderer.domElement.parentElement === container) {
+      container.removeChild(renderer.domElement);
+    }
+
+    cancelAnimationFrame(animationFrameId);
 
     renderer.dispose();
     controls.dispose();
+
+    animationFrameId = 0;
   };
 
   return Object.freeze({
-    scene: scene,
-    camera: camera,
-    controls: controls,
-    renderer: renderer,
-
     mount: mount,
     register: register,
     render: render,
