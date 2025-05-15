@@ -2,12 +2,18 @@ const template = document.createElement("template");
 template.innerHTML = `
   <link rel="stylesheet" href="/style/card.css" />
   <div class="card">
-    <div class="card-image">
-      <img src="" alt="" loading="lazy"/>
-    </div>
     <div class="card-content">
-      <h3></h3>
-      <p></p>
+     <div class="card-header">
+        <div class="card-image">
+          <img src="" alt="" loading="lazy"/>
+        </div>
+        <div class="title-group">
+          <h3></h3>
+          <small class="sub-heading"></small>
+        </div>
+      </div>  
+     
+      <p class="description"></p>
       <div class="tags"></div>
       <a class="github-link" href="" >
         <img src="/assets/images/github-brands-solid.svg" alt="Github" loading="lazy"/>

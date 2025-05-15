@@ -41,6 +41,7 @@ const preMount = () => {
     };
 
     managers.webComponent.mountComponents();
+    managers.gameEngine.mount();
 
     flags.isPreMounted = true;
   } catch (err) {
@@ -76,16 +77,23 @@ const loadAssets = async () => {
 /**
  * helps to add all necessary mounting function
  */
-const mount = async () => {
+const mount = () => {
   try {
     if (!managers) throw new Error(`Error while pre-mounting.`);
     /**
      * Attach references to components and then mount tha game engine
      */
     managers.webComponent.attachReferences();
-    managers.gameEngine.mount();
 
-    await loadAssets();
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(async () => {
+        await loadAssets();
+      });
+    } else {
+      setTimeout(async () => {
+        await loadAssets();
+      }, 200);
+    }
 
     flags.isMounted = true;
   } catch (err) {

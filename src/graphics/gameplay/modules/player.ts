@@ -2,6 +2,8 @@ import { getGlobalContext } from "@utils/globalContext";
 import { getThreeJsContext } from "graphics/internal/context";
 import { AnimationMixer, Euler, Object3D, Scene, Vector3 } from "three";
 import { getControllers } from "../controllers/controller";
+import { KeyboardController } from "../controllers/plugins/keyboard";
+import { MouseController } from "../controllers/plugins/mouse";
 
 export interface PlayerProps {
   ids: {
@@ -72,7 +74,13 @@ export const createPlayer = (props: PlayerProps): Player => {
   let tempData: TempData = {
     inputDirection: new Vector3(0, 0, 0),
   };
-  let inputs = getControllers();
+  let inputs: {
+    mouse: MouseController | null;
+    keyboard: KeyboardController | null;
+  } = {
+    mouse: null,
+    keyboard: null,
+  };
 
   let objects: ObjectReferences;
   let animations: Animation;
@@ -99,6 +107,11 @@ export const createPlayer = (props: PlayerProps): Player => {
       animations = {
         mixer: new AnimationMixer(playerRoot),
       };
+
+      inputs = {
+        mouse: getControllers().getController("mouse"),
+        keyboard: getControllers().getController("keyboard"),
+      };
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
     }
@@ -113,43 +126,38 @@ export const createPlayer = (props: PlayerProps): Player => {
   };
 
   const updateKeyboard = (deltaTime: number) => {
+    if (!inputs.keyboard) return;
+    const FRICTION = 5.0;
+    const VELOCITY_DEADZONE = 0.001;
+
     const { inputDirection } = tempData;
     inputDirection.set(0, 0, 0);
 
-    if (inputs.getController("keyboard")!.isKeyPressed("w")) {
-      inputDirection.z += 1;
-    }
-
-    if (inputs.getController("keyboard")!.isKeyPressed("s")) {
-      inputDirection.z -= 1;
-    }
-
-    if (inputs.getController("keyboard")!.isKeyPressed("a")) {
-      inputDirection.x += 1;
-    }
-
-    if (inputs.getController("keyboard")!.isKeyPressed("d")) {
-      inputDirection.x -= 1;
-    }
+    if (inputs.keyboard.isKeyPressed("w")) inputDirection.z -= 1;
+    if (inputs.keyboard.isKeyPressed("s")) inputDirection.z += 1;
+    if (inputs.keyboard.isKeyPressed("a")) inputDirection.x -= 1;
+    if (inputs.keyboard.isKeyPressed("d")) inputDirection.x += 1;
 
     if (inputDirection.length() > 0) {
+      //normalize direction
+      inputDirection.applyQuaternion(objects.playerRoot.quaternion);
       inputDirection.normalize();
-    }
 
-    if (inputDirection.length() > 0) {
       //accelerate towards the direction
-
       state.velocity.add(
         inputDirection.multiplyScalar(
           PLAYER_CONSTANTS.MOVEMENT_ACCELERATION * deltaTime
         )
       );
-
+      //ensure the velocity doesn't go over the threshold
       state.velocity.clampLength(0, PLAYER_CONSTANTS.MAX_VELOCITY);
-    } else if (state.velocity.length() > 0) {
-      state.velocity.multiplyScalar(
-        1 - PLAYER_CONSTANTS.MOVEMENT_ACCELERATION * deltaTime
-      );
+    } else if (inputDirection.length() == 0 && state.velocity.length() > 0) {
+      const decay = Math.exp(-FRICTION * deltaTime);
+      state.velocity.multiplyScalar(decay);
+
+      if (state.velocity.lengthSq() < VELOCITY_DEADZONE * VELOCITY_DEADZONE) {
+        state.velocity.set(0, 0, 0);
+      }
     }
 
     objects.playerRoot.position.add(state.velocity);
