@@ -1,0 +1,2 @@
+var e=null,s=()=>({mount:t=>{e||(e=t);},unmount:()=>{e=null;},getProperty:t=>{if(!e)throw new Error("Mount the three js context before accessing it");return e[t]}});export{s as a};//# sourceMappingURL=chunk-JHTWF4VD.js.map
+//# sourceMappingURL=chunk-JHTWF4VD.js.map

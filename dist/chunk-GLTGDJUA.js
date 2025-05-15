@@ -1,0 +1,2 @@
+import {a as a$1}from'./chunk-63O4EDAM.js';import {a}from'./chunk-JHTWF4VD.js';var c=o=>{let t=null,e=a(),r=null;return {mount:()=>{if(t=e.getProperty("scene").getObjectByName(o.ids.groundRoot),!t){console.error(`Cant get ground mesh from the id : ${o.ids.groundRoot}`);return}r=a$1({camera:e.getProperty("camera"),fadeNear:.1,fadeFar:1}),t.material=r.mat;},update:()=>{r?.update(e.getProperty("camera").position);},unmount:()=>{}}};export{c as a};//# sourceMappingURL=chunk-GLTGDJUA.js.map
+//# sourceMappingURL=chunk-GLTGDJUA.js.map

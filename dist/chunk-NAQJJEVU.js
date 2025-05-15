@@ -1,2 +1,0 @@
-var e=null,s=()=>({mount:t=>{e||(e=t);},unmount:()=>{},getProperty:t=>{if(!e)throw new Error("Mount the three js context before accessing it");return e[t]}});export{s as a};//# sourceMappingURL=chunk-NAQJJEVU.js.map
-//# sourceMappingURL=chunk-NAQJJEVU.js.map
