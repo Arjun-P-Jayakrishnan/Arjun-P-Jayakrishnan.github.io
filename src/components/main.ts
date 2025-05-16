@@ -1,9 +1,11 @@
 import { getGlobalContext } from "@utils/globalContext";
 import { SceneInspector } from "./threejs/scene_inspector";
-import { ProjectCard } from "./website/card";
-import { ProjectGallery } from "./website/gallery";
-import { Navbar } from "./website/header";
+import { AboutPage } from "./website/about/about";
+import { ProjectCard } from "./website/gallery/card";
+
+import { ProjectGallery } from "./website/gallery/gallery";
 import { LoadingModal } from "./website/loading";
+import { Navbar } from "./website/navbar/header";
 
 export interface WebComponentManager {
   /**
@@ -30,6 +32,7 @@ export const createWebComponentManager = (): WebComponentManager => {
     customElements.define("project-gallery", ProjectGallery);
     customElements.define("project-card", ProjectCard);
     customElements.define("scene-inspector", SceneInspector);
+    customElements.define("about-page", AboutPage);
     console.log("custom components mounted");
   };
 
@@ -72,6 +75,13 @@ export const createWebComponentManager = (): WebComponentManager => {
     } catch (err) {
       console.error(err);
     }
+
+    try {
+      const about: AboutPage = document.querySelector("about-page")!;
+      about.eventBusManager = context.eventBusManager;
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   /**
@@ -84,6 +94,7 @@ export const createWebComponentManager = (): WebComponentManager => {
       "project-gallery",
       "project-card",
       "scene-inspector",
+      "about-page",
     ];
 
     selectors.forEach((selector) => {
@@ -91,9 +102,10 @@ export const createWebComponentManager = (): WebComponentManager => {
       if (element?.parentElement) {
         //call disconnected  callback for the removal of event listeners
         element.parentElement.removeChild(element);
-      }
-      else{
-        console.warn(`Could not unmount ${selector} either already removed or not found`)
+      } else {
+        console.warn(
+          `Could not unmount ${selector} either already removed or not found`
+        );
       }
     });
 
