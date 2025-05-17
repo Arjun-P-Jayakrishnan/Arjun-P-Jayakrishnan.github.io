@@ -1,0 +1,22 @@
+{
+  "personal": {
+    "type": "Personal",
+    "data": {}
+  },
+  "tech_stacks": {
+    "type": "Tech Stacks",
+    "data": {}
+  },
+  "experience": {
+    "type": "Experience",
+    "data": {}
+  },
+  "certificates": {
+    "type": "Certificates",
+    "data": {}
+  },
+  "resume": {
+    "type": "Resume",
+    "data": {}
+  }
+}
