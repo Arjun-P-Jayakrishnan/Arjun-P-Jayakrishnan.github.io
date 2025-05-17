@@ -7,14 +7,14 @@ export type LoadingEvents =
   | { type: "load:error"; url: string };
 
 export type DisplayEvents =
-  | { type: "home:show" }
-  | { type: "home:hide" }
-  | { type: "about:show" }
-  | { type: "about:hide" }
-  | { type: "project:show" }
-  | { type: "project:hide" }
-  | { type: "contact:show" }
-  | { type: "contact:hide" };
+  | { elementId: "home"; type: "home:show" }
+  | { elementId: "home"; type: "home:hide" }
+  | { elementId: "about"; type: "about:show" }
+  | { elementId: "about"; type: "about:hide" }
+  | { elementId: "project"; type: "project:show" }
+  | { elementId: "project"; type: "project:hide" }
+  | { elementId: "contact"; type: "contact:show" }
+  | { elementId: "contact"; type: "contact:hide" };
 
 export type DebugEvents = {
   type: "debug:inspector";

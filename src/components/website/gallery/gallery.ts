@@ -3,6 +3,7 @@ import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { DisplayEvents } from "@utils/event_management/eventType";
 import { CardMarshall, ProjectCard } from "./card";
 
+
 const template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" href="/style/gallery.css">
