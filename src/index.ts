@@ -44,6 +44,15 @@ const preMount = () => {
   }
 };
 
+const loadData = async () => {
+  try {
+    console.log("getting data from json files");
+    await managers.webComponent.loadData();
+  } catch (err) {
+    console.error(`Error loading data from json ${err}`);
+  }
+};
+
 const loadAssets = async () => {
   try {
     /**
@@ -83,10 +92,12 @@ const mount = () => {
     if ("requestIdleCallback" in window) {
       window.requestIdleCallback(async () => {
         await loadAssets();
+        await loadData();
       });
     } else {
       setTimeout(async () => {
         await loadAssets();
+        await loadData();
       }, 200);
     }
 
