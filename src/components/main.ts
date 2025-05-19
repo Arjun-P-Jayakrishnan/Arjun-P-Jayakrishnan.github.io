@@ -3,6 +3,7 @@ import { SceneInspector } from "./threejs/scene_inspector";
 import { AboutPage } from "./website/about/about";
 import { ProjectCard } from "./website/gallery/card";
 
+import { BackgroundPage } from "./website/about/background";
 import { ProjectGallery } from "./website/gallery/gallery";
 import { LoadingModal } from "./website/loading";
 import { Navbar } from "./website/navbar/header";
@@ -16,6 +17,10 @@ export interface WebComponentManager {
    * @description attach global context references
    */
   attachReferences: () => void;
+  /**
+   * @description loading data
+   */
+  loadData: () => Promise<void>;
   /**
    * @description unmounts web components
    */
@@ -33,6 +38,7 @@ export const createWebComponentManager = (): WebComponentManager => {
     customElements.define("project-card", ProjectCard);
     customElements.define("scene-inspector", SceneInspector);
     customElements.define("about-page", AboutPage);
+    
     console.log("custom components mounted");
   };
 
@@ -84,6 +90,32 @@ export const createWebComponentManager = (): WebComponentManager => {
     }
   };
 
+  const _loadJSON = async (url: string): Promise<any> => {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    return data;
+  };
+
+  const loadData = async () => {
+    const about: AboutPage = document.querySelector("about-page")!;
+    try {
+      const data = await _loadJSON("/public/data/about.json");
+
+      about.updateData = {
+        isError: false,
+        records: data,
+      };
+      
+    } catch (err) {
+      about.updateData = {
+        isError: true,
+        message: `Error getting data ${err}`,
+      };
+      console.error(`Error getting data ${err}`);
+    }
+  };
+
   /**
    * unmount web components
    */
@@ -95,6 +127,7 @@ export const createWebComponentManager = (): WebComponentManager => {
       "project-card",
       "scene-inspector",
       "about-page",
+      "background-page",
     ];
 
     selectors.forEach((selector) => {
@@ -115,6 +148,7 @@ export const createWebComponentManager = (): WebComponentManager => {
   return {
     mountComponents: mountComponents,
     attachReferences: attachReferences,
+    loadData: loadData,
     unmountComponents: unmountComponents,
   };
 };
