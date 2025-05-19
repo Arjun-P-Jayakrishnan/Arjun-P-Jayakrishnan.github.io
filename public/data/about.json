@@ -1,19 +1,68 @@
 {
   "personal": {
     "type": "Personal",
-    "data": {}
+    "data": {
+      "summary": {
+        "title": "Hi, I'm Arjun P Jayakrishnan",
+        "description": "I am a passionate software engineer with over 2 years of experience — 1.4 years as an intern and 9 months full-time — specializing in scalable web applications and cloud services."
+      },
+      "education": {
+        "course": "B.Tech CSE with Honours",
+        "institute": "National Institute of Technology",
+        "description": "Graduated with 8.6 CGPA. Focused on software engineering, algorithms, and distributed systems."
+      },
+      "skills": [
+        {
+          "title": "Programming Languages",
+          "tags": [
+            "Java",
+            "C",
+            "Go",
+            "TypeScript",
+            "JavaScript",
+            "Python",
+            "Rust"
+          ]
+        },
+        {
+          "title": "Web Technologies",
+          "tags": ["React", "Node.js", "Express", "HTML5", "CSS3", "Next Js"]
+        },
+        {
+          "title": "Databases",
+          "tags": ["PostgreSQL", "MongoDB", "SQlite", "MySQL"]
+        },
+        {
+          "title": "Cloud & DevOps",
+          "tags": ["AWS", "GitHub Actions"]
+        },
+        {
+          "title": "Languages",
+          "tags": [
+            "English (Fluent)",
+            "Malayalam (Native)",
+            "Hindi (Intermediate)"
+          ]
+        }
+      ]
+    }
   },
-  "tech_stacks": {
+  "frameworks": {
     "type": "Tech Stacks",
     "data": {}
   },
   "experience": {
     "type": "Experience",
-    "data": {}
-  },
-  "certificates": {
-    "type": "Certificates",
-    "data": {}
+    "data": [
+      {
+        "title": "Intern",
+        "duration": "May 2023 - Sept 2024",
+        "responsibilities": [
+          "I worked on 3d environments",
+          "i worked in ts language and babylon js"
+        ]
+      }
+    ]
   },
   "resume": {
     "type": "Resume",

@@ -1,0 +1,2 @@
+import {a}from'./chunk-CJXS6KP5.js';import {a as a$1}from'./chunk-N7TW4HJ3.js';import {ShaderMaterial}from'three';var l=e=>{let a$2=new ShaderMaterial({uniforms:{time:{value:1},cameraPos:{value:e.camera.position},fadeNear:{value:e.fadeNear},fadeFar:{value:e.fadeFar}},vertexShader:a$1,fragmentShader:a});return {mat:a$2,update:i=>{a$2.uniforms.cameraPos.value=i;}}};export{l as a};//# sourceMappingURL=chunk-WNPVTV3D.js.map
+//# sourceMappingURL=chunk-WNPVTV3D.js.map

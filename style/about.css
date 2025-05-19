@@ -1,34 +1,47 @@
+:host {
+  --main-bg: rgba(255, 255, 255, 0.01);
+  --container-bg: rgba(255, 255, 255, 0.05);
+  --indicator-size: 2em;
+  --nav-button-size: 1em;
+}
+
+/* Main Wrapper */
 .about {
+  height: 70vh;
+  width: 50vw;
+
   position: fixed;
   top: 50%;
-  left: 0;
+  left: 0.5rem;
   transform: translateY(-50%);
-  height: 80vh;
-  width: 50vw;
-  margin-left: 1em;
+  z-index: 900;
 
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  margin-left: 0rem;
+  padding: 0rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  box-sizing: border-box;
+
   color: white;
   font-family: sans-serif;
+  background: var(--main-bg);
 
-  z-index: 900;
+  border: 0px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+
   transition: all 0.3s ease;
   overflow: hidden;
+
+  /* No glass effect */
+  /* backdrop-filter: blur(12px);
+     -webkit-backdrop-filter: blur(12px); */
 }
 
-/* Hide animation */
+/* Open and close functionality */
 .hidden {
   opacity: 0;
   pointer-events: none;
@@ -36,59 +49,147 @@
   transition: all 0.3s ease;
 }
 
-/* Carousel container */
+/* Carousel properties */
 .carousel {
   position: relative;
+
   width: 100%;
   height: 100%;
+
   overflow: hidden;
 }
 
-/* Track (row of slides) */
-.carousel-track {
-  display: flex;
+/* slides container */
+.carousel-container {
+  position: relative;
+
   width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease;
-  transform: none;
+  height: calc(100% - var(--indicator-size));
+
+  background-color: var(--container-bg);
+
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-/* Individual slide */
+/* Carousel buttons */
+.carousel__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+
+  padding: 0.5em 1em;
+
+  cursor: pointer;
+
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.2em;
+  background: rgba(0, 0, 0, 0.1);
+
+  border: none;
+  border-radius: 8px;
+}
+
+/* Navigation buttons */
+.carousel_nav {
+  position: relative;
+  background-color: transparent;
+  height: var(--indicator-size);
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  padding: 0.125em 0em;
+  gap: 1em;
+}
+
+/* Slides */
+.carousel-track {
+  height: 100%;
+
+  margin: 0em;
+  padding: 0em;
+
+  list-style: none;
+}
+
+/* All slides */
 .slide {
-  min-width: 95%;
-  flex-shrink: 0;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: 12px;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  overflow: auto;
+
+  padding: 0rem;
+
+  border-radius: 20px;
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+
+  background: transparent;
+
+  transition: 200ms opacity ease-in-out;
+  transition-delay: 200ms;
+}
+
+/* Active slide */
+.slide[data-active] {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
+/* Optional: Style slotted Web Components */
+::slotted(*) {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* Carousel buttons */
-.carousel button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: white;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  font-size: 1.2em;
-  backdrop-filter: blur(4px);
-  border-radius: 8px;
-  z-index: 10;
-}
-
+/* Prev-Next Buttons */
 .carousel .prev {
-  left: 10px;
+  left: 0.5rem;
 }
 
 .carousel .next {
-  right: 10px;
+  right: 0.5rem;
+}
+
+.carousel__button:hover,
+.carousel__button:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 1);
+}
+
+.carousel__button:focus {
+  outline: 1px solid white;
+}
+
+/* Navigation Indicator */
+.carousel_indicator {
+  width: var(--nav-button-size);
+  height: var(--nav-button-size);
+
+  background-color: rgba(0, 0, 0, 0.1);
+
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
+
+  cursor: none;
+}
+
+.carousel_indicator:hover {
+  cursor: pointer;
+}
+
+.carousel_indicator[data-active-button] {
+  opacity: 1;
+  background: rgb(0, 213, 255);
 }
 
 /* Responsive adjustments */

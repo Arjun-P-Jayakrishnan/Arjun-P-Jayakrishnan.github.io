@@ -1,0 +1,119 @@
+:host {
+  --background-color: rgba(255, 255, 255, 0);
+  --button-background: #e7f0ff;
+  --text-color: #004085;
+}
+
+/* Container */
+.experience {
+  height: 100%;
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color, #222);
+  background: var(--background-color, #f9f9f9);
+
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+}
+
+/* Job List */
+.job-list {
+  display: grid;
+  grid-auto-flow: row; /* fill rows vertically */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem 2rem; /* row-gap, column-gap */
+  padding: 0;
+  margin: 0;
+}
+
+/* Job Item */
+.job-item {
+  max-width: 280px; /* match min width of grid */
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.06);
+  transition: box-shadow 0.3s ease;
+  margin: 0 auto; /* center inside grid cell */
+  display: flex;
+  flex-direction: column;
+}
+
+.job-item:hover {
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.12);
+}
+
+/* Header background (slightly lighter than toggle) */
+.job-header {
+  background-color: rgba(0, 123, 255, 0.12); /* light, soft blue */
+  border: 2px solid rgba(0, 123, 255, 0.8);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.1rem 0.75rem; /* reduced padding */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Button toggle background and hover */
+.job-toggle {
+  background-color: rgba(0, 123, 255, 0.18); /* a bit stronger blue */
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.6rem; /* smaller font */
+  color: var(--text-color);
+  z-index: 2; /* keep as requested */
+  position: relative; /* needed for z-index */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem; /* smaller gap */
+  cursor: pointer;
+}
+
+.job-toggle:hover,
+.job-toggle:focus {
+  background-color: rgba(0, 123, 255, 0.3); /* stronger on hover */
+  outline: none;
+}
+
+/* Job details background */
+.job-details {
+  background-color: rgba(0, 123, 255, 0.07); /* subtle lighter blue */
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem; /* reduced padding */
+  border-radius: 4px;
+  font-size: 0.9rem; /* smaller font */
+  color: var(--text-muted);
+  line-height: 1.5;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.job-details:not(.hidden) {
+  max-height: 200px; /* enough for content */
+  opacity: 1;
+}
+
+/* Responsibilities list stays inside job-details */
+.job-responsibilities {
+  list-style: disc inside;
+  margin: 0;
+  padding-left: 0.5rem;
+  color: var(--text-color);
+}
+
+.job-responsibility-item {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none;
+}
