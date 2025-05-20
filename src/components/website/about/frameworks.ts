@@ -3,36 +3,52 @@ import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { DisplayEvents } from "@utils/event_management/eventType";
 
 const template = document.createElement("template");
+
 template.innerHTML = `
-    <link rel="stylesheet" href="/style/about.css">
-    <div class="about hidden">
-        <div class="carousel">
-          <div class="carousel-track"></div>
-          <button class="prev">←</button>
-          <button class="next">→</button>
-        </div>
+    <link rel="stylesheet" href="/style/frameworks.css">
+    <div class="frameworks">
+      <div class="framework__navigation">
+        <button class="nav-btn nav--web">Web</button>
+        <button class="nav-btn nav--mobile">Mobile</button>
+        <button class="nav-btn nav--languages">Languages</button>
+        <button class="nav-btn nav--cli">CLI</button>
+      </div>
+
+      <div class="framework__contents">
+        <ul class="web"></ul>
+        <ul class="mobile"></ul>
+        <ul class="languages"></ul>
+        <ul class="cli"></ul>
+      </div>
+
+      
     </div>
 `;
 
-interface State {
-  currentIndex: number;
+interface Navigation {
+  web: HTMLButtonElement | null;
+  mobile: HTMLButtonElement | null;
+  language: HTMLButtonElement | null;
+  cli: HTMLButtonElement | null;
 }
 
 interface Components {
-  about: HTMLDivElement | null;
-  carousel: HTMLDivElement | null;
-  next: HTMLButtonElement | null;
-  prev: HTMLButtonElement | null;
-  track: HTMLDivElement | null;
+  framework: HTMLDivElement | null;
+  web: HTMLUListElement | null;
+  mobile: HTMLUListElement | null;
+  languages: HTMLUListElement | null;
+  cli: HTMLUListElement | null;
 }
 
-export class AboutPage extends HTMLElement {
-  state: State = {
-    currentIndex: 0,
-  };
+export interface FrameworkData{
+
+}
+
+export class FrameworkPage extends HTMLElement {
   root: ShadowRoot;
   displayBus: EventBus<DisplayEvents> | null = null;
   components: Components;
+  navigation: Navigation;
 
   constructor() {
     super();
@@ -43,20 +59,22 @@ export class AboutPage extends HTMLElement {
     this.root.appendChild(clone);
 
     this.components = {
-      about: this.root.querySelector(".about"),
-      carousel: this.root.querySelector(".carousel"),
-      next: this.root.querySelector(".next"),
-      prev: this.root.querySelector(".prev"),
-      track: this.root.querySelector(".carousel-track"),
+      framework: this.root.querySelector(".frameworks"),
+      web: this.root.querySelector(".web"),
+      mobile: this.root.querySelector(".mobile"),
+      languages: this.root.querySelector(".languages"),
+      cli: this.root.querySelector("cli"),
+    };
+
+    this.navigation = {
+      web: this.root.querySelector(".nav--web"),
+      mobile: this.root.querySelector(".nav--mobile"),
+      language: this.root.querySelector(".nav--language"),
+      cli: this.root.querySelector(".nav--cli"),
     };
   }
 
-  set eventBusManager(eventBusManager: EventBusManager) {
-    this.displayBus = eventBusManager.displayBus;
 
-    this.displayBus.on("about:show", this.onShow);
-    this.displayBus.on("about:hide", this.onHide);
-  }
 
   async connectedCallback() {
     try {
@@ -76,75 +94,27 @@ export class AboutPage extends HTMLElement {
   disconnectedCallback() {
     this.unbindEvents();
 
-    this.displayBus?.off("about:show", this.onShow);
-    this.displayBus?.off("about:hide", this.onHide);
+ 
   }
 
-  private onShow = () => {
-    this.components.about?.classList.toggle("hidden", false);
-  };
 
-  private onHide = () => {
-    this.components.about?.classList.toggle("hidden", true);
-  };
 
-  moveSlide = (index: number) => {
-    if (!this.components.track) return;
+  
 
-    this.state.currentIndex = index;
-    const slides = this.components.track.children;
-    const total = slides.length;
-
-    if (index < 0) this.state.currentIndex = 0;
-
-    if (index >= total) this.state.currentIndex = total - 1;
-
-    console.log("state index", this.state.currentIndex);
-
-    const slideWidth = slides[0].clientWidth ?? 0;
-    console.log("move", this.components.track.style);
-    if ("transform" in this.components.track.style) {
-      this.components.track.style.transform = `translateX(-${
-        this.state.currentIndex * slideWidth
-      }px)`;
-      console.log("move");
-    }
-  };
-
-  prevClick = (e: Event) => this.moveSlide(this.state.currentIndex - 1);
-  nextClick = (e: Event) => this.moveSlide(this.state.currentIndex + 1);
+  // prevClick = (e: Event) => this.moveSlide(this.state.currentIndex - 1);
+  // nextClick = (e: Event) => this.moveSlide(this.state.currentIndex + 1);
 
   private bindEvents = () => {
-    this.components.prev?.addEventListener("click", this.prevClick);
-    this.components.next?.addEventListener("click", this.nextClick);
+ 
   };
 
   private unbindEvents = () => {
-    this.components.prev?.removeEventListener("click", this.prevClick);
-    this.components.next?.removeEventListener("click", this.nextClick);
+   
   };
 
   private inflateCarousel(data: Record<string, { type: string; data: any }>) {
-    if (!this.components.track) return;
-
-    const fragment = document.createDocumentFragment();
-
-    Object.entries(data).forEach(([key, value]) => {
-      const slide = document.createElement("div");
-      slide.classList.add("slide");
-      const content = this.Content(value.type, value.data);
-      slide.appendChild(content);
-      fragment.appendChild(slide);
-    });
-
-    this.components.track.appendChild(fragment);
+   
   }
 
-  private Content(type: string, data: any): HTMLElement {
-    const title = document.createElement("h3");
-
-    title.innerText = type;
-
-    return title;
-  }
+  
 }

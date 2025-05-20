@@ -7,9 +7,11 @@ template.innerHTML = `
     <link rel="stylesheet" href="/style/about.css">
     <div class="about hidden">
         <div class="carousel">
-          <div class="carousel-track"></div>
-          <button class="prev">←</button>
-          <button class="next">→</button>
+          <div class="carousel-track">
+           
+          </div>
+      
+          <button class="download">→</button>
         </div>
     </div>
 `;

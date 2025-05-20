@@ -1,5 +1,4 @@
 import { getGlobalContext } from "@utils/globalContext";
-
 import { GAMEPLAY_OPTIONS } from "config/assets";
 import { createGameplay, Gameplay } from "./gameplay/gameplay";
 import { getThreeJsContext, ThreeJsContext } from "./internal/context";

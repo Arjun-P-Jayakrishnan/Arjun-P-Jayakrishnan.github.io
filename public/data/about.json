@@ -55,11 +55,28 @@
     "type": "Experience",
     "data": [
       {
-        "title": "Intern",
+        "title": "Software Development Engineer (SDE)",
+        "duration": "Sept 2024 - Present",
+        "responsibilities": [
+          "Designed and optimized simulation platform architecture",
+          "Developed 3D assets and graphics enhancements using Blender and custom shaders",
+          "Managed AWS storage and CI/CD pipelines with Jenkins"
+        ]
+      },
+      {
+        "title": "Creative Engineer Intern",
         "duration": "May 2023 - Sept 2024",
         "responsibilities": [
-          "I worked on 3d environments",
-          "i worked in ts language and babylon js"
+          "Developed applications and tools using TypeScript",
+          "Built foundational workflows to streamline creative processes",
+          "Designed and optimized data loading pipelines"
+        ]
+      },
+      {
+        "title": "Freelance Developer",
+        "duration": "May 2022 - May 2023",
+        "responsibilities": [
+          "Developed mobile-responsive websites tailored to client needs"
         ]
       }
     ]

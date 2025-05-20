@@ -123,14 +123,16 @@ export class AboutPage extends HTMLElement {
       (el) => el instanceof BackgroundPage
     ) as BackgroundPage;
 
-    const slotExperience=this.root.querySelector('slot[name="experience"]') as HTMLSlotElement;
+    const slotExperience = this.root.querySelector(
+      'slot[name="experience"]'
+    ) as HTMLSlotElement;
 
-    const nodesExperience = slotExperience?.assignedElements?.()||[];
+    const nodesExperience = slotExperience?.assignedElements?.() || [];
 
     const experience: ExperiencePage = nodesExperience.find(
       (el) => el instanceof ExperiencePage
     ) as ExperiencePage;
-    
+
     this.carouselItem = {
       background: background,
       experience: experience,
