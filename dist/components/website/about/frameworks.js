@@ -1,13 +1,2 @@
-var r=document.createElement("template");r.innerHTML=`
-    <link rel="stylesheet" href="/style/about.css">
-    <div class="about hidden">
-        <div class="carousel">
-          <div class="carousel-track"></div>
-          <button class="prev">\u2190</button>
-          <button class="next">\u2192</button>
-        </div>
-    </div>
-`;var i=class extends HTMLElement{constructor(){super();this.state={currentIndex:0};this.displayBus=null;this.onShow=()=>{this.components.about?.classList.toggle("hidden",false);};this.onHide=()=>{this.components.about?.classList.toggle("hidden",true);};this.moveSlide=t=>{if(!this.components.track)return;this.state.currentIndex=t;let e=this.components.track.children,n=e.length;t<0&&(this.state.currentIndex=0),t>=n&&(this.state.currentIndex=n-1),console.log("state index",this.state.currentIndex);let s=e[0].clientWidth??0;console.log("move",this.components.track.style),"transform"in this.components.track.style&&(this.components.track.style.transform=`translateX(-${this.state.currentIndex*s}px)`,console.log("move"));};this.prevClick=t=>this.moveSlide(this.state.currentIndex-1);this.nextClick=t=>this.moveSlide(this.state.currentIndex+1);this.bindEvents=()=>{this.components.prev?.addEventListener("click",this.prevClick),this.components.next?.addEventListener("click",this.nextClick);};this.unbindEvents=()=>{this.components.prev?.removeEventListener("click",this.prevClick),this.components.next?.removeEventListener("click",this.nextClick);};this.root=this.attachShadow({mode:"open"});let t=r.content.cloneNode(true);this.root.appendChild(t),this.components={about:this.root.querySelector(".about"),carousel:this.root.querySelector(".carousel"),next:this.root.querySelector(".next"),prev:this.root.querySelector(".prev"),track:this.root.querySelector(".carousel-track")};}set eventBusManager(t){this.displayBus=t.displayBus,this.displayBus.on("about:show",this.onShow),this.displayBus.on("about:hide",this.onHide);}async connectedCallback(){try{let e=await(await fetch("/public/data/about.json")).json();this.inflateCarousel(e),this.bindEvents();}catch{this.root.innerHTML=`
-        <p>Error in getting data</p>
-      `;}}disconnectedCallback(){this.unbindEvents(),this.displayBus?.off("about:show",this.onShow),this.displayBus?.off("about:hide",this.onHide);}inflateCarousel(t){if(!this.components.track)return;let e=document.createDocumentFragment();Object.entries(t).forEach(([n,s])=>{let o=document.createElement("div");o.classList.add("slide");let a=this.Content(s.type,s.data);o.appendChild(a),e.appendChild(o);}),this.components.track.appendChild(e);}Content(t,e){let n=document.createElement("h3");return n.innerText=t,n}};export{i as AboutPage};//# sourceMappingURL=frameworks.js.map
+export{a as FrameworkPage}from'../../../chunk-LJZ57ZT3.js';//# sourceMappingURL=frameworks.js.map
 //# sourceMappingURL=frameworks.js.map
