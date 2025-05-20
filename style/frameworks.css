@@ -1,0 +1,146 @@
+:host {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --primary-color: #1976d2;
+  --primary-hover: #145ea8;
+  --nav-bg-start: rgba(30, 30, 30, 0.85);
+  --nav-bg-end: rgba(40, 40, 40, 0.85);
+  --nav-border-color: rgba(255, 255, 255, 0.08);
+  --btn-text-color: #ffffff;
+  --btn-hover-bg: rgba(25, 118, 210, 0.2);
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --border-radius: 12px;
+  --gap: 1rem;
+  color: #e0e0e0;
+  background-color: transparent;
+  display: block;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.frameworks {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Sidebar with dark, transparent gradient */
+.framework__navigation {
+  width: 25%;
+  background: linear-gradient(to bottom, var(--nav-bg-start), var(--nav-bg-end));
+  border-right: 1px solid var(--nav-border-color);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  user-select: none;
+  box-shadow: inset -2px 0 6px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease;
+}
+
+/* Navigation buttons with soft neumorphism */
+.nav-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  color: var(--btn-text-color);
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: left;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5),
+              -2px -2px 5px rgba(255, 255, 255, 0.05);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+.nav-btn:hover,
+.nav-btn:focus-visible {
+  background-color: var(--btn-hover-bg);
+  box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 0.3),
+              inset -1px -1px 3px rgba(0, 0, 0, 0.3);
+  outline: none;
+  transform: translateX(4px);
+}
+
+.nav-btn.active {
+  background-color: var(--primary-color);
+  color: var(--btn-text-color);
+  box-shadow: 0 4px 10px rgba(25, 118, 210, 0.6);
+  transform: translateX(4px);
+}
+
+/* Transparent content area */
+.framework__contents {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: transparent;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.framework__contents > div {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.framework__contents > div.active {
+  display: block;
+}
+
+/* Grid layout for frameworks */
+.framework__contents ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--gap);
+  padding: 0;
+  margin: 0;
+}
+
+.framework__contents li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.25s ease;
+  cursor: default;
+}
+
+.framework__contents li:hover,
+.framework__contents li:focus-within {
+  background-color: #f0f4ff;
+  cursor: pointer;
+  outline: none;
+}
+
+.framework_logo {
+  height: 48px;
+  width: 48px;
+  object-fit: contain;
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

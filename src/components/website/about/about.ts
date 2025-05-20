@@ -3,6 +3,8 @@ import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { DisplayEvents } from "@utils/event_management/eventType";
 import { BackgroundPage } from "./background";
 import { ExperiencePage, JobExperience } from "./experience";
+import { FrameworkPage } from "./frameworks";
+import { ResumePage } from "./resume";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -45,6 +47,8 @@ interface Components {
 interface CarouselItems {
   background: BackgroundPage;
   experience: ExperiencePage;
+  resume: ResumePage;
+  frameworks: FrameworkPage;
 }
 
 export type AboutData =
@@ -110,30 +114,48 @@ export class AboutPage extends HTMLElement {
     if (!customElements.get("experience-page")) {
       customElements.define("experience-page", ExperiencePage);
     }
+
+    if (!customElements.get("resume-page")) {
+      customElements.define("resume-page", ResumePage);
+    }
+
+    if (!customElements.get("frameworks-page")) {
+      customElements.define("frameworks-page", FrameworkPage);
+    }
   };
 
+  private findElement(name: string, type: any) {
+    const id = `slot[name="${name}"]`;
+    console.log(id);
+    const slot = this.root.querySelector(id) as HTMLSlotElement;
+    const nodes = slot.assignedElements?.() || [];
+
+    const element = nodes.find((el) => el instanceof type);
+
+    return element as typeof type;
+  }
+
   private querySlottedElements = () => {
-    const slotBackground = this.root.querySelector(
-      'slot[name="background"]'
-    ) as HTMLSlotElement;
+    const background: BackgroundPage = this.findElement(
+      "background",
+      BackgroundPage
+    );
 
-    const nodesBackground = slotBackground?.assignedElements?.() || [];
+    const experience: ExperiencePage = this.findElement(
+      "experience",
+      ExperiencePage
+    );
+    const resume: ResumePage = this.findElement("resume", ResumePage);
+    const frameworks: FrameworkPage = this.findElement(
+      "frameworks",
+      FrameworkPage
+    );
 
-    const background = nodesBackground.find(
-      (el) => el instanceof BackgroundPage
-    ) as BackgroundPage;
-
-    const slotExperience=this.root.querySelector('slot[name="experience"]') as HTMLSlotElement;
-
-    const nodesExperience = slotExperience?.assignedElements?.()||[];
-
-    const experience: ExperiencePage = nodesExperience.find(
-      (el) => el instanceof ExperiencePage
-    ) as ExperiencePage;
-    
     this.carouselItem = {
       background: background,
       experience: experience,
+      resume: resume,
+      frameworks: frameworks,
     };
   };
 
@@ -252,8 +274,20 @@ export class AboutPage extends HTMLElement {
     );
   }
 
+  private setResume(resumeData: any) {
+    if (!this.carouselItem?.resume) return;
+  }
+
+  private setFrameworks(frameworkData: any) {
+    if (!this.carouselItem?.frameworks) return;
+
+    this.carouselItem.frameworks.FrameworkData = frameworkData;
+  }
+
   private inflateCarousel(data: Record<string, { type: string; data: any }>) {
     this.setBackground(data["personal"].data);
     this.setExperience(data["experience"].data);
+    this.setResume(data["resume"].data);
+    this.setFrameworks(data["frameworks"].data);
   }
 }

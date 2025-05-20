@@ -1,7 +1,6 @@
 import { getGlobalContext } from "@utils/globalContext";
-
 import { GAMEPLAY_OPTIONS } from "config/assets";
-import { createGameplay, Gameplay } from "./gameplay/gameplay";
+import { createGameplay, Gameplay } from "../../gameplay/gameplay";
 import { getThreeJsContext, ThreeJsContext } from "./internal/context";
 import { createThreeJsInstance } from "./internal/internal";
 import { createLoader, Loader, LoaderOptions } from "./loader/loader";

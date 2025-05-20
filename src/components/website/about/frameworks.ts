@@ -1,38 +1,62 @@
 import { EventBus } from "@utils/event_management/eventBus";
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { DisplayEvents } from "@utils/event_management/eventType";
 
 const template = document.createElement("template");
+
 template.innerHTML = `
-    <link rel="stylesheet" href="/style/about.css">
-    <div class="about hidden">
-        <div class="carousel">
-          <div class="carousel-track"></div>
-          <button class="prev">←</button>
-          <button class="next">→</button>
+    <link rel="stylesheet" href="/style/frameworks.css">
+    <div class="frameworks">
+      <div class="framework__navigation">
+        <button class="nav-btn nav--web">Web</button>
+        <button class="nav-btn nav--mobile">Mobile</button>
+        <button class="nav-btn nav--languages">Languages</button>
+        <button class="nav-btn nav--cli">CLI</button>
+      </div>
+
+      <div class="framework__contents">
+        <div class="web">
+          <ul class="web__content"></ul>
         </div>
+        <div class="mobile">
+          <ul class="mobile__content"></ul>
+        </div>
+        <div class="languages">
+          <ul class="languages__content"></ul>
+        </div>
+        <div class="cli">
+          <ul class="cli__content"></ul>
+        </div>
+      </div>
     </div>
 `;
 
-interface State {
-  currentIndex: number;
+interface Navigation {
+  web: HTMLButtonElement | null;
+  mobile: HTMLButtonElement | null;
+  language: HTMLButtonElement | null;
+  cli: HTMLButtonElement | null;
 }
 
 interface Components {
-  about: HTMLDivElement | null;
-  carousel: HTMLDivElement | null;
-  next: HTMLButtonElement | null;
-  prev: HTMLButtonElement | null;
-  track: HTMLDivElement | null;
+  framework: HTMLUListElement | null;
+  web: HTMLUListElement | null;
+  mobile: HTMLUListElement | null;
+  languages: HTMLUListElement | null;
+  cli: HTMLUListElement | null;
 }
 
-export class AboutPage extends HTMLElement {
-  state: State = {
-    currentIndex: 0,
-  };
+export interface FrameworkData {
+  web: any;
+  mobile: any;
+  languages: any;
+  cli: any;
+}
+
+export class FrameworkPage extends HTMLElement {
   root: ShadowRoot;
   displayBus: EventBus<DisplayEvents> | null = null;
   components: Components;
+  navigation: Navigation;
 
   constructor() {
     super();
@@ -43,108 +67,170 @@ export class AboutPage extends HTMLElement {
     this.root.appendChild(clone);
 
     this.components = {
-      about: this.root.querySelector(".about"),
-      carousel: this.root.querySelector(".carousel"),
-      next: this.root.querySelector(".next"),
-      prev: this.root.querySelector(".prev"),
-      track: this.root.querySelector(".carousel-track"),
+      framework: this.root.querySelector(".frameworks"),
+      web: this.root.querySelector(".web__content"),
+      mobile: this.root.querySelector(".mobile__content"),
+      languages: this.root.querySelector(".languages__content"),
+      cli: this.root.querySelector(".cli__content"),
     };
+
+    this.navigation = {
+      web: this.root.querySelector(".nav--web"),
+      mobile: this.root.querySelector(".nav--mobile"),
+      language: this.root.querySelector(".nav--languages"),
+      cli: this.root.querySelector(".nav--cli"),
+    };
+
+    console.log("components", this.components);
   }
 
-  set eventBusManager(eventBusManager: EventBusManager) {
-    this.displayBus = eventBusManager.displayBus;
-
-    this.displayBus.on("about:show", this.onShow);
-    this.displayBus.on("about:hide", this.onHide);
-  }
-
-  async connectedCallback() {
-    try {
-      const res = await fetch("/public/data/about.json");
-      const data = await res.json();
-
-      this.inflateCarousel(data);
-
-      this.bindEvents();
-    } catch (err) {
-      this.root.innerHTML = `
-        <p>Error in getting data</p>
-      `;
-    }
+  connectedCallback() {
+    this.bindEvents();
   }
 
   disconnectedCallback() {
     this.unbindEvents();
-
-    this.displayBus?.off("about:show", this.onShow);
-    this.displayBus?.off("about:hide", this.onHide);
   }
 
-  private onShow = () => {
-    this.components.about?.classList.toggle("hidden", false);
-  };
+  webClick = (e: Event) => this.openPage(0);
+  mobileClick = (e: Event) => this.openPage(1);
+  languagesClick = (e: Event) => this.openPage(2);
+  cliClick = (e: Event) => this.openPage(3);
 
-  private onHide = () => {
-    this.components.about?.classList.toggle("hidden", true);
-  };
+  private openPage(index: number) {
+    const web = this.root.querySelector(".web");
+    const mobile = this.root.querySelector(".mobile");
+    const languages = this.root.querySelector(".languages");
+    const cmdLine = this.root.querySelector(".cli");
 
-  moveSlide = (index: number) => {
-    if (!this.components.track) return;
+    web?.classList.toggle("active", false);
+    mobile?.classList.toggle("active", false);
+    languages?.classList.toggle("active", false);
+    cmdLine?.classList.toggle("active", false);
 
-    this.state.currentIndex = index;
-    const slides = this.components.track.children;
-    const total = slides.length;
+    if (index === 0) {
+      web?.classList.toggle("active", true);
+    } else if (index == 1) {
+      mobile?.classList.toggle("active", true);
+    } else if (index == 2) {
+      languages?.classList.toggle("active", true);
+    } else if (index == 3) {
+      cmdLine?.classList.toggle("active", true);
+    }
 
-    if (index < 0) this.state.currentIndex = 0;
+    console.log("index", index);
+  }
 
-    if (index >= total) this.state.currentIndex = total - 1;
+  private bindEvents = () => {
+    if (this.navigation.web) {
+      this.navigation.web.addEventListener("click", this.webClick);
+    }
 
-    console.log("state index", this.state.currentIndex);
+    if (this.navigation.mobile) {
+      this.navigation.mobile.addEventListener("click", this.mobileClick);
+    }
 
-    const slideWidth = slides[0].clientWidth ?? 0;
-    console.log("move", this.components.track.style);
-    if ("transform" in this.components.track.style) {
-      this.components.track.style.transform = `translateX(-${
-        this.state.currentIndex * slideWidth
-      }px)`;
-      console.log("move");
+    if (this.navigation.language) {
+      this.navigation.language.addEventListener("click", this.languagesClick);
+    }
+
+    if (this.navigation.cli) {
+      this.navigation.cli.addEventListener("click", this.cliClick);
     }
   };
 
-  prevClick = (e: Event) => this.moveSlide(this.state.currentIndex - 1);
-  nextClick = (e: Event) => this.moveSlide(this.state.currentIndex + 1);
-
-  private bindEvents = () => {
-    this.components.prev?.addEventListener("click", this.prevClick);
-    this.components.next?.addEventListener("click", this.nextClick);
-  };
-
   private unbindEvents = () => {
-    this.components.prev?.removeEventListener("click", this.prevClick);
-    this.components.next?.removeEventListener("click", this.nextClick);
+    if (this.navigation.web) {
+      this.navigation.web.removeEventListener("click", this.webClick);
+    }
+
+    if (this.navigation.mobile) {
+      this.navigation.mobile.removeEventListener("click", this.mobileClick);
+    }
+
+    if (this.navigation.language) {
+      this.navigation.language.removeEventListener(
+        "click",
+        this.languagesClick
+      );
+    }
+
+    if (this.navigation.cli) {
+      this.navigation.cli.removeEventListener("click", this.cliClick);
+    }
   };
 
-  private inflateCarousel(data: Record<string, { type: string; data: any }>) {
-    if (!this.components.track) return;
+  private addIcon(
+    name: string,
+    className: string[],
+    url: string
+  ): HTMLLIElement {
+    const li = document.createElement("li");
 
-    const fragment = document.createDocumentFragment();
+    // const icon = document.createElement("i");
+    // icon.classList.add(...className);
 
-    Object.entries(data).forEach(([key, value]) => {
-      const slide = document.createElement("div");
-      slide.classList.add("slide");
-      const content = this.Content(value.type, value.data);
-      slide.appendChild(content);
-      fragment.appendChild(slide);
-    });
+    // const span = document.createElement("span");
+    // span.textContent = name;
 
-    this.components.track.appendChild(fragment);
+    // li.appendChild(icon);
+    // li.appendChild(span);
+
+    const img = document.createElement("img");
+    img.setAttribute("src", url);
+    img.setAttribute("alt", name);
+    img.classList.add("framework_logo");
+
+    li.appendChild(img);
+
+    console.log(li);
+
+    return li;
   }
 
-  private Content(type: string, data: any): HTMLElement {
-    const title = document.createElement("h3");
+  private inflate(data: Array<{ name: string; link: string }>, type: string) {
+    console.log("inflate", type);
+    switch (type) {
+      case "web":
+        console.log("web", data);
+        const fragmentWeb = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragmentWeb.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
+        this.components.web?.appendChild(fragmentWeb);
+        break;
+      case "mobile":
+        const fragmentMobile = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragmentMobile.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
+        this.components.mobile?.appendChild(fragmentMobile);
+        break;
+      case "languages":
+        const fragmentLanguages = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragmentLanguages.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
+        this.components.languages?.appendChild(fragmentLanguages);
+        break;
+      case "command-line":
+        const fragment = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragment.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
 
-    title.innerText = type;
+        this.components.cli?.appendChild(fragment);
+        break;
+      default:
+        console.warn("The types doesnt match for frameworks");
+    }
+  }
 
-    return title;
+  set FrameworkData(data: FrameworkData) {
+    console.log("frameworks", data);
+    this.inflate(data["web"], "web");
+    this.inflate(data["mobile"], "mobile");
+    this.inflate(data["languages"], "languages");
+    this.inflate(data["cli"], "command-line");
   }
 }
