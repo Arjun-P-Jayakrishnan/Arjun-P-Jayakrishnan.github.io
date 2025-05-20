@@ -49,7 +49,105 @@
   },
   "frameworks": {
     "type": "Tech Stacks",
-    "data": {}
+    "data": {
+      "web": [
+        { "name": "React", "link": "https://cdn.simpleicons.org/react/61DAFB" },
+        {
+          "name": "Next.js",
+          "link": "https://cdn.simpleicons.org/next.js/000000"
+        },
+        { "name": "HTML5", "link": "https://cdn.simpleicons.org/html5/E34F26" },
+        { "name": "CSS3", "link": "https://cdn.simpleicons.org/css3/1572B6" },
+        {
+          "name": "JavaScript",
+          "link": "https://cdn.simpleicons.org/javascript/F7DF1E"
+        },
+        {
+          "name": "TypeScript",
+          "link": "https://cdn.simpleicons.org/typescript/3178C6"
+        },
+        {
+          "name": "Node.js",
+          "link": "https://cdn.simpleicons.org/node.js/339933"
+        },
+        {
+          "name": "Express",
+          "link": "https://cdn.simpleicons.org/express/000000"
+        },
+        {
+          "name": "Firebase",
+          "link": "https://cdn.simpleicons.org/firebase/FFCA28"
+        },
+        {
+          "name": "PostgreSQL",
+          "link": "https://cdn.simpleicons.org/postgresql/4169E1"
+        },
+        {
+          "name": "Jenkins",
+          "link": "https://cdn.simpleicons.org/jenkins/D24939"
+        },
+        {
+          "name": "AWS",
+          "link": "https://cdn.simpleicons.org/amazonaws/232F3E"
+        }
+      ],
+      "mobile": [
+        {
+          "name": "Flutter",
+          "link": "https://cdn.simpleicons.org/flutter/02569B"
+        },
+        {
+          "name": "Android Studio",
+          "link": "https://cdn.simpleicons.org/androidstudio/3DDC84"
+        },
+        { "name": "Dart", "link": "https://cdn.simpleicons.org/dart/0175C2" }
+      ],
+      "languages": [
+        {
+          "name": "JavaScript",
+          "link": "https://cdn.simpleicons.org/javascript/F7DF1E"
+        },
+        {
+          "name": "TypeScript",
+          "link": "https://cdn.simpleicons.org/typescript/3178C6"
+        },
+        {
+          "name": "Python",
+          "link": "https://cdn.simpleicons.org/python/3776AB"
+        },
+        { "name": "Java", "link": "https://cdn.simpleicons.org/java/007396" },
+        { "name": "C", "link": "https://cdn.simpleicons.org/c/A8B9CC" },
+        {
+          "name": "C++",
+          "link": "https://cdn.simpleicons.org/cplusplus/00599C"
+        },
+        { "name": "Go", "link": "https://cdn.simpleicons.org/go/00ADD8" },
+        { "name": "Dart", "link": "https://cdn.simpleicons.org/dart/0175C2" }
+      ],
+
+      "cli": [
+        { "name": "Git", "link": "https://cdn.simpleicons.org/git/F05032" },
+        {
+          "name": "GitHub",
+          "link": "https://cdn.simpleicons.org/github/181717"
+        },
+        {
+          "name": "Bitbucket",
+          "link": "https://cdn.simpleicons.org/bitbucket/0052CC"
+        },
+        { "name": "NPM", "link": "https://cdn.simpleicons.org/npm/CB3837" },
+        { "name": "PNPM", "link": "https://cdn.simpleicons.org/pnpm/F69220" },
+        {
+          "name": "Postman",
+          "link": "https://cdn.simpleicons.org/postman/FF6C37"
+        },
+        { "name": "Linux", "link": "https://cdn.simpleicons.org/linux/FCC624" },
+        {
+          "name": "Terminal",
+          "link": "https://cdn.simpleicons.org/gnome-terminal/4E9A06"
+        }
+      ]
+    }
   },
   "experience": {
     "type": "Experience",

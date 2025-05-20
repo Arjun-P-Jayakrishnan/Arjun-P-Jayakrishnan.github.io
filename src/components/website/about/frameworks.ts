@@ -1,5 +1,4 @@
 import { EventBus } from "@utils/event_management/eventBus";
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
 import { DisplayEvents } from "@utils/event_management/eventType";
 
 const template = document.createElement("template");
@@ -15,13 +14,19 @@ template.innerHTML = `
       </div>
 
       <div class="framework__contents">
-        <ul class="web"></ul>
-        <ul class="mobile"></ul>
-        <ul class="languages"></ul>
-        <ul class="cli"></ul>
+        <div class="web">
+          <ul class="web__content"></ul>
+        </div>
+        <div class="mobile">
+          <ul class="mobile__content"></ul>
+        </div>
+        <div class="languages">
+          <ul class="languages__content"></ul>
+        </div>
+        <div class="cli">
+          <ul class="cli__content"></ul>
+        </div>
       </div>
-
-      
     </div>
 `;
 
@@ -33,15 +38,18 @@ interface Navigation {
 }
 
 interface Components {
-  framework: HTMLDivElement | null;
+  framework: HTMLUListElement | null;
   web: HTMLUListElement | null;
   mobile: HTMLUListElement | null;
   languages: HTMLUListElement | null;
   cli: HTMLUListElement | null;
 }
 
-export interface FrameworkData{
-
+export interface FrameworkData {
+  web: any;
+  mobile: any;
+  languages: any;
+  cli: any;
 }
 
 export class FrameworkPage extends HTMLElement {
@@ -60,61 +68,169 @@ export class FrameworkPage extends HTMLElement {
 
     this.components = {
       framework: this.root.querySelector(".frameworks"),
-      web: this.root.querySelector(".web"),
-      mobile: this.root.querySelector(".mobile"),
-      languages: this.root.querySelector(".languages"),
-      cli: this.root.querySelector("cli"),
+      web: this.root.querySelector(".web__content"),
+      mobile: this.root.querySelector(".mobile__content"),
+      languages: this.root.querySelector(".languages__content"),
+      cli: this.root.querySelector(".cli__content"),
     };
 
     this.navigation = {
       web: this.root.querySelector(".nav--web"),
       mobile: this.root.querySelector(".nav--mobile"),
-      language: this.root.querySelector(".nav--language"),
+      language: this.root.querySelector(".nav--languages"),
       cli: this.root.querySelector(".nav--cli"),
     };
+
+    console.log("components", this.components);
   }
 
-
-
-  async connectedCallback() {
-    try {
-      const res = await fetch("/public/data/about.json");
-      const data = await res.json();
-
-      this.inflateCarousel(data);
-
-      this.bindEvents();
-    } catch (err) {
-      this.root.innerHTML = `
-        <p>Error in getting data</p>
-      `;
-    }
+  connectedCallback() {
+    this.bindEvents();
   }
 
   disconnectedCallback() {
     this.unbindEvents();
-
- 
   }
 
+  webClick = (e: Event) => this.openPage(0);
+  mobileClick = (e: Event) => this.openPage(1);
+  languagesClick = (e: Event) => this.openPage(2);
+  cliClick = (e: Event) => this.openPage(3);
 
+  private openPage(index: number) {
+    const web = this.root.querySelector(".web");
+    const mobile = this.root.querySelector(".mobile");
+    const languages = this.root.querySelector(".languages");
+    const cmdLine = this.root.querySelector(".cli");
 
-  
+    web?.classList.toggle("active", false);
+    mobile?.classList.toggle("active", false);
+    languages?.classList.toggle("active", false);
+    cmdLine?.classList.toggle("active", false);
 
-  // prevClick = (e: Event) => this.moveSlide(this.state.currentIndex - 1);
-  // nextClick = (e: Event) => this.moveSlide(this.state.currentIndex + 1);
+    if (index === 0) {
+      web?.classList.toggle("active", true);
+    } else if (index == 1) {
+      mobile?.classList.toggle("active", true);
+    } else if (index == 2) {
+      languages?.classList.toggle("active", true);
+    } else if (index == 3) {
+      cmdLine?.classList.toggle("active", true);
+    }
+
+    console.log("index", index);
+  }
 
   private bindEvents = () => {
- 
+    if (this.navigation.web) {
+      this.navigation.web.addEventListener("click", this.webClick);
+    }
+
+    if (this.navigation.mobile) {
+      this.navigation.mobile.addEventListener("click", this.mobileClick);
+    }
+
+    if (this.navigation.language) {
+      this.navigation.language.addEventListener("click", this.languagesClick);
+    }
+
+    if (this.navigation.cli) {
+      this.navigation.cli.addEventListener("click", this.cliClick);
+    }
   };
 
   private unbindEvents = () => {
-   
+    if (this.navigation.web) {
+      this.navigation.web.removeEventListener("click", this.webClick);
+    }
+
+    if (this.navigation.mobile) {
+      this.navigation.mobile.removeEventListener("click", this.mobileClick);
+    }
+
+    if (this.navigation.language) {
+      this.navigation.language.removeEventListener(
+        "click",
+        this.languagesClick
+      );
+    }
+
+    if (this.navigation.cli) {
+      this.navigation.cli.removeEventListener("click", this.cliClick);
+    }
   };
 
-  private inflateCarousel(data: Record<string, { type: string; data: any }>) {
-   
+  private addIcon(
+    name: string,
+    className: string[],
+    url: string
+  ): HTMLLIElement {
+    const li = document.createElement("li");
+
+    // const icon = document.createElement("i");
+    // icon.classList.add(...className);
+
+    // const span = document.createElement("span");
+    // span.textContent = name;
+
+    // li.appendChild(icon);
+    // li.appendChild(span);
+
+    const img = document.createElement("img");
+    img.setAttribute("src", url);
+    img.setAttribute("alt", name);
+    img.classList.add("framework_logo");
+
+    li.appendChild(img);
+
+    console.log(li);
+
+    return li;
   }
 
-  
+  private inflate(data: Array<{ name: string; link: string }>, type: string) {
+    console.log("inflate", type);
+    switch (type) {
+      case "web":
+        console.log("web", data);
+        const fragmentWeb = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragmentWeb.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
+        this.components.web?.appendChild(fragmentWeb);
+        break;
+      case "mobile":
+        const fragmentMobile = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragmentMobile.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
+        this.components.mobile?.appendChild(fragmentMobile);
+        break;
+      case "languages":
+        const fragmentLanguages = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragmentLanguages.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
+        this.components.languages?.appendChild(fragmentLanguages);
+        break;
+      case "command-line":
+        const fragment = document.createDocumentFragment();
+        data.forEach((icon) => {
+          fragment.appendChild(this.addIcon(icon.name, [], icon.link));
+        });
+
+        this.components.cli?.appendChild(fragment);
+        break;
+      default:
+        console.warn("The types doesnt match for frameworks");
+    }
+  }
+
+  set FrameworkData(data: FrameworkData) {
+    console.log("frameworks", data);
+    this.inflate(data["web"], "web");
+    this.inflate(data["mobile"], "mobile");
+    this.inflate(data["languages"], "languages");
+    this.inflate(data["cli"], "command-line");
+  }
 }
