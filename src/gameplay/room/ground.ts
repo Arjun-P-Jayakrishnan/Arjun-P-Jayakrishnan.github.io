@@ -1,4 +1,5 @@
-import { getThreeJsContext } from "graphics/internal/context";
+
+import { getThreeJsContext } from "core/game_engine/game_context";
 import { createGridMaterial, GridMaterial } from "graphics/materials/grid/grid-material";
 import { Mesh } from "three";
 
@@ -22,7 +23,7 @@ export const createGround = (props: GroundProps): Ground => {
 
   const mount = () => {
     ground = contextManager
-      .getProperty("scene")
+      .get("scene")
       .getObjectByName(props.ids.groundRoot) as Mesh;
 
     if (!ground) {
@@ -33,7 +34,7 @@ export const createGround = (props: GroundProps): Ground => {
     }
 
     gridMat = createGridMaterial({
-      camera: contextManager.getProperty("camera"),
+      camera: contextManager.get("camera"),
       fadeNear: 0.1,
       fadeFar: 1,
     });
@@ -42,7 +43,7 @@ export const createGround = (props: GroundProps): Ground => {
   };
 
   const update = () => {
-    gridMat?.update(contextManager.getProperty("camera").position)
+    gridMat?.update(contextManager.get("camera").position)
   };
 
   const unmount = () => {};

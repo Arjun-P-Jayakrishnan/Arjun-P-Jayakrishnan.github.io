@@ -12,7 +12,9 @@
     "paths": {
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@style/*":["style/*"]
+      "@style/*":["style/*"],
+      "@managers/*":["managers/*"],
+      "@debugger/*":["debugger/*"]
     }, 
     "types": ["@types/three"]
   },

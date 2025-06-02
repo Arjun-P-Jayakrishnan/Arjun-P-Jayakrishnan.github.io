@@ -1,13 +1,14 @@
-import { createEventBus } from "@utils/event_management/eventBus";
-import { LoadingEvents } from "@utils/event_management/eventType";
-import { GlobalState } from "@utils/state/globalState";
-import { LoadingContext } from "@utils/state/globalStateData";
 import { LoadingManager, Scene, WebGLRenderer } from "three";
 import { createHDRLoader } from "./file_type_plugins/hdr_loader";
 import { createMeshLoader } from "./file_type_plugins/mesh_loader";
 import { AssetMetaData, LoaderPlugin } from "./loaderPlugins";
+import { LoadingEvents } from "@managers/events/eventType";
+import { createEventBus } from "@managers/events/eventBus";
+import { GlobalState } from "@managers/state/globalState";
+import { LoadingContext } from "@managers/state/globalStateData";
+import { processPipelineDebugger } from "debug/debugger";
 
-export interface LoaderOptions {
+export interface LoadOptions {
   meshesMetaData: AssetMetaData[];
   hdrMetaData?: AssetMetaData;
 }
@@ -21,7 +22,7 @@ export interface LoaderContext {
 
 export interface Loader {
   configure: () => void;
-  loadAll: () => Promise<{
+  load: (assets:LoadOptions) => Promise<{
     success: string[];
     error: string[];
   }>;
@@ -34,14 +35,13 @@ export interface Loader {
  * @returns Loader
  */
 export const createLoader = (
-  options: LoaderOptions,
   context: LoaderContext
 ): Loader => {
   const { scene, renderer, loaderEventBus, globalState } = context;
-  const { meshesMetaData, hdrMetaData } = options;
+  
 
   const manager: LoadingManager = new LoadingManager();
-  const plugins: LoaderPlugin[] = [];
+  let plugins: LoaderPlugin[] = [];
 
   /**
    * @description attaches the event bus for listening to loading changes
@@ -94,11 +94,11 @@ export const createLoader = (
   /**
    * @description create necessary loaders
    */
-  const _configurePlugins = () => {
-    if (meshesMetaData.length > 0) {
+  const _configurePlugins = (meshes:AssetMetaData[],hdr?:AssetMetaData) => {
+    if (meshes.length > 0) {
       plugins.push(
         createMeshLoader({
-          assets: meshesMetaData,
+          assets: meshes,
           scene: scene,
           loadingManager: manager,
           loadingEventBus: loaderEventBus,
@@ -106,10 +106,10 @@ export const createLoader = (
       );
     }
 
-    if (hdrMetaData !== undefined && hdrMetaData !== null) {
+    if (hdr !== undefined && hdr !== null) {
       plugins.push(
         createHDRLoader({
-          asset: hdrMetaData,
+          asset: hdr,
           scene: scene,
           renderer: renderer,
           loadingManager: manager,
@@ -124,20 +124,27 @@ export const createLoader = (
    */
   const _configure = () => {
     _configureLoadingManager();
-    _configurePlugins();
+   
   };
 
   /**
    * @description load all types of assets
    */
-  const load = async (): Promise<{ success: []; error: [] }> => {
+  const load = async (assets:LoadOptions): Promise<{ success: []; error: [] }> => {
+    processPipelineDebugger.onInit(`loading the models ${JSON.stringify(assets)}`)
+
     const promises: Promise<void>[] = [];
+     _configurePlugins(assets.meshesMetaData,assets.hdrMetaData);
 
     plugins.forEach((plugin) => {
       promises.push(plugin.load());
     });
 
     await Promise.allSettled(promises);
+
+    plugins=[];
+
+    processPipelineDebugger.onInit(`loaded models i guess`)
 
     return {
       success: [],
@@ -153,7 +160,7 @@ export const createLoader = (
 
   return {
     configure: _configure,
-    loadAll: load,
+    load: load,
     dispose: dispose,
   };
 };

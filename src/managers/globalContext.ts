@@ -1,7 +1,5 @@
-import {
-  createEventBusManager,
-  EventBusManager,
-} from "./event_management/eventBusFactory";
+
+import { createEventBusManager, EventBusManager } from "./events/eventBusFactory";
 import { createGlobalState, GlobalState } from "./state/globalState";
 import { GlobalStateContext } from "./state/globalStateData";
 import { createGlobalStorage, GlobalStorage } from "./storage/globalStorage";

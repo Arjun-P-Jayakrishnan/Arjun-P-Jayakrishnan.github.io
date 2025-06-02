@@ -1,6 +1,6 @@
-import { EventBus } from "@utils/event_management/eventBus";
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
-import { DisplayEvents } from "@utils/event_management/eventType";
+import { EventBus } from "@managers/events/eventBus";
+import { EventBusManager } from "@managers/events/eventBusFactory";
+import { DisplayEvents } from "@managers/events/eventType";
 import { CardMarshall, ProjectCard } from "./card";
 
 

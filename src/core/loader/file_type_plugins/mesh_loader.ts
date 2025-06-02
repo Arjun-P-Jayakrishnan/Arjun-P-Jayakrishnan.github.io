@@ -1,6 +1,6 @@
 import { createEventBus } from "@utils/event_management/eventBus";
 import type { LoadingEvents } from "@utils/event_management/eventType";
-import { getGlobalContext } from "@utils/globalContext";
+import { getGlobalContext } from "managers/globalContext";
 import { Scene } from "three";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -35,13 +35,12 @@ export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
       model.scene.position.set(0, 0, 0);
       metaData.onSuccess?.();
 
-      globalStorage
-        .getStorage("animations")
-        .store(metaData.name + ":animations", model.animations);
-      globalStorage
-        .getStorage("groups")
-        .store(metaData.name + ":groups", model.scene);
-      console.log("loading mesh", metaData.name);
+      globalStorage.getStorage(metaData.name).store(metaData.name, {
+        animations: model.animations,
+        groups: model.scene,
+        type: "",
+      });
+      console.log("storing", metaData.name);
     } catch (err) {
       metaData.onError?.(err as Error);
       loadingEventBus.emit({ type: "load:error", url: metaData.path });

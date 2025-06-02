@@ -1,10 +1,9 @@
 import {
   createWebComponentManager,
   WebComponentManager,
-} from "@components/main";
-import { getGlobalContext, References } from "@utils/globalContext";
-import { GAME_MANAGER_PROPS } from "config/assets";
-import { createGameManager, GameEngineManager } from "graphics/main";
+} from "core/components/main";
+import { createGameManager, GameEngineManager } from "core/game_engine/main";
+import { getGlobalContext, References } from "managers/globalContext";
 
 interface Managers {
   webComponent: WebComponentManager;
@@ -32,10 +31,10 @@ const preMount = () => {
      */
     managers = {
       webComponent: createWebComponentManager(),
-      gameEngine: createGameManager(GAME_MANAGER_PROPS),
+      gameEngine: createGameManager(),
     };
 
-    managers.webComponent.mountComponents();
+    managers.webComponent.mount();
     managers.gameEngine.mount();
 
     flags.isPreMounted = true;
@@ -47,7 +46,7 @@ const preMount = () => {
 const loadData = async () => {
   try {
     console.log("getting data from json files");
-    await managers.webComponent.loadData();
+    await managers.webComponent.load();
   } catch (err) {
     console.error(`Error loading data from json ${err}`);
   }
@@ -113,7 +112,7 @@ const mount = () => {
 const unmount = () => {
   try {
     if (!flags.isMounted) return;
-    managers.webComponent.unmountComponents();
+    managers.webComponent.unmount();
     managers.gameEngine.unmount();
   } catch (err) {
     console.error(`Error while main unmount due to : ${err}`);

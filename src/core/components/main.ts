@@ -1,36 +1,27 @@
-import { getGlobalContext } from "@utils/globalContext";
-import { SceneInspector } from "./threejs/scene_inspector";
-import { AboutPage } from "./website/about/about";
-import { ProjectCard } from "./website/gallery/card";
+import { getGlobalContext } from "managers/globalContext";
+import { SceneInspector } from "../../components/threejs/scene_inspector";
+import { AboutPage } from "../../components/website/about/about";
+import { ProjectCard } from "../../components/website/gallery/card";
 
-import { BackgroundPage } from "./website/about/background";
-import { ProjectGallery } from "./website/gallery/gallery";
-import { LoadingModal } from "./website/loading";
-import { Navbar } from "./website/navbar/header";
+import { ProjectGallery } from "../../components/website/gallery/gallery";
+import { LoadingModal } from "../../components/website/loading";
+import { Navbar } from "../../components/website/navbar/header";
+import { processPipelineDebugger } from "debug/debugger";
+import { LifeCycle } from "core/lifecyle";
 
-export interface WebComponentManager {
-  /**
-   * @description mounts the web components
-   */
-  mountComponents: () => void;
-  /**
-   * @description attach global context references
-   */
+export interface WebComponentManager extends LifeCycle{
+  /**attach global context references */
   attachReferences: () => void;
-  /**
-   * @description loading data
-   */
-  loadData: () => Promise<void>;
-  /**
-   * @description unmounts web components
-   */
-  unmountComponents: () => void;
+
+  /**load external data */
+  load: () => Promise<void>;
+
+  /**unmounts web components */
+  unmount: () => void;
 }
 
 export const createWebComponentManager = (): WebComponentManager => {
-  /**
-   * @description mount components
-   */
+ 
   const mountComponents = () => {
     customElements.define("loading-modal", LoadingModal);
     customElements.define("nav-bar", Navbar);
@@ -39,13 +30,14 @@ export const createWebComponentManager = (): WebComponentManager => {
     customElements.define("scene-inspector", SceneInspector);
     customElements.define("about-page", AboutPage);
     
-    console.log("custom components mounted");
+    processPipelineDebugger.onMount('web-components');
   };
 
   /**
    * attach references like global context for the web components
    */
   const attachReferences = () => {
+    processPipelineDebugger.onLoad('web-components')
     /***
      * get context attached to web components
      */
@@ -106,7 +98,6 @@ export const createWebComponentManager = (): WebComponentManager => {
         isError: false,
         records: data,
       };
-      
     } catch (err) {
       about.updateData = {
         isError: true,
@@ -120,6 +111,7 @@ export const createWebComponentManager = (): WebComponentManager => {
    * unmount web components
    */
   const unmountComponents = () => {
+    processPipelineDebugger.onUnmount('web-components')
     const selectors = [
       "loading-modal",
       "nav-bar",
@@ -141,14 +133,12 @@ export const createWebComponentManager = (): WebComponentManager => {
         );
       }
     });
-
-    console.log("custom components unmounted");
   };
 
   return {
-    mountComponents: mountComponents,
+    mount: mountComponents,
     attachReferences: attachReferences,
-    loadData: loadData,
-    unmountComponents: unmountComponents,
+    load: loadData,
+    unmount: unmountComponents,
   };
 };

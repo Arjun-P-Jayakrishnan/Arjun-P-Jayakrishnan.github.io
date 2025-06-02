@@ -1,6 +1,6 @@
-import { EventBus } from "@utils/event_management/eventBus";
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
-import { LoadingEvents } from "@utils/event_management/eventType";
+import { EventBus } from "@managers/events/eventBus";
+import { EventBusManager } from "@managers/events/eventBusFactory";
+import { LoadingEvents } from "@managers/events/eventType";
 
 const template = document.createElement("template");
 

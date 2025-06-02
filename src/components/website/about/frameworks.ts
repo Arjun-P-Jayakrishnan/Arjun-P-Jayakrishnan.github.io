@@ -1,5 +1,5 @@
-import { EventBus } from "@utils/event_management/eventBus";
-import { DisplayEvents } from "@utils/event_management/eventType";
+import { EventBus } from "@managers/events/eventBus";
+import { DisplayEvents } from "@managers/events/eventType";
 
 const template = document.createElement("template");
 
@@ -80,8 +80,6 @@ export class FrameworkPage extends HTMLElement {
       language: this.root.querySelector(".nav--languages"),
       cli: this.root.querySelector(".nav--cli"),
     };
-
-    console.log("components", this.components);
   }
 
   connectedCallback() {
@@ -118,7 +116,7 @@ export class FrameworkPage extends HTMLElement {
       cmdLine?.classList.toggle("active", true);
     }
 
-    console.log("index", index);
+
   }
 
   private bindEvents = () => {
@@ -183,16 +181,16 @@ export class FrameworkPage extends HTMLElement {
 
     li.appendChild(img);
 
-    console.log(li);
+
 
     return li;
   }
 
   private inflate(data: Array<{ name: string; link: string }>, type: string) {
-    console.log("inflate", type);
+   
     switch (type) {
       case "web":
-        console.log("web", data);
+       
         const fragmentWeb = document.createDocumentFragment();
         data.forEach((icon) => {
           fragmentWeb.appendChild(this.addIcon(icon.name, [], icon.link));
@@ -227,7 +225,6 @@ export class FrameworkPage extends HTMLElement {
   }
 
   set FrameworkData(data: FrameworkData) {
-    console.log("frameworks", data);
     this.inflate(data["web"], "web");
     this.inflate(data["mobile"], "mobile");
     this.inflate(data["languages"], "languages");

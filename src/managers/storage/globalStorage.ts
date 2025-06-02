@@ -1,4 +1,4 @@
-import { AnimationClip, Group, Object3DEventMap } from "three";
+import { ObjectStorageUnit } from "./storageTypes";
 import { createStorageUnit, StorageUnit } from "./storageUnit";
 
 export interface GlobalStorageProps {}
@@ -6,28 +6,22 @@ export interface GlobalStorageProps {}
 export interface GlobalStorage {
   mount: () => void;
   unmount: () => void;
-  getStorage: <K extends keyof StorageMap>(key: K) => GenericStorageUnit[K];
+  getStorage: (id: string) => StorageUnit<StorageMap>;
 }
 
-type StorageMap = {
-  animations: AnimationClip[];
-  groups: Group<Object3DEventMap>;
-};
+type StorageMap = ObjectStorageUnit;
 
 type GenericStorageUnit = {
-  [K in keyof StorageMap]: StorageUnit<StorageMap[K]>;
+  [id: string]: StorageUnit<StorageMap>;
 };
 
-export const createGlobalStorage = <K extends keyof StorageMap>(
+export const createGlobalStorage = (
   _props: GlobalStorageProps
 ): GlobalStorage => {
   let storage: GenericStorageUnit | undefined;
-
+  let unit: StorageUnit<StorageMap>;
   const mount = () => {
-    storage = {
-      animations: createStorageUnit<AnimationClip[]>(),
-      groups: createStorageUnit<Group<Object3DEventMap>>(),
-    };
+    storage = {};
   };
 
   const unmount = () => {
@@ -36,13 +30,18 @@ export const createGlobalStorage = <K extends keyof StorageMap>(
     storage = undefined;
   };
 
-  const getStorage = <K extends keyof StorageMap>(
-    key: K
-  ): GenericStorageUnit[K] => {
+  const getStorage = (key: string): StorageUnit<StorageMap> => {
     if (storage === undefined) {
       throw new Error(`Must mount the storage first`);
     }
-    return storage[key];
+    unit = storage[key];
+
+    if (unit === undefined) {
+      unit = createStorageUnit();
+      storage[key] = unit;
+    }
+
+    return unit;
   };
 
   return {

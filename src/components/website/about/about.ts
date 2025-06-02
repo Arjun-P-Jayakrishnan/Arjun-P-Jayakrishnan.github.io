@@ -1,6 +1,6 @@
-import { EventBus } from "@utils/event_management/eventBus";
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
-import { DisplayEvents } from "@utils/event_management/eventType";
+import { EventBus } from "@managers/events/eventBus";
+import { EventBusManager } from "@managers/events/eventBusFactory";
+import { DisplayEvents } from "@managers/events/eventType";
 import { BackgroundPage } from "./background";
 import { ExperiencePage, JobExperience } from "./experience";
 import { FrameworkPage } from "./frameworks";
@@ -95,8 +95,6 @@ export class AboutPage extends HTMLElement {
       navButtons: buttons as any as HTMLButtonElement[],
     };
 
-    console.log(this.components.navButtons);
-
     this.components.navButtons.forEach((_, index) => {
       this.navButtonClicks.push((e: Event) =>
         this.swapSlides(index - this.state.currentIndex)
@@ -126,7 +124,6 @@ export class AboutPage extends HTMLElement {
 
   private findElement(name: string, type: any) {
     const id = `slot[name="${name}"]`;
-    console.log(id);
     const slot = this.root.querySelector(id) as HTMLSlotElement;
     const nodes = slot.assignedElements?.() || [];
 

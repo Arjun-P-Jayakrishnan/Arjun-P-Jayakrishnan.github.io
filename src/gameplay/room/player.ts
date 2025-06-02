@@ -1,9 +1,11 @@
-import { getGlobalContext } from "@utils/globalContext";
-import { getThreeJsContext } from "graphics/internal/context";
+
+import { getThreeJsContext } from "core/game_engine/game_context";
+import { getControllers } from "graphics/mechanics/controllers/controller";
+import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
+import { MouseController } from "graphics/mechanics/controllers/plugins/mouse";
+import { getGlobalContext } from "managers/globalContext";
 import { AnimationMixer, Euler, Object3D, Scene, Vector3 } from "three";
-import { getControllers } from "../controllers/controller";
-import { KeyboardController } from "../controllers/plugins/keyboard";
-import { MouseController } from "../controllers/plugins/mouse";
+
 
 export interface PlayerProps {
   ids: {
@@ -88,7 +90,7 @@ export const createPlayer = (props: PlayerProps): Player => {
   const create = () => {
     try {
       let playerRoot = contextManager
-        .getProperty("scene")
+        .get("scene")
         .getObjectByName(props.ids.rootMesh);
 
       // const playerRoot=scene.getObjectByName(props.ids.rootMesh) as Object3D;
