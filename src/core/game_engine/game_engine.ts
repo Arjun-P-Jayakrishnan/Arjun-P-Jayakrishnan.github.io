@@ -1,4 +1,5 @@
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { getThreeJsContext } from "./game_context";
 import { LifeCycle, Nullable } from "core/lifecyle";
 import { processPipelineDebugger } from "debug/debugger";
@@ -35,6 +36,7 @@ export const createThreeJsInstance = (
   let scene: Scene = new Scene();
   let camera: PerspectiveCamera = new PerspectiveCamera(fov,aspectRatio,near,far);
   let renderer: WebGLRenderer = new WebGLRenderer({ antialias: true });
+  let orbit:OrbitControls;
 
   // State
   let animationCallback: Nullable<()=>void>=null;
@@ -47,12 +49,14 @@ export const createThreeJsInstance = (
 
   const mountRendererToDom = (elementId: string):void => {
     const container = document.getElementById(elementId);
+  
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
     if (container) {
       container.appendChild(renderer.domElement);
+      orbit= new OrbitControls(camera,renderer.domElement);
     } else {
       console.warn(`Could not find element with selector tag : ${elementId}`);
     }
@@ -62,7 +66,7 @@ export const createThreeJsInstance = (
    * Mount the context_manager to allow reference to scene and other props externally
    */
   const exposeToContext = ():void => {
-    contextManager.mount({scene: scene,camera: camera,renderer: renderer});
+    contextManager.mount({scene: scene,camera: camera,renderer: renderer,orbit:orbit});
   };
 
   const mount = () => {
@@ -80,12 +84,12 @@ export const createThreeJsInstance = (
     if(animationFrameId !==null) return;//prevent multiple render loops
 
     const loop=()=>{
-        //Recursive callback function
-        animationFrameId = requestAnimationFrame(render);
-        animationCallback?.();
-        renderer.render(scene, camera);
+      //Recursive callback function
+      animationFrameId = requestAnimationFrame(loop);
+      animationCallback?.();
+      renderer.render(scene, camera);
     }
-
+  
     loop();
   };
 

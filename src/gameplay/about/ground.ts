@@ -1,7 +1,9 @@
 
 import { getThreeJsContext } from "core/game_engine/game_context";
+import { Nullable } from "core/lifecyle";
+import { processPipelineDebugger } from "debug/debugger";
 import { createGridMaterial, GridMaterial } from "graphics/materials/grid/grid-material";
-import { Mesh } from "three";
+import { Material, Mesh, MeshStandardMaterial, PlaneGeometry } from "three";
 
 export interface GroundProps {
   ids: {
@@ -11,15 +13,14 @@ export interface GroundProps {
 
 export interface Ground {
   mount: () => void;
-  update: () => void;
+  actiavte:()=>void;
+  deactivate:()=>void;
   unmount: () => void;
 }
 
 export const createGround = (props: GroundProps): Ground => {
-  let ground: Mesh | null = null;
+  let ground: Nullable<Mesh> = null;
   let contextManager = getThreeJsContext();
-
-  let gridMat: GridMaterial | null = null;
 
   const mount = () => {
     ground = contextManager
@@ -31,26 +32,27 @@ export const createGround = (props: GroundProps): Ground => {
         `Cant get ground mesh from the id : ${props.ids.groundRoot}`
       );
       return;
-    }
-
-    gridMat = createGridMaterial({
-      camera: contextManager.get("camera"),
-      fadeNear: 0.1,
-      fadeFar: 1,
-    });
-
-    ground.material = gridMat.mat;
+    } 
+    ground.material=(ground.material as Material).clone();
+    ground.receiveShadow=true;
+    
+    (ground.material as Material).needsUpdate=true;
+    (ground.material as MeshStandardMaterial).opacity=0.15;
+    (ground.material as MeshStandardMaterial).transparent=true;
+    
+    processPipelineDebugger.onMount('about-ground')
   };
 
-  const update = () => {
-    gridMat?.update(contextManager.get("camera").position)
-  };
+  const activate=()=>{}
+
+  const deactivate=()=>{}
 
   const unmount = () => {};
 
   return {
     mount: mount,
-    update:update,
+    actiavte:activate,
+    deactivate:deactivate,
     unmount: unmount,
   };
 };

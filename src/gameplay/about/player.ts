@@ -1,16 +1,16 @@
 
 import { getGlobalContext } from "@managers/globalContext";
 import { getThreeJsContext } from "core/game_engine/game_context";
+import { Nullable } from "core/lifecyle";
+import { processPipelineDebugger } from "debug/debugger";
 import { getControllers } from "graphics/mechanics/controllers/controller";
 import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
 import { MouseController } from "graphics/mechanics/controllers/plugins/mouse";
-import { AnimationMixer, Euler, Object3D, Scene, Vector3 } from "three";
+import { AnimationMixer, Euler, Object3D, Object3DEventMap, Scene, Vector3 } from "three";
 
 
 export interface PlayerProps {
-  ids: {
-    rootMesh: string;
-  };
+  rootMeshId:string
 }
 
 export interface PlayerContext {
@@ -18,31 +18,13 @@ export interface PlayerContext {
 }
 
 export interface Player {
-  create: () => void;
-  update: (
-    deltaTime: number,
-    rotation: {
-      yaw: number;
-      pitch: number;
-    },
-    camera: {
-      rotation: Euler;
-    }
-  ) => {
-    position: Vector3;
-    rotation: Euler;
-  };
-  destroy: () => void;
+  mount: () => void;
+  activate:()=>void;
+  deactiavte:()=>void;
+  unmount: () => void;
 }
 
-interface PlayerState {
-  direction: Vector3;
-  velocity: Vector3;
-  rotationApplied: {
-    yaw: number;
-    pitch: number;
-  };
-}
+interface PlayerState {}
 
 interface ObjectReferences {
   playerRoot: Object3D;
@@ -65,42 +47,33 @@ export const createPlayer = (props: PlayerProps): Player => {
   const { eventBusManager, globalState, globalStorage } = getGlobalContext();
   const contextManager = getThreeJsContext();
 
-  let state: PlayerState = {
-    direction: new Vector3(0, 0, -1),
-    velocity: new Vector3(0, 0, 0),
-    rotationApplied: {
-      pitch: 0,
-      yaw: 0,
-    },
-  };
-  let tempData: TempData = {
-    inputDirection: new Vector3(0, 0, 0),
-  };
-  let inputs: {
-    mouse: MouseController | null;
-    keyboard: KeyboardController | null;
-  } = {
-    mouse: null,
-    keyboard: null,
-  };
+  let state: PlayerState = {};
+  let tempData: TempData = {inputDirection: new Vector3(0, 0, 0),};
+  let inputs: Nullable<MouseController>;
 
   let objects: ObjectReferences;
   let animations: Animation;
 
-  const create = () => {
-    try {
+  const castShadow=(player:Object3D<Object3DEventMap>)=>{
+      player.traverse((child)=>{
+        child.castShadow=true
+      })
+  }
+
+  const mount=()=>{
+     try {
+      processPipelineDebugger.onMount('about-room-player')
       let playerRoot = contextManager
         .get("scene")
-        .getObjectByName(props.ids.rootMesh);
-
-      // const playerRoot=scene.getObjectByName(props.ids.rootMesh) as Object3D;
+        .getObjectByName(props.rootMeshId);
 
       if (!playerRoot) {
         throw new Error(
-          `player doesn't exist for the id ${props.ids.rootMesh}`
+          `player doesn't exist for the id ${props.rootMeshId}`
         );
       }
 
+      
       //Local References
       objects = {
         playerRoot: playerRoot,
@@ -109,103 +82,30 @@ export const createPlayer = (props: PlayerProps): Player => {
       animations = {
         mixer: new AnimationMixer(playerRoot),
       };
-
-      inputs = {
-        mouse: getControllers().getController("mouse"),
-        keyboard: getControllers().getController("keyboard"),
-      };
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
     }
-  };
+  }
 
-  const updateMouse = (
-    mouse: { yaw: number; pitch: number },
-    camera: { rotation: Euler }
-  ) => {
-    state.rotationApplied = mouse;
-    objects.playerRoot.rotation.y += state.rotationApplied.yaw;
-  };
-
-  const updateKeyboard = (deltaTime: number) => {
-    if (!inputs.keyboard) return;
-    const FRICTION = 5.0;
-    const VELOCITY_DEADZONE = 0.001;
-
-    const { inputDirection } = tempData;
-    inputDirection.set(0, 0, 0);
-
-    if (inputs.keyboard.isKeyPressed("w")) inputDirection.z -= 1;
-    if (inputs.keyboard.isKeyPressed("s")) inputDirection.z += 1;
-    if (inputs.keyboard.isKeyPressed("a")) inputDirection.x -= 1;
-    if (inputs.keyboard.isKeyPressed("d")) inputDirection.x += 1;
-
-    if (inputDirection.length() > 0) {
-      //normalize direction
-      inputDirection.applyQuaternion(objects.playerRoot.quaternion);
-      inputDirection.normalize();
-
-      //accelerate towards the direction
-      state.velocity.add(
-        inputDirection.multiplyScalar(
-          PLAYER_CONSTANTS.MOVEMENT_ACCELERATION * deltaTime
-        )
-      );
-      //ensure the velocity doesn't go over the threshold
-      state.velocity.clampLength(0, PLAYER_CONSTANTS.MAX_VELOCITY);
-    } else if (inputDirection.length() == 0 && state.velocity.length() > 0) {
-      const decay = Math.exp(-FRICTION * deltaTime);
-      state.velocity.multiplyScalar(decay);
-
-      if (state.velocity.lengthSq() < VELOCITY_DEADZONE * VELOCITY_DEADZONE) {
-        state.velocity.set(0, 0, 0);
-      }
+  const activate=()=>{
+    if(objects.playerRoot) {
+      objects.playerRoot.rotation.set(0,-Math.PI/3,0,'XYZ')
+      objects.playerRoot.castShadow=true;
+      castShadow(objects.playerRoot)
     }
+  }
 
-    objects.playerRoot.position.add(state.velocity);
-  };
+  const deactivate=()=>{}
 
-  const updateControllers = (
-    deltaTime: number,
-    rotation: { yaw: number; pitch: number },
-    camera: { rotation: Euler }
-  ) => {
-    updateMouse(rotation, camera);
-    updateKeyboard(deltaTime);
-  };
+  const unmount=()=>{
 
-  const updateAnimation = (deltaTime: number) => {
-    animations.mixer!.update(deltaTime);
-  };
+  }
 
-  const update = (
-    deltaTime: number,
-    rotation: { yaw: number; pitch: number },
-    camera: { rotation: Euler }
-  ) => {
-    if (animations.mixer) {
-      updateAnimation(deltaTime);
-    }
-
-    updateControllers(deltaTime, rotation, camera);
-
-    return {
-      position: objects.playerRoot.position,
-      rotation: objects.playerRoot.rotation,
-    };
-  };
-
-  const destroy = () => {
-    try {
-      objects.playerRoot.clear();
-    } catch (err) {
-      console.error(`Error while destroy player ${err}`);
-    }
-  };
 
   return {
-    create: create,
-    update: update,
-    destroy: destroy,
+    mount:mount,
+    activate:activate,
+    deactiavte:deactivate,
+    unmount:unmount
   };
 };

@@ -8,14 +8,10 @@ import { AnimationMixer, Euler, Object3D, Scene, Vector3 } from "three";
 
 
 export interface PlayerProps {
-  ids: {
-    rootMesh: string;
-  };
+  rootMeshId: string;
 }
 
-export interface PlayerContext {
-  scene: Scene;
-}
+
 
 export interface Player {
   create: () => void;
@@ -91,13 +87,13 @@ export const createPlayer = (props: PlayerProps): Player => {
     try {
       let playerRoot = contextManager
         .get("scene")
-        .getObjectByName(props.ids.rootMesh);
+        .getObjectByName(props.rootMeshId);
 
       // const playerRoot=scene.getObjectByName(props.ids.rootMesh) as Object3D;
 
       if (!playerRoot) {
         throw new Error(
-          `player doesn't exist for the id ${props.ids.rootMesh}`
+          `player doesn't exist for the id ${props.rootMeshId}`
         );
       }
 

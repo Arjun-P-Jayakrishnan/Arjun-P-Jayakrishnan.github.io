@@ -1,7 +1,5 @@
 import { getGlobalContext } from "managers/globalContext";
 import { Clock } from "three";
-import { AboutRoom, NavigationRoom, } from "./configs";
-import { Nullable } from "./lifecycle";
 import { getThreeJsContext } from "core/game_engine/game_context";
 import { createRoomController, RoomController } from "./controller/room_controller";
 import { processPipelineDebugger } from "debug/debugger";
@@ -66,7 +64,7 @@ export const createGameplay = (): Gameplay => {
 
   const update = () => {
     updateDeltaTime();
-    // references.room.update(state.deltaTime);
+    roomController.update(state.deltaTime);
   };
 
   const unbind = () => {

@@ -28,7 +28,7 @@ export const GridFragment = `
     } 
 
     void main(){
-        vec2 st=vUV*100.0;
+        vec2 st=vUV*1500.0;
        
         gl_FragColor = vec4(vec3(grid(st,0.01)),1.0);
     }

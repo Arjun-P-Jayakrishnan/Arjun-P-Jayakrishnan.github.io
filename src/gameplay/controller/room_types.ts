@@ -30,6 +30,11 @@ const FILE_CONSTANTS = {
   PATH_TO_HDR: "../../../assets/HDR/",
 };
 
+export const PLAYER_ASSET:AssetMetaData={
+    name: "player",
+    path: FILE_CONSTANTS.PATH_TO_MODELS + "player.glb",
+}
+
 
 export const NAVIGATION_ROOM_ASSETS:RoomAsset={
     meshes:[

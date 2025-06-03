@@ -1,17 +1,28 @@
+import { AboutRoomProps } from "./about/room";
 import {  Rooms } from "./lifecycle";
-import { RoomProps } from "./room/room";
+import { NavigationRoomProps } from "./navigation/room";
 
-export const ROOM_OPTIONS: RoomProps = {
+
+export const NAVIGATION_ROOM_OPTIONS: NavigationRoomProps = {
   player: {
-    ids: {
-      rootMesh: "player",
-    },
+    rootMeshId: "RootNode",
   },
   ground: {
     ids: {
       groundRoot: "ground",
     },
   },
+};
+
+export const ABOUT_ROOM_OPTIONS: AboutRoomProps = {
+  player: {
+    rootMeshId: "RootNode",
+  },
+  ground:{
+     ids: {
+      groundRoot: "ground",
+    },
+  }
 };
 
 

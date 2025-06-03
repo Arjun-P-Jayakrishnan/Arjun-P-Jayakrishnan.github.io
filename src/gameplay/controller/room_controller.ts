@@ -2,15 +2,16 @@ import { Nullable } from "gameplay/lifecycle";
 import { createLoader, Loader } from "core/loader/loader";
 import { getGlobalContext } from "@managers/globalContext";
 import { getThreeJsContext } from "core/game_engine/game_context";
-import { createNavigationRoom } from "gameplay/room/room";
-import { createAboutRoom } from "gameplay/about/about";
-import { ABOUT_ROOM_ASSETS, NAVIGATION_ROOM_ASSETS, Room, RoomAsset } from "./room_types";
-import { ROOM_OPTIONS } from "gameplay/configs";
+import { createAboutRoom } from "gameplay/about/room";
+import { ABOUT_ROOM_ASSETS, NAVIGATION_ROOM_ASSETS, PLAYER_ASSET, Room, RoomAsset } from "./room_types";
+import { ABOUT_ROOM_OPTIONS, NAVIGATION_ROOM_OPTIONS } from "gameplay/configs";
 import { processPipelineDebugger } from "debug/debugger";
+import { createNavigationRoom } from "gameplay/navigation/room";
 
 export interface RoomController{
     mount:()=>Promise<void>;
     switchRoom:Record<RoomKey,()=>void>;
+    update:(deltaTime:number)=>void;
     unmount:()=>void;
 }
 
@@ -37,7 +38,8 @@ export const createRoomController=():RoomController=>{
         navigation:NAVIGATION_ROOM_ASSETS,
         about:ABOUT_ROOM_ASSETS
     }
-    let activeRoom:RoomKey="about";
+    let activeRoom:Nullable<Room>=null;
+    let activeRoomKey:RoomKey="navigation";
 
     const initializeLoader=():void=>{
         try{
@@ -59,10 +61,10 @@ export const createRoomController=():RoomController=>{
     const instantiateRoom=(key:RoomKey):Room=>{
         switch(key){
             case 'navigation':
-                rooms[key]=createNavigationRoom(ROOM_OPTIONS);
+                rooms[key]=createNavigationRoom(NAVIGATION_ROOM_OPTIONS);
                 return rooms[key];
             case 'about':
-                rooms[key]=createAboutRoom({});
+                rooms[key]=createAboutRoom(ABOUT_ROOM_OPTIONS);
                 return rooms[key];
             default:
                 throw new Error(`Unknown Room key ${key}`)
@@ -90,27 +92,36 @@ export const createRoomController=():RoomController=>{
             if(room){
                 room.mount();
                 room.isLoaded=true
+                activeRoom=room;
             }
         }
     }
 
-    const mount= async ():Promise<void>=>{
-        processPipelineDebugger.onMount('room-controller')
-        initializeLoader();
-        await loadRoom('about');
-    }
-
     const switchRoom= async(key:RoomKey):Promise<void>=>{
-        if(activeRoom===key) return;
+        if(activeRoomKey===key) return;
 
-        if(rooms[activeRoom]){
-            rooms[activeRoom]!.setDeactive();
+        if(rooms[activeRoomKey]){
+            rooms[activeRoomKey]!.setDeactive();
         }
 
         await loadRoom(key);
 
         rooms[key]?.setActive();
-        activeRoom=key;
+        activeRoomKey=key;
+    }
+
+    const mount= async ():Promise<void>=>{
+        processPipelineDebugger.onMount('room-controller')
+        initializeLoader();
+        await loader?.load({meshesMetaData:[PLAYER_ASSET]});
+        await loadRoom('about');
+        await switchRoom('about');
+    }
+
+   
+
+    const update=(deltaTime:number)=>{
+        activeRoom?.update(deltaTime);
     }
 
     const unmount=():void=>{
@@ -129,6 +140,7 @@ export const createRoomController=():RoomController=>{
             navigation:()=>switchRoom('navigation'),
             about:()=>switchRoom('about')
         },
+        update:update,
         unmount:unmount
     }
 }

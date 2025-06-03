@@ -1,19 +1,16 @@
 import { Euler, PerspectiveCamera, Vector3 } from "three";
 
 export interface CameraProps {
+  /**Main Camera */
   camera: PerspectiveCamera;
 }
 
-export interface CameraControls {
-  update: (
-    playerPosition: Vector3,
-    rotation: { yaw: number; pitch: number }
-  ) => {
-    rotation: Euler;
-  };
+export interface CameraManager {
+  /** Update Camera to always look to the player */
+  update: ( playerPosition: Vector3, rotation: { yaw: number; pitch: number }) => { rotation: Euler };
 }
 
-interface State {
+interface InternalState {
   yaw: number;
   pitch: number;
 }
@@ -32,7 +29,7 @@ const CAMERA_CONSTANTS = {
   FIRST_PERSON: {
     OFFSET: new Vector3(0, 0, 0),
   },
-};
+} as const;
 
 let tempData: {
   position: Vector3;
@@ -44,19 +41,16 @@ let tempData: {
   lookTarget: new Vector3(0, 0, 0),
 };
 
-export const createCameraControls = (props: CameraProps): CameraControls => {
+export const createCameraManager = (props: CameraProps): CameraManager => {
   const { camera } = props;
   let isThirdPerson: boolean = true;
-  let state: State = {
-    pitch: 0,
-    yaw: 0,
-  };
+  let state: InternalState = { pitch: 0, yaw: 0,};
 
   const offset = tempData.offset;
   const targetPosition = tempData.position;
   const lookTarget = tempData.lookTarget;
   const radius: number = CAMERA_CONSTANTS.THIRD_PERSON.DISTANCE ?? 5;
-
+  camera.position.set(1,2,3);
   /**
    *
    * @param yaw
@@ -81,19 +75,14 @@ export const createCameraControls = (props: CameraProps): CameraControls => {
 
       applyRotationDelta(yaw, pitch);
 
-      //Transform position of camera
+      //Transform position of camera - Coordinates math
       offset.x = radius * Math.sin(state.yaw) * Math.cos(state.pitch);
-      offset.y =
-        radius * Math.sin(state.pitch) +
-        CAMERA_CONSTANTS.THIRD_PERSON.HEIGHT_OFFSET;
+      offset.y = radius * Math.sin(state.pitch) + CAMERA_CONSTANTS.THIRD_PERSON.HEIGHT_OFFSET;
       offset.z = radius * Math.cos(state.yaw) * Math.cos(state.pitch);
 
       //Apply target position and reach there
       targetPosition.copy(playerPosition).add(offset);
-      camera.position.lerp(
-        tempData.position,
-        CAMERA_CONSTANTS.THIRD_PERSON.SMOOTHING
-      );
+      camera.position.lerp( targetPosition , CAMERA_CONSTANTS.THIRD_PERSON.SMOOTHING);
 
       //Focus
       lookTarget.copy(playerPosition);

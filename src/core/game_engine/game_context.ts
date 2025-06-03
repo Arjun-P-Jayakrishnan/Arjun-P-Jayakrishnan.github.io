@@ -1,10 +1,12 @@
 import { Nullable } from "core/lifecyle";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export interface ThreeJsContext {
   scene: Scene;
   renderer: WebGLRenderer;
   camera: PerspectiveCamera;
+  orbit:OrbitControls
 }
 
 let internalContext:  Nullable<ThreeJsContext> = null;
