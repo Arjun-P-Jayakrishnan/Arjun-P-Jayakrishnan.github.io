@@ -1,5 +1,5 @@
 
-import { getThreeJsContext, ThreeJsContext, ThreeJsContextManager } from "core/game_engine/game_context";
+import { getThreeJsContext, ThreeJsContextManager } from "core/game_engine/game_context";
 import {  CameraManager, createCameraManager,  } from "./camera";
 import { Room } from "gameplay/controller/room_types";
 import { processPipelineDebugger } from "debug/debugger";
@@ -10,7 +10,7 @@ import { getGlobalContext } from "@managers/globalContext";
 import { Nullable } from "core/lifecyle";
 import { Group, Object3DEventMap } from "three";
 
-export interface AboutRoomProps {
+export interface ProjectRoomProps {
   storageId:string;
   player:PlayerProps
   ground:GroundProps
@@ -23,11 +23,13 @@ interface Components {
   lighting:Lighting;
 }
 
-export const createAboutRoom = (props: AboutRoomProps): Room => {
+export const createProjectRoom = (props: ProjectRoomProps): Room => {
   //====References===
+  const {globalStorage}=getGlobalContext();
   const context:ThreeJsContextManager=getThreeJsContext();
-  const {globalStorage} = getGlobalContext();
   const { scene, camera,orbit } = { scene: context.get("scene"), camera: context.get("camera"),orbit:context.get('orbit')};
+
+
 
   //===Local===
   const components: Components = {
@@ -36,37 +38,36 @@ export const createAboutRoom = (props: AboutRoomProps): Room => {
     ground:createGround(props.ground),
     lighting:createLighting()
   };
-
   let group:Nullable<Group<Object3DEventMap>>=null;
 
   const mount = () => {
-    processPipelineDebugger.onMount('about-room')
+    processPipelineDebugger.onMount('projects-room')
     components.ground.mount();
     components.player.mount();
     components.camera.mount();
     components.lighting.mount();
-    group = globalStorage.getStorage(props.storageId).retrieve(props.storageId)?.groups ?? null;
+   
+    group=globalStorage.getStorage(props.storageId).retrieve(props.storageId)?.groups ?? null;
   };
 
   const activate = () => {
-    if(group) group.visible=true;
+    if(group) group.visible=true
 
-    processPipelineDebugger.onInit('about-room-init')
+    processPipelineDebugger.onInit('projects-room-init')
     components.camera.activate();
     components.ground.actiavte();
     components.lighting.activate();
     components.player.activate();
-    orbit.enabled=false;
-
-
+    orbit.enabled=true;
   };
 
   const update = (deltaTime: number) => {
     // components.camera.update(deltaTime);
+    orbit.update();
   };
 
   const deactivate = () => {
-    if(group) group.visible=false;
+    if(group) group.visible=false
 
     components.camera.deactivate();
     components.ground.deactivate();

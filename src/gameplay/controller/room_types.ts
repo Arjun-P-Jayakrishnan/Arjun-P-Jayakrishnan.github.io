@@ -61,3 +61,16 @@ export const ABOUT_ROOM_ASSETS:RoomAsset={
         path: FILE_CONSTANTS.PATH_TO_HDR + "environment.hdr",
     }
 }
+
+export const PROJECTS_ROOM_ASSETS:RoomAsset={
+    meshes:[
+        {
+            name: "projects",
+            path: FILE_CONSTANTS.PATH_TO_MODELS + "projects.glb",
+        }
+    ],
+    hdr:{
+        name: "environment_hdr",
+        path: FILE_CONSTANTS.PATH_TO_HDR + "environment.hdr",
+    }
+}

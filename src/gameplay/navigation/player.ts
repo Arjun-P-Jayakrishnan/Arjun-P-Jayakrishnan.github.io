@@ -14,7 +14,7 @@ export interface PlayerProps {
 
 
 export interface Player {
-  create: () => void;
+  mount: () => void;
   update: (
     deltaTime: number,
     rotation: {
@@ -28,7 +28,9 @@ export interface Player {
     position: Vector3;
     rotation: Euler;
   };
-  destroy: () => void;
+  activate:()=>void;
+  deactivate:()=>void
+  unmount: () => void;
 }
 
 interface PlayerState {
@@ -83,7 +85,7 @@ export const createPlayer = (props: PlayerProps): Player => {
   let objects: ObjectReferences;
   let animations: Animation;
 
-  const create = () => {
+  const mount = () => {
     try {
       let playerRoot = contextManager
         .get("scene")
@@ -191,7 +193,11 @@ export const createPlayer = (props: PlayerProps): Player => {
     };
   };
 
-  const destroy = () => {
+  const activate=()=>{}
+
+  const deactivate=()=>{}
+
+  const unmount = () => {
     try {
       objects.playerRoot.clear();
     } catch (err) {
@@ -200,8 +206,10 @@ export const createPlayer = (props: PlayerProps): Player => {
   };
 
   return {
-    create: create,
+    mount: mount,
+    activate:activate,
+    deactivate:deactivate,
     update: update,
-    destroy: destroy,
+    unmount: unmount,
   };
 };

@@ -11,6 +11,7 @@ import { Nullable } from "gameplay/lifecycle";
 import { processPipelineDebugger } from "debug/debugger";
 
 export interface NavigationRoomProps {
+  storageId:string;
   player: PlayerProps;
   ground: GroundProps;
 }
@@ -33,7 +34,12 @@ export const createNavigationRoom = (props: NavigationRoomProps): Room => {
   let contextManager: ThreeJsContextManager=getThreeJsContext();
 
   //Internal
-  let entities: Nullable<Entities>=null;
+  let components: Nullable<Entities>={
+    camera:createCameraManager({camera: contextManager.get("camera")}),
+    player:createPlayer({ rootMeshId: props.player.rootMeshId }),
+    ground:createGround(props.ground),
+    controllers: getControllers()
+  };
 
   //TODO:no idea on what to add yet
   let state: Nullable<InternalState>=null; 
@@ -44,61 +50,58 @@ export const createNavigationRoom = (props: NavigationRoomProps): Room => {
   let isMounted:boolean=false;
 
   const activate = () => {
-    if (!room) return;
+    if (!room || !components) return;
     room.groups.visible = true;
+
+    components.camera.activate();
+    components.ground.activate();
+    components.player.activate();
   };
 
   const deactivate = () => {
-    if (!room) return;
+    if (!room || !components) return;
     room.groups.visible = false;
-  };
+
+    components.camera.deactivate();
+    components.ground.deactivate()
+    components.player.deactivate();
+  }
 
   const mount = () => {
-    if(isMounted) return;
+    if(isMounted || !components) return;
 
     processPipelineDebugger.onMount('Navigation Room');
 
     contextManager = getThreeJsContext();
 
     //get base root i.e group so that it can be used to toggle visibility
-    room = globalStorage.getStorage("room").retrieve("room") ?? null;
+    room = globalStorage.getStorage(props.storageId).retrieve(props.storageId) ?? null;
 
-    const controllers: ControllerManger = getControllers();
-    controllers.mount({ mouse: { sensitivity: 0.01, } });
-
-    const player = createPlayer({ rootMeshId: props.player.rootMeshId });
-    player.create();
-
-    const camera = createCameraManager({camera: contextManager.get("camera")});
-
-    const ground = createGround(props.ground);
-    ground.mount();
-
-    entities = { player, camera, ground, controllers };
-
-    // //Ensure everything is deactivated first
-    // deactivate();
+    components.controllers.mount({ mouse: { sensitivity: 0.01, } });
+    components.player.mount();
+    components.ground.mount();
+    components.camera.mount();
 
     isMounted=true;
   };
 
   const update = (deltaTime: number) => {
-    if(!isMounted || !entities) return;
+    if(!isMounted || !components) return;
     contextManager.get('orbit').update();
     //entities.ground.update();
   };
 
   const unmount = () => {
-    if(!isMounted|| !entities) return;
+    if(!isMounted|| !components) return;
 
     processPipelineDebugger.onUnmount('Navigation Room')
 
-    entities.player.destroy();
-    entities.controllers.unmount();
-    entities.ground.unmount();
+    components.player.unmount();
+    components.controllers.unmount();
+    components.ground.unmount();
     contextManager.unmount();
 
-    entities = null;
+    components = null;
     room=null;
   };
 

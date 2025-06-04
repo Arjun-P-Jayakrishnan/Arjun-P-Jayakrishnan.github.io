@@ -3,10 +3,11 @@ import { createLoader, Loader } from "core/loader/loader";
 import { getGlobalContext } from "@managers/globalContext";
 import { getThreeJsContext } from "core/game_engine/game_context";
 import { createAboutRoom } from "gameplay/about/room";
-import { ABOUT_ROOM_ASSETS, NAVIGATION_ROOM_ASSETS, PLAYER_ASSET, Room, RoomAsset } from "./room_types";
-import { ABOUT_ROOM_OPTIONS, NAVIGATION_ROOM_OPTIONS } from "gameplay/configs";
+import { ABOUT_ROOM_ASSETS, NAVIGATION_ROOM_ASSETS, PLAYER_ASSET, PROJECTS_ROOM_ASSETS, Room, RoomAsset } from "./room_types";
+import { ABOUT_ROOM_OPTIONS, NAVIGATION_ROOM_OPTIONS, PROJECTS_ROOM_OPTIONS } from "gameplay/configs";
 import { processPipelineDebugger } from "debug/debugger";
 import { createNavigationRoom } from "gameplay/navigation/room";
+import { createProjectRoom } from "gameplay/projects/room";
 
 export interface RoomController{
     mount:()=>Promise<void>;
@@ -15,7 +16,7 @@ export interface RoomController{
     unmount:()=>void;
 }
 
-type RoomKey="navigation"|"about";
+type RoomKey="navigation"|"about"|"projects";
 
 type RoomMap = {
     [key in RoomKey]: Nullable<Room>;
@@ -33,13 +34,15 @@ export const createRoomController=():RoomController=>{
     let rooms:RoomMap={
         navigation:null,
         about:null,
+        projects:null,
     }
     let roomAssets:RoomAssetsMap={
         navigation:NAVIGATION_ROOM_ASSETS,
-        about:ABOUT_ROOM_ASSETS
+        about:ABOUT_ROOM_ASSETS,
+        projects:PROJECTS_ROOM_ASSETS              
     }
     let activeRoom:Nullable<Room>=null;
-    let activeRoomKey:RoomKey="navigation";
+    let activeRoomKey:Nullable<RoomKey>=null;
 
     const initializeLoader=():void=>{
         try{
@@ -66,6 +69,9 @@ export const createRoomController=():RoomController=>{
             case 'about':
                 rooms[key]=createAboutRoom(ABOUT_ROOM_OPTIONS);
                 return rooms[key];
+            case 'projects':
+                rooms[key]=createProjectRoom(PROJECTS_ROOM_OPTIONS);
+                return rooms[key];
             default:
                 throw new Error(`Unknown Room key ${key}`)
         }
@@ -76,8 +82,6 @@ export const createRoomController=():RoomController=>{
 
         const assets=roomAssets[key];
         if(!assets) throw new Error('[Room Controller] sufficient asset meta data is not given.')
-        
-        console.log('assets',assets)
 
         if(!rooms[key]){
            
@@ -98,10 +102,10 @@ export const createRoomController=():RoomController=>{
     }
 
     const switchRoom= async(key:RoomKey):Promise<void>=>{
-        if(activeRoomKey===key) return;
+        if( activeRoomKey===key) return;
 
-        if(rooms[activeRoomKey]){
-            rooms[activeRoomKey]!.setDeactive();
+        if(activeRoomKey!=null && rooms[activeRoomKey!]){
+            rooms[activeRoomKey!]!.setDeactive();
         }
 
         await loadRoom(key);
@@ -114,8 +118,8 @@ export const createRoomController=():RoomController=>{
         processPipelineDebugger.onMount('room-controller')
         initializeLoader();
         await loader?.load({meshesMetaData:[PLAYER_ASSET]});
-        await loadRoom('about');
-        await switchRoom('about');
+        await loadRoom('navigation');
+        await switchRoom('navigation');
     }
 
    
@@ -138,7 +142,8 @@ export const createRoomController=():RoomController=>{
         mount:mount,
         switchRoom:{
             navigation:()=>switchRoom('navigation'),
-            about:()=>switchRoom('about')
+            about:()=>switchRoom('about'),
+            projects:()=>switchRoom('projects')
         },
         update:update,
         unmount:unmount

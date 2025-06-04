@@ -69,8 +69,8 @@ export class ProjectGallery extends HTMLElement {
 
     if (!this.displayEventBus) return;
 
-    this.displayEventBus.on("project:show", this.onShow);
-    this.displayEventBus.on("project:hide", this.onHide);
+    // this.displayEventBus.on("project:show", this.onShow);
+    // this.displayEventBus.on("project:hide", this.onHide);
   }
 
   disconnectedCallback() {

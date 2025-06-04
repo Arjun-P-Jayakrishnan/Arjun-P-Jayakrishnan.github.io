@@ -1,11 +1,12 @@
-import { createEventBus } from "@utils/event_management/eventBus";
-import type { LoadingEvents } from "@utils/event_management/eventType";
+
 import { getGlobalContext } from "managers/globalContext";
 import { Scene } from "three";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { LoadingManager } from "three/src/loaders/LoadingManager.js";
 import type { AssetMetaData, LoaderPlugin } from "../loaderPlugins";
+import { createEventBus } from "@managers/events/eventBus";
+import { LoadingEvents } from "@managers/events/eventType";
 
 export interface MeshLoaderProps {
   assets: AssetMetaData[];

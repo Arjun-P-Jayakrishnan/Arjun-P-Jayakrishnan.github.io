@@ -1,8 +1,9 @@
-import { createEventBus } from "@utils/event_management/eventBus";
-import type { LoadingEvents } from "@utils/event_management/eventType";
+
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import type { AssetMetaData, LoaderPlugin } from "../loaderPlugins";
 import { DataTexture, LoadingManager, PMREMGenerator, Scene, WebGLRenderer } from "three";
+import { createEventBus } from "@managers/events/eventBus";
+import { LoadingEvents } from "@managers/events/eventType";
 
 export interface HDRTextureLoaderProps {
   asset: AssetMetaData;

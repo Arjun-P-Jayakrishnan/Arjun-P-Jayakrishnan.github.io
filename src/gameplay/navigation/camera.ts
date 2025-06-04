@@ -8,6 +8,11 @@ export interface CameraProps {
 export interface CameraManager {
   /** Update Camera to always look to the player */
   update: ( playerPosition: Vector3, rotation: { yaw: number; pitch: number }) => { rotation: Euler };
+
+  mount:()=>void
+  activate:()=>void
+  deactivate:()=>void
+  unmount:()=>void
 }
 
 interface InternalState {
@@ -101,7 +106,21 @@ export const createCameraManager = (props: CameraProps): CameraManager => {
     }
   };
 
+  const mount=()=>{
+
+  }
+
+  const activate=()=>{}
+
+  const deactivate=()=>{}
+
+  const unmount=()=>{}
+
   return {
     update: update,
+    mount:mount,
+    activate:activate,
+    deactivate:deactivate,
+    unmount:unmount
   };
 };
