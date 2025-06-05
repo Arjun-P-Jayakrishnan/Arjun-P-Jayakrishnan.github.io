@@ -2,27 +2,25 @@
 import { getGlobalContext } from "managers/globalContext";
 import { AnimationMixer, Scene } from "three";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import type { LoadingManager } from "three/src/loaders/LoadingManager.js";
 import type { AssetMetaData, LoaderPlugin } from "../loaderPlugins";
 import { createEventBus } from "@managers/events/eventBus";
 import { LoadingEvents } from "@managers/events/eventType";
 
-export interface MeshLoaderProps {
+export interface FBXLoaderProps {
   assets: AssetMetaData[];
   scene: Scene;
   loadingManager: LoadingManager;
   loadingEventBus: ReturnType<typeof createEventBus<LoadingEvents>>;
 }
 
-export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
+export const createFBXLoader = (props: FBXLoaderProps): LoaderPlugin => {
   const { assets, scene, loadingManager, loadingEventBus } = props;
   const { globalStorage } = getGlobalContext();
 
-  const gltfLoader: GLTFLoader = new GLTFLoader(loadingManager);
-  const dracoLoader = new DRACOLoader();
-  dracoLoader.setDecoderPath("/public/draco/");
-  gltfLoader.setDRACOLoader(dracoLoader);
+  const fbxLoader: FBXLoader = new FBXLoader(loadingManager);
+  
 
   /**
    * @description load the mesh
@@ -30,21 +28,24 @@ export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
    */
   const _loadMesh = async (metaData: AssetMetaData) => {
     try {
-      const model = await gltfLoader.loadAsync(metaData.path);
+      const model = await fbxLoader.loadAsync(metaData.path);
 
+      
       
       metaData.onSuccess?.();
 
-      globalStorage.getStorage(metaData.name).store(metaData.name, {
-        animations: model.animations,
-        groups: model.scene,
-        type: "",
-      });
+      globalStorage.getStorage(metaData.name).store(
+        metaData.name, 
+        {
+            animations: model.animations,
+            groups:model,
+            type: "",
+        }
+      );
      
-      
 
-      scene.add(model.scene);
-      //model.scene.position.set(0, 0, 0);
+      scene.add(model);
+
     } catch (err) {
       metaData.onError?.(err as Error);
       loadingEventBus.emit({ type: "load:error", url: metaData.path });

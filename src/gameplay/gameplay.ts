@@ -41,14 +41,14 @@ export const createGameplay = (): Gameplay => {
 
   const bind = () => {
     eventBusManager.displayBus.on("about:show", roomController.switchRoom['about']);
-    eventBusManager.displayBus.on("about:hide", roomController.switchRoom['navigation']);
+    eventBusManager.displayBus.on("about:hide", roomController.switchRoom['default']);
 
     eventBusManager.displayBus.on("project:show", roomController.switchRoom['projects']);
-    eventBusManager.displayBus.on("project:hide", roomController.switchRoom['navigation']);
+    eventBusManager.displayBus.on("project:hide", roomController.switchRoom['default']);
     
 
     eventBusManager.displayBus.on("home:show", roomController.switchRoom['navigation']);
-    eventBusManager.displayBus.on("home:hide", roomController.switchRoom['navigation']);
+    eventBusManager.displayBus.on("home:hide", roomController.switchRoom['default']);
   };
 
   const mount = async (): Promise<void> => {

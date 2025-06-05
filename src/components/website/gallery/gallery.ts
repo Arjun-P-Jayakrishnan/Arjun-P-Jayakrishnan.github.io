@@ -69,14 +69,14 @@ export class ProjectGallery extends HTMLElement {
 
     if (!this.displayEventBus) return;
 
-    // this.displayEventBus.on("project:show", this.onShow);
-    // this.displayEventBus.on("project:hide", this.onHide);
+    this.displayEventBus.on("project-screen:show", this.onShow);
+    this.displayEventBus.on("project-screen:hide", this.onHide);
   }
 
   disconnectedCallback() {
     if (!this.displayEventBus) return;
 
-    this.displayEventBus.off("project:show", this.onShow);
-    this.displayEventBus.off("project:hide", this.onHide);
+    this.displayEventBus.off("project-screen:show", this.onShow);
+    this.displayEventBus.off("project-screen:hide", this.onHide);
   }
 }

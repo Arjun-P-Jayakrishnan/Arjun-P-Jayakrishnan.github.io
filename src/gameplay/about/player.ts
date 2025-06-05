@@ -72,7 +72,7 @@ export const createPlayer = (props: PlayerProps): Player => {
           `player doesn't exist for the id ${props.rootMeshId}`
         );
       }
-
+      console.log(playerRoot.position)
       
       //Local References
       objects = {
@@ -89,16 +89,21 @@ export const createPlayer = (props: PlayerProps): Player => {
 
   const activate=()=>{
     if(objects.playerRoot) {
-      objects.playerRoot.rotation.set(0,-Math.PI/3,0,'XYZ')
+      objects.playerRoot.rotation.set(0,-Math.PI/4,0,'XYZ')
       objects.playerRoot.castShadow=true;
       castShadow(objects.playerRoot)
+      console.log(objects.playerRoot.position)
+
+      objects.playerRoot.position.set(1.5,0,0);
     }
   }
 
   const deactivate=()=>{}
 
   const unmount=()=>{
-
+    if(objects.playerRoot){
+      objects.playerRoot.position.set(1.5,0,0);
+    }
   }
 
 

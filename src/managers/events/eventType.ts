@@ -13,6 +13,8 @@ export type DisplayEvents =
   | { elementId: "about"; type: "about:hide" }
   | { elementId: "project"; type: "project:show" }
   | { elementId: "project"; type: "project:hide" }
+  | { elementId: "project-screen"; type: "project-screen:show" }
+  | { elementId: "project-screen"; type: "project-screen:hide" }
   | { elementId: "contact"; type: "contact:show" }
   | { elementId: "contact"; type: "contact:hide" };
 

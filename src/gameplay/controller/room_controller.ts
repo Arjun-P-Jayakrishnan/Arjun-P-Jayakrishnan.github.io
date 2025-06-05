@@ -3,15 +3,15 @@ import { createLoader, Loader } from "core/loader/loader";
 import { getGlobalContext } from "@managers/globalContext";
 import { getThreeJsContext } from "core/game_engine/game_context";
 import { createAboutRoom } from "gameplay/about/room";
-import { ABOUT_ROOM_ASSETS, NAVIGATION_ROOM_ASSETS, PLAYER_ASSET, PROJECTS_ROOM_ASSETS, Room, RoomAsset } from "./room_types";
-import { ABOUT_ROOM_OPTIONS, NAVIGATION_ROOM_OPTIONS, PROJECTS_ROOM_OPTIONS } from "gameplay/configs";
+import { ABOUT_ROOM_ASSETS, NAVIGATION_ROOM_ASSETS, PLAYER_ANIMATIONS, PLAYER_ASSET, PROJECTS_ROOM_ASSETS, Room, RoomAsset } from "./room_types";
+import { ABOUT_ROOM_OPTIONS, NAVIGATION_ROOM_OPTIONS, PROJECTS_ROOM_OPTIONS } from "gameplay/controller/configs";
 import { processPipelineDebugger } from "debug/debugger";
 import { createNavigationRoom } from "gameplay/navigation/room";
 import { createProjectRoom } from "gameplay/projects/room";
 
 export interface RoomController{
     mount:()=>Promise<void>;
-    switchRoom:Record<RoomKey,()=>void>;
+    switchRoom:Record< RoomKey|"default",()=>void>;
     update:(deltaTime:number)=>void;
     unmount:()=>void;
 }
@@ -90,7 +90,8 @@ export const createRoomController=():RoomController=>{
             //Load only once
             await loader.load({
                 meshesMetaData:roomAssets[key].meshes,
-                hdrMetaData:roomAssets[key].hdr
+                hdrMetaData:roomAssets[key].hdr,
+                animationsMetaData:[]
             });
 
             if(room){
@@ -104,20 +105,23 @@ export const createRoomController=():RoomController=>{
     const switchRoom= async(key:RoomKey):Promise<void>=>{
         if( activeRoomKey===key) return;
 
-        if(activeRoomKey!=null && rooms[activeRoomKey!]){
-            rooms[activeRoomKey!]!.setDeactive();
+        if(activeRoomKey!=null){
+            console.log('deactivating.........')
+            processPipelineDebugger.onInit('deactivating');
+           
+            if(rooms[activeRoomKey]!=null) rooms[activeRoomKey]!.setDeactive();
         }
 
         await loadRoom(key);
 
-        rooms[key]?.setActive();
+        if(rooms[key]) rooms[key].setActive();
         activeRoomKey=key;
     }
 
     const mount= async ():Promise<void>=>{
         processPipelineDebugger.onMount('room-controller')
         initializeLoader();
-        await loader?.load({meshesMetaData:[PLAYER_ASSET]});
+        await loader?.load({meshesMetaData:[PLAYER_ASSET],animationsMetaData:[]});
         await loadRoom('navigation');
         await switchRoom('navigation');
     }
@@ -138,12 +142,27 @@ export const createRoomController=():RoomController=>{
         processPipelineDebugger.onUnmount('room-controller')
     }
 
+    const transitionRooms=(key:RoomKey)=>{
+        eventBusManager.loadingBus.emit({type:"load:start",loaded:0,total:0,url:""})
+
+        Promise.allSettled([switchRoom(key)]).then(()=>{
+            eventBusManager.loadingBus.emit({type:"load:complete"})
+        })
+    }
+
+    const deactivateRoom=()=>{
+        if(!activeRoomKey) return;
+
+        activeRoom?.setDeactive();
+    }
+
     return {
         mount:mount,
         switchRoom:{
-            navigation:()=>switchRoom('navigation'),
-            about:()=>switchRoom('about'),
-            projects:()=>switchRoom('projects')
+            navigation:()=>transitionRooms('navigation'),
+            about:()=>transitionRooms('about'),
+            projects:()=>transitionRooms('projects'),
+            default:()=>deactivateRoom()
         },
         update:update,
         unmount:unmount

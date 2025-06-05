@@ -1,14 +1,14 @@
 
+import { getGlobalContext } from "@managers/globalContext";
 import { getThreeJsContext } from "core/game_engine/game_context";
 import { Nullable } from "core/lifecyle";
 import { processPipelineDebugger } from "debug/debugger";
 import { createGridMaterial, GridMaterial } from "graphics/materials/grid/grid-material";
-import { Mesh } from "three";
+import { Mesh, Object3D } from "three";
 
 export interface GroundProps {
-  ids: {
-    groundRoot: string;
-  };
+  groundId: string;
+  storageId:string;
 }
 
 export interface Ground {
@@ -21,18 +21,22 @@ export interface Ground {
 
 export const createGround = (props: GroundProps): Ground => {
   let ground: Nullable<Mesh> = null;
+  let {globalStorage}=getGlobalContext();
   let contextManager = getThreeJsContext();
 
   let gridMat: Nullable<GridMaterial> = null;
 
   const mount = () => {
-    ground = contextManager
-      .get("scene")
-      .getObjectByName(props.ids.groundRoot) as Mesh;
+    ground = globalStorage
+    .getStorage(props.storageId)
+    .retrieve(props.storageId)?.
+     groups
+    .getObjectByName(props.groundId) as Mesh ?? null;
+      
 
     if (!ground) {
       console.error(
-        `Cant get ground mesh from the id : ${props.ids.groundRoot}`
+        `Cant get ground mesh from the id : ${props.groundId}`
       );
       return;
     }

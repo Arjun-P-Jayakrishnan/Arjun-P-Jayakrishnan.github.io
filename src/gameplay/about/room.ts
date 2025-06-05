@@ -52,13 +52,11 @@ export const createAboutRoom = (props: AboutRoomProps): Room => {
     if(group) group.visible=true;
 
     processPipelineDebugger.onInit('about-room-init')
+    orbit.enabled=false;
     components.camera.activate();
     components.ground.actiavte();
     components.lighting.activate();
     components.player.activate();
-    orbit.enabled=false;
-
-
   };
 
   const update = (deltaTime: number) => {

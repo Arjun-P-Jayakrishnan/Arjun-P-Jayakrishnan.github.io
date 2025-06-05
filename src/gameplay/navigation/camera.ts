@@ -55,7 +55,7 @@ export const createCameraManager = (props: CameraProps): CameraManager => {
   const targetPosition = tempData.position;
   const lookTarget = tempData.lookTarget;
   const radius: number = CAMERA_CONSTANTS.THIRD_PERSON.DISTANCE ?? 5;
-  camera.position.set(1,2,3);
+  
   /**
    *
    * @param yaw
@@ -110,7 +110,9 @@ export const createCameraManager = (props: CameraProps): CameraManager => {
 
   }
 
-  const activate=()=>{}
+  const activate=()=>{
+    camera.position.set(1,2,3);
+  }
 
   const deactivate=()=>{}
 

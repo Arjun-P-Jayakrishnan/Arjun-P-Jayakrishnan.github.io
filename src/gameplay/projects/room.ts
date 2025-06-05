@@ -33,7 +33,7 @@ export const createProjectRoom = (props: ProjectRoomProps): Room => {
 
   //===Local===
   const components: Components = {
-    camera: createCameraManager({ camera: camera, scene: scene,}),
+    camera: createCameraManager({ camera: camera, scene: scene,orbit:orbit}),
     player:createPlayer(props.player),
     ground:createGround(props.ground),
     lighting:createLighting()
@@ -58,12 +58,14 @@ export const createProjectRoom = (props: ProjectRoomProps): Room => {
     components.ground.actiavte();
     components.lighting.activate();
     components.player.activate();
-    orbit.enabled=true;
+    
   };
 
   const update = (deltaTime: number) => {
     // components.camera.update(deltaTime);
-    orbit.update();
+    components.player.update(deltaTime);
+    components.camera.update(deltaTime)
+    //orbit.update();
   };
 
   const deactivate = () => {

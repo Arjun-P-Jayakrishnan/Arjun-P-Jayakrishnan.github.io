@@ -25,14 +25,28 @@ export interface RoomAsset{
     hdr?:AssetMetaData
 }
 
+export type PlayerAnimationKey="typing"|"player_typing";
+
 const FILE_CONSTANTS = {
   PATH_TO_MODELS: "../../../assets/Models/",
   PATH_TO_HDR: "../../../assets/HDR/",
+  PATH_TO_ANIMATIONS: "../../../assets/Animations/",
 };
 
 export const PLAYER_ASSET:AssetMetaData={
     name: "player",
     path: FILE_CONSTANTS.PATH_TO_MODELS + "player.glb",
+}
+
+export const PLAYER_ANIMATIONS:Record<PlayerAnimationKey,AssetMetaData>={
+    typing:{
+        name:"typing",
+        path:FILE_CONSTANTS.PATH_TO_ANIMATIONS+"Typing.fbx"
+    },
+    player_typing:{
+          name:"typing_player",
+        path:FILE_CONSTANTS.PATH_TO_ANIMATIONS+""
+    }
 }
 
 

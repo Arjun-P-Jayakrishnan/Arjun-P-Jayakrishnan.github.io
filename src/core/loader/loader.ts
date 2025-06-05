@@ -7,10 +7,12 @@ import { createEventBus } from "@managers/events/eventBus";
 import { GlobalState } from "@managers/state/globalState";
 import { LoadingContext } from "@managers/state/globalStateData";
 import { processPipelineDebugger } from "debug/debugger";
+import { createFBXLoader } from "./file_type_plugins/fbx_loader";
 
 export interface LoadOptions {
   meshesMetaData: AssetMetaData[];
   hdrMetaData?: AssetMetaData;
+  animationsMetaData:AssetMetaData[];
 }
 
 export interface LoaderContext {
@@ -94,7 +96,7 @@ export const createLoader = (
   /**
    * @description create necessary loaders
    */
-  const _configurePlugins = (meshes:AssetMetaData[],hdr?:AssetMetaData) => {
+  const _configurePlugins = (meshes:AssetMetaData[],animations:AssetMetaData[],hdr?:AssetMetaData) => {
     if (meshes.length > 0) {
       plugins.push(
         createMeshLoader({
@@ -117,6 +119,16 @@ export const createLoader = (
         })
       );
     }
+    if(animations.length>0){
+      plugins.push(
+        createFBXLoader({
+          assets:animations,
+          scene:scene,
+          loadingManager:manager,
+          loadingEventBus:loaderEventBus,
+        })
+      )
+    }
   };
 
   /**
@@ -134,7 +146,7 @@ export const createLoader = (
     processPipelineDebugger.onInit(`loading the models ${JSON.stringify(assets)}`)
 
     const promises: Promise<void>[] = [];
-     _configurePlugins(assets.meshesMetaData,assets.hdrMetaData);
+     _configurePlugins(assets.meshesMetaData,assets.animationsMetaData,assets.hdrMetaData,);
 
     plugins.forEach((plugin) => {
       promises.push(plugin.load());

@@ -20,8 +20,8 @@ export const createLighting=():Lighting=>{
     const mount=()=>{
         dirLight=new DirectionalLight(0xffffff,5);
         dirLight.castShadow=true;
-        dirLight.position.set(0,2,0);
-        dirLight.target.position.set(0,1,0);
+        dirLight.position.set(0,1,0.5);
+        dirLight.target.position.set(0,0,0);
 
         
         dirLight.shadow.mapSize.width=1024;

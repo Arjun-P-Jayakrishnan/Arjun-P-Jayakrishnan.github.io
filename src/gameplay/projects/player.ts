@@ -1,4 +1,3 @@
-
 import { getGlobalContext } from "@managers/globalContext";
 import { getThreeJsContext } from "core/game_engine/game_context";
 import { Nullable } from "core/lifecyle";
@@ -6,11 +5,21 @@ import { processPipelineDebugger } from "debug/debugger";
 import { getControllers } from "graphics/mechanics/controllers/controller";
 import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
 import { MouseController } from "graphics/mechanics/controllers/plugins/mouse";
-import { AnimationMixer, Euler, Object3D, Object3DEventMap, Scene, Vector3 } from "three";
-
+import {
+  AnimationMixer,
+  Bone,
+  Euler,
+  Group,
+  Mesh,
+  Object3D,
+  Object3DEventMap,
+  Scene,
+  Vector3,
+} from "three";
 
 export interface PlayerProps {
-  rootMeshId:string
+  storageId: string;
+  rootMeshId: string;
 }
 
 export interface PlayerContext {
@@ -19,8 +28,9 @@ export interface PlayerContext {
 
 export interface Player {
   mount: () => void;
-  activate:()=>void;
-  deactiavte:()=>void;
+  activate: () => void;
+  update: (deltaTime: number) => void;
+  deactiavte: () => void;
   unmount: () => void;
 }
 
@@ -48,64 +58,77 @@ export const createPlayer = (props: PlayerProps): Player => {
   const contextManager = getThreeJsContext();
 
   let state: PlayerState = {};
-  let tempData: TempData = {inputDirection: new Vector3(0, 0, 0),};
+  let tempData: TempData = { inputDirection: new Vector3(0, 0, 0) };
   let inputs: Nullable<MouseController>;
 
   let objects: ObjectReferences;
   let animations: Animation;
+  let mixers: AnimationMixer[] = [];
 
-  const castShadow=(player:Object3D<Object3DEventMap>)=>{
-      player.traverse((child)=>{
-        child.castShadow=true
-      })
-  }
+  const castShadow = (player: Object3D<Object3DEventMap>) => {
+    player.traverse((child) => {
+      child.castShadow = true;
+    });
+  };
 
-  const mount=()=>{
-     try {
-      processPipelineDebugger.onMount('about-room-player')
-      let playerRoot = contextManager
-        .get("scene")
-        .getObjectByName(props.rootMeshId);
+  const mount = () => {
+    try {
+      processPipelineDebugger.onMount("about-room-player");
+      let playerRoot = globalStorage
+        .getStorage("player")
+        .retrieve("player")?.groups;
+      let animations=globalStorage
+        .getStorage("player")
+        .retrieve("player")?.animations ?? [];
+
+     
 
       if (!playerRoot) {
-        throw new Error(
-          `player doesn't exist for the id ${props.rootMeshId}`
-        );
+        throw new Error(`player doesn't exist for the id ${props.rootMeshId}`);
       }
-
-      
+      console.log("player", playerRoot);
+      console.log("animations loaded", animations);
       //Local References
       objects = {
         playerRoot: playerRoot,
       };
+     
+      // console.log('armature',armature)
+      const mixer=new AnimationMixer(playerRoot);
+      animations.forEach((anim)=>{
+          mixer.clipAction(anim).play()
+      })  
 
-      animations = {
-        mixer: new AnimationMixer(playerRoot),
-      };
+      mixers.push(mixer)
+     
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
     }
-  }
+  };
 
-  const activate=()=>{
-    if(objects.playerRoot) {
-      objects.playerRoot.rotation.set(0,-Math.PI/3,0,'XYZ')
-      objects.playerRoot.castShadow=true;
-      castShadow(objects.playerRoot)
+  const activate = () => {
+    if (objects.playerRoot) {
+      objects.playerRoot.rotation.set(0, 0, 0, "XYZ");
+      objects.playerRoot.castShadow = true;
+      castShadow(objects.playerRoot);
     }
-  }
+  };
 
-  const deactivate=()=>{}
+  const update = (deltaTime: number) => {
+    mixers.forEach((mixer) => {
+      mixer.update(deltaTime);
+    });
+  };
 
-  const unmount=()=>{
+  const deactivate = () => {};
 
-  }
-
+  const unmount = () => {};
 
   return {
-    mount:mount,
-    activate:activate,
-    deactiavte:deactivate,
-    unmount:unmount
+    mount: mount,
+    activate: activate,
+    update: update,
+    deactiavte: deactivate,
+    unmount: unmount,
   };
 };
