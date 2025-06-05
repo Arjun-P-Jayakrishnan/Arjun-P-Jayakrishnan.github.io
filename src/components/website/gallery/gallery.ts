@@ -1,6 +1,6 @@
-import { EventBus } from "@utils/event_management/eventBus";
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
-import { DisplayEvents } from "@utils/event_management/eventType";
+import { EventBus } from "@managers/events/eventBus";
+import { EventBusManager } from "@managers/events/eventBusFactory";
+import { DisplayEvents } from "@managers/events/eventType";
 import { CardMarshall, ProjectCard } from "./card";
 
 
@@ -69,14 +69,14 @@ export class ProjectGallery extends HTMLElement {
 
     if (!this.displayEventBus) return;
 
-    this.displayEventBus.on("project:show", this.onShow);
-    this.displayEventBus.on("project:hide", this.onHide);
+    this.displayEventBus.on("project-screen:show", this.onShow);
+    this.displayEventBus.on("project-screen:hide", this.onHide);
   }
 
   disconnectedCallback() {
     if (!this.displayEventBus) return;
 
-    this.displayEventBus.off("project:show", this.onShow);
-    this.displayEventBus.off("project:hide", this.onHide);
+    this.displayEventBus.off("project-screen:show", this.onShow);
+    this.displayEventBus.off("project-screen:hide", this.onHide);
   }
 }

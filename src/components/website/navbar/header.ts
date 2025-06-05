@@ -1,6 +1,7 @@
-import { EventBus } from "@utils/event_management/eventBus";
-import { EventBusManager } from "@utils/event_management/eventBusFactory";
-import { DisplayEvents } from "@utils/event_management/eventType";
+import { EventBus } from "@managers/events/eventBus";
+import { EventBusManager } from "@managers/events/eventBusFactory";
+import { DisplayEvents } from "@managers/events/eventType";
+import { processPipelineDebugger } from "debug/debugger";
 
 const template = document.createElement("template");
 
@@ -18,19 +19,14 @@ template.innerHTML = `
   </nav>
 `;
 
-interface TabShowState {
-  project: boolean;
-  about: boolean;
-  home: boolean;
-  contact: boolean;
-}
+type TabKeys="home"|"about"|"project"|"contact";
 
 interface State {
   hamburgerMenu: {
     isOpen: boolean;
     isTransitioning: boolean;
   };
-  tabs: TabShowState;
+  activeTab: TabKeys;
 }
 
 interface Components {
@@ -49,12 +45,7 @@ export class Navbar extends HTMLElement {
       isOpen: false,
       isTransitioning: false,
     },
-    tabs: {
-      project: false,
-      about: false,
-      contact: false,
-      home: false,
-    },
+    activeTab:"home"
   };
 
   private displayEventBus: EventBus<DisplayEvents> | null = null;
@@ -69,10 +60,7 @@ export class Navbar extends HTMLElement {
 
   root: ShadowRoot;
 
-  busHandlers: Record<
-    `${keyof TabShowState}:show` | `${keyof TabShowState}:hide`,
-    (e: DisplayEvents) => void
-  > | null = null;
+  busHandlers: Record<`${TabKeys}:show` | `${TabKeys}:hide`,(e: DisplayEvents) => void> | null = null;
   sections = ["project", "about", "contact", "home"] as const;
 
   constructor() {
@@ -180,8 +168,9 @@ export class Navbar extends HTMLElement {
   };
 
   toggleSections = <K extends DisplayEvents["elementId"]>(e: Event, key: K) => {
+    if(this.state.activeTab==key) return;
     e.preventDefault();
-    this.state.tabs[key] = !this.state.tabs[key];
+   
     const showEvent = {
       elementId: key,
       type: `${key}:show`,
@@ -189,12 +178,13 @@ export class Navbar extends HTMLElement {
 
     const hideEvent = {
       elementId: key,
-      type: `${key}:hide`,
+      type: `${this.state.activeTab}:hide`,
     } as DisplayEvents;
 
-    this.state.tabs[key]
-      ? this.displayEventBus?.emit(showEvent)
-      : this.displayEventBus?.emit(hideEvent);
+    this.displayEventBus?.emit(hideEvent);
+    this.displayEventBus?.emit(showEvent);
+  
+    this.state.activeTab = key;
   };
 
   private onToggleClick = (e: Event) => this.toggleHamburgerMenu();
@@ -209,10 +199,10 @@ export class Navbar extends HTMLElement {
 
     this.sections.forEach((id) => {
       const showHandler = (e: DisplayEvents) => {
-        this.state.tabs[id] = true;
+        processPipelineDebugger.onMount(`[${id}]-component`)
       };
       const hideHandler = (e: DisplayEvents) => {
-        this.state.tabs[id] = false;
+        processPipelineDebugger.onUnmount(`[${id}]-component`)
       };
 
       this.displayEventBus?.on(`${id}:show`, showHandler);
