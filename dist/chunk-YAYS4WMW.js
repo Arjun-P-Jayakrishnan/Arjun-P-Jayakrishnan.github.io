@@ -1,0 +1,2 @@
+var o={storageId:"room",player:{rootMeshId:"RootNode"},ground:{groundId:"ground",storageId:"room"}},r={storageId:"about",player:{rootMeshId:"RootNode"},ground:{groundId:"ground",storageId:"about"}},t={storageId:"projects",player:{rootMeshId:"RootNode",storageId:"projects"},ground:{storageId:"projects",groundId:"ground"}};export{o as a,r as b,t as c};//# sourceMappingURL=chunk-YAYS4WMW.js.map
+//# sourceMappingURL=chunk-YAYS4WMW.js.map

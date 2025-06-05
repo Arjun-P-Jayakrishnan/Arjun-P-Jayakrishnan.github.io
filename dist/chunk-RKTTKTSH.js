@@ -1,0 +1,2 @@
+var e=()=>({mount:(n,t)=>{console.log(` [${t}]'s ${n} is mounted....`);},activate:(n,t)=>{console.log(` [${t}]'s ${n} is activated `);},deactivate:(n,t)=>{console.log(` [${t}]'s ${n} is deactiavted`);},unmount:(n,t)=>{console.log(` [${t}]'s ${n} is unmounted`);}}),a=e();export{e as a,a as b};//# sourceMappingURL=chunk-RKTTKTSH.js.map
+//# sourceMappingURL=chunk-RKTTKTSH.js.map

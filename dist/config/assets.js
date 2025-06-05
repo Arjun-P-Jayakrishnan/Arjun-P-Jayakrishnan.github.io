@@ -1,2 +1,2 @@
-export{c as GAMEPLAY_OPTIONS,b as GAME_MANAGER_PROPS,a as assetMetaData}from'../chunk-TO4VY5TN.js';//# sourceMappingURL=assets.js.map
+var t={meshes:[]},e={meshesMetaData:t.meshes,hdrMetaData:t.hdr};export{e as ASSET_META_DATA,t as assetMetaData};//# sourceMappingURL=assets.js.map
 //# sourceMappingURL=assets.js.map

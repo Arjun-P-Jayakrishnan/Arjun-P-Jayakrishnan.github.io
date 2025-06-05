@@ -1,2 +1,0 @@
-var e={PATH_TO_MODELS:"../../assets/Models/",PATH_TO_HDR:"../../assets/HDR/"},a={meshes:[{name:"Room",path:e.PATH_TO_MODELS+"room.glb"}],hdr:{name:"environment_hdr",path:e.PATH_TO_HDR+"environment.hdr"}},t={loaderOptions:{meshesMetaData:a.meshes,hdrMetaData:a.hdr}},s={player:{ids:{rootMesh:"player"}},ground:{ids:{groundRoot:"ground"}}};export{a,t as b,s as c};//# sourceMappingURL=chunk-TO4VY5TN.js.map
-//# sourceMappingURL=chunk-TO4VY5TN.js.map

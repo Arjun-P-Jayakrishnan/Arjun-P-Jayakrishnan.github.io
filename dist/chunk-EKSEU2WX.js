@@ -1,2 +1,0 @@
-import {a}from'./chunk-QPA5K4VS.js';var v=()=>{let e=a(),n=a(),t=a();return {loadingBus:e,displayBus:n,debugBus:t}};export{v as a};//# sourceMappingURL=chunk-EKSEU2WX.js.map
-//# sourceMappingURL=chunk-EKSEU2WX.js.map

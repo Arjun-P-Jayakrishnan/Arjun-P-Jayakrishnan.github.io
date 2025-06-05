@@ -1,0 +1,2 @@
+import {a}from'./chunk-BRVW72WB.js';var v=()=>{let e=a(),n=a(),t=a();return {loadingBus:e,displayBus:n,debugBus:t}};export{v as a};//# sourceMappingURL=chunk-VQ5WHRVE.js.map
+//# sourceMappingURL=chunk-VQ5WHRVE.js.map

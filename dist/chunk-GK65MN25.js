@@ -1,0 +1,2 @@
+import {a}from'./chunk-JCK5HAKU.js';var O=s=>{let a$1={};return Object.freeze({inflate:()=>{for(let e in s){let t=a({initial:s[e]});a$1[e]=t;}},getState:()=>{let e={};for(let t in a$1)e[t]=a$1[t].getValue();return e},setState:e=>{for(let t in e)a$1[t]&&a$1[t].setValue(e[t]);},getObservable:e=>a$1[e],subscribe:(e,t)=>a$1[e].subscribeToChanges(t),dispose:()=>{for(let e in a$1)a$1[e].dispose();}})};export{O as a};//# sourceMappingURL=chunk-GK65MN25.js.map
+//# sourceMappingURL=chunk-GK65MN25.js.map

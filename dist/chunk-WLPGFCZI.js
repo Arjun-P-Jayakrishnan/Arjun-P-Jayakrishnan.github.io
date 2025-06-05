@@ -1,0 +1,2 @@
+import {b}from'./chunk-RKTTKTSH.js';import {Vector3}from'three';var C=o=>{let{camera:t,scene:r}=o,a=new Vector3(0,1,2);return {mount:()=>{},activate:()=>{b.activate("camera","about"),t.position.set(a.x,1,a.z),t.rotation.set(0,0,0,"XYZ");},deactivate:()=>{b.deactivate("camera","about");},unmount:()=>{b.unmount("camera","unmount");}}};export{C as a};//# sourceMappingURL=chunk-WLPGFCZI.js.map
+//# sourceMappingURL=chunk-WLPGFCZI.js.map
