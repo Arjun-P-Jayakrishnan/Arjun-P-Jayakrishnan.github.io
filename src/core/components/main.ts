@@ -2,14 +2,13 @@ import { getGlobalContext } from "managers/globalContext";
 import { SceneInspector } from "../../components/threejs/scene_inspector";
 import { AboutPage } from "../../components/website/about/about";
 import { ProjectCard } from "../../components/website/gallery/card";
-
 import { ProjectGallery } from "../../components/website/gallery/gallery";
 import { LoadingModal } from "../../components/website/loading";
 import { Navbar } from "../../components/website/navbar/header";
 import { processPipelineDebugger } from "debug/debugger";
-import { LifeCycle } from "core/lifecyle";
+import { LifeCycle } from "@utils/types/lifecycle";
 
-export interface WebComponentManager extends LifeCycle{
+export interface WebComponentManager extends LifeCycle {
   /**attach global context references */
   attachReferences: () => void;
 
@@ -21,7 +20,6 @@ export interface WebComponentManager extends LifeCycle{
 }
 
 export const createWebComponentManager = (): WebComponentManager => {
- 
   const mountComponents = () => {
     customElements.define("loading-modal", LoadingModal);
     customElements.define("nav-bar", Navbar);
@@ -29,15 +27,15 @@ export const createWebComponentManager = (): WebComponentManager => {
     customElements.define("project-card", ProjectCard);
     customElements.define("scene-inspector", SceneInspector);
     customElements.define("about-page", AboutPage);
-    
-    processPipelineDebugger.onMount('web-components');
+
+    processPipelineDebugger.onMount("web-components");
   };
 
   /**
    * attach references like global context for the web components
    */
   const attachReferences = () => {
-    processPipelineDebugger.onLoad('web-components')
+    processPipelineDebugger.onLoad("web-components");
     /***
      * get context attached to web components
      */
@@ -111,7 +109,7 @@ export const createWebComponentManager = (): WebComponentManager => {
    * unmount web components
    */
   const unmountComponents = () => {
-    processPipelineDebugger.onUnmount('web-components')
+    processPipelineDebugger.onUnmount("web-components");
     const selectors = [
       "loading-modal",
       "nav-bar",

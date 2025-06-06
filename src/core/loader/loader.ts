@@ -1,18 +1,21 @@
 import { LoadingManager, Scene, WebGLRenderer } from "three";
-import { createHDRLoader } from "./file_type_plugins/hdr_loader";
-import { createMeshLoader } from "./file_type_plugins/mesh_loader";
-import { AssetMetaData, LoaderPlugin } from "./loaderPlugins";
+import { createHDRLoader } from "./plugins/hdr_loader";
+import { createGLBLoader } from "./plugins/glb_loader";
 import { LoadingEvents } from "@managers/events/eventType";
 import { createEventBus } from "@managers/events/eventBus";
 import { GlobalState } from "@managers/state/globalState";
 import { LoadingContext } from "@managers/state/globalStateData";
 import { processPipelineDebugger } from "debug/debugger";
-import { createFBXLoader } from "./file_type_plugins/fbx_loader";
+import { createFBXLoader } from "./plugins/fbx_loader";
+import {
+  LoaderPlugin,
+  ModelAssetDescriptor,
+  ModelAssetRegistry,
+} from "@utils/types/loading";
+import { Nullable } from "@utils/types/lifecycle";
 
 export interface LoadOptions {
-  meshesMetaData: AssetMetaData[];
-  hdrMetaData?: AssetMetaData;
-  animationsMetaData:AssetMetaData[];
+  source: ModelAssetRegistry;
 }
 
 export interface LoaderContext {
@@ -24,7 +27,7 @@ export interface LoaderContext {
 
 export interface Loader {
   configure: () => void;
-  load: (assets:LoadOptions) => Promise<{
+  load: (assets: LoadOptions) => Promise<{
     success: string[];
     error: string[];
   }>;
@@ -36,11 +39,8 @@ export interface Loader {
  * @param context global context with references
  * @returns Loader
  */
-export const createLoader = (
-  context: LoaderContext
-): Loader => {
+export const createLoader = (context: LoaderContext): Loader => {
   const { scene, renderer, loaderEventBus, globalState } = context;
-  
 
   const manager: LoadingManager = new LoadingManager();
   let plugins: LoaderPlugin[] = [];
@@ -57,10 +57,7 @@ export const createLoader = (
         total: itemsTotal,
       });
       globalState.setState({
-        loading: {
-          active: true,
-          progress: 0,
-        } as LoadingContext,
+        loading: { active: true, progress: 0 } as LoadingContext,
       });
     };
 
@@ -96,38 +93,55 @@ export const createLoader = (
   /**
    * @description create necessary loaders
    */
-  const _configurePlugins = (meshes:AssetMetaData[],animations:AssetMetaData[],hdr?:AssetMetaData) => {
-    if (meshes.length > 0) {
-      plugins.push(
-        createMeshLoader({
-          assets: meshes,
-          scene: scene,
-          loadingManager: manager,
-          loadingEventBus: loaderEventBus,
-        })
-      );
-    }
+  const _configurePlugins = ({
+    modelDescriptors,
+    environmentMap,
+  }: ModelAssetRegistry) => {
+    const glbDescriptors: ModelAssetDescriptor[] = [];
+    const fbxDescriptors: ModelAssetDescriptor[] = [];
+    const hdrDescriptors: Nullable<ModelAssetDescriptor> =
+      environmentMap ?? null;
 
-    if (hdr !== undefined && hdr !== null) {
+    modelDescriptors.forEach((model) => {
+      switch (model.loaderType) {
+        case "glb":
+          glbDescriptors.push(model);
+          break;
+        case "fbx":
+          fbxDescriptors.push(model);
+          break;
+        default:
+          break;
+      }
+    });
+
+    plugins.push(
+      createGLBLoader({
+        assets: glbDescriptors,
+        scene: scene,
+        loadingManager: manager,
+        loadingEventBus: loaderEventBus,
+      })
+    );
+    plugins.push(
+      createFBXLoader({
+        assets: fbxDescriptors,
+        scene: scene,
+        loadingManager: manager,
+        loadingEventBus: loaderEventBus,
+      })
+    );
+
+    if (hdrDescriptors !== null) {
       plugins.push(
         createHDRLoader({
-          asset: hdr,
+          asset: hdrDescriptors,
           scene: scene,
           renderer: renderer,
           loadingManager: manager,
           loadingEventBus: loaderEventBus,
         })
       );
-    }
-    if(animations.length>0){
-      plugins.push(
-        createFBXLoader({
-          assets:animations,
-          scene:scene,
-          loadingManager:manager,
-          loadingEventBus:loaderEventBus,
-        })
-      )
     }
   };
 
@@ -136,17 +150,20 @@ export const createLoader = (
    */
   const _configure = () => {
     _configureLoadingManager();
-   
   };
 
   /**
    * @description load all types of assets
    */
-  const load = async (assets:LoadOptions): Promise<{ success: []; error: [] }> => {
-    processPipelineDebugger.onInit(`loading the models ${JSON.stringify(assets)}`)
+  const load = async (
+    assets: LoadOptions
+  ): Promise<{ success: []; error: [] }> => {
+    processPipelineDebugger.onInit(
+      `loading the models ${JSON.stringify(assets)}`
+    );
 
     const promises: Promise<void>[] = [];
-     _configurePlugins(assets.meshesMetaData,assets.animationsMetaData,assets.hdrMetaData,);
+    _configurePlugins(assets.source);
 
     plugins.forEach((plugin) => {
       promises.push(plugin.load());
@@ -154,9 +171,9 @@ export const createLoader = (
 
     await Promise.allSettled(promises);
 
-    plugins=[];
+    plugins = [];
 
-    processPipelineDebugger.onInit(`loaded models i guess`)
+    processPipelineDebugger.onInit(`loaded models i guess`);
 
     return {
       success: [],

@@ -1,6 +1,6 @@
 import { getGlobalContext } from "@managers/globalContext";
+import { Nullable } from "@utils/types";
 import { getThreeJsContext } from "core/game_engine/game_context";
-import { Nullable } from "core/lifecyle";
 import { processPipelineDebugger } from "debug/debugger";
 import { getControllers } from "graphics/mechanics/controllers/controller";
 import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
@@ -77,11 +77,8 @@ export const createPlayer = (props: PlayerProps): Player => {
       let playerRoot = globalStorage
         .getStorage("player")
         .retrieve("player")?.groups;
-      let animations=globalStorage
-        .getStorage("player")
-        .retrieve("player")?.animations ?? [];
-
-     
+      let animations =
+        globalStorage.getStorage("player").retrieve("player")?.animations ?? [];
 
       if (!playerRoot) {
         throw new Error(`player doesn't exist for the id ${props.rootMeshId}`);
@@ -92,15 +89,12 @@ export const createPlayer = (props: PlayerProps): Player => {
       objects = {
         playerRoot: playerRoot,
       };
-     
-      // console.log('armature',armature)
-      const mixer=new AnimationMixer(playerRoot);
-      animations.forEach((anim)=>{
-          mixer.clipAction(anim).play()
-      })  
 
-      mixers.push(mixer)
-     
+      // console.log('armature',armature)
+      const mixer = new AnimationMixer(playerRoot);
+      mixer.clipAction(animations[2]).play();
+
+      mixers.push(mixer);
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
     }

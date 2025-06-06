@@ -1,17 +1,12 @@
-
 import { getThreeJsContext } from "core/game_engine/game_context";
-import { getControllers } from "graphics/mechanics/controllers/controller";
 import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
 import { MouseController } from "graphics/mechanics/controllers/plugins/mouse";
 import { getGlobalContext } from "managers/globalContext";
 import { AnimationMixer, Euler, Object3D, Scene, Vector3 } from "three";
 
-
 export interface PlayerProps {
   rootMeshId: string;
 }
-
-
 
 export interface Player {
   mount: () => void;
@@ -28,8 +23,8 @@ export interface Player {
     position: Vector3;
     rotation: Euler;
   };
-  activate:()=>void;
-  deactivate:()=>void
+  activate: () => void;
+  deactivate: () => void;
   unmount: () => void;
 }
 
@@ -90,24 +85,19 @@ export const createPlayer = (props: PlayerProps): Player => {
     //   let playerRoot = contextManager
     //     .get("scene")
     //     .getObjectByName(props.rootMeshId);
-
     //   // const playerRoot=scene.getObjectByName(props.ids.rootMesh) as Object3D;
-
     //   if (!playerRoot) {
     //     throw new Error(
     //       `player doesn't exist for the id ${props.rootMeshId}`
     //     );
     //   }
-
     //   //Local References
     //   objects = {
     //     playerRoot: playerRoot,
     //   };
-
     //   animations = {
     //     mixer: new AnimationMixer(playerRoot),
     //   };
-
     //   inputs = {
     //     mouse: getControllers().getController("mouse"),
     //     keyboard: getControllers().getController("keyboard"),
@@ -192,17 +182,17 @@ export const createPlayer = (props: PlayerProps): Player => {
     //   rotation: objects.playerRoot.rotation,
     // };
 
-     return {
+    return {
       position: new Vector3(),
       rotation: new Euler(),
     };
   };
 
-  const activate=()=>{
-   // objects.playerRoot.rotation.set(0,0,0,'XYZ')
-  }
+  const activate = () => {
+    // objects.playerRoot.rotation.set(0,0,0,'XYZ')
+  };
 
-  const deactivate=()=>{}
+  const deactivate = () => {};
 
   const unmount = () => {
     try {
@@ -214,8 +204,8 @@ export const createPlayer = (props: PlayerProps): Player => {
 
   return {
     mount: mount,
-    activate:activate,
-    deactivate:deactivate,
+    activate: activate,
+    deactivate: deactivate,
     update: update,
     unmount: unmount,
   };

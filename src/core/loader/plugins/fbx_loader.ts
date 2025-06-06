@@ -1,15 +1,13 @@
-
 import { getGlobalContext } from "managers/globalContext";
-import { AnimationMixer, Scene } from "three";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { Scene } from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import type { LoadingManager } from "three/src/loaders/LoadingManager.js";
-import type { AssetMetaData, LoaderPlugin } from "../loaderPlugins";
 import { createEventBus } from "@managers/events/eventBus";
 import { LoadingEvents } from "@managers/events/eventType";
+import { LoaderPlugin, ModelAssetDescriptor } from "@utils/types/loading";
 
 export interface FBXLoaderProps {
-  assets: AssetMetaData[];
+  assets: ModelAssetDescriptor[];
   scene: Scene;
   loadingManager: LoadingManager;
   loadingEventBus: ReturnType<typeof createEventBus<LoadingEvents>>;
@@ -20,32 +18,22 @@ export const createFBXLoader = (props: FBXLoaderProps): LoaderPlugin => {
   const { globalStorage } = getGlobalContext();
 
   const fbxLoader: FBXLoader = new FBXLoader(loadingManager);
-  
 
   /**
    * @description load the mesh
    * @param metaData meta-data for loading the mesh
    */
-  const _loadMesh = async (metaData: AssetMetaData) => {
+  const _loadMesh = async (metaData: ModelAssetDescriptor) => {
     try {
       const model = await fbxLoader.loadAsync(metaData.path);
-
-      
-      
       metaData.onSuccess?.();
-
-      globalStorage.getStorage(metaData.name).store(
-        metaData.name, 
-        {
-            animations: model.animations,
-            groups:model,
-            type: "",
-        }
-      );
-     
+      globalStorage.getStorage(metaData.name).store(metaData.name, {
+        animations: model.animations,
+        groups: model,
+        type: "",
+      });
 
       scene.add(model);
-
     } catch (err) {
       metaData.onError?.(err as Error);
       loadingEventBus.emit({ type: "load:error", url: metaData.path });

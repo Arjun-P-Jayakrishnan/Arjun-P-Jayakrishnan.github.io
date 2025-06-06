@@ -1,21 +1,20 @@
-
 import { getGlobalContext } from "managers/globalContext";
 import { AnimationMixer, Scene } from "three";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { LoadingManager } from "three/src/loaders/LoadingManager.js";
-import type { AssetMetaData, LoaderPlugin } from "../loaderPlugins";
 import { createEventBus } from "@managers/events/eventBus";
 import { LoadingEvents } from "@managers/events/eventType";
+import { LoaderPlugin, ModelAssetDescriptor } from "@utils/types/loading";
 
-export interface MeshLoaderProps {
-  assets: AssetMetaData[];
+export interface GLBLoaderProps {
+  assets: ModelAssetDescriptor[];
   scene: Scene;
   loadingManager: LoadingManager;
   loadingEventBus: ReturnType<typeof createEventBus<LoadingEvents>>;
 }
 
-export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
+export const createGLBLoader = (props: GLBLoaderProps): LoaderPlugin => {
   const { assets, scene, loadingManager, loadingEventBus } = props;
   const { globalStorage } = getGlobalContext();
 
@@ -28,11 +27,10 @@ export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
    * @description load the mesh
    * @param metaData meta-data for loading the mesh
    */
-  const _loadMesh = async (metaData: AssetMetaData) => {
+  const _loadMesh = async (metaData: ModelAssetDescriptor) => {
     try {
       const model = await gltfLoader.loadAsync(metaData.path);
 
-      
       metaData.onSuccess?.();
 
       globalStorage.getStorage(metaData.name).store(metaData.name, {
@@ -40,8 +38,6 @@ export const createMeshLoader = (props: MeshLoaderProps): LoaderPlugin => {
         groups: model.scene,
         type: "",
       });
-     
-      
 
       scene.add(model.scene);
       //model.scene.position.set(0, 0, 0);
