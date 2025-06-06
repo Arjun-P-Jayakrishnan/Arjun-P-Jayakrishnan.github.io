@@ -1,16 +1,19 @@
-
 import { getGlobalContext } from "@managers/globalContext";
+import { Nullable } from "@utils/types/lifecycle";
 import { getThreeJsContext } from "core/game_engine/game_context";
-import { Nullable } from "core/lifecyle";
 import { processPipelineDebugger } from "debug/debugger";
-import { getControllers } from "graphics/mechanics/controllers/controller";
-import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
 import { MouseController } from "graphics/mechanics/controllers/plugins/mouse";
-import { AnimationMixer, Euler, Object3D, Object3DEventMap, Scene, Vector3 } from "three";
-
+import {
+  AnimationMixer,
+  Euler,
+  Object3D,
+  Object3DEventMap,
+  Scene,
+  Vector3,
+} from "three";
 
 export interface PlayerProps {
-  rootMeshId:string
+  rootMeshId: string;
 }
 
 export interface PlayerContext {
@@ -19,8 +22,8 @@ export interface PlayerContext {
 
 export interface Player {
   mount: () => void;
-  activate:()=>void;
-  deactiavte:()=>void;
+  activate: () => void;
+  deactiavte: () => void;
   unmount: () => void;
 }
 
@@ -48,32 +51,30 @@ export const createPlayer = (props: PlayerProps): Player => {
   const contextManager = getThreeJsContext();
 
   let state: PlayerState = {};
-  let tempData: TempData = {inputDirection: new Vector3(0, 0, 0),};
+  let tempData: TempData = { inputDirection: new Vector3(0, 0, 0) };
   let inputs: Nullable<MouseController>;
 
   let objects: ObjectReferences;
   let animations: Animation;
 
-  const castShadow=(player:Object3D<Object3DEventMap>)=>{
-      player.traverse((child)=>{
-        child.castShadow=true
-      })
-  }
+  const castShadow = (player: Object3D<Object3DEventMap>) => {
+    player.traverse((child) => {
+      child.castShadow = true;
+    });
+  };
 
-  const mount=()=>{
-     try {
-      processPipelineDebugger.onMount('about-room-player')
+  const mount = () => {
+    try {
+      processPipelineDebugger.onMount("about-room-player");
       let playerRoot = contextManager
         .get("scene")
         .getObjectByName(props.rootMeshId);
 
       if (!playerRoot) {
-        throw new Error(
-          `player doesn't exist for the id ${props.rootMeshId}`
-        );
+        throw new Error(`player doesn't exist for the id ${props.rootMeshId}`);
       }
-      console.log(playerRoot.position)
-      
+      console.log(playerRoot.position);
+
       //Local References
       objects = {
         playerRoot: playerRoot,
@@ -85,32 +86,31 @@ export const createPlayer = (props: PlayerProps): Player => {
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
     }
-  }
+  };
 
-  const activate=()=>{
-    if(objects.playerRoot) {
-      objects.playerRoot.rotation.set(0,-Math.PI/4,0,'XYZ')
-      objects.playerRoot.castShadow=true;
-      castShadow(objects.playerRoot)
-      console.log(objects.playerRoot.position)
+  const activate = () => {
+    if (objects.playerRoot) {
+      objects.playerRoot.rotation.set(0, -Math.PI / 4, 0, "XYZ");
+      objects.playerRoot.castShadow = true;
+      castShadow(objects.playerRoot);
+      console.log(objects.playerRoot.position);
 
-      objects.playerRoot.position.set(1.5,0,0);
+      objects.playerRoot.position.set(1.5, 0, 0);
     }
-  }
+  };
 
-  const deactivate=()=>{}
+  const deactivate = () => {};
 
-  const unmount=()=>{
-    if(objects.playerRoot){
-      objects.playerRoot.position.set(1.5,0,0);
+  const unmount = () => {
+    if (objects.playerRoot) {
+      objects.playerRoot.position.set(1.5, 0, 0);
     }
-  }
-
+  };
 
   return {
-    mount:mount,
-    activate:activate,
-    deactiavte:deactivate,
-    unmount:unmount
+    mount: mount,
+    activate: activate,
+    deactiavte: deactivate,
+    unmount: unmount,
   };
 };

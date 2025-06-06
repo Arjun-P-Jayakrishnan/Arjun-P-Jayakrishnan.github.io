@@ -1,12 +1,17 @@
-
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
-import type { AssetMetaData, LoaderPlugin } from "../loaderPlugins";
-import { DataTexture, LoadingManager, PMREMGenerator, Scene, WebGLRenderer } from "three";
+import {
+  DataTexture,
+  LoadingManager,
+  PMREMGenerator,
+  Scene,
+  WebGLRenderer,
+} from "three";
 import { createEventBus } from "@managers/events/eventBus";
 import { LoadingEvents } from "@managers/events/eventType";
+import { LoaderPlugin, ModelAssetDescriptor } from "@utils/types/loading";
 
 export interface HDRTextureLoaderProps {
-  asset: AssetMetaData;
+  asset: ModelAssetDescriptor;
   scene: Scene;
   renderer: WebGLRenderer;
   loadingManager: LoadingManager;
@@ -28,7 +33,9 @@ export const createHDRLoader = (props: HDRTextureLoaderProps): LoaderPlugin => {
    * @description loads a hdr file
    * @param metaData meta-data for loading hdr
    */
-  const _loadHDRTexture = async (metaData: AssetMetaData): Promise<void> => {
+  const _loadHDRTexture = async (
+    metaData: ModelAssetDescriptor
+  ): Promise<void> => {
     return new Promise((reject, resolve) => {
       rgbeLoader.load(
         metaData.path,

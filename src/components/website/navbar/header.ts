@@ -19,7 +19,7 @@ template.innerHTML = `
   </nav>
 `;
 
-type TabKeys="home"|"about"|"project"|"contact";
+type TabKeys = "home" | "about" | "project" | "contact";
 
 interface State {
   hamburgerMenu: {
@@ -45,7 +45,7 @@ export class Navbar extends HTMLElement {
       isOpen: false,
       isTransitioning: false,
     },
-    activeTab:"home"
+    activeTab: "home",
   };
 
   private displayEventBus: EventBus<DisplayEvents> | null = null;
@@ -60,7 +60,10 @@ export class Navbar extends HTMLElement {
 
   root: ShadowRoot;
 
-  busHandlers: Record<`${TabKeys}:show` | `${TabKeys}:hide`,(e: DisplayEvents) => void> | null = null;
+  busHandlers: Record<
+    `${TabKeys}:show` | `${TabKeys}:hide`,
+    (e: DisplayEvents) => void
+  > | null = null;
   sections = ["project", "about", "contact", "home"] as const;
 
   constructor() {
@@ -168,9 +171,9 @@ export class Navbar extends HTMLElement {
   };
 
   toggleSections = <K extends DisplayEvents["elementId"]>(e: Event, key: K) => {
-    if(this.state.activeTab==key) return;
+    if (this.state.activeTab == key) return;
     e.preventDefault();
-   
+
     const showEvent = {
       elementId: key,
       type: `${key}:show`,
@@ -183,8 +186,6 @@ export class Navbar extends HTMLElement {
 
     this.displayEventBus?.emit(hideEvent);
     this.displayEventBus?.emit(showEvent);
-  
-    this.state.activeTab = key;
   };
 
   private onToggleClick = (e: Event) => this.toggleHamburgerMenu();
@@ -199,10 +200,10 @@ export class Navbar extends HTMLElement {
 
     this.sections.forEach((id) => {
       const showHandler = (e: DisplayEvents) => {
-        processPipelineDebugger.onMount(`[${id}]-component`)
+        processPipelineDebugger.onMount(`[${id}]-component`);
       };
       const hideHandler = (e: DisplayEvents) => {
-        processPipelineDebugger.onUnmount(`[${id}]-component`)
+        processPipelineDebugger.onUnmount(`[${id}]-component`);
       };
 
       this.displayEventBus?.on(`${id}:show`, showHandler);

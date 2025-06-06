@@ -1,58 +1,66 @@
-
-import { getThreeJsContext, ThreeJsContext, ThreeJsContextManager } from "core/game_engine/game_context";
-import {  CameraManager, createCameraManager,  } from "./camera";
-import { Room } from "gameplay/controller/room_types";
+import {
+  getThreeJsContext,
+  ThreeJsContextManager,
+} from "core/game_engine/game_context";
+import { CameraManager, createCameraManager } from "./camera";
 import { processPipelineDebugger } from "debug/debugger";
 import { createPlayer, Player, PlayerProps } from "./player";
 import { createGround, Ground, GroundProps } from "./ground";
 import { createLighting, Lighting } from "./lights";
 import { getGlobalContext } from "@managers/globalContext";
-import { Nullable } from "core/lifecyle";
 import { Group, Object3DEventMap } from "three";
+import { Nullable } from "@utils/types/lifecycle";
+import { Room } from "@utils/types/room";
 
 export interface AboutRoomProps {
-  storageId:string;
-  player:PlayerProps
-  ground:GroundProps
+  storageId: string;
+  player: PlayerProps;
+  ground: GroundProps;
 }
 
 interface Components {
   camera: CameraManager;
-  player:Player;
-  ground:Ground;
-  lighting:Lighting;
+  player: Player;
+  ground: Ground;
+  lighting: Lighting;
 }
 
 export const createAboutRoom = (props: AboutRoomProps): Room => {
   //====References===
-  const context:ThreeJsContextManager=getThreeJsContext();
-  const {globalStorage} = getGlobalContext();
-  const { scene, camera,orbit } = { scene: context.get("scene"), camera: context.get("camera"),orbit:context.get('orbit')};
+  const context: ThreeJsContextManager = getThreeJsContext();
+  const { globalStorage } = getGlobalContext();
+  const { scene, camera, orbit } = {
+    scene: context.get("scene"),
+    camera: context.get("camera"),
+    orbit: context.get("orbit"),
+  };
 
   //===Local===
   const components: Components = {
-    camera: createCameraManager({ camera: camera, scene: scene,}),
-    player:createPlayer(props.player),
-    ground:createGround(props.ground),
-    lighting:createLighting()
+    camera: createCameraManager({ camera: camera, scene: scene }),
+    player: createPlayer(props.player),
+    ground: createGround(props.ground),
+    lighting: createLighting(),
   };
 
-  let group:Nullable<Group<Object3DEventMap>>=null;
+  let group: Nullable<Group<Object3DEventMap>> = null;
 
   const mount = () => {
-    processPipelineDebugger.onMount('about-room')
+    processPipelineDebugger.onMount("about-room");
     components.ground.mount();
     components.player.mount();
     components.camera.mount();
     components.lighting.mount();
-    group = globalStorage.getStorage(props.storageId).retrieve(props.storageId)?.groups ?? null;
+    group =
+      globalStorage.getStorage(props.storageId).retrieve(props.storageId)
+        ?.groups ?? null;
   };
 
   const activate = () => {
-    if(group) group.visible=true;
+    if (group) group.visible = true;
 
-    processPipelineDebugger.onInit('about-room-init')
-    orbit.enabled=false;
+    processPipelineDebugger.onInit("about-room-init");
+    orbit.enabled = false;
     components.camera.activate();
     components.ground.actiavte();
     components.lighting.activate();
@@ -64,7 +72,7 @@ export const createAboutRoom = (props: AboutRoomProps): Room => {
   };
 
   const deactivate = () => {
-    if(group) group.visible=false;
+    if (group) group.visible = false;
 
     components.camera.deactivate();
     components.ground.deactivate();
@@ -85,6 +93,6 @@ export const createAboutRoom = (props: AboutRoomProps): Room => {
     update: update,
     setDeactive: deactivate,
     unmount: unmount,
-    isLoaded:false
+    isLoaded: false,
   };
 };

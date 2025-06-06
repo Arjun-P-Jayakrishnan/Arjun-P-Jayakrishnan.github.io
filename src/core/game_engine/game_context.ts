@@ -1,4 +1,4 @@
-import { Nullable } from "core/lifecyle";
+import { Nullable } from "@utils/types/lifecycle";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
@@ -6,10 +6,10 @@ export interface ThreeJsContext {
   scene: Scene;
   renderer: WebGLRenderer;
   camera: PerspectiveCamera;
-  orbit:OrbitControls
+  orbit: OrbitControls;
 }
 
-let internalContext:  Nullable<ThreeJsContext> = null;
+let internalContext: Nullable<ThreeJsContext> = null;
 
 export interface ThreeJsContextManager {
   /** Injects three js context */
@@ -26,9 +26,9 @@ export interface ThreeJsContextManager {
 export const getThreeJsContext = (): ThreeJsContextManager => {
   const mount = (ctx: ThreeJsContext) => {
     if (internalContext) {
-        throw new Error('[ThreeJsContext] Cannot mount again. Unmount first.');
+      throw new Error("[ThreeJsContext] Cannot mount again. Unmount first.");
     }
-    
+
     internalContext = ctx;
   };
 
