@@ -1,0 +1,2 @@
+import {a as a$1}from'./chunk-VQ5WHRVE.js';import {a as a$2}from'./chunk-GK65MN25.js';import {a}from'./chunk-K5SYR3S2.js';var l={loading:{active:false,progress:0}},e,c=()=>(e||(e={globalState:a$2(l),eventBusManager:a$1(),globalStorage:a({})},e.globalState.inflate(),e.globalStorage.mount()),e);export{e as a,c as b};//# sourceMappingURL=chunk-ML4JF6YZ.js.map
+//# sourceMappingURL=chunk-ML4JF6YZ.js.map

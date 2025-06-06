@@ -1,2 +1,0 @@
-import {a}from'./chunk-5PDCNHTA.js';import {b}from'./chunk-J2KCIWDX.js';import {Vector3,Euler}from'three';var D=c=>{let {eventBusManager:l,globalState:u,globalStorage:m}=b();a();({direction:new Vector3(0,0,-1),velocity:new Vector3(0,0,0)});({inputDirection:new Vector3(0,0,0)});let n=()=>{};return {mount:n,activate:()=>{},deactivate:()=>{},update:(t,a,C)=>({position:new Vector3,rotation:new Euler}),unmount:()=>{}}};export{D as a};//# sourceMappingURL=chunk-J7ZGKT2E.js.map
-//# sourceMappingURL=chunk-J7ZGKT2E.js.map
