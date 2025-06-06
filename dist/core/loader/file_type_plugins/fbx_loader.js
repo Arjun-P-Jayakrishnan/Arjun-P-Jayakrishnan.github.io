@@ -1,2 +1,0 @@
-export{a as createFBXLoader}from'../../../chunk-7A62DR63.js';import'../../../chunk-ML4JF6YZ.js';import'../../../chunk-VQ5WHRVE.js';import'../../../chunk-BRVW72WB.js';import'../../../chunk-GK65MN25.js';import'../../../chunk-JCK5HAKU.js';import'../../../chunk-K5SYR3S2.js';import'../../../chunk-4UJKZHWJ.js';//# sourceMappingURL=fbx_loader.js.map
-//# sourceMappingURL=fbx_loader.js.map

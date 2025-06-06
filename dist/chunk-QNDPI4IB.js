@@ -1,2 +1,0 @@
-var e=null,s=()=>({mount:t=>{if(e)throw new Error("[ThreeJsContext] Cannot mount again. Unmount first.");e=t;},unmount:()=>{e=null;},get:t=>{if(!e)throw new Error(`Cannot access "${t}" before context is mounted`);return e[t]}});export{s as a};//# sourceMappingURL=chunk-QNDPI4IB.js.map
-//# sourceMappingURL=chunk-QNDPI4IB.js.map
