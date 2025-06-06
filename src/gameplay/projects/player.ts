@@ -1,5 +1,5 @@
 import { getGlobalContext } from "@managers/globalContext";
-import { Nullable } from "@utils/types";
+import { Nullable } from "@utils/types/lifecycle";
 import { getThreeJsContext } from "core/game_engine/game_context";
 import { processPipelineDebugger } from "debug/debugger";
 import { getControllers } from "graphics/mechanics/controllers/controller";

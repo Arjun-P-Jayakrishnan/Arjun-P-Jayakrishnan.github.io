@@ -6,6 +6,10 @@ import {
   RoomController,
 } from "./controller/room_controller";
 import { processPipelineDebugger } from "debug/debugger";
+import {
+  ControllerManger,
+  getControllers,
+} from "graphics/mechanics/controllers/controller";
 
 export interface Gameplay {
   mount: () => Promise<void>;
@@ -34,6 +38,7 @@ export const createGameplay = (): Gameplay => {
 
   //Controllers
   let roomController: RoomController = createRoomController();
+  let inputControllers: ControllerManger = getControllers();
 
   const bind = () => {
     eventBusManager.displayBus.on(
@@ -68,10 +73,18 @@ export const createGameplay = (): Gameplay => {
     if (isMounted) return;
 
     processPipelineDebugger.onMount("gameplay");
-
+    inputControllers.mount({
+      mouse: {
+        sensitivity: 0.5,
+      },
+    });
     await roomController.mount();
     bind();
     isMounted = true;
+
+    window.addEventListener("keyup", (e) => {
+      console.log(e);
+    });
   };
 
   const updateDeltaTime = (): void => {

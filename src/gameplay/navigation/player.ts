@@ -1,4 +1,10 @@
+import {
+  AnimationController,
+  createAnimationController,
+} from "controllers/animation";
 import { getThreeJsContext } from "core/game_engine/game_context";
+import { createFSMController, FSMController } from "fsm/player";
+import { getControllers } from "graphics/mechanics/controllers/controller";
 import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
 import { MouseController } from "graphics/mechanics/controllers/plugins/mouse";
 import { getGlobalContext } from "managers/globalContext";
@@ -57,6 +63,8 @@ interface TempData {
 export const createPlayer = (props: PlayerProps): Player => {
   const { eventBusManager, globalState, globalStorage } = getGlobalContext();
   const contextManager = getThreeJsContext();
+  let animationController: AnimationController;
+  let fsmController: FSMController;
 
   let state: PlayerState = {
     direction: new Vector3(0, 0, -1),
@@ -81,30 +89,48 @@ export const createPlayer = (props: PlayerProps): Player => {
   let animations: Animation;
 
   const mount = () => {
-    // try {
-    //   let playerRoot = contextManager
-    //     .get("scene")
-    //     .getObjectByName(props.rootMeshId);
-    //   // const playerRoot=scene.getObjectByName(props.ids.rootMesh) as Object3D;
-    //   if (!playerRoot) {
-    //     throw new Error(
-    //       `player doesn't exist for the id ${props.rootMeshId}`
-    //     );
-    //   }
-    //   //Local References
-    //   objects = {
-    //     playerRoot: playerRoot,
-    //   };
-    //   animations = {
-    //     mixer: new AnimationMixer(playerRoot),
-    //   };
-    //   inputs = {
-    //     mouse: getControllers().getController("mouse"),
-    //     keyboard: getControllers().getController("keyboard"),
-    //   };
-    // } catch (err) {
-    //   console.error(`Player mesh cant be obtained :${err}`);
-    // }
+    try {
+      let playerRoot = contextManager
+        .get("scene")
+        .getObjectByName(props.rootMeshId);
+      const _animations =
+        globalStorage.getStorage("player").retrieve("player")?.animations ?? [];
+
+      if (!playerRoot) {
+        throw new Error(`player doesn't exist for the id ${props.rootMeshId}`);
+      }
+      //Local References
+      objects = {
+        playerRoot: playerRoot,
+      };
+
+      inputs = {
+        mouse: getControllers().getController("mouse"),
+        keyboard: getControllers().getController("keyboard"),
+      };
+
+      const mixer = new AnimationMixer(playerRoot);
+      animations = {
+        mixer: mixer,
+      };
+      animationController = createAnimationController({
+        mixer: mixer,
+        actions: {
+          Idle: mixer.clipAction(_animations[0]),
+          Walk: mixer.clipAction(_animations[3]),
+          Run: mixer.clipAction(_animations[1]),
+        },
+        crossFadeDuration: 0.3,
+      });
+
+      fsmController = createFSMController({
+        animationController: animationController,
+      });
+
+      fsmController.mount();
+    } catch (err) {
+      console.error(`Player mesh cant be obtained :${err}`);
+    }
   };
 
   const updateMouse = (
@@ -181,6 +207,8 @@ export const createPlayer = (props: PlayerProps): Player => {
     //   position: objects.playerRoot.position,
     //   rotation: objects.playerRoot.rotation,
     // };
+
+    fsmController.update(deltaTime);
 
     return {
       position: new Vector3(),

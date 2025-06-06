@@ -14,6 +14,7 @@ import { CameraManager, createCameraManager } from "./camera";
 import { processPipelineDebugger } from "debug/debugger";
 import { Nullable } from "@utils/types/lifecycle";
 import { Room } from "@utils/types/room";
+import { Euler } from "three";
 
 export interface NavigationRoomProps {
   storageId: string;
@@ -94,6 +95,12 @@ export const createNavigationRoom = (props: NavigationRoomProps): Room => {
   const update = (deltaTime: number) => {
     if (!isMounted || !components) return;
     contextManager.get("orbit").update();
+    components.player.update(
+      deltaTime,
+      { pitch: 0, yaw: 0 },
+      { rotation: new Euler() }
+    );
+
     //entities.ground.update();
   };
 
