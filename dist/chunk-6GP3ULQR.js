@@ -1,0 +1,2 @@
+var u=e=>{let t={rotation:{pitch:0,yaw:0}},n=o=>{t.rotation.pitch+=o.movementY,t.rotation.yaw+=o.movementX;};return {mount:()=>{document.addEventListener("mousemove",n);},unmount:()=>{document.removeEventListener("mousemove",n);},getRotation:()=>{let o=t.rotation.yaw,r=t.rotation.pitch;return t.rotation.pitch=0,t.rotation.yaw=0,{yaw:-e.sensitivity.yaw*o,pitch:e.sensitivity.pitch*r}}}};export{u as a};//# sourceMappingURL=chunk-6GP3ULQR.js.map
+//# sourceMappingURL=chunk-6GP3ULQR.js.map
