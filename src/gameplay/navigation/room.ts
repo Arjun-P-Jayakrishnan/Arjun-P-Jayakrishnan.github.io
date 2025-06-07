@@ -14,7 +14,7 @@ import { CameraManager, createCameraManager } from "./camera";
 import { processPipelineDebugger } from "debug/debugger";
 import { Nullable } from "@utils/types/lifecycle";
 import { Room } from "@utils/types/room";
-import { Euler } from "three";
+import { Euler, Vector3 } from "three";
 
 export interface NavigationRoomProps {
   storageId: string;
@@ -29,7 +29,13 @@ interface Entities {
   controllers: ControllerManger;
 }
 
-interface InternalState {}
+interface InternalState {
+  player: {
+    position: Vector3;
+    rotation: Euler;
+    rotationDelta: { yaw: number; pitch: number };
+  };
+}
 
 interface TempData {}
 
@@ -57,6 +63,7 @@ export const createNavigationRoom = (props: NavigationRoomProps): Room => {
   const activate = () => {
     if (!room || !components) return;
     room.groups.visible = true;
+    contextManager.get("orbit").enabled = false;
 
     components.camera.activate();
     components.ground.activate();
@@ -76,15 +83,22 @@ export const createNavigationRoom = (props: NavigationRoomProps): Room => {
     if (isMounted || !components) return;
 
     processPipelineDebugger.onMount("Navigation Room");
-
-    contextManager = getThreeJsContext();
+    state = {
+      player: {
+        position: new Vector3(0, 0, 0),
+        rotation: new Euler(0, 0, 0),
+        rotationDelta: { yaw: 0, pitch: 0 },
+      },
+    };
 
     //get base root i.e group so that it can be used to toggle visibility
     room =
       globalStorage.getStorage(props.storageId).retrieve(props.storageId) ??
       null;
 
-    components.controllers.mount({ mouse: { sensitivity: 0.01 } });
+    components.controllers.mount({
+      mouse: { sensitivity: { pitch: 0.001, yaw: 0.0009 } },
+    });
     components.player.mount();
     components.ground.mount();
     components.camera.mount();
@@ -93,13 +107,13 @@ export const createNavigationRoom = (props: NavigationRoomProps): Room => {
   };
 
   const update = (deltaTime: number) => {
-    if (!isMounted || !components) return;
+    if (!isMounted || !components || !state) return;
     contextManager.get("orbit").update();
-    components.player.update(
-      deltaTime,
-      { pitch: 0, yaw: 0 },
-      { rotation: new Euler() }
-    );
+    state.player = components.player.update(deltaTime);
+    components.camera.update({
+      playerPosition: state.player.position,
+      rotationDelta: state.player.rotationDelta,
+    });
 
     //entities.ground.update();
   };

@@ -1,11 +1,9 @@
 import { Controllers } from "./plugins";
 import { createKeyboardController } from "./plugins/keyboard";
-import { createMouseController } from "./plugins/mouse";
+import { createMouseController, MouseControllerProps } from "./plugins/mouse";
 
 export interface ControllerProps {
-  mouse: {
-    sensitivity: number;
-  };
+  mouse: MouseControllerProps;
 }
 
 export interface ControllerManger {
