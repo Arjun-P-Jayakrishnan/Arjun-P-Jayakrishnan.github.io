@@ -73,14 +73,14 @@ export const createGameplay = (): Gameplay => {
     if (isMounted) return;
 
     processPipelineDebugger.onMount("gameplay");
-    inputControllers.mount({
-      mouse: {
-        sensitivity: {
-          yaw: 0.005,
-          pitch: 0.000001,
-        },
-      },
-    });
+    // inputControllers.mount({
+    //   mouse: {
+    //     sensitivity: {
+    //       yaw: 0.005,
+    //       pitch: 0.000001,
+    //     },
+    //   },
+    // });
     await roomController.mount();
     bind();
     isMounted = true;
