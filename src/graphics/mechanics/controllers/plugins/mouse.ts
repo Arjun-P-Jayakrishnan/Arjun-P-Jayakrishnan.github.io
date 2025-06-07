@@ -1,8 +1,7 @@
 import { ControllerPlugin } from "../plugins";
 
-
 export interface MouseControllerProps {
-  sensitivity: number;
+  sensitivity: { pitch: number; yaw: number };
 }
 
 export interface MouseController extends ControllerPlugin {
@@ -39,11 +38,14 @@ export const createMouseController = (
   };
 
   const handleMouse = (e: MouseEvent) => {
-    state.rotation.pitch = e.clientY - state.mouse.lastY;
-    state.rotation.yaw = e.clientX - state.mouse.lastX;
+    // state.rotation.pitch = e.clientY - state.mouse.lastY;
+    // state.rotation.yaw = e.clientX - state.mouse.lastX;
 
-    state.mouse.lastX = e.clientX;
-    state.mouse.lastY = e.clientY;
+    // state.mouse.lastX = e.clientX;
+    // state.mouse.lastY = e.clientY;
+
+    state.rotation.pitch += e.movementY;
+    state.rotation.yaw += e.movementX;
   };
 
   const mountEvents = () => {
@@ -62,8 +64,8 @@ export const createMouseController = (
     state.rotation.yaw = 0;
 
     return {
-      yaw: props.sensitivity * sideways,
-      pitch: props.sensitivity * up_down,
+      yaw: -props.sensitivity.yaw * sideways,
+      pitch: props.sensitivity.pitch * up_down,
     };
   };
 

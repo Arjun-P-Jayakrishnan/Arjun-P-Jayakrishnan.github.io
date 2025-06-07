@@ -1,10 +1,14 @@
+import { GenericLifeCycle, Nullable } from "@utils/types/lifecycle";
 import {
   AnimationController,
   createAnimationController,
 } from "controllers/animation";
 import { getThreeJsContext } from "core/game_engine/game_context";
 import { createFSMController, FSMController } from "fsm/player";
-import { getControllers } from "graphics/mechanics/controllers/controller";
+import {
+  ControllerManger,
+  getControllers,
+} from "graphics/mechanics/controllers/controller";
 import { KeyboardController } from "graphics/mechanics/controllers/plugins/keyboard";
 import { MouseController } from "graphics/mechanics/controllers/plugins/mouse";
 import { getGlobalContext } from "managers/globalContext";
@@ -14,24 +18,13 @@ export interface PlayerProps {
   rootMeshId: string;
 }
 
-export interface Player {
-  mount: () => void;
-  update: (
-    deltaTime: number,
-    rotation: {
-      yaw: number;
-      pitch: number;
-    },
-    camera: {
-      rotation: Euler;
-    }
-  ) => {
+export interface Player extends GenericLifeCycle {
+  /** Update based on controller input */
+  update: (deltaTime: number) => {
     position: Vector3;
     rotation: Euler;
+    rotationDelta: { yaw: number; pitch: number };
   };
-  activate: () => void;
-  deactivate: () => void;
-  unmount: () => void;
 }
 
 interface PlayerState {
@@ -43,12 +36,17 @@ interface PlayerState {
   };
 }
 
-interface ObjectReferences {
-  playerRoot: Object3D;
+interface Controllers {
+  input: {
+    mouse: Nullable<MouseController>;
+    keyboard: Nullable<KeyboardController>;
+  };
+  animation: AnimationController;
+  fsm: FSMController;
 }
 
-interface Animation {
-  mixer: AnimationMixer | null;
+interface ObjectReferences {
+  player: Nullable<Object3D>;
 }
 
 const PLAYER_CONSTANTS = {
@@ -63,8 +61,8 @@ interface TempData {
 export const createPlayer = (props: PlayerProps): Player => {
   const { eventBusManager, globalState, globalStorage } = getGlobalContext();
   const contextManager = getThreeJsContext();
-  let animationController: AnimationController;
-  let fsmController: FSMController;
+
+  let controllers: Controllers;
 
   let state: PlayerState = {
     direction: new Vector3(0, 0, -1),
@@ -77,142 +75,118 @@ export const createPlayer = (props: PlayerProps): Player => {
   let tempData: TempData = {
     inputDirection: new Vector3(0, 0, 0),
   };
-  let inputs: {
-    mouse: MouseController | null;
-    keyboard: KeyboardController | null;
-  } = {
-    mouse: null,
-    keyboard: null,
-  };
 
-  let objects: ObjectReferences;
-  let animations: Animation;
+  let objects: ObjectReferences = { player: null };
 
   const mount = () => {
     try {
-      let playerRoot = contextManager
-        .get("scene")
-        .getObjectByName(props.rootMeshId);
-      const _animations =
-        globalStorage.getStorage("player").retrieve("player")?.animations ?? [];
+      const playerRoot = globalStorage.getStorage("player").retrieve("player");
 
       if (!playerRoot) {
         throw new Error(`player doesn't exist for the id ${props.rootMeshId}`);
       }
-      //Local References
-      objects = {
-        playerRoot: playerRoot,
-      };
+      const player = playerRoot?.groups;
+      const animations = playerRoot?.animations;
 
-      inputs = {
-        mouse: getControllers().getController("mouse"),
-        keyboard: getControllers().getController("keyboard"),
-      };
+      /**Input Controllers */
+      const controller = getControllers();
 
-      const mixer = new AnimationMixer(playerRoot);
-      animations = {
-        mixer: mixer,
-      };
-      animationController = createAnimationController({
+      /**Animation */
+      const mixer = new AnimationMixer(player);
+      const animationController = createAnimationController({
         mixer: mixer,
         actions: {
-          Idle: mixer.clipAction(_animations[0]),
-          Walk: mixer.clipAction(_animations[3]),
-          Run: mixer.clipAction(_animations[1]),
+          Idle: mixer.clipAction(animations[0]),
+          Walk: mixer.clipAction(animations[3]),
+          Run: mixer.clipAction(animations[1]),
         },
         crossFadeDuration: 0.3,
       });
 
-      fsmController = createFSMController({
+      const fsmController = createFSMController({
         animationController: animationController,
       });
-
       fsmController.mount();
+
+      objects = {
+        player: player,
+      };
+
+      controllers = {
+        input: {
+          mouse: controller.getController("mouse"),
+          keyboard: controller.getController("keyboard"),
+        },
+        animation: animationController,
+        fsm: fsmController,
+      };
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
     }
   };
 
-  const updateMouse = (
-    mouse: { yaw: number; pitch: number },
-    camera: { rotation: Euler }
-  ) => {
-    // state.rotationApplied = mouse;
-    // objects.playerRoot.rotation.y += state.rotationApplied.yaw;
+  const updateMouse = (mouse: Nullable<MouseController>) => {
+    if (!mouse || !objects.player!) return;
+
+    state.rotationApplied = mouse.getRotation();
+    objects.player.rotation.y += state.rotationApplied.yaw;
   };
 
-  // const updateKeyboard = (deltaTime: number) => {
-  //   if (!inputs.keyboard) return;
-  //   const FRICTION = 5.0;
-  //   const VELOCITY_DEADZONE = 0.001;
-
-  //   const { inputDirection } = tempData;
-  //   inputDirection.set(0, 0, 0);
-
-  //   if (inputs.keyboard.isKeyPressed("w")) inputDirection.z -= 1;
-  //   if (inputs.keyboard.isKeyPressed("s")) inputDirection.z += 1;
-  //   if (inputs.keyboard.isKeyPressed("a")) inputDirection.x -= 1;
-  //   if (inputs.keyboard.isKeyPressed("d")) inputDirection.x += 1;
-
-  //   if (inputDirection.length() > 0) {
-  //     //normalize direction
-  //     inputDirection.applyQuaternion(objects.playerRoot.quaternion);
-  //     inputDirection.normalize();
-
-  //     //accelerate towards the direction
-  //     state.velocity.add(
-  //       inputDirection.multiplyScalar(
-  //         PLAYER_CONSTANTS.MOVEMENT_ACCELERATION * deltaTime
-  //       )
-  //     );
-  //     //ensure the velocity doesn't go over the threshold
-  //     state.velocity.clampLength(0, PLAYER_CONSTANTS.MAX_VELOCITY);
-  //   } else if (inputDirection.length() == 0 && state.velocity.length() > 0) {
-  //     const decay = Math.exp(-FRICTION * deltaTime);
-  //     state.velocity.multiplyScalar(decay);
-
-  //     if (state.velocity.lengthSq() < VELOCITY_DEADZONE * VELOCITY_DEADZONE) {
-  //       state.velocity.set(0, 0, 0);
-  //     }
-  //   }
-
-  //   objects.playerRoot.position.add(state.velocity);
-  // };
-
-  // const updateControllers = (
-  //   deltaTime: number,
-  //   rotation: { yaw: number; pitch: number },
-  //   camera: { rotation: Euler }
-  // ) => {
-  //   updateMouse(rotation, camera);
-  //   updateKeyboard(deltaTime);
-  // };
-
-  // const updateAnimation = (deltaTime: number) => {
-  //   animations.mixer!.update(deltaTime);
-  // };
-
-  const update = (
-    deltaTime: number,
-    rotation: { yaw: number; pitch: number },
-    camera: { rotation: Euler }
+  const updateKeyboard = (
+    keyboard: Nullable<KeyboardController>,
+    deltaTime: number
   ) => {
-    // if (animations.mixer) {
-    //   updateAnimation(deltaTime);
-    // }
+    if (!keyboard || !objects.player) return;
+    const FRICTION = 5.0;
+    const VELOCITY_DEADZONE = 0.001;
 
-    // updateControllers(deltaTime, rotation, camera);
+    const { inputDirection } = tempData;
+    inputDirection.set(0, 0, 0);
 
-    // return {
-    //   position: objects.playerRoot.position,
-    //   rotation: objects.playerRoot.rotation,
-    // };
+    if (keyboard.isKeyPressed("w")) inputDirection.z -= 1;
+    if (keyboard.isKeyPressed("s")) inputDirection.z += 1;
+    if (keyboard.isKeyPressed("a")) inputDirection.x -= 1;
+    if (keyboard.isKeyPressed("d")) inputDirection.x += 1;
 
-    fsmController.update(deltaTime);
+    if (inputDirection.length() > 0) {
+      //normalize direction
+      inputDirection.applyQuaternion(objects.player.quaternion);
+      inputDirection.normalize();
+
+      //accelerate towards the direction
+      state.velocity.add(
+        inputDirection.multiplyScalar(
+          PLAYER_CONSTANTS.MOVEMENT_ACCELERATION * deltaTime
+        )
+      );
+      //ensure the velocity doesn't go over the threshold
+      state.velocity.clampLength(0, PLAYER_CONSTANTS.MAX_VELOCITY);
+    } else if (inputDirection.length() == 0 && state.velocity.length() > 0) {
+      const decay = Math.exp(-FRICTION * deltaTime);
+      state.velocity.multiplyScalar(decay);
+
+      if (state.velocity.lengthSq() < VELOCITY_DEADZONE * VELOCITY_DEADZONE) {
+        state.velocity.set(0, 0, 0);
+      }
+    }
+
+    objects.player.position.add(state.velocity);
+  };
+
+  const updateControllers = (deltaTime: number) => {
+    updateMouse(controllers.input.mouse);
+    updateKeyboard(controllers.input.keyboard, deltaTime);
+  };
+
+  const update = (deltaTime: number) => {
+    updateControllers(deltaTime);
+
+    controllers.fsm.update(deltaTime);
 
     return {
-      position: new Vector3(),
-      rotation: new Euler(),
+      position: objects.player?.position ?? new Vector3(0, 0, 0),
+      rotation: objects.player?.rotation ?? new Euler(0, 0, 0, "XYZ"),
+      rotationDelta: state.rotationApplied,
     };
   };
 

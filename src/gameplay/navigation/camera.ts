@@ -1,128 +1,165 @@
-import { Euler, PerspectiveCamera, Vector3 } from "three";
+import { GenericLifeCycle } from "@utils/types/lifecycle";
+import { Euler, MathUtils, PerspectiveCamera, Spherical, Vector3 } from "three";
+import { clamp } from "three/src/math/MathUtils";
+
+export type CameraMode = "firstPerson" | "thirdPerson";
 
 export interface CameraProps {
   /**Main Camera */
   camera: PerspectiveCamera;
 }
 
-export interface CameraManager {
-  /** Update Camera to always look to the player */
-  update: ( playerPosition: Vector3, rotation: { yaw: number; pitch: number }) => { rotation: Euler };
+/** Contains the Updated info about player */
+export type UpdatedInfo = {
+  playerPosition: Vector3;
+  rotationDelta: { yaw: number; pitch: number };
+};
 
-  mount:()=>void
-  activate:()=>void
-  deactivate:()=>void
-  unmount:()=>void
+/** Controls to manage camera */
+export interface CameraManager extends GenericLifeCycle {
+  /** Updates the camera to look the player */
+  update: (info: UpdatedInfo) => { rotation: Euler };
+
+  /**sets the mode of camera */
+  setMode: (mode: CameraMode) => void;
+}
+
+//Third Person Config
+const TPV_CONFIG = {
+  DISTANCE: 3,
+  HEIGHT_OFFSET: 2,
+  PITCH_MIN: 0,
+  PITH_MAX: Math.PI / 2,
+  SMOOTHING: 0.1,
+} as const;
+
+//Temporary Variables
+
+let tempPosition = new Vector3(0, 0, 0);
+let tempOffset = new Vector3(0, 0, 0);
+let tempLookTarget = new Vector3(0, 0, 0);
+
+/**
+ *
+ * @param yaw the yaw angle
+ * @param pitch the pitch angle
+ * @returns restricted angles
+ */
+function clampRotation(
+  yaw: number,
+  pitch: number
+): { yaw: number; pitch: number } {
+  return {
+    yaw: MathUtils.euclideanModulo(yaw, Math.PI * 2),
+    pitch: MathUtils.clamp(pitch, TPV_CONFIG.PITCH_MIN, TPV_CONFIG.PITH_MAX),
+  };
+}
+
+/**
+ *
+ * @param spherical the spherical coordinates
+ * @returns the Vector based on spherical coordinates
+ */
+function computeThirdPersonOffset(spherical: Spherical): Vector3 {
+  tempOffset.set(0, 0, 0);
+  tempOffset.setFromSpherical(spherical);
+  tempOffset.y += TPV_CONFIG.HEIGHT_OFFSET;
+
+  return tempOffset;
+}
+
+/**
+ * Smoothly interpolate value between from and to vectors based on alpha
+ */
+function lerpVector(from: Vector3, to: Vector3, alpha: number) {
+  return from.lerp(to, alpha);
 }
 
 interface InternalState {
-  yaw: number;
-  pitch: number;
+  mode: CameraMode;
+  rotation: { yaw: number; pitch: number };
+  spherical: Spherical;
 }
 
-const CAMERA_CONSTANTS = {
-  THIRD_PERSON: {
-    OFFSET: new Vector3(0, 5, -10),
-    DISTANCE: 10,
-    HEIGHT_OFFSET: 3,
-    PITCH: {
-      MIN: 0,
-      MAX: Math.PI / 3,
-    },
-    SMOOTHING: 0.1,
-  },
-  FIRST_PERSON: {
-    OFFSET: new Vector3(0, 0, 0),
-  },
-} as const;
-
-let tempData: {
-  position: Vector3;
-  offset: Vector3;
-  lookTarget: Vector3;
-} = {
-  position: new Vector3(0, 0, 0),
-  offset: new Vector3(0, 0, 0),
-  lookTarget: new Vector3(0, 0, 0),
-};
-
-export const createCameraManager = (props: CameraProps): CameraManager => {
-  const { camera } = props;
+export const createCameraManager = ({ camera }: CameraProps): CameraManager => {
   let isThirdPerson: boolean = true;
-  let state: InternalState = { pitch: 0, yaw: 0,};
+  let state: InternalState = {
+    mode: "thirdPerson",
+    rotation: { pitch: Math.PI / 2, yaw: 0 },
+    spherical: new Spherical(TPV_CONFIG.DISTANCE, Math.PI / 2, 0),
+  };
 
-  const offset = tempData.offset;
-  const targetPosition = tempData.position;
-  const lookTarget = tempData.lookTarget;
-  const radius: number = CAMERA_CONSTANTS.THIRD_PERSON.DISTANCE ?? 5;
-  
+  const setCamera = (mode: CameraMode) => {
+    state.mode = mode;
+  };
+
+  const mount = () => {};
+
+  const activate = () => {
+    camera.position.set(1, 2, 3);
+  };
+
   /**
    *
    * @param yaw
    * @param pitch
    */
-  const applyRotationDelta = (yaw: number, pitch: number) => {
-    state.yaw += yaw;
-    state.pitch += pitch;
+  const updateRotation = (delta: { yaw: number; pitch: number }) => {
+    state.rotation.yaw += delta.yaw;
+    state.rotation.pitch += delta.pitch;
 
-    state.pitch = Math.max(
-      CAMERA_CONSTANTS.THIRD_PERSON.PITCH.MIN,
-      Math.min(state.pitch, CAMERA_CONSTANTS.THIRD_PERSON.PITCH.MAX)
+    const clamped = clampRotation(state.rotation.yaw, state.rotation.pitch);
+    state.rotation.yaw = clamped.yaw;
+    state.rotation.pitch = clamped.pitch;
+  };
+
+  const updateThirdPerson = (info: UpdatedInfo) => {
+    state.spherical.theta = state.rotation.yaw;
+    state.spherical.phi = state.rotation.pitch;
+
+    //Calculate offset
+    tempOffset.copy(computeThirdPersonOffset(state.spherical));
+
+    //Calculate target position and camera lerp smoothly
+    tempPosition.copy(info.playerPosition).add(tempOffset);
+    camera.position.copy(
+      lerpVector(camera.position, tempPosition, TPV_CONFIG.SMOOTHING)
     );
+
+    tempLookTarget.copy(info.playerPosition);
+    tempLookTarget.y += TPV_CONFIG.HEIGHT_OFFSET;
+    camera.lookAt(tempLookTarget);
   };
 
-  const update = (
-    playerPosition: Vector3,
-    rotation: { yaw: number; pitch: number }
-  ) => {
-    if (isThirdPerson) {
-      const { yaw, pitch } = rotation;
+  const updateFirstPerson = (playerPos: Vector3) => {
+    camera.position.copy(playerPos);
+    camera.rotation.set(state.rotation.pitch, state.rotation.yaw, 0);
+  };
 
-      applyRotationDelta(yaw, pitch);
+  const update = (info: UpdatedInfo): { rotation: Euler } => {
+    updateRotation(info.rotationDelta);
 
-      //Transform position of camera - Coordinates math
-      offset.x = radius * Math.sin(state.yaw) * Math.cos(state.pitch);
-      offset.y = radius * Math.sin(state.pitch) + CAMERA_CONSTANTS.THIRD_PERSON.HEIGHT_OFFSET;
-      offset.z = radius * Math.cos(state.yaw) * Math.cos(state.pitch);
-
-      //Apply target position and reach there
-      targetPosition.copy(playerPosition).add(offset);
-      camera.position.lerp( targetPosition , CAMERA_CONSTANTS.THIRD_PERSON.SMOOTHING);
-
-      //Focus
-      lookTarget.copy(playerPosition);
-      lookTarget.y += CAMERA_CONSTANTS.THIRD_PERSON.HEIGHT_OFFSET;
-      camera.lookAt(lookTarget);
-
-      return {
-        rotation: camera.rotation,
-      };
+    if (state.mode === "thirdPerson") {
+      updateThirdPerson(info);
     } else {
-      /**TODO: FPV */
-
-      return {
-        rotation: new Euler(0, 0, 0, "XYZ"),
-      };
+      updateFirstPerson(info.playerPosition);
     }
+
+    return {
+      rotation: camera.rotation,
+    };
   };
 
-  const mount=()=>{
+  const deactivate = () => {};
 
-  }
-
-  const activate=()=>{
-    camera.position.set(1,2,3);
-  }
-
-  const deactivate=()=>{}
-
-  const unmount=()=>{}
+  const unmount = () => {};
 
   return {
+    setMode: setCamera,
     update: update,
-    mount:mount,
-    activate:activate,
-    deactivate:deactivate,
-    unmount:unmount
+    mount: mount,
+    activate: activate,
+    deactivate: deactivate,
+    unmount: unmount,
   };
 };

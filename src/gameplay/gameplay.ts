@@ -75,7 +75,10 @@ export const createGameplay = (): Gameplay => {
     processPipelineDebugger.onMount("gameplay");
     inputControllers.mount({
       mouse: {
-        sensitivity: 0.5,
+        sensitivity: {
+          yaw: 0.005,
+          pitch: 0.000001,
+        },
       },
     });
     await roomController.mount();
