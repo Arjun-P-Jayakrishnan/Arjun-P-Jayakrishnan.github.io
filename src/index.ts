@@ -1,152 +1,149 @@
-import {
-  createWebComponentManager,
-  WebComponentManager,
-} from "core/components/main";
-import { createGameManager, GameEngineManager } from "core/game_engine/main";
-import { getGlobalContext, References } from "managers/globalContext";
+// import {
+//   createWebComponentManager,
+//   WebComponentManager,
+// } from "core/components/main";
+// import { createGameManager, GameEngineManager } from "core/game_engine/main";
+// import { bootstrap } from "engine/core/Bootstrap";
+// import { getGlobalContext, References } from "managers/globalContext";
 
-interface Managers {
-  webComponent: WebComponentManager;
-  gameEngine: GameEngineManager;
-}
+import { bootstrap } from "engine/core/Bootstrap";
 
-let references: References;
-let managers: Managers;
-let flags = {
-  isPreMounted: false,
-  isMounted: false,
-};
+// interface Managers {
+//   webComponent: WebComponentManager;
+//   gameEngine: GameEngineManager;
+// }
 
-/**
- * Pre-mount setup: Initialize references and managers
- */
-const preMount = () => {
-  try {
-    /**
-     * References for global access
-     */
-    references = getGlobalContext();
-    /**
-     * Managers for web components and game engine
-     */
-    managers = {
-      webComponent: createWebComponentManager(),
-      gameEngine: createGameManager(),
-    };
+// let references: References;
+// let managers: Managers;
+// let flags = {
+//   isPreMounted: false,
+//   isMounted: false,
+// };
 
-    managers.webComponent.mount();
-    managers.gameEngine.mount();
+// /**
+//  * Pre-mount setup: Initialize references and managers
+//  */
+// const preMount = () => {
+//   try {
+//     /**
+//      * References for global access
+//      */
+//     references = getGlobalContext();
+//     /**
+//      * Managers for web components and game engine
+//      */
+//     managers = {
+//       webComponent: createWebComponentManager(),
+//       gameEngine: createGameManager(),
+//     };
 
-    flags.isPreMounted = true;
-  } catch (err) {
-    console.error(`Error during pre-mount setup : ${err}`);
-  }
-};
+//     managers.webComponent.mount();
+//     managers.gameEngine.mount();
 
-const loadData = async () => {
-  try {
-    console.log("getting data from json files");
-    await managers.webComponent.load();
-  } catch (err) {
-    console.error(`Error loading data from json ${err}`);
-  }
-};
+//     flags.isPreMounted = true;
+//   } catch (err) {
+//     console.error(`Error during pre-mount setup : ${err}`);
+//   }
+// };
 
-const loadAssets = async () => {
-  try {
-    /**
-     * Loads all models , HDR  etc
-     */
-    const responses = await Promise.allSettled([managers.gameEngine.load()]);
+// const loadData = async () => {
+//   try {
+//     console.log("getting data from json files");
+//     await managers.webComponent.load();
+//   } catch (err) {
+//     console.error(`Error loading data from json ${err}`);
+//   }
+// };
 
-    responses.forEach((response) => {
-      if (response.status == "rejected") {
-        console.error(
-          `Failed to load models and mount game engine ${response.reason}`
-        );
-      }
-    });
+// const loadAssets = async () => {
+//   try {
+//     /**
+//      * Loads all models , HDR  etc
+//      */
+//     const responses = await Promise.allSettled([managers.gameEngine.load()]);
 
-    /**
-     * @description update the game engine
-     * (uses self recursion method for rendering so only need to call once)
-     */
-    managers.gameEngine.update();
-  } catch (err) {
-    console.error(`Error while trying to load assets : ${err}`);
-  }
-};
+//     responses.forEach((response) => {
+//       if (response.status == "rejected") {
+//         console.error(
+//           `Failed to load models and mount game engine ${response.reason}`
+//         );
+//       }
+//     });
 
-/**
- * helps to add all necessary mounting function
- */
-const mount = () => {
-  try {
-    if (!managers) throw new Error(`Error while pre-mounting.`);
-    /**
-     * Attach references to components and then mount tha game engine
-     */
-    managers.webComponent.attachReferences();
+//     /**
+//      * @description update the game engine
+//      * (uses self recursion method for rendering so only need to call once)
+//      */
+//     managers.gameEngine.update();
+//   } catch (err) {
+//     console.error(`Error while trying to load assets : ${err}`);
+//   }
+// };
 
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(async () => {
-        await loadAssets();
-        await loadData();
-      });
-    } else {
-      setTimeout(async () => {
-        await loadAssets();
-        await loadData();
-      }, 200);
-    }
+// /**
+//  * helps to add all necessary mounting function
+//  */
+// const mount = () => {
+//   try {
+//     if (!managers) throw new Error(`Error while pre-mounting.`);
+//     /**
+//      * Attach references to components and then mount tha game engine
+//      */
+//     managers.webComponent.attachReferences();
 
-    flags.isMounted = true;
-  } catch (err) {
-    console.error(`Error while main mount due to : ${err}`);
-  }
-};
+//     if ("requestIdleCallback" in window) {
+//       window.requestIdleCallback(async () => {
+//         await loadAssets();
+//         await loadData();
+//       });
+//     } else {
+//       setTimeout(async () => {
+//         await loadAssets();
+//         await loadData();
+//       }, 200);
+//     }
 
-/**
- * helps to clear any unmounted objects
- */
-const unmount = () => {
-  try {
-    if (!flags.isMounted) return;
-    managers.webComponent.unmount();
-    managers.gameEngine.unmount();
-  } catch (err) {
-    console.error(`Error while main unmount due to : ${err}`);
-  }
-};
+//     flags.isMounted = true;
+//   } catch (err) {
+//     console.error(`Error while main mount due to : ${err}`);
+//   }
+// };
 
-/**
- * entry point for the whole app
- */
-const main = () => {
-  preMount();
+// /**
+//  * helps to clear any unmounted objects
+//  */
+// const unmount = () => {
+//   try {
+//     if (!flags.isMounted) return;
+//     managers.webComponent.unmount();
+//     managers.gameEngine.unmount();
+//   } catch (err) {
+//     console.error(`Error while main unmount due to : ${err}`);
+//   }
+// };
 
-  /**
-   * Mounts the components when dom is fully loaded
-   */
-  document.addEventListener("DOMContentLoaded", () => {
-    if (flags.isPreMounted) {
-      mount();
-    }
-    /**
-     * Unmounts everything when the window is going to unload
-     */
-    window.addEventListener("beforeunload", () => {
-      if (flags.isMounted) {
-        unmount();
-      }
-    });
-  });
-};
+// /**
+//  * entry point for the whole app
+//  */
+// const main = () => {
+//   preMount();
 
-/**
- * IIFE function
- * (Immediately Invoked Function Expression)
- */
-(() => {
-  main();
-})();
+//   /**
+//    * Mounts the components when dom is fully loaded
+//    */
+//   document.addEventListener("DOMContentLoaded", () => {
+//     if (flags.isPreMounted) {
+//       mount();
+//     }
+//     /**
+//      * Unmounts everything when the window is going to unload
+//      */
+//     window.addEventListener("beforeunload", () => {
+//       if (flags.isMounted) {
+//         unmount();
+//       }
+//     });
+//   });
+// };
+
+bootstrap();
