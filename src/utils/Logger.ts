@@ -4,11 +4,12 @@ type LoggerInfo = { origin: string };
 
 interface Logger
   extends Lifecycle<
-    LoggerInfo, //OnLoad
-    LoggerInfo, //onMount
-    LoggerInfo, //onUpdate
-    LoggerInfo, //onUnmount
-    LoggerInfo //onDestroy
+    [LoggerInfo], //OnLoad
+    [LoggerInfo], //onMount
+    [deltaTime: number, info: LoggerInfo], //onUpdate
+    [LoggerInfo], //onUnmount
+    [LoggerInfo], //onDestroy
+    false
   > {}
 
 const createLogger = (): Logger => {
@@ -42,14 +43,6 @@ const createLogger = (): Logger => {
     onDestroy,
   };
 };
-let logger: Logger | undefined = undefined;
 
-const getLogger = () => {
-  if (!logger) {
-    logger = createLogger();
-  }
-
-  return logger;
-};
-
-export { getLogger };
+export { createLogger };
+export type { Logger };
