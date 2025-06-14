@@ -1,4 +1,4 @@
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { GlobalStorageManager } from "engine/managers/storage/storageTypes";
 import {
   DataTexture,
   LoadingManager,
@@ -6,16 +6,15 @@ import {
   Scene,
   WebGLRenderer,
 } from "three";
-import { createEventBus } from "@managers/events/eventBus";
-import { LoadingEvents } from "@managers/events/eventType";
-import { LoaderPlugin, ModelAssetDescriptor } from "@utils/types/loading";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { ModelAssetDescriptor } from "types/loader.types";
+import { LoaderPlugin } from "types/plugin.types";
 
 export interface HDRTextureLoaderProps {
-  asset: ModelAssetDescriptor;
   scene: Scene;
   renderer: WebGLRenderer;
   loadingManager: LoadingManager;
-  loadingEventBus: ReturnType<typeof createEventBus<LoadingEvents>>;
+  storageManager: GlobalStorageManager;
 }
 
 /**
@@ -23,9 +22,11 @@ export interface HDRTextureLoaderProps {
  * @param props hdr loading properties
  * @returns HDR loader plugin
  */
-export const createHDRLoader = (props: HDRTextureLoaderProps): LoaderPlugin => {
-  const { asset, scene, renderer, loadingManager, loadingEventBus } = props;
-
+export const createHDRLoader = ({
+  loadingManager,
+  renderer,
+  scene,
+}: HDRTextureLoaderProps): LoaderPlugin => {
   const pmremGenerator: PMREMGenerator = new PMREMGenerator(renderer);
   const rgbeLoader: RGBELoader = new RGBELoader(loadingManager);
 
@@ -43,21 +44,20 @@ export const createHDRLoader = (props: HDRTextureLoaderProps): LoaderPlugin => {
           const envMap = pmremGenerator.fromEquirectangular(data).texture;
           data.dispose();
           scene.environment = envMap;
-          metaData.onSuccess?.();
           resolve();
         },
         undefined,
         (err) => {
-          metaData.onError?.(err as Error);
-          loadingEventBus.emit({ type: "load:error", url: metaData.path });
           reject();
         }
       );
     });
   };
 
-  const load = async () => {
-    await _loadHDRTexture(asset);
+  const load = async (assets: ModelAssetDescriptor[]) => {
+    assets.forEach(async (asset) => {
+      await _loadHDRTexture(asset);
+    });
   };
 
   const dispose = () => {
@@ -66,6 +66,5 @@ export const createHDRLoader = (props: HDRTextureLoaderProps): LoaderPlugin => {
 
   return {
     load: load,
-    dispose: dispose,
   };
 };

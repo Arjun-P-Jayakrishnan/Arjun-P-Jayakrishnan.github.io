@@ -1,8 +1,5 @@
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { getThreeJsContext } from "./game_context";
-import { processPipelineDebugger } from "debug/debugger";
-import { LifeCycle, Nullable } from "@utils/types/lifecycle";
 
 export interface ThreeJSRenderOptions {
   /** Dom element id where the render will be mounted */

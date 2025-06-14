@@ -25,7 +25,7 @@ interface Lifecycle<
 type TaskWrapper<
   Args extends any[],
   AllowPromise extends boolean = false
-> = AllowPromise extends true ? Task<Args> | Promise<Args> : Task<Args>;
+> = AllowPromise extends true ? Task<Args> | Promise<Task<Args>> : Task<Args>;
 
 type Task<Args extends any[] = []> = (...args: Args) => Task[] | void;
 

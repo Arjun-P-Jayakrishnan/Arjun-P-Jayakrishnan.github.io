@@ -1,0 +1,161 @@
+:host {
+  display: block;
+  --font: "Poppins", sans-serif;
+  --font-logo: "Poppins", sans-serif;
+  --foreground: #3e3e3e;
+  --background-glass: rgba(255, 255, 255, 0.15);
+  --active-element-background: rgb(54, 54, 54);
+  --active-element-foreground: rgb(194, 191, 191);
+}
+
+.navbar {
+  /* Position */
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Spacing */
+  padding: 2em 2em;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  /* color: rgba(0, 255, 208, 0.8); */
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 0px 0px 10px rgba(0, 255, 208, 0.8);
+  height: 2rem;
+  line-height: 2rem;
+
+  font-family: var(--font-logo);
+}
+
+.toggle-btn {
+  font-size: 1.5rem;
+
+  background: none;
+  border: none;
+  color: rgb(0, 0, 0);
+
+  cursor: pointer;
+
+  position: relative;
+
+  display: none;
+}
+
+ul.nav-links {
+  position: relative;
+  width: max-content;
+
+  /* Order */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25em;
+
+  /* Style */
+  list-style: none;
+  font-family: var(--font);
+  background-color: var(--background-glass);
+
+  /* Glass look */
+  backdrop-filter: blur(10px); /* frosted glass blur */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+
+  /* Spacing */
+  margin: 0em 1em;
+  padding: 0.25em 1em;
+
+  /* Border */
+  border: 0.125em var(--background-glass) solid;
+  border-radius: 50px;
+  box-shadow: 0 8px 16px 0 rgba(31, 38, 135, 0.37); /* soft shadow */
+}
+
+.nav-links li a {
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  padding: 8px 12px; /*Better click area*/
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1em;
+}
+
+.nav-links li a:hover {
+  color: blue;
+  transform: translateY(-0.1em);
+}
+
+.nav-links li a span {
+  display: inline;
+}
+
+.nav-links li a.active {
+  color: var(--active-element-foreground);
+  font-weight: 600;
+
+  border: 0.125em var(--active-element-background) solid;
+  border-radius: 50px;
+}
+
+@media (max-width: 768px) {
+  .toggle-btn {
+    display: block;
+  }
+
+  ul.nav-links {
+    /* display: none; hide by default on mobile */
+    position: absolute;
+    top: 100%;
+    right: 1em;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+    padding: 3em 0.25em;
+    margin: 0;
+    width: min-content;
+    height: 30vh;
+
+    background-color: var(--background-glass);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+
+    pointer-events: none;
+
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(200%);
+  }
+
+  .navbar.open ul.nav-links {
+    display: flex;
+  }
+
+  .nav-links li a span {
+    display: none;
+  }
+
+  ul.nav-links[aria-expanded="true"] {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

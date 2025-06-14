@@ -6,17 +6,19 @@ export type LoadingEvents =
   | { type: "load:complete" }
   | { type: "load:error"; url: string };
 
-export type DisplayEvents =
+export type NavigationEvents =
   | { elementId: "home"; type: "home:show" }
   | { elementId: "home"; type: "home:hide" }
   | { elementId: "about"; type: "about:show" }
   | { elementId: "about"; type: "about:hide" }
-  | { elementId: "project"; type: "project:show" }
-  | { elementId: "project"; type: "project:hide" }
-  | { elementId: "project-screen"; type: "project-screen:show" }
-  | { elementId: "project-screen"; type: "project-screen:hide" }
+  | { elementId: "projects"; type: "projects:show" }
+  | { elementId: "projects"; type: "projects:hide" }
   | { elementId: "contact"; type: "contact:show" }
   | { elementId: "contact"; type: "contact:hide" };
+
+export type ViewEvents =
+  | { elementId: "project-screen"; type: "project-screen:show" }
+  | { elementId: "project-screen"; type: "project-screen:hide" };
 
 export type DebugEvents = {
   type: "debug:inspector";

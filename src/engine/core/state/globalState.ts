@@ -27,7 +27,9 @@ export interface GlobalState {
    * @description updates to the new state
    * @param newState only the part of the state say eg loading state
    */
-  setState: <T extends ObservableMap>(newState: Partial<ExtractState<T>>) => void;
+  setState: <T extends ObservableMap>(
+    newState: Partial<ExtractState<T>>
+  ) => void;
   /**
    * @description gets the observable
    * @param key string
@@ -52,7 +54,7 @@ export interface GlobalState {
   dispose: () => void;
 }
 
-export const createGlobalState = <T extends ObservableMap>(
+export const createGlobalState = <T extends Record<string, any>>(
   map: Record<string, any>
 ): GlobalState => {
   const stateMap: T = {} as T;
@@ -60,8 +62,6 @@ export const createGlobalState = <T extends ObservableMap>(
    *@description inflates the state-map with values
    */
   const inflate = () => {
-    //createObservable({initial:map[key]})
-
     for (const key in map) {
       const observable = createObservable({ initial: map[key] });
       stateMap[key as keyof T] = observable as T[typeof key];
@@ -86,7 +86,9 @@ export const createGlobalState = <T extends ObservableMap>(
    * @description sets the new state
    * @param newState the state which has to be updated
    */
-  const setState = <T extends ObservableMap>(newState: Partial<ExtractState<T>>) => {
+  const setState = <T extends ObservableMap>(
+    newState: Partial<ExtractState<T>>
+  ) => {
     for (const key in newState) {
       if (stateMap[key]) {
         stateMap[key].setValue(newState[key]);

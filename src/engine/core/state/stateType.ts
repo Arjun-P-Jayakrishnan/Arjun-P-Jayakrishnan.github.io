@@ -1,3 +1,5 @@
+import { GlobalState } from "./globalState";
+
 export interface LoadingContext {
   active: boolean;
   progress: number;
@@ -5,6 +7,6 @@ export interface LoadingContext {
   error?: string;
 }
 
-export type GlobalStateContext = {
-  loading: LoadingContext;
+export type GlobalStateManager = {
+  loading: GlobalState;
 };

@@ -18,11 +18,6 @@ export type ModelAssetDescriptor =
       onError?: (error: Error) => void;
     };
 
-export interface LoaderPlugin {
-  load: () => Promise<void>;
-  dispose?: () => void;
-}
-
 export const loaderPlugins: LoaderPlugin[] = [];
 
 export type AssetType = "Mesh" | "HDR_Texture" | "Texture";
