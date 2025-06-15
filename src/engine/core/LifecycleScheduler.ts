@@ -2,7 +2,7 @@ import { MAX_FRAME_BUCKET_TIME } from "config/constants";
 import { Task } from "types/lifecycle.types";
 
 interface LifecycleScheduler {
-  schedule: (task: Task) => void;
+  schedule: (...tasks: Task[]) => void;
   run: () => void;
 }
 
@@ -17,8 +17,10 @@ interface LifecycleScheduler {
 const createLifecycleScheduler = (): LifecycleScheduler => {
   const queue: Task[] = [];
 
-  const schedule = (task: Task) => {
-    queue.push(task);
+  const schedule = (...tasks: Task[]) => {
+    tasks.forEach((task) => {
+      queue.push(task);
+    });
   };
 
   const run = () => {
