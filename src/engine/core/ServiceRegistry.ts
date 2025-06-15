@@ -28,7 +28,7 @@ const createServiceRegistry = (): ServiceRegistry => {
         `Error : Trying to obtain value of an unregistered service ${name}`
       );
     }
-    return service;
+    return service as ServiceMap[K];
   };
 
   const has = (name: ServiceKey): boolean => {

@@ -1,7 +1,7 @@
 import { createEventBus, EventBus } from "./eventBus";
-import { DebugEvents, DisplayEvents, LoadingEvents } from "./eventType";
+import { DebugEvents, LoadingEvents, NavigationEvents } from "./eventType";
 
-export interface EventBusManager {
+interface EventBusManager {
   /**
    * @description Event Bus for loading related events
    */
@@ -9,7 +9,7 @@ export interface EventBusManager {
   /**
    * @description Event bus for display related events
    */
-  displayBus: EventBus<DisplayEvents>;
+  displayBus: EventBus<NavigationEvents>;
   /**
    * @description Event bus for debugging
    */
@@ -20,9 +20,9 @@ export interface EventBusManager {
  * @description creates anf manages event buses designed for various tasks
  * @returns
  */
-export const createEventBusManager = (): EventBusManager => {
+const createEventBusManager = (): EventBusManager => {
   const loadingBus = createEventBus<LoadingEvents>();
-  const displayBus = createEventBus<DisplayEvents>();
+  const displayBus = createEventBus<NavigationEvents>();
   const debugBus = createEventBus<DebugEvents>();
 
   return {
@@ -31,3 +31,6 @@ export const createEventBusManager = (): EventBusManager => {
     debugBus: debugBus,
   };
 };
+
+export { createEventBusManager };
+export type { EventBusManager };
