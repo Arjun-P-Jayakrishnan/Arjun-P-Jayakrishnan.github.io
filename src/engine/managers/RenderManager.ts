@@ -118,11 +118,8 @@ export const createRenderManager = (): RenderManager => {
           throw new Error("[Game Manager] Loading failed :${error}");
         }
       }),
-      ...flattenTask(
-        threeJsManager.onMount(() => {
-          console.log("Updating");
-        }) as Task[]
-      ), // pass the gameplay loop as callback to the game engine
+      ...flattenTask(threeJsManager.onMount(() => {}) as Task[]), // pass the gameplay loop as callback to the game engine
+      queueStep(threeJsManager.onMount, gameplay.update),
       queueStep(threeJsManager.onUpdate),
       queueStep(logger.onUpdate, 0, { origin: "Render-Manager" }),
     ];

@@ -36,7 +36,9 @@ export const createGround = ({
         ?.groups.getObjectByName(references.id) as Mesh) ?? null;
 
     if (!ground) {
-      console.error(`Cant get ground mesh from the id : ${references.id}`);
+      console.error(
+        `Cant get ground mesh from the id : ${references.id} ${references.storageId}`
+      );
       return;
     }
 

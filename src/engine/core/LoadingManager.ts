@@ -165,6 +165,9 @@ export const createLoader = ({
     promises.push(hdrLoader.load(assetQueue.hdr));
 
     await Promise.allSettled(promises);
+    assetQueue.fbx = [];
+    assetQueue.glb = [];
+    assetQueue.hdr = [];
 
     return {
       success: [],

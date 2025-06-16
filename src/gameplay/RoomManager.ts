@@ -98,6 +98,8 @@ export const createRoomController = (): RoomController => {
     if (!rooms[key]) {
       const room: Room = instantiateRoom(key);
 
+      console.log("load room", roomAssets[key]);
+
       const loadItems = [...roomAssets[key].meshes];
       if (roomAssets[key].hdr) loadItems.push(roomAssets[key].hdr);
 

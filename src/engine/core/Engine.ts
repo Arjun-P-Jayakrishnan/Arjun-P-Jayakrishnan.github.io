@@ -51,6 +51,11 @@ const createEngine = (): Engine => {
     lifecycleScheduler.schedule(renderManager.onMount);
   };
 
+  const onUpdate = () => {
+    domManager.onUpdate();
+    lifecycleScheduler.schedule(renderManager.onUpdate);
+  };
+
   const onUnmount = () => {
     logger.onUnmount({ origin: "Engine" });
     lifecycleScheduler.schedule(domManager.onUnmount);
@@ -76,6 +81,7 @@ const createEngine = (): Engine => {
     //after resources are achieved
     window.addEventListener("load", () => {
       onMount();
+      onUpdate();
     });
 
     //unmount and dispose

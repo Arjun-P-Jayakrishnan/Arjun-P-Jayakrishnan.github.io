@@ -69,7 +69,6 @@ export const createPlayer = ({
       if (!playerRoot) {
         throw new Error(`player doesn't exist for the id ${reference.id}`);
       }
-      console.log(playerRoot.position);
 
       //Local References
       objects = {
@@ -89,7 +88,6 @@ export const createPlayer = ({
       objects.playerRoot.rotation.set(0, -Math.PI / 4, 0, "XYZ");
       objects.playerRoot.castShadow = true;
       castShadow(objects.playerRoot);
-      console.log(objects.playerRoot.position);
 
       objects.playerRoot.position.set(1.5, 0, 0);
     }

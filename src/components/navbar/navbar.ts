@@ -17,7 +17,7 @@ template.innerHTML = `
       <button class="toggle-btn" aria-expanded="false" aria-controls="main-nav">&#9776</button>
       <ul class="nav-links" aria-expanded="false">
           <li>
-            <a href="#" id="home" aria-label="Home" class="active"> 
+            <a href="" id="home" aria-label="Home" class="active"> 
               <i class="fas fa-home"></i>
               <span class="desktop">Home</span>
             </a>

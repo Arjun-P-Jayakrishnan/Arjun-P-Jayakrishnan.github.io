@@ -38,6 +38,7 @@ export const createHDRLoader = ({
     metaData: ModelAssetDescriptor
   ): Promise<void> => {
     return new Promise((reject, resolve) => {
+      console.log("path", metaData.path);
       rgbeLoader.load(
         metaData.path,
         (data: DataTexture, texData: object) => {
@@ -55,9 +56,13 @@ export const createHDRLoader = ({
   };
 
   const load = async (assets: ModelAssetDescriptor[]) => {
+    const promises: Promise<void>[] = [];
+
     assets.forEach(async (asset) => {
-      await _loadHDRTexture(asset);
+      promises.push(_loadHDRTexture(asset));
     });
+
+    await Promise.allSettled(promises);
   };
 
   const dispose = () => {

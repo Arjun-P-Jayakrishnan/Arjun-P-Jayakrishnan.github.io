@@ -1,6 +1,6 @@
-import { EventBus } from "@managers/events/eventBus";
-import { EventBusManager } from "@managers/events/eventBusFactory";
-import { DebugEvents } from "@managers/events/eventType";
+import { EventBus } from "@events/eventBus";
+import { EventBusManager } from "@events/EventBusManager";
+import { DebugEvents } from "@events/eventType";
 import { Material, Object3D, Scene } from "three";
 
 const template = document.createElement("template");

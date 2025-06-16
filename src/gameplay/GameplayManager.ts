@@ -87,7 +87,7 @@ export const createGameplayManager = (): GameplayManager => {
   const update = () => {
     updateDeltaTime();
 
-    //roomController.update(state.deltaTime ?? 0);
+    roomController.update(state.deltaTime ?? 0);
   };
 
   const unbind = () => {
