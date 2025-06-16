@@ -1,5 +1,5 @@
 import { StorageBackend } from "types/plugin.types";
-import { createInMemoryBackend } from "./backend/InMemoryBackend";
+import { createInMemoryBackend } from "../../../plugins/backend/InMemoryBackend";
 import { BackendTypes, GenericStorageUnit } from "./storageTypes";
 
 const selectBackend = <T>(key: BackendTypes): StorageBackend<T> => {

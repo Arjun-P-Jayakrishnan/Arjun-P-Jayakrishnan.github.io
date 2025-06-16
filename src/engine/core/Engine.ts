@@ -1,4 +1,4 @@
-import { queueSteps } from "@utils/dsl";
+import { queueStep } from "@utils/dsl";
 import { createDomManager, DOMManager } from "engine/managers/DOMManger";
 import {
   createRenderManager,
@@ -17,10 +17,11 @@ interface Engine {
  */
 const createEngine = (): Engine => {
   const serviceRegistry: ServiceRegistry = getServiceRegistry();
-  const [logger, lifecycleScheduler, storage] = [
+  const [logger, lifecycleScheduler, storage, input] = [
     serviceRegistry.get("Logger"),
     serviceRegistry.get("LifecycleScheduler"),
     serviceRegistry.get("GlobalStorageManager"),
+    serviceRegistry.get("InputManager"),
   ];
 
   let domManager: DOMManager;
@@ -32,6 +33,7 @@ const createEngine = (): Engine => {
     renderManager = createRenderManager();
 
     lifecycleScheduler.schedule(storage.inflate);
+    lifecycleScheduler.schedule(input.onInit);
     lifecycleScheduler.schedule(domManager.onInit);
     lifecycleScheduler.schedule(renderManager.onInit);
   };
@@ -39,9 +41,7 @@ const createEngine = (): Engine => {
   const onLoad = () => {
     lifecycleScheduler.schedule(domManager.onLoad);
     lifecycleScheduler.schedule(renderManager.onLoad);
-    lifecycleScheduler.schedule(
-      ...queueSteps([logger.onLoad, { origin: "Engine" }])
-    );
+    lifecycleScheduler.schedule(queueStep(logger.onLoad, { origin: "Engine" }));
   };
 
   const onMount = () => {
@@ -55,6 +55,7 @@ const createEngine = (): Engine => {
     logger.onUnmount({ origin: "Engine" });
     lifecycleScheduler.schedule(domManager.onUnmount);
     lifecycleScheduler.schedule(renderManager.onUnmount);
+    lifecycleScheduler.schedule(input.onUnmount);
   };
 
   const onDispose = () => {

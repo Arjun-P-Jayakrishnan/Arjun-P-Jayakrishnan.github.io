@@ -18,4 +18,12 @@ interface LoaderPlugin {
   load: (assets: LoadOptions) => Promise<void>;
 }
 
-export type { LoaderPlugin, StorageBackend };
+/**
+ * Input Controller Plugin for different input types
+ */
+interface InputPlugin {
+  onMount: () => void;
+  onUnmount: () => void;
+}
+
+export type { InputPlugin, LoaderPlugin, StorageBackend };

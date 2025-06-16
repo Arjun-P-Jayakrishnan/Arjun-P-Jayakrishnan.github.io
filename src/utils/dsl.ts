@@ -4,12 +4,11 @@ import { Task } from "types/lifecycle.types";
 
 type Step<F extends (...args: any[]) => any> = [F, ...Parameters<F>];
 
-function queueSteps<Steps extends Step<any>[]>(...steps: Steps): Task[] {
-  return steps.map(
-    ([fn, ...args]) =>
-      () =>
-        fn(...args)
-  );
+function queueStep<F extends (...args: any[]) => any>(
+  fn: F,
+  ...args: Parameters<F>
+): Task {
+  return () => fn(...args);
 }
 
 function flattenTask(tasks: (Task | Task[])[]): Task[] {
@@ -26,4 +25,4 @@ function flattenTask(tasks: (Task | Task[])[]): Task[] {
   return result;
 }
 
-export { flattenTask, queueSteps };
+export { flattenTask, queueStep };

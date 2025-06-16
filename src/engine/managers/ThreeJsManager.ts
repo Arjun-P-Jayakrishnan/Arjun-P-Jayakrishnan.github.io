@@ -1,4 +1,4 @@
-import { queueSteps } from "@utils/dsl";
+import { queueStep } from "@utils/dsl";
 import { DEFAULT_CAMERA_OPTIONS } from "config/constants";
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
@@ -64,22 +64,20 @@ export const createThreeJsInstance = (
   };
 
   const onLoad = () => {
-    return queueSteps(
-      [mountRendererToDom, props.domMountId],
-      [exposeToContext],
-      [logger.onLoad, { origin: "ThreeJs-Manager" }]
-    );
+    return [
+      queueStep(mountRendererToDom, props.domMountId),
+      queueStep(exposeToContext),
+      queueStep(logger.onLoad, { origin: "ThreeJs-Manager" }),
+    ];
   };
 
   const onMount = (callback: () => void) => {
-    return queueSteps(
-      [
-        () => {
-          animationCallback = callback;
-        },
-      ],
-      [logger.onMount, { origin: "ThreeJs-Manager" }]
-    );
+    return [
+      () => {
+        animationCallback = callback;
+      },
+      queueStep(logger.onMount, { origin: "ThreeJs-Manager" }),
+    ];
   };
 
   const render = () => {
