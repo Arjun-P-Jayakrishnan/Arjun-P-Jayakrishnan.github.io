@@ -3,13 +3,13 @@
     "type": "Personal",
     "data": {
       "summary": {
-        "title": "Hi, I'm Arjun P Jayakrishnan",
-        "description": "I am a passionate software engineer with over 2 years of experience — 1.4 years as an intern and 9 months full-time — specializing in scalable web applications and cloud services."
+        "title": "👋 Introduction ",
+        "description": "Hi I'm Arjun P Jayakrishnan- a creatively inclined software engineer who brings ideas to life through real-time simulations, web experiences, and mobile interfaces. I work at the intersection of design and engineering, turning imagination into performant, interactive software."
       },
       "education": {
-        "course": "B.Tech CSE with Honours",
-        "institute": "National Institute of Technology",
-        "description": "Graduated with 8.6 CGPA. Focused on software engineering, algorithms, and distributed systems."
+        "course": "B.Tech in Computer Science and Engineering",
+        "institute": "Government College of Engineering Kannur",
+        "description": "Graduated with 8.6 CGPA with Honours. Focused on software engineering, algorithms, and distributed systems."
       },
       "skills": [
         {

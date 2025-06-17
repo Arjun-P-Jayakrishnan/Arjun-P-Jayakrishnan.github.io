@@ -1,4 +1,9 @@
+import { queueStep } from "@utils/dsl";
 import { createDomManager, DOMManager } from "engine/managers/DOMManger";
+import {
+  createRenderManager,
+  RenderManager,
+} from "engine/managers/RenderManager";
 import { ServiceRegistry } from "types/service.types";
 import { getServiceRegistry } from "./ServiceRegistry";
 
@@ -12,33 +17,56 @@ interface Engine {
  */
 const createEngine = (): Engine => {
   const serviceRegistry: ServiceRegistry = getServiceRegistry();
-  const [logger] = [serviceRegistry.get("Logger")];
+  const [logger, lifecycleScheduler, storage, input] = [
+    serviceRegistry.get("Logger"),
+    serviceRegistry.get("LifecycleScheduler"),
+    serviceRegistry.get("GlobalStorageManager"),
+    serviceRegistry.get("InputManager"),
+  ];
 
   let domManager: DOMManager;
+  let renderManager: RenderManager;
 
   const onInit = () => {
     console.log("Engine initialized");
     domManager = createDomManager();
+    renderManager = createRenderManager();
+
+    lifecycleScheduler.schedule(storage.inflate);
+    lifecycleScheduler.schedule(input.onInit);
+    lifecycleScheduler.schedule(domManager.onInit);
+    lifecycleScheduler.schedule(renderManager.onInit);
   };
 
   const onLoad = () => {
-    logger.onLoad({ origin: "Engine" });
-    domManager.onLoad();
+    lifecycleScheduler.schedule(domManager.onLoad);
+    lifecycleScheduler.schedule(renderManager.onLoad);
+    lifecycleScheduler.schedule(queueStep(logger.onLoad, { origin: "Engine" }));
   };
 
   const onMount = () => {
     logger.onMount({ origin: "Engine" });
-    domManager.onMount();
+
+    lifecycleScheduler.schedule(domManager.onMount);
+    lifecycleScheduler.schedule(renderManager.onMount);
+  };
+
+  const onUpdate = () => {
+    domManager.onUpdate();
+    lifecycleScheduler.schedule(renderManager.onUpdate);
   };
 
   const onUnmount = () => {
     logger.onUnmount({ origin: "Engine" });
-    domManager.onUnmount();
+    lifecycleScheduler.schedule(domManager.onUnmount);
+    lifecycleScheduler.schedule(renderManager.onUnmount);
+    lifecycleScheduler.schedule(input.onUnmount);
   };
 
   const onDispose = () => {
     logger.onDestroy({ origin: "Engine" });
-    domManager.onDestroy();
+    lifecycleScheduler.schedule(domManager.onDestroy);
+    lifecycleScheduler.schedule(renderManager.onDestroy);
   };
 
   const run = () => {
@@ -53,6 +81,7 @@ const createEngine = (): Engine => {
     //after resources are achieved
     window.addEventListener("load", () => {
       onMount();
+      onUpdate();
     });
 
     //unmount and dispose
@@ -60,9 +89,12 @@ const createEngine = (): Engine => {
       onUnmount();
     });
 
-    window.addEventListener("unload", () => {
-      onDispose();
-    });
+    //Deprecated
+    // window.addEventListener("unload", () => {
+    //   onDispose();
+    // });
+
+    lifecycleScheduler.run();
   };
 
   return {

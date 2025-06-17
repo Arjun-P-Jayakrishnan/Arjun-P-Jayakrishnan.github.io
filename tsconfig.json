@@ -14,10 +14,17 @@
       "@utils/*": ["utils/*"],
       "@style/*": ["style/*"],
       "@managers/*": ["managers/*"],
-      "@debugger/*": ["debugger/*"]
+      "@debugger/*": ["debugger/*"],
+      "@events/*": ["engine/core/events/*"]
     },
     "types": ["@types/three"]
   },
-  "include": ["src/**/*", "tsup.config.ts"], // Include your source code
+  "include": [
+    "src/**/*",
+    "tsup.config.ts",
+    "current/managers/storage/globalStorage.ts",
+    "current/managers/storage/storageTypes.ts",
+    "current/managers/storage/storageUnit.ts"
+  ], // Include your source code
   "exclude": ["node_modules", "dist"]
 }
