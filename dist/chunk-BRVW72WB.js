@@ -1,2 +1,0 @@
-var T=()=>{let n=new Map,s=(e,t)=>{n.has(e)||n.set(e,new Set),n.get(e).add(t);},r=(e,t)=>{n.get(e)?.delete(t);};return Object.freeze({on:s,off:r,emit:e=>{n.get(e.type)?.forEach(t=>{t(e);});},clear:()=>{n.clear();},once:(e,t)=>{let c=o=>{t(o),r(e,c);};s(e,c);}})};export{T as a};//# sourceMappingURL=chunk-BRVW72WB.js.map
-//# sourceMappingURL=chunk-BRVW72WB.js.map

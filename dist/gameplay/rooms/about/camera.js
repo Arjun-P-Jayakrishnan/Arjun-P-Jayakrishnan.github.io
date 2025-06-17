@@ -1,0 +1,2 @@
+import {Vector3}from'three';var p=a=>{let{camera:e,scene:o}=a,t=new Vector3(0,1,2);return {mount:()=>{},activate:()=>{e.position.set(t.x,1,t.z),e.rotation.set(0,0,0,"XYZ");},deactivate:()=>{},unmount:()=>{}}};export{p as createCameraManager};//# sourceMappingURL=camera.js.map
+//# sourceMappingURL=camera.js.map

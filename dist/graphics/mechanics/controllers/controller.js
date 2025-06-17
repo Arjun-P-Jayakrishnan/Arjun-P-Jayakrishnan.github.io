@@ -1,2 +1,0 @@
-export{a as getControllers}from'../../../chunk-BFK572KU.js';import'../../../chunk-HXEJ7JYP.js';import'../../../chunk-6GP3ULQR.js';//# sourceMappingURL=controller.js.map
-//# sourceMappingURL=controller.js.map

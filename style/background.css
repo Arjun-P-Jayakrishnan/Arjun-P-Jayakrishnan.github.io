@@ -1,161 +1,168 @@
-/* Global box-sizing for consistency */
+/* Box-sizing reset */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-h2 {
-  margin:0;
+:host {
+  --font-family: "Segoe UI", sans-serif;
+  --heading: #00c2ff; /* Main headings */
+  --side: #e0f7fa; /* Secondary text and accents */
+  --skill: #1de9b6; /* Skill hover/accent */
 }
 
+/* Main container */
 .background {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr;
-  gap: 1.5rem;
-  padding: 1rem;
-  height: 100vh;
-  overflow: hidden;
-  font-size: 14px; /* Slightly smaller base font */
-}
+  width: 90%;
+  max-width: 960px;
 
-.summary {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  max-height: 130px;
-  overflow: hidden;
-  padding: 0.3rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  min-height: 0; /* Fix for flexbox scroll */
+  gap: 2rem;
+
+  padding: 2rem;
+  margin: 0 auto;
+
+  background: transparent; /* Transparent glassy effect */
+  border-radius: 16px;
+
+  z-index: 30;
+
+  /* Disable scrollbar */
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
 }
 
-.education {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-  overflow-y: auto;
-  min-height: 0;
-  padding: 0.3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.background::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
-.skills {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-  overflow-y: auto;
-  min-height: 0;
-  padding: 0.3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  max-height: 90vh; /* Keep skills contained in viewport */
+/* Section cards */
+section {
+  background-color: rgba(20, 20, 30, 0.6);
+  box-shadow: 0 0 12px rgba(79, 195, 247, 0.15);
+  padding: 1.2rem 1.5rem;
+  border-left: 4px solid var(--side);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
 }
 
-.summary,
-.education,
-.skills {
-  box-sizing: border-box;
-}
-
-/* Headings: allow 2-line clamp with ellipsis */
+/* Section titles */
 .summary--title,
-.education--course,
-.skill--title,
-.skill--category--title {
-  font-size: clamp(0.85rem, 1.5vw, 1.2rem);
-  margin: 0em;
-  line-height: 1.1;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 2.2em; /* about 2 lines */
+.education--title,
+.skills-title {
+  font-size: 1.3rem;
+  color: var(--heading);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-family);
 }
 
-/* Title padding adjustment */
-.skill--title,
-.skill--category--title {
-  padding-bottom: 0.25em;
-}
-
-.skill--title {
-  margin: 0em;
-}
-
+/* Text descriptions */
 .summary--description,
 .education--description {
-  font-size: clamp(0.65rem, 1vw, 0.85rem);
-  line-height: 1.2;
-  max-height: 3.6em; /* approx 3 lines */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-  white-space: normal;
+  font-size: 0.95rem;
+  color: #dde4f0;
+  font-family: var(--font-family);
 }
 
+/* Education */
+.education--course {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fafafa;
+  font-family: var(--font-family);
+}
+
+.education--institute {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #9eb2c2;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-family);
+}
+
+/* Skills section */
 .skill--category {
-  padding-bottom: 1em;
+  padding: 1em;
+}
+.skill--category--title {
+  padding-bottom: 0.5em;
+  font-family: var(--font-family);
 }
 
 .skills--list {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .skill--tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  max-height: 180px;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+
+  max-height: 200px;
   overflow-y: auto;
+  padding-right: 0.5rem;
 }
 
+/* Skill tags styled */
 .skill--item {
-  border: 1px solid orange;
-  border-radius: 0.4em;
-  padding: 0.2em 0.6em;
-  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  padding: 0.35em 0.9em;
+  font-size: 0.85rem;
+  background: rgba(0, 194, 255, 0.12);
+  border: 1px solid var(--side);
+  color: var(--side);
+  border-radius: 20px;
+  transition: all 0.3s ease;
   white-space: nowrap;
-  color: orange;
-  background-color: rgba(255, 165, 0, 0.1);
-  cursor: default;
-  transition: background-color 0.3s, color 0.3s;
+  font-family: var(--font-family);
 }
 
 .skill--item:hover {
-  background-color: orange;
-  color: black;
+  background: var(--skill);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(29, 233, 182, 0.5);
   cursor: pointer;
 }
 
-/* Responsive adjustments */
+/* Scrollbar styling */
+.skill--tags::-webkit-scrollbar {
+  width: 6px;
+}
+.skill--tags::-webkit-scrollbar-thumb {
+  background-color: var(--skill);
+  border-radius: 3px;
+}
+.skill--tags::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Responsive tweaks */
 @media (max-width: 768px) {
   .background {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-    font-size: 13px; /* slightly smaller font on small screens */
+    width: 95%;
+    padding: 1.5rem;
   }
 
-  .summary,
-  .education,
-  .skills {
-    grid-column: 1 / -1 !important;
-    grid-row: auto !important;
-    max-height: none;
-    overflow: visible;
+  .summary--title,
+  .education--title,
+  .skills-title {
+    font-size: 1.15rem;
+  }
+
+  .summary--description,
+  .education--description,
+  .skill--item {
+    font-size: 0.82rem;
   }
 
   .skill--tags {
-    max-height: none;
-    overflow: visible;
+    gap: 0.4rem;
   }
 }

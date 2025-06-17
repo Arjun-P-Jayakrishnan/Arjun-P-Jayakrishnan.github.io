@@ -1,2 +1,0 @@
-var a=()=>{let n=new Set,t=e=>e.toLowerCase(),r=e=>{n.delete(t(e.key));},s=e=>{n.add(t(e.key));};return {mount:()=>{window.addEventListener("keyup",r),window.addEventListener("keydown",s);},unmount:()=>{window.removeEventListener("keyup",r),window.removeEventListener("keydown",s),n.clear();},getPressedKeys:()=>Array.from(n),isKeyPressed:e=>n.has(t(e))}};export{a};//# sourceMappingURL=chunk-HXEJ7JYP.js.map
-//# sourceMappingURL=chunk-HXEJ7JYP.js.map

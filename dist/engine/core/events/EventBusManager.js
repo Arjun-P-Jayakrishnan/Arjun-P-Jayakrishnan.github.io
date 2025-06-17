@@ -1,0 +1,2 @@
+var s=()=>{let t=new Map,a=(e,n)=>{t.has(e)||t.set(e,new Set),t.get(e).add(n);},i=(e,n)=>{t.get(e)?.delete(n);};return Object.freeze({on:a,off:i,emit:e=>{t.get(e.type)?.forEach(n=>{n(e);});},clear:()=>{t.clear();},once:(e,n)=>{let o=v=>{n(v),i(e,o);};a(e,o);}})};var d=()=>{let t=s(),a=s(),i=s(),r=s(),c=s();return {loadingBus:t,displayBus:a,debugBus:i,switchTabBus:r,viewBus:c}};export{d as createEventBusManager};//# sourceMappingURL=EventBusManager.js.map
+//# sourceMappingURL=EventBusManager.js.map

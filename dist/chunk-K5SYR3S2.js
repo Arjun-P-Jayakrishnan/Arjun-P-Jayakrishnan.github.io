@@ -1,2 +1,0 @@
-import {a}from'./chunk-4UJKZHWJ.js';var p=n=>{let t,e;return {mount:()=>{t={};},unmount:()=>{t=void 0;},getStorage:o=>{if(t===void 0)throw new Error("Must mount the storage first");return e=t[o],e===void 0&&(e=a(),t[o]=e),e}}};export{p as a};//# sourceMappingURL=chunk-K5SYR3S2.js.map
-//# sourceMappingURL=chunk-K5SYR3S2.js.map
