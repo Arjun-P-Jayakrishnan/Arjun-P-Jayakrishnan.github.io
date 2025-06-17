@@ -1,9 +1,9 @@
 import { EventBus } from "@events/eventBus";
-import { DebugEvents } from "@events/eventType";
 import { flattenTask, queueStep } from "@utils/dsl";
 import { CANVAS_ID } from "config/constants";
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { DebugEvents } from "types/eventType";
 import { Lifecycle, Task } from "types/lifecycle.types";
 
 import {

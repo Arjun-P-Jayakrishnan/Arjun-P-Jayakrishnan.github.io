@@ -1,44 +1,50 @@
 :host {
-  --main-bg: rgba(255, 255, 255, 0.01);
-  --container-bg: rgba(255, 255, 255, 0.05);
-  --indicator-size: 2em;
+  --main-bg: rgba(61, 61, 61, 0.493);
+  --tab-bg: rgba(136, 136, 136, 0);
+
+  --container-bg: rgba(0, 0, 0, 0, 0);
+  --indicator-height: 3rem;
   --nav-button-size: 1em;
+}
+/* Optional: Style slotted Web Components */
+::slotted(*) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Main Wrapper */
 .about {
-  height: 70vh;
+  /* Dimensions */
+  height: 100vh;
   width: 50vw;
 
+  /*Layout*/
   position: fixed;
   top: 50%;
-  left: 5rem;
+  left: 0;
   transform: translateY(-50%);
-  z-index: 900;
+  z-index: 15;
 
   margin-left: 0rem;
-  padding: 0rem;
 
+  /* Organising */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: end;
 
+  /* Styling */
   color: white;
   font-family: sans-serif;
   background: var(--main-bg);
-
-  border: 0px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
 
+  /* Animations */
   transition: all 0.3s ease;
-  overflow: visible;
-
-  /* No glass effect */
-  /* backdrop-filter: blur(12px);
-     -webkit-backdrop-filter: blur(12px); */
 }
 
 /* Open and close functionality */
@@ -49,14 +55,20 @@
   transition: all 0.3s ease;
 }
 
+/* Top area to show current tab status */
+.tab {
+  height: 6rem;
+  width: 50%;
+  background-color: var(--tab-bg);
+}
+
 /* Carousel properties */
 .carousel {
+  background-color: var(--container-bg);
   position: relative;
 
   width: 100%;
   height: 100%;
-
-  overflow: visible;
 }
 
 /* slides container */
@@ -64,20 +76,18 @@
   position: relative;
 
   width: 100%;
-  height: calc(100% - var(--indicator-size));
+  min-height: calc(100% - var(--indicator-height));
 
   background-color: var(--container-bg);
 
-  border-radius: 20px;
-  overflow: hidden;
+  border-radius: 0px;
 }
 
-/* Carousel buttons */
 .carousel__button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 35;
 
   padding: 0.5em 1em;
 
@@ -85,21 +95,43 @@
 
   color: rgba(255, 255, 255, 0.5);
   font-size: 1.2em;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0);
 
   border: none;
   border-radius: 8px;
 }
 
+/* Prev-Next Buttons */
+.carousel .prev {
+  left: 0rem;
+}
+
+.carousel .next {
+  right: 0rem;
+}
+
+.carousel__button:hover,
+.carousel__button:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 1);
+}
+
+.carousel__button:focus {
+  outline: 1px solid white;
+}
+
 /* Navigation buttons */
 .carousel_nav {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+
   background-color: transparent;
-  height: var(--indicator-size);
+  height: var(--indicator-height);
   width: 100%;
 
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 0.125em 0em;
   gap: 1em;
 }
@@ -122,11 +154,10 @@
   height: 100%;
 
   opacity: 0;
-  overflow: auto;
 
   padding: 0rem;
 
-  border-radius: 20px;
+  border-radius: 0px;
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
 
   background: transparent;
@@ -139,35 +170,6 @@
 .slide[data-active] {
   opacity: 1;
   transition-delay: 0ms;
-}
-
-/* Optional: Style slotted Web Components */
-::slotted(*) {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Prev-Next Buttons */
-.carousel .prev {
-  left: -5rem;
-}
-
-.carousel .next {
-  right: -5rem;
-}
-
-.carousel__button:hover,
-.carousel__button:focus {
-  background-color: rgba(0, 0, 0, 0.2);
-  color: rgba(255, 255, 255, 1);
-}
-
-.carousel__button:focus {
-  outline: 1px solid white;
 }
 
 /* Navigation Indicator */
@@ -193,10 +195,10 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .about {
-    width: 90vw;
-    height: 60vh;
+    width: 100vw;
+    height: 100vh;
     margin-left: 0;
     border-radius: 0 0 20px 20px;
   }

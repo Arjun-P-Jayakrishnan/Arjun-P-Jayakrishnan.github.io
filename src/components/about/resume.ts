@@ -4,11 +4,23 @@ template.innerHTML = `
     <div class="resume">
       <div class="resume__layout">
         <div class="resume__pdf">
-          <iframe src="/assets/pdf/my_resume.pdf">
-            This browser doesn't allow viewing pdf. Download to have a look.
+          <iframe 
+            src="/assets/pdf/my_resume.pdf"
+            title="Resume PDF Viewer"
+            loading="lazy"
+          >
+            Your browser does not support embedded PDFs. 
+            <a href="/assets/pdf/my_resume.pdf" download>Download the resume</a>.
           </iframe>
         </div>
-        <a class="download" href="/assets/pdf/my_resume.pdf" download title="Download Resume">Download Resume</a>
+        <a 
+          class="download" 
+          href="/assets/pdf/my_resume.pdf" 
+          download 
+          title="Download a copy of the resume"
+        >
+          📄 Download Resume
+        </a>
       </div> 
     </div>
 `;

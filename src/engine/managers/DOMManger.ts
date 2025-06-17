@@ -1,6 +1,8 @@
+import { AboutPage } from "@components/about/about";
 import { LoadingModal } from "@components/loading/loading";
 import { Navbar } from "@components/navbar/navbar";
 import { SceneInspector } from "@components/threejs/scene_inspector";
+import { queueStep } from "@utils/dsl";
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
 import { Lifecycle } from "types/lifecycle.types";
 
@@ -8,34 +10,44 @@ interface DOMManager extends Lifecycle {
   onInit: () => void;
 }
 
-// const _loadJSON = async (url: string): Promise<any> => {
-//     const res = await fetch(url);
-//     const data = await res.json();
+const _loadJSON = async (url: string): Promise<any> => {
+  const res = await fetch(url);
+  const data = await res.json();
 
-//     return data;
-//   };
+  return data;
+};
 
-//   const loadData = async () => {
-//     const about: AboutPage = document.querySelector("about-page")!;
-//     try {
-//       const data = await _loadJSON("/public/data/about.json");
+const loadAboutData = async () => {
+  const about: AboutPage = document.querySelector("about-page")!;
+  try {
+    const data = await _loadJSON("/public/data/about.json");
 
-//       about.updateData = {
-//         isError: false,
-//         records: data,
-//       };
-//     } catch (err) {
-//       about.updateData = {
-//         isError: true,
-//         message: `Error getting data ${err}`,
-//       };
-//       console.error(`Error getting data ${err}`);
-//     }
-//   };
+    about.updateData = {
+      isError: false,
+      records: data,
+    };
+  } catch (err) {
+    about.updateData = {
+      isError: true,
+      message: `Error getting data ${err}`,
+    };
+    console.error(`Error getting data ${err}`);
+  }
+};
 
 const createDomManager = (): DOMManager => {
+  let flags = {
+    navbarDefined: false,
+    loadingModalDefined: false,
+    sceneInspectorDefined: false,
+    projectGalleryDefined: false,
+    projectCardDefined: false,
+    aboutPageDefined: false,
+  };
+
   const serviceRegsitry = getServiceRegistry();
-  const [logger, eventBusManager] = [
+  const [lifecycleScheduler, logger, eventBusManager] = [
+    serviceRegsitry.get("LifecycleScheduler"),
     serviceRegsitry.get("Logger"),
     serviceRegsitry.get("EventBusManager"),
   ];
@@ -44,12 +56,56 @@ const createDomManager = (): DOMManager => {
    * @description definition part
    */
   const onInit = () => {
-    customElements.define("nav-bar", Navbar);
-    customElements.define("loading-modal", LoadingModal);
-    customElements.define("scene-inspector", SceneInspector);
-    // customElements.define("project-gallery", ProjectGallery);
+    if (!flags.navbarDefined) {
+      customElements.define("nav-bar", Navbar);
+      flags.navbarDefined = true;
+    }
+    if (!flags.loadingModalDefined) {
+      customElements.define("loading-modal", LoadingModal);
+      flags.loadingModalDefined = true;
+    }
+    if (!flags.sceneInspectorDefined) {
+      customElements.define("scene-inspector", SceneInspector);
+      flags.sceneInspectorDefined = true;
+    }
+    // eventBusManager.displayBus.on("projects:show", () => {
+    //   if (!flags.projectGalleryDefined) {
+    //     eventBusManager.loadingBus.emit({
+    //       type: "load:start",
+    //       loaded: 0,
+    //       total: 0,
+    //       url: "",
+    //     });
+    //     customElements.define("project-gallery", ProjectGallery);
+    //     flags.projectGalleryDefined = true;
+
+    //     eventBusManager.loadingBus.emit({ type: "load:complete" });
+    //   }
+    // });
+
     // customElements.define("project-card", ProjectCard);
-    // customElements.define("about-page", AboutPage);
+
+    eventBusManager.displayBus.once("about:show", () => {
+      if (flags.aboutPageDefined) return;
+      logger.onMount({ origin: "About-Page" });
+      //Loading
+      eventBusManager.loadingBus.emit({
+        type: "load:start",
+        loaded: 0,
+        total: 0,
+        url: "",
+      });
+
+      customElements.define("about-page", AboutPage);
+      lifecycleScheduler.schedule(
+        queueStep(async () => {
+          await loadAboutData();
+          eventBusManager.loadingBus.emit({ type: "load:complete" });
+        })
+      );
+
+      flags.aboutPageDefined = true;
+    });
   };
 
   /**

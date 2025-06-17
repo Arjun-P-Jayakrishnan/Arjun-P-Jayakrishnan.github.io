@@ -6,6 +6,11 @@ export type LoadingEvents =
   | { type: "load:complete" }
   | { type: "load:error"; url: string };
 
+export type SwitchTabEvents =
+  | { type: "projects" }
+  | { type: "about" }
+  | { type: "contact" };
+
 export type NavigationEvents =
   | { elementId: "home"; type: "home:show" }
   | { elementId: "home"; type: "home:hide" }

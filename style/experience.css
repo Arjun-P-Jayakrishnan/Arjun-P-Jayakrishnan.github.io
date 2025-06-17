@@ -1,162 +1,110 @@
 :host {
-  --background-color: rgba(45, 45, 45, 0);
-  --button-background: #e7f0ff;
-  --text-color: #ffffff;
-  --transparent-color: rgba(43, 43, 43, 0.429);
-  --card-color: rgba(255, 255, 255, 0.1);
-  --card-hover: rgba(255, 255, 255, 0.5);
-  --card-contents: rgba(43, 43, 43, 0.3);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Container */
+/* Experience container */
 .experience {
   height: 100%;
-  width: 100%;
-
-  color: var(--text-color, #222);
-  background: var(--background-color, #f9f9f9);
-
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-
-  padding: 1em 0em;
-}
-
-/* Job List */
-.job-list {
-  margin: 0;
-  padding: 0;
-
-  display: grid;
-  grid-auto-flow: row; /* fill rows vertically */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem 2rem; /* row-gap, column-gap */
-}
-
-/* Job Item */
-.job-item {
-  max-width: 100%; /* match min width of grid */
+  width: 70%;
+  padding: 2rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 30;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 
-  margin: 0 auto;
+  font-family: var(--font-family);
+  color: #f0f0f0;
+  background: none;
+}
 
-  background: transparent;
+/* WebKit scrollbar hidden */
+.experience::-webkit-scrollbar {
+  display: none;
+}
 
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 0.06);
-  transition: box-shadow 0.3s ease;
+.job-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  gap: 2rem;
+
+  height: max-content;
+}
+
+.job-item {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  border: 1px solid #4fc3f7; /* blue accent */
+  border-radius: 1rem;
+  background-color: rgba(20, 20, 30, 0.6);
+  box-shadow: 0 0 12px rgba(79, 195, 247, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
 .job-item:hover {
-  box-shadow: 0 6px 18px rgb(0 0 0 / 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.35);
 }
 
-/* Header background (slightly lighter than toggle) */
 .job-header {
-  padding: 0.1rem 0.75rem;
-
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
-
-  background-color: var(--transparent-color); /* light, soft blue */
-
-  border: 2px solid rgba(21, 23, 26, 0.8);
-  border-radius: 6px;
-
-  cursor: none;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
 }
 
-/* Button toggle background and hover */
-.job-toggle {
-  width: 100%;
-
-  position: relative;
-  z-index: 2;
-
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 0.5rem;
-
-  color: var(--text-color);
-  background-color: transparent;
-
-  border: none;
-  border-radius: 4px;
-
-  padding: 0;
-
-  text-align: left;
-  font-weight: 600;
-  font-size: 0.6rem;
-
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.job-title {
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
-.job-toggle:hover,
-.job-toggle:focus {
-  /* stronger on hover */
-  outline: none;
-}
-
-.job-title,
 .job-duration {
-  font-size: 0.9rem; /* Previously 0.6rem in .job-toggle? You might consolidate */
-  word-break: break-word;
+  opacity: 0.75;
+  font-style: italic;
+  color: #aadfff;
 }
 
-
-
-/* Job details background */
 .job-details {
-  margin-top: 0.75rem;
-  padding: 0.5rem 0.75rem;
-
-  border-radius: 4px;
-  font-size: 0.9rem;
-
-  color: var(--text-muted);
-  background-color: var(--card-contents);
-
-  line-height: 1.5;
-
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  overflow: hidden;
+  margin-top: 1rem;
+  width: 100%;
 }
 
-.job-details:not(.hidden) {
-  max-height: 200px; /* enough for content */
-  opacity: 1;
-}
-
-/* Responsibilities list stays inside job-details */
 .job-responsibilities {
-  list-style: disc inside;
+  list-style: none;
+  padding-left: 1.25rem;
   margin: 0;
-  padding-left: 0.5rem;
-  color: var(--text-color);
 }
 
 .job-responsibility-item {
-  margin-bottom: 0.4rem;
-  font-size: 0.9rem;
+  position: relative;
+  margin-bottom: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #d0eaff;
+  padding-left: 1.5rem;
 }
 
-.hidden {
-  display: none;
-  background-color: transparent;
-}
-
-.job-title,
-.job-duration,
-.job-responsibility-item {
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+.job-responsibility-item::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #4fc3f7;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #4fc3f7aa;
 }

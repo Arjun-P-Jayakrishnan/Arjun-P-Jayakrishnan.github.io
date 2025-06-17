@@ -8,7 +8,7 @@ template.innerHTML = `
        </section>
 
        <section class="education">
-          <h2 class="education--title">Education</h2>
+          <h2 class="education--title">🎓 Education</h2>
           <article class="education--item">
             <h3 class="education--course">Course</h3>
             <h4 class="education--institute">Institute Name</h4>
@@ -17,7 +17,7 @@ template.innerHTML = `
        </section>
 
        <section class="skills">
-        <h2 class="skills-title">Skills</h2>
+        <h2 class="skills-title">🛠 Skills</h2>
 
         <ul class="skills--list">
             <li class="skill--category">

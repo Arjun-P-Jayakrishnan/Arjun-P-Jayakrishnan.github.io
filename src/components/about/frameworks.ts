@@ -1,5 +1,5 @@
-import { EventBus } from "@managers/events/eventBus";
-import { DisplayEvents } from "@managers/events/eventType";
+import { EventBus } from "@events/eventBus";
+import { NavigationEvents } from "types/eventType";
 
 const template = document.createElement("template");
 
@@ -54,7 +54,7 @@ export interface FrameworkData {
 
 export class FrameworkPage extends HTMLElement {
   root: ShadowRoot;
-  displayBus: EventBus<DisplayEvents> | null = null;
+  displayBus: EventBus<NavigationEvents> | null = null;
   components: Components;
   navigation: Navigation;
 
@@ -115,8 +115,6 @@ export class FrameworkPage extends HTMLElement {
     } else if (index == 3) {
       cmdLine?.classList.toggle("active", true);
     }
-
-
   }
 
   private bindEvents = () => {
@@ -181,16 +179,12 @@ export class FrameworkPage extends HTMLElement {
 
     li.appendChild(img);
 
-
-
     return li;
   }
 
   private inflate(data: Array<{ name: string; link: string }>, type: string) {
-   
     switch (type) {
       case "web":
-       
         const fragmentWeb = document.createDocumentFragment();
         data.forEach((icon) => {
           fragmentWeb.appendChild(this.addIcon(icon.name, [], icon.link));

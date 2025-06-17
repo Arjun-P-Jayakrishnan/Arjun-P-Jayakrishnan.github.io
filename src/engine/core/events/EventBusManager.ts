@@ -1,5 +1,10 @@
+import {
+  DebugEvents,
+  LoadingEvents,
+  NavigationEvents,
+  SwitchTabEvents,
+} from "../../../types/eventType";
 import { createEventBus, EventBus } from "./eventBus";
-import { DebugEvents, LoadingEvents, NavigationEvents } from "./eventType";
 
 interface EventBusManager {
   /**
@@ -14,6 +19,10 @@ interface EventBusManager {
    * @description Event bus for debugging
    */
   debugBus: EventBus<DebugEvents>;
+  /**
+   * @description Event Bus for pre-fetching data and tab switch
+   */
+  switchTabBus: EventBus<SwitchTabEvents>;
 }
 
 /**
@@ -24,11 +33,13 @@ const createEventBusManager = (): EventBusManager => {
   const loadingBus = createEventBus<LoadingEvents>();
   const displayBus = createEventBus<NavigationEvents>();
   const debugBus = createEventBus<DebugEvents>();
+  const switchTabBus = createEventBus<SwitchTabEvents>();
 
   return {
     loadingBus: loadingBus,
     displayBus: displayBus,
     debugBus: debugBus,
+    switchTabBus: switchTabBus,
   };
 };
 

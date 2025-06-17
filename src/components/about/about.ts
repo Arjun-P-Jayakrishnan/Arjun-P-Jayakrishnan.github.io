@@ -1,6 +1,6 @@
-import { EventBus } from "@managers/events/eventBus";
-import { EventBusManager } from "@managers/events/eventBusFactory";
-import { DisplayEvents } from "@managers/events/eventType";
+import { EventBus } from "@events/eventBus";
+import { EventBusManager } from "@events/EventBusManager";
+import { NavigationEvents } from "types/eventType";
 import { BackgroundPage } from "./background";
 import { ExperiencePage, JobExperience } from "./experience";
 import { FrameworkPage } from "./frameworks";
@@ -9,7 +9,10 @@ import { ResumePage } from "./resume";
 const template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" href="/style/about.css">
-    <div class="about hidden">
+    <div class="about">
+        <div class="tab">
+          <h3 class="tab--name">Background</h3>  
+        </div>
         <div class="carousel">
           <div class="carousel-container">
             <ul class="carousel-track">
@@ -37,6 +40,7 @@ interface State {
 
 interface Components {
   about: HTMLDivElement | null;
+  tabName: HTMLHeadElement | null;
   carousel: HTMLDivElement | null;
   next: HTMLButtonElement | null;
   prev: HTMLButtonElement | null;
@@ -61,12 +65,14 @@ export type AboutData =
       message: string;
     };
 
+const TabNames = ["Background", "Experience", "Resume", "Frameworks"];
+
 export class AboutPage extends HTMLElement {
   state: State = {
     currentIndex: 0,
   };
   root: ShadowRoot;
-  displayBus: EventBus<DisplayEvents> | null = null;
+  displayBus: EventBus<NavigationEvents> | null = null;
   components: Components;
   carouselItem: CarouselItems | null = null;
 
@@ -88,6 +94,7 @@ export class AboutPage extends HTMLElement {
 
     this.components = {
       about: this.root.querySelector(".about"),
+      tabName: this.root.querySelector(".tab--name"),
       carousel: this.root.querySelector(".carousel"),
       next: this.root.querySelector(".next"),
       prev: this.root.querySelector(".prev"),
@@ -205,6 +212,12 @@ export class AboutPage extends HTMLElement {
     const activeSlide = this.components.track.children[
       prevIndex
     ] as HTMLElement;
+
+    if (this.components.tabName) {
+      this.components.tabName!.textContent = TabNames[
+        this.state.currentIndex
+      ] as string;
+    }
 
     (
       this.components.track.children[this.state.currentIndex] as HTMLElement

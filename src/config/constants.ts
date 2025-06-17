@@ -11,7 +11,7 @@ const DEFAULT_CAMERA_OPTIONS = {
 const CANVAS_ID = "game-engine";
 
 const MOUSE_CONFIG = {
-  SENSITIVITY: { sensitivityYaw: 0.001, sensitivityPitch: 0.001 },
+  SENSITIVITY: { sensitivityYaw: 0.003, sensitivityPitch: 0.001 },
 };
 
 export {

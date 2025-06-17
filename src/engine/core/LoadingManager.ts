@@ -1,7 +1,7 @@
 import { EventBus } from "@events/eventBus";
-import { LoadingEvents } from "@events/eventType";
 import { GlobalStorageManager } from "engine/managers/storage/storageTypes";
 import { LoadingManager, Scene, WebGLRenderer } from "three";
+import { LoadingEvents } from "types/eventType";
 import { LoadOptions, ModelAssetDescriptor } from "types/loader.types";
 import { createFBXLoader } from "../../plugins/loader/fbx_loader";
 import { createGLBLoader } from "../../plugins/loader/glb_loader";

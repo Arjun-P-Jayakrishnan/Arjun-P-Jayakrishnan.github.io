@@ -1,8 +1,8 @@
 import { EventBus } from "@events/eventBus";
 import { EventBusManager } from "@events/EventBusManager";
-import { NavigationEvents } from "@events/eventType";
 import { Logger } from "@utils/Logger";
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
+import { NavigationEvents } from "types/eventType";
 
 const template = document.createElement("template");
 

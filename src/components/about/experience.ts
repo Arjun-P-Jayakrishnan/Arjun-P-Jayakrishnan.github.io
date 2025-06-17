@@ -3,12 +3,10 @@ template.innerHTML = `
     <link rel="stylesheet" href="/style/experience.css">
     <div class="experience">
         <ul class="job-list">
-          <li class="job-item active">
+          <li class="job-item">
             <div class="job-header">
-              <button class="job-toggle">
-                <h2 class="job-title">Title</h2>
-                <h2 class="job-duration">Duration</h2>
-              </button>
+              <h3 class="job-title">Title</h2>
+              <h5 class="job-duration">Duration</h2>
             </div>
             <div class="job-details">
               <ul class="job-responsibilities">
@@ -86,26 +84,23 @@ export class ExperiencePage extends HTMLElement {
     const header = document.createElement("div");
     header.classList.add("job-header");
 
-    const button = document.createElement("button");
-    button.classList.add("job-toggle");
-
-    const title = document.createElement("h2");
+    const title = document.createElement("h3");
     title.classList.add("job-title");
     title.textContent = data.title;
 
-    const duration = document.createElement("h2");
+    const duration = document.createElement("h5");
     duration.classList.add("job-duration");
     duration.textContent = data.duration;
 
-    button.appendChild(title);
-    button.appendChild(duration);
-    header.appendChild(button);
+    header.appendChild(title);
+    header.appendChild(duration);
+    // header.appendChild(button);
 
     const details = document.createElement("div");
     details.classList.add("job-details");
     details.classList.add("hidden");
 
-    this.addEvent(button, data.index, details);
+    // this.addEvent(button, data.index, details);
 
     const responsibilities = document.createElement("ul");
     responsibilities.classList.add("job-responsibilities");
