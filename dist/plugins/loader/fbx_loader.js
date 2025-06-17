@@ -1,2 +1,2 @@
-import {FBXLoader}from'three/examples/jsm/loaders/FBXLoader.js';var g=({loadingManager:e,scene:a,storageManager:t})=>{let s=new FBXLoader(e),n=async r=>{try{let o=await s.loadAsync(r.path);t.getStorage("model").store(r.id,{animations:o.animations,groups:o}),a.add(o);}catch(o){throw new Error(`Error while loading fbx file : ${o}`)}};return {load:async r=>{let o=[];r.forEach(i=>{o.push(n(i));}),await Promise.allSettled(o);}}};export{g as createFBXLoader};//# sourceMappingURL=fbx_loader.js.map
+export{a as createFBXLoader}from'../../chunk-VGX47XE2.js';//# sourceMappingURL=fbx_loader.js.map
 //# sourceMappingURL=fbx_loader.js.map

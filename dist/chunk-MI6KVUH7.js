@@ -1,0 +1,2 @@
+import {PMREMGenerator}from'three';import {RGBELoader}from'three/examples/jsm/loaders/RGBELoader.js';var G=({loadingManager:n,renderer:s,scene:d})=>{let t=new PMREMGenerator(s),i=new RGBELoader(n),c=async e=>new Promise((r,o)=>{console.log("path",e.path),i.load(e.path,(a,M)=>{let l=t.fromEquirectangular(a).texture;a.dispose(),d.environment=l,o();},void 0,a=>{r();});}),p=async e=>{let r=[];e.forEach(async o=>{r.push(c(o));}),await Promise.allSettled(r);};return {load:p}};export{G as a};//# sourceMappingURL=chunk-MI6KVUH7.js.map
+//# sourceMappingURL=chunk-MI6KVUH7.js.map

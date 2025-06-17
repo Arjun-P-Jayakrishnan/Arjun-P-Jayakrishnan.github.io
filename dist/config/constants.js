@@ -1,2 +1,2 @@
-var n=5,t=20,i={fov:75,aspectRatio:window.innerWidth/window.innerHeight,near:.1,far:1e3},s="game-engine",e={SENSITIVITY:{sensitivityYaw:.003,sensitivityPitch:.001}};export{s as CANVAS_ID,i as DEFAULT_CAMERA_OPTIONS,t as MAX_FRAME_BUCKET_TIME,n as MAX_TASKS_PER_FRAME,e as MOUSE_CONFIG};//# sourceMappingURL=constants.js.map
+export{d as CANVAS_ID,c as DEFAULT_CAMERA_OPTIONS,b as MAX_FRAME_BUCKET_TIME,a as MAX_TASKS_PER_FRAME,e as MOUSE_CONFIG}from'../chunk-XVFAGEG7.js';//# sourceMappingURL=constants.js.map
 //# sourceMappingURL=constants.js.map

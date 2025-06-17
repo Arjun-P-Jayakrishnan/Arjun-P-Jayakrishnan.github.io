@@ -1,0 +1,2 @@
+var p=({mixer:r,actions:e,crossFadeDuration:a=.3})=>{let i=null,o=null;return {play:(n,c=0)=>{if(i===n)return;let t=e[n];t&&(t.reset(),t.play(),o?.crossFadeTo(t,a,false),o=t,i=n);},getCurrentAnimation:()=>i,stop:()=>{},update:n=>{n!==void 0&&r.update(n);}}};export{p as a};//# sourceMappingURL=chunk-IIRPHTAK.js.map
+//# sourceMappingURL=chunk-IIRPHTAK.js.map

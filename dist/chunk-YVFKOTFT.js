@@ -1,0 +1,2 @@
+var u=()=>{let n=new Set,t=e=>e.toLowerCase(),s=e=>{n.delete(t(e.key));},r=e=>{n.add(t(e.key));};return {onMount:()=>{window.addEventListener("keyup",s),window.addEventListener("keydown",r);},onUnmount:()=>{window.removeEventListener("keyup",s),window.removeEventListener("keydown",r),n.clear();},getPressedKeys:()=>Array.from(n),isKeyPressed:e=>n.has(t(e))}};export{u as a};//# sourceMappingURL=chunk-YVFKOTFT.js.map
+//# sourceMappingURL=chunk-YVFKOTFT.js.map

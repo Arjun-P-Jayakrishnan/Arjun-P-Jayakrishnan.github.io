@@ -1,0 +1,2 @@
+import {a}from'./chunk-YVFKOTFT.js';import {a as a$1}from'./chunk-QG3IAKKG.js';var n=null,I=()=>({onInit:()=>{n||(n={mouse:a$1(),keyboard:a()},n.mouse.onMount(),n.keyboard.onMount());},getController:e=>n?n[e]:null,onUnmount:()=>{n&&(n.mouse.onUnmount(),n.keyboard.onUnmount());}});export{I as a};//# sourceMappingURL=chunk-CL2UVRCZ.js.map
+//# sourceMappingURL=chunk-CL2UVRCZ.js.map

@@ -1,0 +1,2 @@
+var n=5,t=20,i={fov:75,aspectRatio:window.innerWidth/window.innerHeight,near:.1,far:1e3},s="game-engine",e={SENSITIVITY:{sensitivityYaw:.003,sensitivityPitch:.001}};export{n as a,t as b,i as c,s as d,e};//# sourceMappingURL=chunk-XVFAGEG7.js.map
+//# sourceMappingURL=chunk-XVFAGEG7.js.map

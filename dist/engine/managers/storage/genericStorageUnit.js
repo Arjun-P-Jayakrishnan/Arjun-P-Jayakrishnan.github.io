@@ -1,2 +1,2 @@
-var o=()=>{let e=new Map;return {get:n=>e.get(n),set:(n,t)=>{e.set(n,t);},clear:()=>{e.clear();},delete:n=>{e.delete(n);},keys:()=>e.keys()}};var T=e=>o(),K=()=>{let e=T();return {store:(t,k)=>{e.set(t,k);},retrieve:t=>e.get(t),clear:()=>{e.clear();},delete:t=>{e.delete(t);},has:t=>!e.get(t),size:()=>e.keys.length}};export{K as createStorageUnit};//# sourceMappingURL=genericStorageUnit.js.map
+export{a as createStorageUnit}from'../../../chunk-Q432VHIU.js';import'../../../chunk-PMK6VHMY.js';//# sourceMappingURL=genericStorageUnit.js.map
 //# sourceMappingURL=genericStorageUnit.js.map

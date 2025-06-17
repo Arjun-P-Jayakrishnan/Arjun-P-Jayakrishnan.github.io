@@ -1,0 +1,2 @@
+import'./chunk-XVFAGEG7.js';var u=()=>{let e=[];return {schedule:(...r)=>{r.forEach(c=>{e.push(c);});},run:()=>{let r=async()=>{let c=performance.now();for(;e.length>0&&performance.now()-c<20;){let t=e.shift();if(!t)continue;let s=t();if(s instanceof Promise){let n=await s;Array.isArray(n)&&e.unshift(...n);}else Array.isArray(s)&&e.unshift(...s);}requestAnimationFrame(()=>{r();});};r();}}};export{u as a};//# sourceMappingURL=chunk-RZHPVZZG.js.map
+//# sourceMappingURL=chunk-RZHPVZZG.js.map

@@ -1,0 +1,2 @@
+var u=a=>{let t=a.initial,s=new Set;return Object.freeze({getValue:()=>t,setValue:e=>{t!==e&&(t=e,setTimeout(()=>{s.forEach(r=>r(e));},0));},subscribeToChanges:e=>(s.add(e),()=>{s.delete(e);}),dispose:()=>{s.clear();}})};export{u as a};//# sourceMappingURL=chunk-SBQZRZEI.js.map
+//# sourceMappingURL=chunk-SBQZRZEI.js.map

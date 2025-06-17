@@ -1,2 +1,2 @@
-var e={SENSITIVITY:{sensitivityPitch:.001}};var v=()=>{let{sensitivityPitch:s}=e.SENSITIVITY,t={rotation:{pitch:0,yaw:0}},o=n=>{t.rotation.pitch+=n.movementY,t.rotation.yaw+=n.movementX;};return {onMount:()=>{document.addEventListener("mousemove",o);},onUnmount:()=>{document.removeEventListener("mousemove",o);},getRotation:()=>{let n=t.rotation.yaw,a=t.rotation.pitch;return t.rotation.pitch=0,t.rotation.yaw=0,{yaw:-3e-3*n,pitch:s*a}}}};export{v as createMouseController};//# sourceMappingURL=mouse.js.map
+export{a as createMouseController}from'../../chunk-QG3IAKKG.js';import'../../chunk-XVFAGEG7.js';//# sourceMappingURL=mouse.js.map
 //# sourceMappingURL=mouse.js.map

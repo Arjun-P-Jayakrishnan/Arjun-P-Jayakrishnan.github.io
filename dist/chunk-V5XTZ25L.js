@@ -1,0 +1,2 @@
+var o={player:{id:"RootNode",storageId:"player"},ground:{id:"ground",storageId:"navigation"}},r={player:{id:"RootNode",storageId:"player"},ground:{id:"ground",storageId:"about"}},t={player:{id:"RootNode",storageId:"player"},ground:{id:"ground",storageId:"projects"}};export{o as a,r as b,t as c};//# sourceMappingURL=chunk-V5XTZ25L.js.map
+//# sourceMappingURL=chunk-V5XTZ25L.js.map

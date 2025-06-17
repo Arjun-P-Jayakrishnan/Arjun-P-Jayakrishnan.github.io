@@ -1,0 +1,2 @@
+import {a}from'./chunk-TCOVM377.js';var B=()=>{let e=a(),t=a(),n=a(),u=a(),a$1=a();return {loadingBus:e,displayBus:t,debugBus:n,switchTabBus:u,viewBus:a$1}};export{B as a};//# sourceMappingURL=chunk-JNKP3ICA.js.map
+//# sourceMappingURL=chunk-JNKP3ICA.js.map

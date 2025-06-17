@@ -1,2 +1,2 @@
-var o={player:{id:"RootNode",storageId:"player"},ground:{id:"ground",storageId:"navigation"}},r={player:{id:"RootNode",storageId:"player"},ground:{id:"ground",storageId:"about"}},t={player:{id:"RootNode",storageId:"player"},ground:{id:"ground",storageId:"projects"}};export{r as ABOUT_ROOM_OPTIONS,o as NAVIGATION_ROOM_OPTIONS,t as PROJECTS_ROOM_OPTIONS};//# sourceMappingURL=rooms.js.map
+export{b as ABOUT_ROOM_OPTIONS,a as NAVIGATION_ROOM_OPTIONS,c as PROJECTS_ROOM_OPTIONS}from'../chunk-V5XTZ25L.js';//# sourceMappingURL=rooms.js.map
 //# sourceMappingURL=rooms.js.map

@@ -1,2 +1,2 @@
-var u=({logger:a,reference:e,storage:r})=>{let t=null;return {mount:()=>{if(t=r.getStorage("model").retrieve(e.storageId)?.groups.getObjectByName(e.id),!t){console.error(`Cant get ground mesh from the id : ${e.id}`);return}t.material=t.material.clone(),t.receiveShadow=true,t.material.needsUpdate=true,t.material.opacity=.15,t.material.transparent=true,a.onMount({origin:"about-ground"});},actiavte:()=>{},deactivate:()=>{},unmount:()=>{}}};export{u as createGround};//# sourceMappingURL=ground.js.map
+export{a as createGround}from'../../../chunk-SBKLYHVN.js';//# sourceMappingURL=ground.js.map
 //# sourceMappingURL=ground.js.map

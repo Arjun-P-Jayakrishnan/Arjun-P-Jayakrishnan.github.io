@@ -1,2 +1,2 @@
-var i=()=>{let e={camera:void 0,orbit:void 0,renderer:void 0,scene:void 0};return {get:n=>{if(!e[n])throw new Error("Error : Accessing context when its not initialized");return e[n]},set:(n,r)=>{if(e[n]!==void 0)throw new Error("Error : Trying to overwrite already initialized context");e[n]=r;},clear:()=>{e={camera:void 0,orbit:void 0,renderer:void 0,scene:void 0};}}};export{i as createThreeJsContextManager};//# sourceMappingURL=ContextManager.js.map
+export{a as createThreeJsContextManager}from'../../chunk-67ZKC7NY.js';//# sourceMappingURL=ContextManager.js.map
 //# sourceMappingURL=ContextManager.js.map

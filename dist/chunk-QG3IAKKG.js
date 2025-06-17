@@ -1,0 +1,2 @@
+import {e}from'./chunk-XVFAGEG7.js';var p=()=>{let{sensitivityYaw:s,sensitivityPitch:u}=e.SENSITIVITY,t={rotation:{pitch:0,yaw:0}},o=n=>{t.rotation.pitch+=n.movementY,t.rotation.yaw+=n.movementX;};return {onMount:()=>{document.addEventListener("mousemove",o);},onUnmount:()=>{document.removeEventListener("mousemove",o);},getRotation:()=>{let n=t.rotation.yaw,i=t.rotation.pitch;return t.rotation.pitch=0,t.rotation.yaw=0,{yaw:-s*n,pitch:u*i}}}};export{p as a};//# sourceMappingURL=chunk-QG3IAKKG.js.map
+//# sourceMappingURL=chunk-QG3IAKKG.js.map

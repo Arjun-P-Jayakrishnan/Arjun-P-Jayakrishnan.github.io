@@ -1,0 +1,2 @@
+var s=()=>{let r=new Map;return {register:(e,i)=>{if(r.has(e))throw new Error(`Error : Redefining the service [${e}]`);r.set(e,i);},get:e=>{let i=r.get(e);if(!i)throw new Error(`Error : Trying to obtain value of an unregistered service ${e}`);return i},has:e=>r.has(e)}},t,o=()=>(t||(t=s()),t);export{o as a};//# sourceMappingURL=chunk-P6US56ME.js.map
+//# sourceMappingURL=chunk-P6US56ME.js.map

@@ -1,0 +1,2 @@
+var s=()=>({onLoad:o=>{console.log(`\u267B\uFE0F [${o.origin}] is being loaded....`);},onMount:o=>{console.log(`\u2795 [${o.origin}] is being mounted...`);},onUpdate:(o,n)=>{console.log(`\u{1F504} [${n.origin}] is being updated.. with ${o.toFixed(2)}`);},onUnmount:o=>{console.log(`\u2796 [${o.origin}] is being unmounted`);},onDestroy:o=>{console.log(`\u{1F5D1}\uFE0F [${o.origin}] is being disposed`);}});export{s as a};//# sourceMappingURL=chunk-LZ5BXKYK.js.map
+//# sourceMappingURL=chunk-LZ5BXKYK.js.map

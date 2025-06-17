@@ -22,16 +22,22 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="/style/navbar.css" />
+    <link rel="preload" href="/style/navbar.css" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      loading="lazy"
       defer
     />
-    <link rel="preload" as="image" href="/assets/images/logo.png" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/images/logo.png"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <loading-modal id="#loading-modal"></loading-modal>

@@ -1,0 +1,2 @@
+var c=()=>{let e=new Map;return {get:t=>e.get(t),set:(t,o)=>{e.set(t,o);},clear:()=>{e.clear();},delete:t=>{e.delete(t);},keys:()=>e.keys()}};export{c as a};//# sourceMappingURL=chunk-PMK6VHMY.js.map
+//# sourceMappingURL=chunk-PMK6VHMY.js.map
