@@ -184,7 +184,7 @@ import {Vector3,Scene,PerspectiveCamera,WebGLRenderer,Clock,LoadingManager,PMREM
     />
   <link rel="stylesheet" href="/style/navbar.css">
   <nav class="navbar" id="main-nav">
-      <div class="logo">Logo</div>
+      <div class="logo"><img src="/assets/images/logo.png"/></div>
       <button class="toggle-btn" aria-expanded="false" aria-controls="main-nav">&#9776</button>
       <ul class="nav-links" aria-expanded="false">
           <li>
