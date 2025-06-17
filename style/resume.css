@@ -1,85 +1,58 @@
-/* === Basic Reset & Layout === */
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #f0f2f5;
-}
-
-/* Resume container */
+/* === Resume Container === */
 .resume {
-  position: relative;
-
-  width: 100%;
-  min-height: 100%;
-
+  height: 90%;
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: transparent;
-  box-sizing: border-box;
+  z-index: 30;
+  background: transparent;
 }
 
-/* Hidden state */
-.hidden {
-  display: none;
-}
-
-/* Layout box */
+/* === Layout Box === */
 .resume__layout {
-  position: relative;
-  width: 100%;
   height: 100%;
+  width: 100%;
   max-width: 960px;
 
-  background-color: transparent;
-
-  padding: 24px;
-
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  box-sizing: border-box;
+  padding: 32px;
+  transition: box-shadow 0.3s ease;
 }
 
-/* PDF viewer styling */
+/* === PDF Viewer Styling === */
 .resume__pdf {
-  width: 100%;
   height: 90%;
-
-  margin-bottom: 20px;
-
+  width: 100%;
+  margin-bottom: 24px;
+  border: 1px solid #d1d1d1;
   border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid #1414144e;
+
+  overflow-y: scroll;
 }
 
 .resume__pdf iframe {
-  position: relative;
-  z-index: 2;
-
-  width: 100%;
   height: 100%;
-
+  width: 100%;
   border: none;
+  z-index: 36;
 }
 
-/* Download button */
+/* === Download Button === */
 .download {
-  position: relative;
   display: inline-block;
-
-  background-color: #007bff;
-  color: #fff;
-
-  text-decoration: none;
-  font-weight: 600;
+  padding: 12px 28px;
   font-size: 16px;
-
-  padding: 12px 24px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
   border-radius: 8px;
-
+  text-decoration: none;
+  text-align: center;
   transition: background-color 0.3s ease;
-  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+
+  z-index: 50;
 }
 
 .download:hover {
@@ -89,7 +62,7 @@ body {
 /* === Responsive Tweaks === */
 @media (max-width: 768px) {
   .resume__layout {
-    padding: 16px;
+    padding: 20px;
   }
 
   .resume__pdf {
@@ -98,7 +71,7 @@ body {
 
   .download {
     width: 100%;
-    text-align: center;
+    padding: 14px 0;
     font-size: 18px;
   }
 }
