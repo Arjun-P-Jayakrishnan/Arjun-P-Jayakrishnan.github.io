@@ -3,6 +3,7 @@ import {
   LoadingEvents,
   NavigationEvents,
   SwitchTabEvents,
+  ViewEvents,
 } from "../../../types/eventType";
 import { createEventBus, EventBus } from "./eventBus";
 
@@ -23,6 +24,10 @@ interface EventBusManager {
    * @description Event Bus for pre-fetching data and tab switch
    */
   switchTabBus: EventBus<SwitchTabEvents>;
+  /**
+   *@description show delayed events
+   */
+  viewBus: EventBus<ViewEvents>;
 }
 
 /**
@@ -34,12 +39,14 @@ const createEventBusManager = (): EventBusManager => {
   const displayBus = createEventBus<NavigationEvents>();
   const debugBus = createEventBus<DebugEvents>();
   const switchTabBus = createEventBus<SwitchTabEvents>();
+  const viewBus = createEventBus<ViewEvents>();
 
   return {
     loadingBus: loadingBus,
     displayBus: displayBus,
     debugBus: debugBus,
     switchTabBus: switchTabBus,
+    viewBus: viewBus,
   };
 };
 

@@ -9,7 +9,15 @@ import { ResumePage } from "./resume";
 const template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" href="/style/about.css">
-    <div class="about">
+    <style>
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-50%) scale(0.95);
+      transition: all 0.3s ease;
+    }
+    </style>
+    <div class="about hidden">
         <div class="tab">
           <h3 class="tab--name">Background</h3>  
         </div>
@@ -65,7 +73,12 @@ export type AboutData =
       message: string;
     };
 
-const TabNames = ["Background", "Experience", "Resume", "Frameworks"];
+const TabNames = [
+  "👨‍🎓 Background",
+  "👨‍💻 Experience",
+  "📄 Resume",
+  "🖥️ Frameworks",
+];
 
 export class AboutPage extends HTMLElement {
   state: State = {
@@ -109,6 +122,8 @@ export class AboutPage extends HTMLElement {
     });
     this.defineElements();
     this.querySlottedElements();
+
+    this.components.about?.classList.toggle("hidden");
   }
 
   private defineElements = () => {

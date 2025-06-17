@@ -1,21 +1,37 @@
-import { EventBus } from "@managers/events/eventBus";
-import { EventBusManager } from "@managers/events/eventBusFactory";
-import { DisplayEvents } from "@managers/events/eventType";
+import { EventBus } from "@events/eventBus";
+import { EventBusManager } from "@events/EventBusManager";
+import { ViewEvents } from "types/eventType";
 import { CardMarshall, ProjectCard } from "./card";
-
 
 const template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" href="/style/gallery.css">
+    <style>
+      .hidden {
+        transform: translateX(-50%) scale(0.95);
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
     <div class="gallery hidden" id="gallery">
     </div>
 `;
+
+export type ProjectData =
+  | {
+      list: Array<CardMarshall>;
+      isError: false;
+    }
+  | {
+      isError: true;
+      message: string;
+    };
 
 export class ProjectGallery extends HTMLElement {
   root: ShadowRoot;
   gallery: HTMLElement | null;
 
-  displayEventBus: EventBus<DisplayEvents> | undefined;
+  viewEventBus: EventBus<ViewEvents> | undefined;
 
   constructor() {
     super();
@@ -27,7 +43,8 @@ export class ProjectGallery extends HTMLElement {
   }
 
   set eventBusManager(eventBusManager: EventBusManager) {
-    this.displayEventBus = eventBusManager.displayBus;
+    this.viewEventBus = eventBusManager.viewBus;
+    console.log("event bus attached to project gallery");
   }
 
   showComponent(_: any) {
@@ -36,28 +53,17 @@ export class ProjectGallery extends HTMLElement {
   }
 
   hideComponent(_: any) {
+    console.log("gallery hidden");
     this.gallery?.classList.add("hidden");
   }
 
   private onShow = (data: any) => this.showComponent(data);
   private onHide = (data: any) => this.hideComponent(data);
 
-  async connectedCallback() {
+  private inflateData(projects: Array<CardMarshall>) {
     if (!this.gallery) return;
-
-    const res = await fetch("/public/data/projects.json");
-    if (!res.ok) {
-      this.gallery.innerHTML = `
-        <p> Failed to load projects</p>
-      `;
-      return;
-    }
-
-    const projects = await res.json();
-
     const fragment = document.createDocumentFragment();
-
-    (projects["projects"] as Array<CardMarshall>).forEach((cardProps) => {
+    projects.forEach((cardProps) => {
       const card: ProjectCard = document.createElement(
         "project-card"
       ) as ProjectCard;
@@ -67,16 +73,28 @@ export class ProjectGallery extends HTMLElement {
 
     this.gallery.appendChild(fragment);
 
-    if (!this.displayEventBus) return;
+    if (!this.viewEventBus) return;
 
-    this.displayEventBus.on("project-screen:show", this.onShow);
-    this.displayEventBus.on("project-screen:hide", this.onHide);
+    this.viewEventBus.on("project-screen:show", this.onShow);
+    this.viewEventBus.on("project-screen:hide", this.onHide);
   }
 
-  disconnectedCallback() {
-    if (!this.displayEventBus) return;
+  set updateData(data: ProjectData) {
+    if (!data.isError) {
+      this.inflateData(data.list);
+    } else {
+      this.root.innerHTML = `
+          <p>${data.message}</p>
+        `;
+    }
+  }
 
-    this.displayEventBus.off("project-screen:show", this.onShow);
-    this.displayEventBus.off("project-screen:hide", this.onHide);
+  connectedCallback() {}
+
+  disconnectedCallback() {
+    if (!this.viewEventBus) return;
+
+    this.viewEventBus.off("project-screen:show", this.onShow);
+    this.viewEventBus.off("project-screen:hide", this.onHide);
   }
 }

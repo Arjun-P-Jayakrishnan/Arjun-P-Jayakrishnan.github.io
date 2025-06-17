@@ -45,14 +45,14 @@ export const createGameplayManager = (): GameplayManager => {
       roomController.switchRoom["default"]
     );
 
-    // eventBusManager.loadingBus.on(
-    //   "project:show",
-    //   roomController.switchRoom["projects"]
-    // );
-    // eventBusManager.displayBus.on(
-    //   "project:hide",
-    //   roomController.switchRoom["default"]
-    // );
+    eventBusManager.displayBus.on(
+      "projects:show",
+      roomController.switchRoom["projects"]
+    );
+    eventBusManager.displayBus.on(
+      "projects:hide",
+      roomController.switchRoom["default"]
+    );
 
     eventBusManager.displayBus.on(
       "home:show",

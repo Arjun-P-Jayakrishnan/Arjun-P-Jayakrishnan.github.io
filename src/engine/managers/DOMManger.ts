@@ -1,4 +1,6 @@
 import { AboutPage } from "@components/about/about";
+import { CardMarshall, ProjectCard } from "@components/gallery/card";
+import { ProjectGallery } from "@components/gallery/gallery";
 import { LoadingModal } from "@components/loading/loading";
 import { Navbar } from "@components/navbar/navbar";
 import { SceneInspector } from "@components/threejs/scene_inspector";
@@ -35,6 +37,26 @@ const loadAboutData = async () => {
   }
 };
 
+const loadProjectData = async () => {
+  const projectGallery: ProjectGallery =
+    document.querySelector("project-gallery")!;
+  try {
+    const data = await fetch("/public/data/projects.json");
+    const projects = await data.json();
+
+    projectGallery.updateData = {
+      isError: false,
+      list: projects["projects"] as Array<CardMarshall>,
+    };
+  } catch (err) {
+    projectGallery.updateData = {
+      isError: true,
+      message: `Error getting data ${err}`,
+    };
+    console.error(`Error getting data ${err}`);
+  }
+};
+
 const createDomManager = (): DOMManager => {
   let flags = {
     navbarDefined: false,
@@ -56,35 +78,65 @@ const createDomManager = (): DOMManager => {
    * @description definition part
    */
   const onInit = () => {
+    // Navbar
     if (!flags.navbarDefined) {
       customElements.define("nav-bar", Navbar);
       flags.navbarDefined = true;
     }
+    // Loading Modal
     if (!flags.loadingModalDefined) {
       customElements.define("loading-modal", LoadingModal);
       flags.loadingModalDefined = true;
     }
+    // Scene Inspector
     if (!flags.sceneInspectorDefined) {
       customElements.define("scene-inspector", SceneInspector);
       flags.sceneInspectorDefined = true;
     }
-    // eventBusManager.displayBus.on("projects:show", () => {
-    //   if (!flags.projectGalleryDefined) {
-    //     eventBusManager.loadingBus.emit({
-    //       type: "load:start",
-    //       loaded: 0,
-    //       total: 0,
-    //       url: "",
-    //     });
-    //     customElements.define("project-gallery", ProjectGallery);
-    //     flags.projectGalleryDefined = true;
 
-    //     eventBusManager.loadingBus.emit({ type: "load:complete" });
-    //   }
-    // });
+    // Projects
+    eventBusManager.displayBus.once("projects:show", () => {
+      if (flags.projectGalleryDefined) return;
+      logger.onMount({ origin: "Projects-Page" });
+      //Loading
+      eventBusManager.loadingBus.emit({
+        type: "load:start",
+        loaded: 0,
+        total: 0,
+        url: "",
+      });
+      customElements.define("project-gallery", ProjectGallery);
+      customElements.define("project-card", ProjectCard);
 
-    // customElements.define("project-card", ProjectCard);
+      lifecycleScheduler.schedule(
+        queueStep(() => {
+          try {
+            const projectGallery: ProjectGallery =
+              document.querySelector("project-gallery")!;
 
+            projectGallery.eventBusManager = eventBusManager;
+          } catch (err) {
+            console.error(err);
+          }
+        })
+      );
+
+      lifecycleScheduler.schedule(
+        queueStep(async () => {
+          try {
+            console.log("loading data");
+            await loadProjectData();
+            eventBusManager.loadingBus.emit({ type: "load:complete" });
+          } catch (err) {
+            console.log(`Error while loading projects data ${err}`);
+          }
+        })
+      );
+
+      flags.projectGalleryDefined = true;
+    });
+
+    // About Page
     eventBusManager.displayBus.once("about:show", () => {
       if (flags.aboutPageDefined) return;
       logger.onMount({ origin: "About-Page" });
@@ -101,6 +153,17 @@ const createDomManager = (): DOMManager => {
         queueStep(async () => {
           await loadAboutData();
           eventBusManager.loadingBus.emit({ type: "load:complete" });
+        })
+      );
+
+      lifecycleScheduler.schedule(
+        queueStep(() => {
+          try {
+            const about: AboutPage = document.querySelector("about-page")!;
+            about.eventBusManager = eventBusManager;
+          } catch (err) {
+            console.error(err);
+          }
         })
       );
 
@@ -142,13 +205,6 @@ const createDomManager = (): DOMManager => {
     //   gallery.eventBusManager = context.eventBusManager;
     // } catch (err) {
     //   console.error(`Missing project gallery component : ${err}`);
-    // }
-
-    // try {
-    //   const about: AboutPage = document.querySelector("about-page")!;
-    //   about.eventBusManager = context.eventBusManager;
-    // } catch (err) {
-    //   console.error(err);
     // }
   };
 

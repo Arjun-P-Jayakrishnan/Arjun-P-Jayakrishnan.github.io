@@ -192,6 +192,12 @@ export class Navbar extends HTMLElement {
     if (this.state.activeTab == key) return;
     e.preventDefault();
 
+    const hideEvent = {
+      elementId: key,
+      type: `${this.state.activeTab}:hide`,
+    } as NavigationEvents;
+    this.displayEventBus?.emit(hideEvent);
+
     this.setActiveTab(key);
 
     const showEvent = {
@@ -199,12 +205,7 @@ export class Navbar extends HTMLElement {
       type: `${key}:show`,
     } as NavigationEvents;
 
-    const hideEvent = {
-      elementId: key,
-      type: `${this.state.activeTab}:hide`,
-    } as NavigationEvents;
-
-    this.displayEventBus?.emit(hideEvent);
+    console.log(`nvbar emits  ${showEvent.type}`);
     this.displayEventBus?.emit(showEvent);
   };
 

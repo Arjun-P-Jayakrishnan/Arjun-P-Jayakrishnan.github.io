@@ -55,10 +55,11 @@ export const createCameraManager = ({
     if (!isComplete && t > 1) {
       isComplete = true;
       orbit.enabled = true;
-      // eventBusManager.displayBus.emit({
-      //   type: "project-screen:show",
-      //   elementId: "project-screen",
-      // });
+      eventBusManager.viewBus.emit({
+        type: "project-screen:show",
+        elementId: "project-screen",
+      });
+      console.log("event emitted view event");
     }
 
     if (!isComplete) {
