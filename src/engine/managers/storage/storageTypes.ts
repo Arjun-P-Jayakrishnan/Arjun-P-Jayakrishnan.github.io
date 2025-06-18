@@ -1,4 +1,4 @@
-import { StorageKey, StorageMap } from "types/managers.types";
+import { StorageKey, StorageMap } from "types/storage.types";
 
 /**
  * Storage Unit Layer Responsible for the management of backend layer

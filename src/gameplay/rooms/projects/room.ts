@@ -61,7 +61,7 @@ export const createProjectRoom = ({
     group =
       storage.getStorage("model").retrieve(ground.storageId)?.groups ?? null;
 
-    logger.onMount({ origin: "Projects" });
+    logger.onMount({ origin: "Projects-Room" });
   };
 
   const activate = () => {
@@ -71,6 +71,8 @@ export const createProjectRoom = ({
     components.ground.actiavte();
     components.lighting.activate();
     components.player.activate();
+
+    logger.onActivate({ origin: "Projects-Room" });
   };
 
   const update = (deltaTime: number) => {
@@ -85,6 +87,8 @@ export const createProjectRoom = ({
     components.ground.deactivate();
     components.lighting.deactivate();
     components.player.deactiavte();
+
+    logger.onDeactivate({ origin: "Projects-Room" });
   };
 
   const unmount = () => {
@@ -92,6 +96,8 @@ export const createProjectRoom = ({
     components.ground.unmount();
     components.lighting.unmount();
     components.player.unmount();
+
+    logger.onUnmount({ origin: "Projects-Room" });
   };
 
   return {

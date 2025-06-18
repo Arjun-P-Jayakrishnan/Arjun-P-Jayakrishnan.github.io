@@ -44,9 +44,9 @@ export const createPlayer = ({
       let playerRoot = storage
         .getStorage("model")
         .retrieve(reference.storageId)?.groups;
-      let animations =
-        storage.getStorage("model").retrieve(reference.storageId)?.animations ??
-        [];
+      // let animations =
+      //   storage.getStorage("model").retrieve(reference.storageId)?.animations ??
+      //   [];
 
       if (!playerRoot) {
         throw new Error(
@@ -59,11 +59,11 @@ export const createPlayer = ({
         playerRoot: playerRoot,
       };
 
-      // console.log('armature',armature)
-      const mixer = new AnimationMixer(playerRoot);
-      mixer.clipAction(animations[2]).play();
+      // // console.log('armature',armature)
+      // const mixer = new AnimationMixer(playerRoot);
+      // mixer.clipAction(animations[2]).play();
 
-      mixers.push(mixer);
+      // mixers.push(mixer);
       logger.onMount({ origin: "Project-Room-Player" });
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);

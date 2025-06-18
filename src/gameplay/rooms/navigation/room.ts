@@ -1,8 +1,8 @@
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
 import { InputManager } from "engine/managers/InputManager";
 import { Euler, Vector3 } from "three";
-import { ObjectStorageUnit } from "types/managers.types";
 import { ModelIdentifier, Room } from "types/rooms.types";
+import { ObjectStorageUnit } from "types/storage.types";
 import { CameraManager, createCameraManager } from "./camera";
 import { createGround, Ground } from "./ground";
 import { createPlayer, Player } from "./player";
@@ -77,6 +77,8 @@ export const createNavigationRoom = ({
     components.camera.activate();
     components.ground.activate();
     components.player.activate();
+
+    logger.onActivate({ origin: "Navigation-Room" });
   };
 
   const deactivate = () => {
@@ -86,6 +88,7 @@ export const createNavigationRoom = ({
     components.camera.deactivate();
     components.ground.deactivate();
     components.player.deactivate();
+    logger.onDeactivate({ origin: "Navigation-Room" });
   };
 
   const mount = () => {

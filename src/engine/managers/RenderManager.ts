@@ -3,7 +3,7 @@ import { flattenTask, queueStep } from "@utils/dsl";
 import { CANVAS_ID } from "config/constants";
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
 import { PerspectiveCamera, Scene, WebGLRenderer } from "three";
-import { DebugEvents } from "types/eventType";
+import { DebugEvents } from "types/event.types";
 import { Lifecycle, Task } from "types/lifecycle.types";
 
 import {

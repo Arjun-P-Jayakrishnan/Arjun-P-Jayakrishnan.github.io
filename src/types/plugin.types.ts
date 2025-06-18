@@ -26,4 +26,27 @@ interface InputPlugin {
   onUnmount: () => void;
 }
 
-export type { InputPlugin, LoaderPlugin, StorageBackend };
+interface GenericFSM<StateType> {
+  /**Trigger state change */
+  changeState: (state: StateType) => void;
+}
+
+/** Each Finite State Machine's State is depended on the FSM machine */
+interface GenericFSMState<GenericFSM> {
+  /** Triggered when entering into this state */
+  enter: <T extends GenericFSM>(fsm: T) => void;
+
+  /**Executed when we need to move to next fsm */
+  execute: <T extends GenericFSM>(fsm: T) => void;
+
+  /**Triggered when exiting from this state */
+  exit: <T extends GenericFSM>(fsm: T) => void;
+}
+
+export type {
+  GenericFSM,
+  GenericFSMState,
+  InputPlugin,
+  LoaderPlugin,
+  StorageBackend,
+};

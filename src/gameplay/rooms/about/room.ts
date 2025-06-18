@@ -46,7 +46,7 @@ export const createAboutRoom = ({ ground, player }: AboutRoomProps): Room => {
   let group: Nullable<Group<Object3DEventMap>> = null;
 
   const mount = () => {
-    logger.onMount({ origin: "about-room" });
+    logger.onMount({ origin: "About-Room" });
     components.ground.mount();
     components.player.mount();
     components.camera.mount();
@@ -63,10 +63,11 @@ export const createAboutRoom = ({ ground, player }: AboutRoomProps): Room => {
     components.ground.actiavte();
     components.lighting.activate();
     components.player.activate();
+    logger.onActivate({ origin: "About-Room" });
   };
 
   const update = (deltaTime: number) => {
-    // components.camera.update(deltaTime);
+    //components.camera.update(deltaTime);
   };
 
   const deactivate = () => {
@@ -76,6 +77,7 @@ export const createAboutRoom = ({ ground, player }: AboutRoomProps): Room => {
     components.ground.deactivate();
     components.lighting.deactivate();
     components.player.deactiavte();
+    logger.onDeactivate({ origin: "About-Room" });
   };
 
   const unmount = () => {
@@ -83,6 +85,7 @@ export const createAboutRoom = ({ ground, player }: AboutRoomProps): Room => {
     components.ground.unmount();
     components.lighting.unmount();
     components.player.unmount();
+    logger.onUnmount({ origin: "About-Room" });
   };
 
   return {

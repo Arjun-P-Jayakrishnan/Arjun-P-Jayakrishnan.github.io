@@ -10,7 +10,10 @@ interface Logger
     [LoggerInfo], //onUnmount
     [LoggerInfo], //onDestroy
     false
-  > {}
+  > {
+  onActivate: (info: LoggerInfo) => void;
+  onDeactivate: (info: LoggerInfo) => void;
+}
 
 const createLogger = (): Logger => {
   const onLoad = (info: LoggerInfo) => {
@@ -35,12 +38,22 @@ const createLogger = (): Logger => {
     console.log(`🗑️ [${info.origin}] is being disposed`);
   };
 
+  const onActivate = (info: LoggerInfo) => {
+    console.log(`✅ [${info.origin}] is being activated`);
+  };
+
+  const onDeactivate = (info: LoggerInfo) => {
+    console.log(`✖️ [${info.origin}] is being deactiavted`);
+  };
+
   return {
     onLoad,
     onMount,
     onUpdate,
     onUnmount,
     onDestroy,
+    onActivate,
+    onDeactivate,
   };
 };
 

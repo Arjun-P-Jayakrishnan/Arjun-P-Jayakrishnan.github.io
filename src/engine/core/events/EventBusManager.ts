@@ -4,7 +4,7 @@ import {
   NavigationEvents,
   SwitchTabEvents,
   ViewEvents,
-} from "../../../types/eventType";
+} from "../../../types/event.types";
 import { createEventBus, EventBus } from "./eventBus";
 
 interface EventBusManager {
