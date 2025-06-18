@@ -21,15 +21,31 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
     <!-- Style -->
+
+    <!-- Prefetch important css -->
     <link rel="stylesheet" href="index.css" />
-    <link rel="preload" href="/style/navbar.css" />
+
+    <link rel="stylesheet" href="/style/navbar.css" /
+
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load Font Awesome non-blocking -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      media="print"
+      onload="this.onload=null;this.media='all';"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+    </noscript>
+
+
     <link
       rel="preload"
       as="image"

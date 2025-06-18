@@ -1,0 +1,2 @@
+import {a}from'./chunk-Q432VHIU.js';var i=()=>{let t={},o=["model","json"],a$1=e=>{switch(e){case "model":t[e]=a();break;case "json":t[e]=a();break}};return {inflate:()=>{o.forEach(e=>{a$1(e);});},clear:()=>{Object.values(t).forEach(e=>{e.clear();});},getStorage:e=>(t[e]||a$1(e),t[e])}};export{i as a};//# sourceMappingURL=chunk-P3CWQ4HG.js.map
+//# sourceMappingURL=chunk-P3CWQ4HG.js.map

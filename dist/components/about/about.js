@@ -1,2 +1,2 @@
-export{a as AboutPage}from'../../chunk-MTIO36TL.js';import'../../chunk-RNT3QKZL.js';import'../../chunk-P3DQJOZA.js';import'../../chunk-JQ4PZAOA.js';import'../../chunk-DVYKHAFX.js';//# sourceMappingURL=about.js.map
+export{a as AboutPage}from'../../chunk-IUR7MKY7.js';import'../../chunk-RNT3QKZL.js';import'../../chunk-P3DQJOZA.js';import'../../chunk-NAXE6W2I.js';import'../../chunk-DVYKHAFX.js';//# sourceMappingURL=about.js.map
 //# sourceMappingURL=about.js.map

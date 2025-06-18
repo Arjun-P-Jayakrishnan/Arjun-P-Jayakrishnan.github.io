@@ -1,0 +1,2 @@
+import {Vector3}from'three';var p=a=>{let{camera:e,scene:n}=a,t=new Vector3(0,1,2);return {mount:()=>{},activate:()=>{e.position.set(t.x,1,t.z),e.rotation.set(0,0,0,"XYZ"),console.log("activate camera position",e.position);},deactivate:()=>{},unmount:()=>{}}};export{p as a};//# sourceMappingURL=chunk-PBZ4L5EE.js.map
+//# sourceMappingURL=chunk-PBZ4L5EE.js.map
