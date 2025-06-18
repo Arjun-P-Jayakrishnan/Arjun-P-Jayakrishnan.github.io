@@ -1,6 +1,6 @@
 import { EventBus } from "@events/eventBus";
 import { EventBusManager } from "@events/EventBusManager";
-import { ViewEvents } from "types/eventType";
+import { ViewEvents } from "types/event.types";
 import { CardMarshall, ProjectCard } from "./card";
 
 const template = document.createElement("template");

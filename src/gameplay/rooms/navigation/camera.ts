@@ -95,7 +95,8 @@ export const createCameraManager = ({ camera }: CameraProps): CameraManager => {
   const mount = () => {};
 
   const activate = () => {
-    camera.position.set(1, 2, 3);
+    camera.position.set(0, 2, 2);
+    console.log("nav camera position activation", camera.position);
   };
 
   /**

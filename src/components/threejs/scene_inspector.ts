@@ -1,7 +1,7 @@
 import { EventBus } from "@events/eventBus";
 import { EventBusManager } from "@events/EventBusManager";
 import { Material, Object3D, Scene } from "three";
-import { DebugEvents } from "types/eventType";
+import { DebugEvents } from "types/event.types";
 
 const template = document.createElement("template");
 template.innerHTML = `

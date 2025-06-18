@@ -3,7 +3,7 @@ import {
   ObjectStorageUnit,
   StorageKey,
   StorageMap,
-} from "types/managers.types";
+} from "types/storage.types";
 import { createStorageUnit } from "./genericStorageUnit";
 import { GenericStorageUnit, GlobalStorageManager } from "./storageTypes";
 

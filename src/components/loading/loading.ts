@@ -2,7 +2,7 @@ import { EventBus } from "@events/eventBus";
 import { EventBusManager } from "@events/EventBusManager";
 import { Logger } from "@utils/Logger";
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
-import { LoadingEvents } from "types/eventType";
+import { LoadingEvents } from "types/event.types";
 
 const template = document.createElement("template");
 ///TODO: Re-add hidden in overlay
