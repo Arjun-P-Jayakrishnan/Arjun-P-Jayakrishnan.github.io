@@ -9,7 +9,7 @@ const template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" href="/style/loading_modal.css"/>
    
-    <div class="overlay hidden" id="overlay">
+    <div class="overlay" id="overlay">
       <div class="loading-logo"></div>
       <div id="loading-text">Loading...</div>
     </div>
@@ -42,16 +42,16 @@ export class LoadingModal extends HTMLElement {
   }
 
   handleLoading = () => {
-    // this.loadingEventBus?.on("load:start", (data) => {
-    //   this.tags.overlay?.classList.remove("hidden");
-    // });
-    // this.loadingEventBus?.on("load:progress", (data) => {
-    //   this.progress = data.loaded / data.total;
-    // });
-    // this.loadingEventBus?.on("load:complete", (data) => {
-    //   this.tags.overlay?.classList.add("hidden");
-    // });
-    // this.loadingEventBus?.on("load:error", (data) => {});
+    this.loadingEventBus?.on("load:start", (data) => {
+      this.tags.overlay?.classList.remove("hidden");
+    });
+    this.loadingEventBus?.on("load:progress", (data) => {
+      this.progress = data.loaded / data.total;
+    });
+    this.loadingEventBus?.on("load:complete", (data) => {
+      this.tags.overlay?.classList.add("hidden");
+    });
+    this.loadingEventBus?.on("load:error", (data) => {});
   };
 
   set eventBusManager(eventBusManager: EventBusManager) {

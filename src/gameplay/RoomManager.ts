@@ -116,6 +116,12 @@ export const createRoomController = (): RoomController => {
 
   const switchRoom = async (key: RoomKey): Promise<void> => {
     if (activeRoomKey === key) return;
+    eventBusManager.loadingBus.emit({
+      type: "load:start",
+      loaded: 0,
+      total: 0,
+      url: "",
+    });
 
     if (activeRoomKey != null) {
       if (rooms[activeRoomKey] != null) rooms[activeRoomKey]!.setDeactive();
@@ -125,6 +131,8 @@ export const createRoomController = (): RoomController => {
 
     if (rooms[key]) rooms[key].setActive();
     activeRoomKey = key;
+
+    eventBusManager.loadingBus.emit({ type: "load:complete" });
   };
 
   const mount = async (): Promise<void> => {

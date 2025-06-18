@@ -39,6 +39,7 @@
 
 .logo img {
   height: 100%;
+  width: min-content;
 }
 
 .toggle-btn {
