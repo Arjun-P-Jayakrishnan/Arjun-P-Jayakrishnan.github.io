@@ -24,9 +24,9 @@
 
   /*Layout*/
   position: fixed;
-  top: 50%;
+  /* top: 50%;
   left: 0;
-  transform: translateY(-50%);
+  transform: translateY(-50%); */
   z-index: 15;
 
   margin-left: 0rem;
