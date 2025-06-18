@@ -13,7 +13,7 @@ template.innerHTML = `
     />
   <link rel="stylesheet" href="/style/navbar.css">
   <nav class="navbar" id="main-nav">
-      <div class="logo"><img src="/assets/images/logo.png"/></div>
+      <div class="logo"><img src="/assets/images/logo.png" aria-label="Logo" style="min-height: 1em;min-width: 1em;"/></div>
       <button class="toggle-btn" aria-expanded="false" aria-controls="main-nav">&#9776</button>
       <ul class="nav-links" aria-expanded="false">
           <li>
