@@ -1,6 +1,6 @@
 import { EventBus } from "@events/eventBus";
 import { EventBusManager } from "@events/EventBusManager";
-import { ViewEvents } from "types/eventType";
+import { ViewEvents } from "types/event.types";
 import { CardMarshall, ProjectCard } from "./card";
 
 const template = document.createElement("template");
@@ -8,12 +8,15 @@ template.innerHTML = `
     <link rel="stylesheet" href="/style/gallery.css">
     <style>
       .hidden {
-        transform: translateX(-50%) scale(0.95);
+        display:none;
         opacity: 0;
         pointer-events: none;
       }
     </style>
     <div class="gallery hidden" id="gallery">
+      <div class="gallery--container" id="gallery--container">
+
+      </div>
     </div>
 `;
 
@@ -30,6 +33,7 @@ export type ProjectData =
 export class ProjectGallery extends HTMLElement {
   root: ShadowRoot;
   gallery: HTMLElement | null;
+  container: HTMLElement | null;
 
   viewEventBus: EventBus<ViewEvents> | undefined;
 
@@ -40,11 +44,11 @@ export class ProjectGallery extends HTMLElement {
     this.root.appendChild(clone);
 
     this.gallery = this.root.getElementById("gallery");
+    this.container = this.root.getElementById("gallery--container");
   }
 
   set eventBusManager(eventBusManager: EventBusManager) {
     this.viewEventBus = eventBusManager.viewBus;
-    console.log("event bus attached to project gallery");
   }
 
   showComponent(_: any) {
@@ -61,7 +65,7 @@ export class ProjectGallery extends HTMLElement {
   private onHide = (data: any) => this.hideComponent(data);
 
   private inflateData(projects: Array<CardMarshall>) {
-    if (!this.gallery) return;
+    if (!this.container) return;
     const fragment = document.createDocumentFragment();
     projects.forEach((cardProps) => {
       const card: ProjectCard = document.createElement(
@@ -71,7 +75,7 @@ export class ProjectGallery extends HTMLElement {
       fragment.appendChild(card);
     });
 
-    this.gallery.appendChild(fragment);
+    this.container.appendChild(fragment);
 
     if (!this.viewEventBus) return;
 

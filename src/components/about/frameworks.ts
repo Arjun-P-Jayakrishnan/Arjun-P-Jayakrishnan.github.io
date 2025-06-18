@@ -1,5 +1,5 @@
 import { EventBus } from "@events/eventBus";
-import { NavigationEvents } from "types/eventType";
+import { NavigationEvents } from "types/event.types";
 
 const template = document.createElement("template");
 

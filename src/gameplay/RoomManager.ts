@@ -14,6 +14,7 @@ import { getServiceRegistry } from "engine/core/ServiceRegistry";
 import { createAboutRoom } from "gameplay/rooms/about/room";
 import { createNavigationRoom } from "gameplay/rooms/navigation/room";
 import { createProjectRoom } from "gameplay/rooms/projects/room";
+import { Nullable } from "types/generic.types";
 import { Room, RoomAsset } from "types/rooms.types";
 
 export interface RoomController {
@@ -35,12 +36,22 @@ type RoomAssetsMap = {
 
 export const createRoomController = (): RoomController => {
   const serviceRegistry = getServiceRegistry();
-  const [storage, logger, eventBusManager, contextManager, stateManager] = [
+  const [
+    storage,
+    logger,
+    eventBusManager,
+    contextManager,
+    stateManager,
+    animationManager,
+    inputsManager,
+  ] = [
     serviceRegistry.get("GlobalStorageManager"),
     serviceRegistry.get("Logger"),
     serviceRegistry.get("EventBusManager"),
     serviceRegistry.get("ThreeJSContextManager"),
     serviceRegistry.get("GlobalStateManager"),
+    serviceRegistry.get("AnimationManager"),
+    serviceRegistry.get("InputManager"),
   ];
 
   let loader: Nullable<Loader> = null;
@@ -116,6 +127,12 @@ export const createRoomController = (): RoomController => {
 
   const switchRoom = async (key: RoomKey): Promise<void> => {
     if (activeRoomKey === key) return;
+    eventBusManager.loadingBus.emit({
+      type: "load:start",
+      loaded: 0,
+      total: 0,
+      url: "",
+    });
 
     if (activeRoomKey != null) {
       if (rooms[activeRoomKey] != null) rooms[activeRoomKey]!.setDeactive();
@@ -125,18 +142,27 @@ export const createRoomController = (): RoomController => {
 
     if (rooms[key]) rooms[key].setActive();
     activeRoomKey = key;
+    activeRoom = rooms[key];
+
+    eventBusManager.loadingBus.emit({ type: "load:complete" });
+  };
+
+  const _loadPlayer = async (): Promise<void> => {
+    await loader?.load([PLAYER_ASSET]);
+    animationManager.mount("Player", storage, inputsManager);
   };
 
   const mount = async (): Promise<void> => {
     logger.onMount({ origin: "Room Controller" });
     initializeLoader();
-    await loader?.load([PLAYER_ASSET]);
+    await _loadPlayer();
     await loadRoom("navigation");
     await switchRoom("navigation");
   };
 
   const update = (deltaTime: number) => {
     activeRoom?.update(deltaTime);
+    animationManager.update(deltaTime);
   };
 
   const unmount = (): void => {

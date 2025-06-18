@@ -2,7 +2,7 @@ import { EventBus } from "@events/eventBus";
 import { EventBusManager } from "@events/EventBusManager";
 import { Logger } from "@utils/Logger";
 import { getServiceRegistry } from "engine/core/ServiceRegistry";
-import { NavigationEvents } from "types/eventType";
+import { NavigationEvents } from "types/event.types";
 
 const template = document.createElement("template");
 
@@ -13,7 +13,7 @@ template.innerHTML = `
     />
   <link rel="stylesheet" href="/style/navbar.css">
   <nav class="navbar" id="main-nav">
-      <div class="logo">Logo</div>
+      <div class="logo"><img src="/assets/images/logo.png" aria-label="Logo" style="min-height: 1em;min-width: 1em;"/></div>
       <button class="toggle-btn" aria-expanded="false" aria-controls="main-nav">&#9776</button>
       <ul class="nav-links" aria-expanded="false">
           <li>

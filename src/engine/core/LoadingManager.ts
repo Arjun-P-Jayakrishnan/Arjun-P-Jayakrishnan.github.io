@@ -1,9 +1,8 @@
 import { EventBus } from "@events/eventBus";
 import { GlobalStorageManager } from "engine/managers/storage/storageTypes";
 import { LoadingManager, Scene, WebGLRenderer } from "three";
-import { LoadingEvents } from "types/eventType";
+import { LoadingEvents } from "types/event.types";
 import { LoadOptions, ModelAssetDescriptor } from "types/loader.types";
-import { createFBXLoader } from "../../plugins/loader/fbx_loader";
 import { createGLBLoader } from "../../plugins/loader/glb_loader";
 import { createHDRLoader } from "../../plugins/loader/hdr_loader";
 import { GlobalStateManager, LoadingContext } from "./state/stateType";
@@ -39,17 +38,17 @@ export const createLoader = ({
 }: LoaderProps): Loader => {
   const manager: LoadingManager = new LoadingManager();
   let isConfigured: boolean = false;
-  const [glbLoader, fbxLoader, hdrLoader] = [
+  const [glbLoader, hdrLoader] = [
     createGLBLoader({
       scene,
       loadingManager: manager,
       storageManager,
     }),
-    createFBXLoader({
-      scene,
-      loadingManager: manager,
-      storageManager,
-    }),
+    // createFBXLoader({
+    //   scene,
+    //   loadingManager: manager,
+    //   storageManager,
+    // }),
     createHDRLoader({
       scene,
       loadingManager: manager,
@@ -161,7 +160,7 @@ export const createLoader = ({
     _configurePlugins(assets);
 
     promises.push(glbLoader.load(assetQueue.glb));
-    promises.push(fbxLoader.load(assetQueue.fbx));
+    // promises.push(fbxLoader.load(assetQueue.fbx));
     promises.push(hdrLoader.load(assetQueue.hdr));
 
     await Promise.allSettled(promises);

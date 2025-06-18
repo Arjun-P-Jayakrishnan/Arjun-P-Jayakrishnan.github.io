@@ -64,7 +64,9 @@ export const createPlayer = ({
   const mount = () => {
     try {
       logger.onMount({ origin: "about-room-player" });
-      let playerRoot = scene.getObjectByName(reference.id);
+      let playerRoot = storage
+        .getStorage("model")
+        .retrieve(reference.storageId)?.groups;
 
       if (!playerRoot) {
         throw new Error(`player doesn't exist for the id ${reference.id}`);
@@ -74,10 +76,6 @@ export const createPlayer = ({
       objects = {
         playerRoot: playerRoot,
       };
-
-      animations = {
-        mixer: new AnimationMixer(playerRoot),
-      };
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
     }
@@ -85,13 +83,16 @@ export const createPlayer = ({
 
   const activate = () => {
     if (objects.playerRoot) {
-      objects.playerRoot.rotation.set(0, -Math.PI / 4, 0, "XYZ");
+      objects.playerRoot.rotation.set(0, Math.PI * 0.9, 0, "XYZ");
       objects.playerRoot.castShadow = true;
       castShadow(objects.playerRoot);
 
-      objects.playerRoot.position.set(1.5, 0, 0);
+      objects.playerRoot.position.set(1.5, 0, -1);
+      console.log("player actiaved position", objects.playerRoot.position);
     }
   };
+
+  const update = (deltaTime: number) => {};
 
   const deactivate = () => {};
 

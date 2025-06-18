@@ -1,16 +1,9 @@
 import { InputManager } from "engine/managers/InputManager";
 import { GlobalStorageManager } from "engine/managers/storage/storageTypes";
-import {
-  AnimationController,
-  createAnimationController,
-} from "gameplay/modules/animation";
-import {
-  createFSMController,
-  FSMController,
-} from "gameplay/modules/fsm/player";
 import { KeyboardInput } from "plugins/input/keyboard";
 import { MouseInput } from "plugins/input/mouse";
-import { AnimationMixer, Euler, Object3D, Vector3 } from "three";
+import { Euler, Object3D, Vector3 } from "three";
+import { Nullable } from "types/generic.types";
 import { GenericLifeCycle, ModelIdentifier } from "types/rooms.types";
 
 export interface PlayerProps {
@@ -42,8 +35,6 @@ interface Controllers {
     mouse: Nullable<MouseInput>;
     keyboard: Nullable<KeyboardInput>;
   };
-  animation: AnimationController;
-  fsm: FSMController;
 }
 
 interface ObjectReferences {
@@ -94,24 +85,6 @@ export const createPlayer = ({
       const player = playerRoot?.groups;
       const animations = playerRoot?.animations;
 
-      /**Animation */
-      const mixer = new AnimationMixer(player);
-      const animationController = createAnimationController({
-        mixer: mixer,
-        actions: {
-          Idle: mixer.clipAction(animations[0]),
-          Walk: mixer.clipAction(animations[3]),
-          Run: mixer.clipAction(animations[1]),
-        },
-        crossFadeDuration: 0.3,
-      });
-
-      const fsmController = createFSMController({
-        animationController: animationController,
-        inputs: InputManager,
-      });
-      fsmController.mount();
-
       objects = {
         player: player,
       };
@@ -121,8 +94,6 @@ export const createPlayer = ({
           mouse: InputManager.getController("mouse"),
           keyboard: InputManager.getController("keyboard"),
         },
-        animation: animationController,
-        fsm: fsmController,
       };
     } catch (err) {
       console.error(`Player mesh cant be obtained :${err}`);
@@ -185,8 +156,6 @@ export const createPlayer = ({
   const update = (deltaTime: number) => {
     updateControllers(deltaTime);
 
-    controllers.fsm.update(deltaTime);
-
     return {
       position: objects.player?.position ?? new Vector3(0, 0, 0),
       rotation: objects.player?.rotation ?? new Euler(0, 0, 0, "XYZ"),
@@ -195,7 +164,11 @@ export const createPlayer = ({
   };
 
   const activate = () => {
-    // objects.playerRoot.rotation.set(0,0,0,'XYZ')
+    if (objects.player) {
+      objects.player.position.set(0, 0, 0);
+      objects.player.rotation.set(0, 0, 0);
+      console.log("actiavting player for navigation", objects.player?.position);
+    }
   };
 
   const deactivate = () => {};

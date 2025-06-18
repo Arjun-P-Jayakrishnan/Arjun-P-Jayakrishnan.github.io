@@ -20,6 +20,8 @@ export const createCameraManager = (props: CameraProps): CameraManager => {
   const activate = () => {
     camera.position.set(target.x, 1, target.z);
     camera.rotation.set(0, 0, 0, "XYZ");
+
+    console.log("activate camera position", camera.position);
   };
 
   const deactivate = () => {};

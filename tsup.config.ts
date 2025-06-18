@@ -8,7 +8,7 @@ export default defineConfig({
   bundle: true, // To preserve folder structure
   sourcemap: true,
   minify: true, // ✅ ensures JavaScript is minified
-  splitting: false,
+  splitting: true,
   treeshake: true,
   clean: true,
   outExtension: () => ({ js: ".js" }),

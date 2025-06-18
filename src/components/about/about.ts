@@ -1,6 +1,6 @@
 import { EventBus } from "@events/eventBus";
 import { EventBusManager } from "@events/EventBusManager";
-import { NavigationEvents } from "types/eventType";
+import { NavigationEvents } from "types/event.types";
 import { BackgroundPage } from "./background";
 import { ExperiencePage, JobExperience } from "./experience";
 import { FrameworkPage } from "./frameworks";

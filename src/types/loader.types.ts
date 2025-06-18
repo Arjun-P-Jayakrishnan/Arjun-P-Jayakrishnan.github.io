@@ -6,6 +6,6 @@ type ModelAssetDescriptor = {
   path: string;
 };
 
-export type LoadOptions = ModelAssetDescriptor[];
+type LoadOptions = ModelAssetDescriptor[];
 
-export type { ModelAssetDescriptor, ModelTypes };
+export type { LoadOptions, ModelAssetDescriptor, ModelTypes };

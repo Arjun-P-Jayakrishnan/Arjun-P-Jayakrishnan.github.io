@@ -37,6 +37,11 @@
   font-family: var(--font-logo);
 }
 
+.logo img {
+  height: 100%;
+  width: min-content;
+}
+
 .toggle-btn {
   font-size: 1.5rem;
 
