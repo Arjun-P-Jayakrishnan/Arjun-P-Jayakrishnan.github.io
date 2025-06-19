@@ -5,10 +5,10 @@ export default defineConfig({
   outDir: "dist",
   format: ["esm"],
   external: ["three"],
-  bundle: true, // To preserve folder structure
+  bundle: false, // To preserve folder structure
   sourcemap: true,
   minify: true, // ✅ ensures JavaScript is minified
-  splitting: true,
+  splitting: false,
   treeshake: true,
   clean: true,
   outExtension: () => ({ js: ".js" }),
