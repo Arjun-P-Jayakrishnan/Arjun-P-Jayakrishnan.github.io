@@ -1,2 +1,2 @@
-export{a as createAboutRoom}from'../../../chunk-JP6MFGVN.js';import'../../../chunk-PBZ4L5EE.js';import'../../../chunk-SBKLYHVN.js';import'../../../chunk-ZJ2AFYMO.js';import'../../../chunk-MGISQNCD.js';import'../../../chunk-P6US56ME.js';//# sourceMappingURL=room.js.map
+export{a as createAboutRoom}from'../../../chunk-FDYTIATY.js';import'../../../chunk-ZJ2AFYMO.js';import'../../../chunk-MGISQNCD.js';import'../../../chunk-PBZ4L5EE.js';import'../../../chunk-SBKLYHVN.js';import'../../../chunk-P6US56ME.js';//# sourceMappingURL=room.js.map
 //# sourceMappingURL=room.js.map
