@@ -21,12 +21,12 @@ jobs:
 
       - name: Build Project
         run: npm run build
-      
-      - name : Prepare Deployment Folder
-        run : |
+
+      - name: Prepare Deployment Folder
+        run: |
           mkdir deploy
           #Copy only public files/folders (not src/not dev files)
-          cp -r index.html index.css assets public style deploy/ || true
+          cp -r index.html index.css favicon.ico assets public style deploy/ || true
           #Copy dist
           cp -r dist deploy/dist
 
