@@ -55,7 +55,7 @@
   </head>
   <body>
     <main>
-      <div class="portfolio-2d">
+      <div class="portfolio-2d" id="portfolio-2d">
         <header>
           <nav class="navigation">
             <div class="logo">
@@ -76,69 +76,91 @@
         </header>
 
         <section id="hero" class="hero">
-          <div class="tag-line">
-            <h1>Arjun P Jayakrishnan</h1>
-            <p>Developer . Engineer . Creator</p>
-          </div>
-          <div class="hero-image">
-            <img
-              src="/assets/images//hero.png"
-              alt="hero"
-              height="1em"
-              width="1em"
-            />
+          <div class="hero-content">
+            <div class="tag-line">
+              <h1>
+                Hi, I'm <span class="highlight">Arjun P Jayakrishnan</span>
+              </h1>
+              <p>Creative Engineer & Immersive Web Developer</p>
+              <p class="subline">
+                Designing interactive experiences through code — from responsive
+                apps to real-time 3D on the web and beyond.
+              </p>
+              <button id="toggle3D" class="toggle-btn">
+                Launch 3D Version
+              </button>
+            </div>
+
+            <div class="hero-image">
+              <img
+                src="/assets/images/hero.png"
+                alt="Portrait of Arjun P Jayakrishnan"
+                loading="lazy"
+              />
+            </div>
           </div>
         </section>
 
         <section id="about">
           <h2>About Me</h2>
-          <p>
-            I'm a full-stack software developer with a focus on building
-            scalable web applications, designing efficient backend systems, and
-            automating infrastructure. I care about clean code, thoughtful UX,
-            and performance-driven engineering.
+          <p class="intro">
+            I'm a <strong>full-stack software developer</strong> passionate
+            about building <strong>scalable applications</strong>, architecting
+            robust backends, and automating infrastructure. I care deeply about
+            <strong>clean code</strong>, performance-driven systems, and
+            delivering a thoughtful user experience.
           </p>
 
-          <h3>Core Technologies</h3>
-          <div class="core-tech">
-            <img
-              src="https://cdn.simpleicons.org/next.js/000000"
-              alt="Next.js"
-              title="Next.js"
-            />
-            <img
-              src="https://cdn.simpleicons.org/go/00ADD8"
-              alt="Go"
-              title="Go"
-            />
-            <img
-              src="https://cdn.simpleicons.org/python/3776AB"
-              alt="Python"
-              title="Python"
-            />
-            <img
-              src="https://cdn.simpleicons.org/postgresql/4169E1"
-              alt="PostgreSQL"
-              title="PostgreSQL"
-            />
-            <img
-              src="https://cdn.simpleicons.org/amazonaws/232F3E"
-              alt="AWS"
-              title="AWS"
-            />
-            <img
-              src="https://cdn.simpleicons.org/git/F05032"
-              alt="Git"
-              title="Git"
-            />
+          <div class="about-block">
+            <h3>Core Technologies</h3>
+            <div class="core-tech">
+              <div class="tech-icon" title="Next.js">
+                <img
+                  src="https://cdn.simpleicons.org/next.js/ffffff"
+                  alt="Next.js"
+                />
+                <span>Next.js</span>
+              </div>
+              <div class="tech-icon" title="Go">
+                <img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" />
+                <span>Go</span>
+              </div>
+              <div class="tech-icon" title="Python">
+                <img
+                  src="https://cdn.simpleicons.org/python/3776AB"
+                  alt="Python"
+                />
+                <span>Python</span>
+              </div>
+              <div class="tech-icon" title="PostgreSQL">
+                <img
+                  src="https://cdn.simpleicons.org/postgresql/4169E1"
+                  alt="PostgreSQL"
+                />
+                <span>PostgreSQL</span>
+              </div>
+              <div class="tech-icon" title="AWS">
+                <img
+                  src="https://cdn.simpleicons.org/amazonaws/FF9900"
+                  alt="AWS"
+                />
+                <span>AWS</span>
+              </div>
+              <div class="tech-icon" title="Git">
+                <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
+                <span>Git</span>
+              </div>
+            </div>
           </div>
 
-          <h3>Languages</h3>
-          <ul class="languages">
-            <li>English (Fluent)</li>
-            <li>Malayalam (Native)</li>
-            <li>Hindi (Intermediate)</li>
-          </ul>
+          <div class="about-block">
+            <h3>Languages</h3>
+            <ul class="languages">
+              <li><strong>English:</strong> Fluent</li>
+              <li><strong>Malayalam:</strong> Native</li>
+              <li><strong>Hindi:</strong> Intermediate</li>
+            </ul>
+          </div>
         </section>
 
         <section id="projects" class="portfolio-2d-projects">
@@ -271,41 +293,49 @@
         </section>
 
         <section id="contact" class="contact">
-          <h2>Contact</h2>
-          <p>
-            If you're interested in working together or just want to say hi,
-            feel free to reach out!
+          <h2>Let's Connect</h2>
+          <p class="contact-intro">
+            Interested in working together or just want to say hello? Feel free
+            to reach out through any of the platforms below.
           </p>
 
-          <ul class="contact-list">
-            <li>
-              <strong>Email:</strong>
-              <a href="mailto:yourname@example.com">yourname@example.com</a>
-            </li>
-            <li>
-              <strong>GitHub:</strong>
+          <div class="contact-cards">
+            <div class="contact-card">
+              <a
+                href="mailto:yourname@example.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Email"
+              >
+                <i class="fas fa-envelope fa-2x"></i>
+              </a>
+            </div>
+            <div class="contact-card">
               <a
                 href="https://github.com/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                >github.com/yourusername</a
+                title="GitHub"
               >
-            </li>
-            <li>
-              <strong>LinkedIn:</strong>
+                <i class="fab fa-github fa-2x"></i>
+              </a>
+            </div>
+            <div class="contact-card">
               <a
                 href="https://linkedin.com/in/yourprofile"
                 target="_blank"
                 rel="noopener noreferrer"
-                >linkedin.com/in/yourprofile</a
+                title="LinkedIn"
               >
-            </li>
-          </ul>
+                <i class="fab fa-linkedin fa-2x"></i>
+              </a>
+            </div>
+          </div>
         </section>
 
         <footer>&copy; 2025 Arjun P J. Built with care and coffee ☕.</footer>
       </div>
-      <div class="portfolio-3d" style="display: none">
+      <div class="portfolio-3d" id="portfolio-3d" style="display: none">
         <loading-modal id="#loading-modal"></loading-modal>
         <nav-bar></nav-bar>
         <project-gallery></project-gallery>

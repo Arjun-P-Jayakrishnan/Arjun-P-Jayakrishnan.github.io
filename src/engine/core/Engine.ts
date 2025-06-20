@@ -79,10 +79,28 @@ const createEngine = (): Engine => {
     });
 
     //after resources are achieved
-    window.addEventListener("load", () => {
-      onMount();
-      onUpdate();
-    });
+    window.addEventListener("load", () => {});
+
+    const toggleButton = document.getElementById(
+      "toggle3D"
+    ) as HTMLButtonElement;
+
+    const portfolio2D = document.getElementById("portfolio-2d");
+    const portfolio3D = document.getElementById("portfolio-3d");
+
+    if (toggleButton && portfolio2D && portfolio3D) {
+      toggleButton.addEventListener(
+        "click",
+        () => {
+          portfolio2D.style.display = "none";
+          portfolio3D.style.display = "block";
+
+          onMount();
+          onUpdate();
+        },
+        { once: true }
+      );
+    }
 
     //unmount and dispose
     window.addEventListener("beforeunload", () => {
