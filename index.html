@@ -24,8 +24,9 @@
 
     <!-- Prefetch important css -->
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="/style/portfolio-2d.css" />
 
-    <link rel="stylesheet" href="/style/navbar.css" /
+    <link rel="stylesheet" href="/style/navbar.css" />
 
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,7 +46,6 @@
       />
     </noscript>
 
-
     <link
       rel="preload"
       as="image"
@@ -54,18 +54,300 @@
     />
   </head>
   <body>
-    <loading-modal id="#loading-modal"></loading-modal>
-    <nav-bar></nav-bar>
-    <project-gallery></project-gallery>
-    <about-page>
-      <background-page slot="background"></background-page>
-      <experience-page slot="experience"></experience-page>
-      <resume-page slot="resume"></resume-page>
-      <frameworks-page slot="frameworks"></frameworks-page>
-    </about-page>
-    <scene-inspector></scene-inspector>
     <main>
-      <div id="game-engine"></div>
+      <div class="portfolio-2d" id="portfolio-2d">
+        <header>
+          <nav class="navigation">
+            <div class="logo">
+              <img
+                src="/assets/images/logo.png"
+                alt="Logo"
+                height="24"
+                width="24"
+              />
+            </div>
+            <ul class="nav_links">
+              <li><a href="#hero">Hero</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <section id="hero" class="hero">
+          <div class="hero-content">
+            <div class="tag-line">
+              <h1>
+                Hi, I'm <span class="highlight">Arjun P Jayakrishnan</span>
+              </h1>
+              <p>Creative Engineer & Immersive Web Developer</p>
+              <p class="subline">
+                Designing interactive experiences through code — from responsive
+                apps to real-time 3D on the web and beyond.
+              </p>
+              <button id="toggle3D" class="toggle-btn">
+                Launch 3D Version
+              </button>
+            </div>
+
+            <div class="hero-image">
+              <img
+                src="/assets/images/hero.png"
+                alt="Portrait of Arjun P Jayakrishnan"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section id="about">
+          <h2>About Me</h2>
+          <p class="intro">
+            I'm a <strong>full-stack software developer</strong> passionate
+            about building <strong>scalable applications</strong>, architecting
+            robust backends, and automating infrastructure. I care deeply about
+            <strong>clean code</strong>, performance-driven systems, and
+            delivering a thoughtful user experience.
+          </p>
+
+          <div class="about-block">
+            <h3>Core Technologies</h3>
+            <div class="core-tech">
+              <div class="tech-icon" title="Next.js">
+                <img
+                  src="https://cdn.simpleicons.org/next.js/ffffff"
+                  alt="Next.js"
+                />
+                <span>Next.js</span>
+              </div>
+              <div class="tech-icon" title="Go">
+                <img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" />
+                <span>Go</span>
+              </div>
+              <div class="tech-icon" title="Python">
+                <img
+                  src="https://cdn.simpleicons.org/python/3776AB"
+                  alt="Python"
+                />
+                <span>Python</span>
+              </div>
+              <div class="tech-icon" title="PostgreSQL">
+                <img
+                  src="https://cdn.simpleicons.org/postgresql/4169E1"
+                  alt="PostgreSQL"
+                />
+                <span>PostgreSQL</span>
+              </div>
+              <div class="tech-icon" title="AWS">
+                <img
+                  src="https://cdn.simpleicons.org/amazonaws/FF9900"
+                  alt="AWS"
+                />
+                <span>AWS</span>
+              </div>
+              <div class="tech-icon" title="Git">
+                <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
+                <span>Git</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-block">
+            <h3>Languages</h3>
+            <ul class="languages">
+              <li><strong>English:</strong> Fluent</li>
+              <li><strong>Malayalam:</strong> Native</li>
+              <li><strong>Hindi:</strong> Intermediate</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="projects" class="portfolio-2d-projects">
+          <h2>Projects</h2>
+          <div class="project-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+              <div class="project-header">
+                <img src="/assets/images/lcvs.svg" alt="LCVS Icon" />
+                <div class="project-info">
+                  <h3>LCVS</h3>
+                  <h4>Localized Version Control System</h4>
+                </div>
+              </div>
+              <p>
+                A custom version control tool with local DB using SQLite and
+                Git-style workflows.
+              </p>
+              <ul class="project-tags">
+                <li>version control</li>
+                <li>sqlite</li>
+                <li>git</li>
+              </ul>
+              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+              <div class="project-header">
+                <img src="/assets/images/opengl.svg" alt="OpenGL Icon" />
+                <div class="project-info">
+                  <h3>OpenGL</h3>
+                  <h4>Game Engine Fundamentals</h4>
+                </div>
+              </div>
+              <p>
+                Low-level graphics engine written using OpenGL, GLSL, and C++.
+              </p>
+              <ul class="project-tags">
+                <li>cpp</li>
+                <li>glsl</li>
+                <li>glad</li>
+                <li>opengl</li>
+                <li>cmake</li>
+              </ul>
+              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+              <div class="project-header">
+                <img src="/assets/images/tools.svg" alt="Tools Icon" />
+                <div class="project-info">
+                  <h3>Dev Tools</h3>
+                  <h4>Developer Resource Hub</h4>
+                </div>
+              </div>
+              <p>
+                A curated personal dev toolkit and resource manager built with
+                Next.js.
+              </p>
+              <ul class="project-tags">
+                <li>nextjs</li>
+                <li>vercel</li>
+                <li>react</li>
+              </ul>
+              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+              <div class="project-header">
+                <img src="/assets/images/animation.svg" alt="AGI Icon" />
+                <div class="project-info">
+                  <h3>AGI</h3>
+                  <h4>SVG Animation NPM Package</h4>
+                </div>
+              </div>
+              <p>A lightweight NPM package for animated SVGs in React apps.</p>
+              <ul class="project-tags">
+                <li>svg</li>
+                <li>react</li>
+                <li>npm</li>
+              </ul>
+              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card">
+              <div class="project-header">
+                <img src="/assets/images/extension.svg" alt="Extension Icon" />
+                <div class="project-info">
+                  <h3>GLSL Extension</h3>
+                  <h4>VS Code Syntax Highlighter</h4>
+                </div>
+              </div>
+              <p>
+                A VS Code extension for GLSL, .frag, and .vert syntax
+                highlighting.
+              </p>
+              <ul class="project-tags">
+                <li>glsl</li>
+                <li>vs-code</li>
+              </ul>
+              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-card">
+              <div class="project-header">
+                <img src="/assets/images/other.svg" alt="Other Icon" />
+                <div class="project-info">
+                  <h3>Other Projects</h3>
+                  <h4>AI, Encryption & More</h4>
+                </div>
+              </div>
+              <p>
+                Experiments with Rust encryption, AI fundamentals, and more
+                emerging ideas.
+              </p>
+              <ul class="project-tags">
+                <li>python</li>
+                <li>rust</li>
+                <li>encryption</li>
+                <li>ai</li>
+              </ul>
+              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="contact">
+          <h2>Let's Connect</h2>
+          <p class="contact-intro">
+            Interested in working together or just want to say hello? Feel free
+            to reach out through any of the platforms below.
+          </p>
+
+          <div class="contact-cards">
+            <div class="contact-card">
+              <a
+                href="mailto:yourname@example.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Email"
+              >
+                <i class="fas fa-envelope fa-2x"></i>
+              </a>
+            </div>
+            <div class="contact-card">
+              <a
+                href="https://github.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="GitHub"
+              >
+                <i class="fab fa-github fa-2x"></i>
+              </a>
+            </div>
+            <div class="contact-card">
+              <a
+                href="https://linkedin.com/in/yourprofile"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="LinkedIn"
+              >
+                <i class="fab fa-linkedin fa-2x"></i>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <footer>&copy; 2025 Arjun P J. Built with care and coffee ☕.</footer>
+      </div>
+      <div class="portfolio-3d" id="portfolio-3d" style="display: none">
+        <loading-modal id="#loading-modal"></loading-modal>
+        <nav-bar></nav-bar>
+        <project-gallery></project-gallery>
+        <about-page>
+          <background-page slot="background"></background-page>
+          <experience-page slot="experience"></experience-page>
+          <resume-page slot="resume"></resume-page>
+          <frameworks-page slot="frameworks"></frameworks-page>
+        </about-page>
+        <scene-inspector></scene-inspector>
+        <div id="game-engine"></div>
+      </div>
     </main>
 
     <!-- Import Maps for three js -->
