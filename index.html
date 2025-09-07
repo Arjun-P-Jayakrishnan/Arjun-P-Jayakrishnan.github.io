@@ -6,6 +6,9 @@
 
     <title>Arjun P Jayakrishnan</title>
 
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
     <!-- Basic SEO -->
     <meta
       name="description"
@@ -17,8 +20,35 @@
       content="Arjun P J, portfolio, developer, projects, resume, 3D, three.js, web development"
     />
 
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- Facebook -->
+    <meta
+      property="og:title"
+      content="Arjun P Jayakrishnan - 3D Developer & Engineer"
+    />
+    <meta
+      property="og:description"
+      content="Portfolio of Arjun P J — creative engineer and immersive web developer. Explore projects in 3D, web, and beyond."
+    />
+    <meta property="og:image" content="/assets/images/hero.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://arjun-p-jayakrishnan.github.io/" />
+
+    <!-- Twitter -->
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Arjun P Jayakrishnan - 3D Developer & Engineer"
+    />
+    <meta
+      name="twitter:description"
+      content="Interactive portfolio showcasing web, 3D, and immersive experiences."
+    />
+    <meta name="twitter:image" content="/assets/images/hero.png" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src *; style-src 'self' 'unsafe-inline'; script-src 'self' https://cdn.jsdelivr.net;"
+    />
 
     <!-- Style -->
 
@@ -26,7 +56,7 @@
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="/style/portfolio-2d.css" />
 
-    <link rel="stylesheet" href="/style/navbar.css" />
+    <link rel="stylesheet" href="/style/navbar.css" defer />
 
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,121 +82,222 @@
       href="/assets/images/logo.png"
       fetchpriority="high"
     />
+
+    <link rel="preload" as="script" href="./dist/index.js" />
   </head>
   <body>
     <main>
       <div class="portfolio-2d" id="portfolio-2d">
-        <header>
+        <!-------------------------------------------------------------------------->
+
+        <!-- Navbar -->
+
+        <!----------------------------------------------------------------------- -->
+        <header class="site-header">
           <nav class="navigation">
+            <!-- Logo -->
             <div class="logo">
               <img
                 src="/assets/images/logo.png"
                 alt="Logo"
-                height="24"
-                width="24"
+                height="32"
+                width="32"
+                loading="lazy"
               />
             </div>
+
+            <!-- Navigation Links -->
             <ul class="nav_links">
               <li><a href="#hero">Hero</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#projects">Projects</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <!-- Resume Button -->
+            <a
+              href="/assets/resume.pdf"
+              target="_blank"
+              class="resume-link"
+              aria-label="Explore portfolio in 3D"
+              rel="noopener noreferrer"
+            >
+              <svg
+                class="resume-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 846.66 846.66"
+                fill="currentColor"
+              >
+                <path
+                  d="M174.61 513.03l0 -481.99c0,-11.4 9.24,-20.64 20.64,-20.64l458.76 0c87.86,0 159.66,71.8 159.66,159.66l0 503.93c0,11.41 -9.24,20.65 -20.64,20.65l-436.81 0c-10.26,80.85 -79.33,141.62 -160.97,141.62 -89.61,0 -162.26,-72.65 -162.26,-162.27 0,-81.63 60.78,-150.7 141.62,-160.96zm-59.12 194.24c-19.2,-19.2 10,-48.39 29.2,-29.19l28.09 28.09 70.38 -108.12c14.72,-22.67 49.24,-0.25 34.52,22.42l-83.38 128.07c-6.51,12.05 -22.93,14.61 -32.76,4.78l-46.05 -46.05zm240.73 -53.92l416.16 0 0 -483.29c0,-65.06 -53.31,-118.37 -118.37,-118.37l-438.11 0 0 461.34c73.1,9.28 131.04,67.21 140.32,140.32zm-160.97 -100.33c-66.81,0 -120.97,54.16 -120.97,120.97 0,66.82 54.16,120.98 120.97,120.98 66.82,0 120.98,-54.16 120.98,-120.98 0,-66.81 -54.16,-120.97 -120.98,-120.97zm428.34 -254.17l92.1 0c11.4,0 20.64,9.25 20.64,20.65l0 217.21c0,11.4 -9.24,20.65 -20.64,20.65l-92.1 0c-11.4,0 -20.65,-9.25 -20.65,-20.65l0 -217.21c0,-11.4 9.25,-20.65 20.65,-20.65zm71.45 41.29l-50.81 0 0 175.92 50.81 0 0 -175.92zm-170.49 -163.34c-27.16,0 -27.16,-41.29 0,-41.29l156.39 0c27.16,0 27.16,41.29 0,41.29l-156.39 0zm0 69.51c-27.16,0 -27.16,-41.29 0,-41.29l156.39 0c27.16,0 27.16,41.29 0,41.29l-156.39 0zm-255.44 218.95c-27.16,0 -27.16,-41.29 0,-41.29l284.98 0c27.15,0 27.15,41.29 0,41.29l-284.98 0zm0 -59.08c-27.16,0 -27.16,-41.29 0,-41.29l284.98 0c27.15,0 27.15,41.29 0,41.29l-284.98 0zm0 -59.08c-27.16,0 -27.16,-41.3 0,-41.3l205.04 0c27.16,0 27.16,41.3 0,41.3l-205.04 0zm4.34 -253.29l152.92 0c11.4,0 20.64,9.24 20.64,20.64l0 152.92c0,11.4 -9.24,20.65 -20.64,20.65l-152.92 0c-11.4,0 -20.64,-9.25 -20.64,-20.65l0 -152.92c0,-11.4 9.24,-20.64 20.64,-20.64zm132.27 41.29l-111.62 0 0 111.63 111.62 0 0 -111.63z"
+                />
+              </svg>
+              Resume
+            </a>
           </nav>
         </header>
+        <!------------------------------------------------------------------->
 
+        <!-- Hero Section -->
+
+        <!------------------------------------------------------------------->
         <section id="hero" class="hero">
           <div class="hero-content">
-            <div class="tag-line">
-              <h1>
-                Hi, I'm <span class="highlight">Arjun P Jayakrishnan</span>
+            <!-- Left Side: Text -->
+            <div class="hero-text">
+              <h1 class="headline">
+                <span>Hi, I’m </span
+                ><span class="highlight">Arjun P Jayakrishnan</span>
               </h1>
-              <p>Creative Engineer & Immersive Web Developer</p>
+
               <p class="subline">
-                Designing interactive experiences through code — from responsive
-                apps to real-time 3D on the web and beyond.
+                I’m a <strong>Web Developer</strong> and
+                <strong>Creative Engineer</strong> who blends
+                <em>scalable engineering</em> with <em>imaginative design</em> —
+                building digital experiences that are fast, fluid, and
+                unforgettable.
               </p>
-              <button id="toggle3D" class="toggle-btn">
-                Launch 3D Version
-              </button>
+
+              <!-- CTA Buttons -->
+              <div class="cta-row">
+                <button id="toggle3D" class="icon-button">
+                  <span class="icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 640"
+                    >
+                      <path
+                        d="M288.3 61.5C308.1 50.1 332.5 50.1 352.3 61.5L528.2 163C548 174.4 560.2 195.6 
+           560.2 218.4L560.2 421.4C560.2 444.3 548 465.4 528.2 476.8L352.3 578.5C332.5 
+           589.9 308.1 589.9 288.3 578.5L112.5 477C92.7 465.6 80.5 444.4 80.5 421.6L80.5 
+           218.6C80.5 195.7 92.7 174.6 112.5 163.2L288.3 61.5zM496.1 421.5L496.1 
+           255.4L352.3 338.4L352.3 504.5L496.1 421.5z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="label">Explore in 3D</span>
+                </button>
+
+                <a href="#projects" class="btn-secondary"> 🚀 View My Work </a>
+              </div>
             </div>
 
-            <div class="hero-image">
-              <img
-                src="/assets/images/hero.png"
-                alt="Portrait of Arjun P Jayakrishnan"
-                loading="lazy"
-              />
-            </div>
+            <!-- Right Side: Visual -->
+            <div class="hero-visual"></div>
           </div>
         </section>
 
+        <!------------------------------------------------------------------------- -->
+
+        <!-- About Section -->
+
+        <!-- ----------------------------------------------------------------------------- -->
         <section id="about">
-          <h2>About Me</h2>
-          <p class="intro">
-            I'm a <strong>full-stack software developer</strong> passionate
-            about building <strong>scalable applications</strong>, architecting
-            robust backends, and automating infrastructure. I care deeply about
-            <strong>clean code</strong>, performance-driven systems, and
-            delivering a thoughtful user experience.
-          </p>
+          <div class="about-container">
+            <h2>About Me</h2>
+            <p class="intro">
+              I’m <strong>Arjun P Jayakrishnan</strong>, a developer passionate
+              about blending <em>creativity</em> with <em>engineering</em>.
+            </p>
 
-          <div class="about-block">
-            <h3>Core Technologies</h3>
-            <div class="core-tech">
-              <div class="tech-icon" title="Next.js">
-                <img
-                  src="https://cdn.simpleicons.org/next.js/ffffff"
-                  alt="Next.js"
-                />
-                <span>Next.js</span>
+            <!-- Focus Cards -->
+            <div class="focus-grid">
+              <div class="focus-card">
+                <h3>🎨 Immersive 3D</h3>
+                <p>
+                  2+ years with Babylon.js, shaders, and real-time graphics.
+                </p>
               </div>
-              <div class="tech-icon" title="Go">
-                <img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" />
-                <span>Go</span>
+              <div class="focus-card">
+                <h3>⚡ Web Engineering</h3>
+                <p>Building performant, modern apps with Next.js.</p>
               </div>
-              <div class="tech-icon" title="Python">
-                <img
-                  src="https://cdn.simpleicons.org/python/3776AB"
-                  alt="Python"
-                />
-                <span>Python</span>
+              <div class="focus-card">
+                <h3>🛠️ Backend & Scale</h3>
+                <p>
+                  Reliable systems with Go + PostgreSQL powering apps at scale.
+                </p>
               </div>
-              <div class="tech-icon" title="PostgreSQL">
-                <img
-                  src="https://cdn.simpleicons.org/postgresql/4169E1"
-                  alt="PostgreSQL"
-                />
-                <span>PostgreSQL</span>
-              </div>
-              <div class="tech-icon" title="AWS">
-                <img
-                  src="https://cdn.simpleicons.org/amazonaws/FF9900"
-                  alt="AWS"
-                />
-                <span>AWS</span>
-              </div>
-              <div class="tech-icon" title="Git">
-                <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
-                <span>Git</span>
+            </div>
+
+            <!-- Tech Stack Marquee -->
+            <div class="tech-stack">
+              <div class="marquee">
+                <div class="marquee-group">
+                  <img
+                    src="https://cdn.simpleicons.org/babylonjs/5C2D91"
+                    alt="Babylon.js"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/next.js/000000"
+                    alt="Next.js"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/go/00ADD8"
+                    alt="Go"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/postgresql/4169E1"
+                    alt="PostgreSQL"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/amazonaws/FF9900"
+                    alt="AWS"
+                    loading="lazy"
+                  />
+                  <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
+                </div>
+                <div class="marquee-group">
+                  <img
+                    src="https://cdn.simpleicons.org/babylondotjs"
+                    alt="Babylon.js"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/next.js/000000"
+                    alt="Next.js"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/go/00ADD8"
+                    alt="Go"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/postgresql/4169E1"
+                    alt="PostgreSQL"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/amazonaws/FF9900"
+                    alt="AWS"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://cdn.simpleicons.org/git/F05032"
+                    alt="Git"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
           </div>
-
-          <div class="about-block">
-            <h3>Languages</h3>
-            <ul class="languages">
-              <li><strong>English:</strong> Fluent</li>
-              <li><strong>Malayalam:</strong> Native</li>
-              <li><strong>Hindi:</strong> Intermediate</li>
-            </ul>
-          </div>
         </section>
 
+        <!-------------------------------------------------------------------------------------------- -->
+
+        <!-- Projects -->
+
+        <!-- --------------------------------------------------------------------------------------------- -->
         <section id="projects" class="portfolio-2d-projects">
           <h2>Projects</h2>
+
           <div class="project-grid">
-            <!-- Project 1 -->
+            <!-- Featured Project -->
             <div class="project-card">
               <div class="project-header">
                 <img src="/assets/images/lcvs.svg" alt="LCVS Icon" />
@@ -184,7 +315,10 @@
                 <li>sqlite</li>
                 <li>git</li>
               </ul>
-              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+              <div class="project-links">
+                <a href="#" target="_blank">🔗 GitHub</a>
+                <a href="#" target="_blank">🚀 Demo</a>
+              </div>
             </div>
 
             <!-- Project 2 -->
@@ -202,11 +336,12 @@
               <ul class="project-tags">
                 <li>cpp</li>
                 <li>glsl</li>
-                <li>glad</li>
                 <li>opengl</li>
                 <li>cmake</li>
               </ul>
-              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+              <div class="project-links">
+                <a href="#">🔗 GitHub</a>
+              </div>
             </div>
 
             <!-- Project 3 -->
@@ -227,7 +362,9 @@
                 <li>vercel</li>
                 <li>react</li>
               </ul>
-              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+              <div class="project-links">
+                <a href="#">🔗 GitHub</a>
+              </div>
             </div>
 
             <!-- Project 4 -->
@@ -245,7 +382,9 @@
                 <li>react</li>
                 <li>npm</li>
               </ul>
-              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+              <div class="project-links">
+                <a href="#">🔗 GitHub</a>
+              </div>
             </div>
 
             <!-- Project 5 -->
@@ -265,7 +404,9 @@
                 <li>glsl</li>
                 <li>vs-code</li>
               </ul>
-              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+              <div class="project-links">
+                <a href="#">🔗 GitHub</a>
+              </div>
             </div>
 
             <!-- Project 6 -->
@@ -287,16 +428,20 @@
                 <li>encryption</li>
                 <li>ai</li>
               </ul>
-              <a href="#" class="project-link" target="_blank">[ GitHub ]</a>
+              <div class="project-links">
+                <a href="#">🔗 GitHub</a>
+              </div>
             </div>
           </div>
         </section>
-
+        <!--------------------------------------------------------------------------------------------------- -->
+        <!-- Contacts -->
+        <!--------------------------------------------------------------------------------------------------- -->
         <section id="contact" class="contact">
           <h2>Let's Connect</h2>
           <p class="contact-intro">
-            Interested in working together or just want to say hello? Feel free
-            to reach out through any of the platforms below.
+            Interested in working together or just want to say hello? Reach out
+            on your preferred platform:
           </p>
 
           <div class="contact-cards">
@@ -307,34 +452,47 @@
                 rel="noopener noreferrer"
                 title="Email"
               >
-                <i class="fas fa-envelope fa-2x"></i>
+                <i class="fas fa-envelope"></i>
+                <span>Email</span>
               </a>
             </div>
             <div class="contact-card">
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/Arjun-P-Jayakrishnan"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
               >
-                <i class="fab fa-github fa-2x"></i>
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
               </a>
             </div>
             <div class="contact-card">
               <a
-                href="https://linkedin.com/in/yourprofile"
+                href="https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="LinkedIn"
               >
-                <i class="fab fa-linkedin fa-2x"></i>
+                <i class="fab fa-linkedin"></i>
+                <span>LinkedIn</span>
               </a>
             </div>
           </div>
         </section>
-
-        <footer>&copy; 2025 Arjun P J. Built with care and coffee ☕.</footer>
+        <!-- ------------------------------------------------------------------------------ -->
+        <!-- Footer -->
+        <!-- ------------------------------------------------------------- -->
+        <footer class="site-footer">
+          <div class="footer-content">
+            <p class="languages">🌐 Languages: English · Malayalam · Hindi</p>
+            <p>&copy; 2025 Arjun P J. Built with care and coffee ☕</p>
+            <p class="last-update">Last updated: 2025</p>
+          </div>
+        </footer>
       </div>
+
+      <!-- 3D  -->
       <div class="portfolio-3d" id="portfolio-3d" style="display: none">
         <loading-modal id="#loading-modal"></loading-modal>
         <nav-bar></nav-bar>
@@ -362,5 +520,18 @@
 
     <!-- Load The Javascript -->
     <script type="module" src="./dist/index.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Arjun P Jayakrishnan",
+        "url": "https://arjun-p-jayakrishnan.github.io/",
+        "sameAs": [
+          "https://github.com/Arjun-P-Jayakrishnan",
+          "https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
+        ],
+        "jobTitle": "Web Developer & Creative Engineer"
+      }
+    </script>
   </body>
 </html>
