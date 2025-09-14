@@ -1,2 +1,2 @@
-export{a as FrameworkPage}from'../../chunk-NAXE6W2I.js';//# sourceMappingURL=frameworks.js.map
+export{a as FrameworkPage}from'../../chunk-V6FDY6BJ.js';//# sourceMappingURL=frameworks.js.map
 //# sourceMappingURL=frameworks.js.map

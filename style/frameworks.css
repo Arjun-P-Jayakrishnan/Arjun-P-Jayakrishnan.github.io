@@ -2,8 +2,6 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --primary-color: #1976d2;
   --primary-hover: #145ea8;
-  --nav-bg-start: rgba(30, 30, 30, 0.85);
-  --nav-bg-end: rgba(40, 40, 40, 0.85);
   --nav-border-color: rgba(255, 255, 255, 0.08);
   --btn-text-color: #ffffff;
   --btn-hover-bg: rgba(25, 118, 210, 0.2);
@@ -34,52 +32,44 @@ ul {
   background: transparent;
 }
 
-/* Top Tab Navigation */
+/* --- Top Tab Navigation --- */
 .framework__navigation {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(to right, var(--nav-bg-start), var(--nav-bg-end));
-  border-bottom: 1px solid var(--nav-border-color);
-  padding: 1rem 1.5rem;
-  box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.4);
-  transition: background 0.3s ease;
+  background: transparent;
+  border-bottom: 2px solid var(--nav-border-color);
+  padding: 0 1.5rem;
 }
 
 /* Tab Buttons */
 .nav-btn {
-  background: rgba(255, 255, 255, 0.05);
+  background: transparent;
   border: none;
-  padding: 0.5rem 1rem;
+  border-bottom: 3px solid transparent; /* default no underline */
+  padding: 0.75rem 1.25rem;
   color: var(--btn-text-color);
   font-weight: 600;
   font-size: 0.95rem;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease,
-    transform 0.15s ease;
-  user-select: none;
+  transition: all 0.3s ease;
+  border-radius: 1rem 1rem 0rem 0rem; /* flat like a tab */
 }
 
 .nav-btn:hover,
 .nav-btn:focus-visible {
-  background-color: var(--btn-hover-bg);
-  box-shadow: inset 1px 1px 3px rgba(255, 255, 255, 0.3),
-    inset -1px -1px 3px rgba(0, 0, 0, 0.3);
+  color: var(--primary-color);
   outline: none;
-  transform: translateY(2px);
 }
 
 .nav-btn.active {
   background-color: var(--primary-color);
   color: var(--btn-text-color);
   box-shadow: 0 4px 10px rgba(25, 118, 210, 0.6);
-  transform: translateY(2px);
+  transform: translateY(0); /* keep it aligned with other tabs */
+  border-bottom: 2px solid #fff; /* optional underline effect */
 }
 
-/* Content Area */
+/* --- Content Area --- */
 .framework__contents {
   flex-grow: 1;
   padding: 2rem;
