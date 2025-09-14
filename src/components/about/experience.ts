@@ -5,8 +5,8 @@ template.innerHTML = `
         <ul class="job-list">
           <li class="job-item">
             <div class="job-header">
-              <h3 class="job-title">Title</h2>
-              <h5 class="job-duration">Duration</h2>
+              <h3 class="job-title">Title</h3>
+              <h5 class="job-duration">Duration</h5>
             </div>
             <div class="job-details">
               <ul class="job-responsibilities">
@@ -25,7 +25,9 @@ interface Components {
 
 export interface JobExperience {
   title: string;
+  company: string;
   duration: string;
+  location: string;
   responsibilities: string[];
 }
 
@@ -55,6 +57,22 @@ export class ExperiencePage extends HTMLElement {
 
   disconnectedCallback() {}
 
+  private bindEvents(header: HTMLDivElement, li: HTMLLIElement) {
+    console.log(header, li);
+    header.addEventListener("click", () => {
+      const details = li.querySelector(".job-details") as HTMLDivElement;
+      this.components.jobList
+        ?.querySelectorAll(".job-details.active")
+        .forEach((d) => {
+          if (d !== details) d.classList.remove("active");
+        });
+
+      console.log("toggle visibility");
+
+      details.classList.toggle("active");
+    });
+  }
+
   private addEvent(
     button: HTMLButtonElement,
     index: number,
@@ -74,6 +92,8 @@ export class ExperiencePage extends HTMLElement {
 
   private addJobExperience(data: {
     title: string;
+    company: string;
+    location: string;
     duration: string;
     responsibilities: string[];
     index: number;
@@ -84,21 +104,43 @@ export class ExperiencePage extends HTMLElement {
     const header = document.createElement("div");
     header.classList.add("job-header");
 
+    const main = document.createElement("div");
+    main.classList.add("job-main");
+
     const title = document.createElement("h3");
     title.classList.add("job-title");
     title.textContent = data.title;
+    main.appendChild(title);
+
+    if (data.company) {
+      const company = document.createElement("h5");
+      company.classList.add("job-company");
+      company.textContent = data.company;
+      main.appendChild(company);
+    }
+
+    const meta = document.createElement("div");
+    meta.classList.add("job-meta");
 
     const duration = document.createElement("h5");
     duration.classList.add("job-duration");
     duration.textContent = data.duration;
+    meta.appendChild(duration);
 
-    header.appendChild(title);
-    header.appendChild(duration);
+    if (data.location) {
+      const location = document.createElement("span");
+      location.classList.add("job-location");
+      location.textContent = data.location;
+      meta.appendChild(location);
+    }
+
+    header.appendChild(main);
+    header.appendChild(meta);
     // header.appendChild(button);
 
     const details = document.createElement("div");
     details.classList.add("job-details");
-    details.classList.add("hidden");
+    // details.classList.add("hidden");
 
     // this.addEvent(button, data.index, details);
 
@@ -118,6 +160,8 @@ export class ExperiencePage extends HTMLElement {
     details.appendChild(responsibilities);
     li.appendChild(header);
     li.appendChild(details);
+
+    this.bindEvents(header, li);
 
     return li;
   }

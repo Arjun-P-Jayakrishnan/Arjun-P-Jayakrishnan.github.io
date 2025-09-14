@@ -292,7 +292,9 @@ export class AboutPage extends HTMLElement {
       (data: any) => {
         return {
           title: data.title,
+          company: data.company,
           duration: data.duration,
+          location: data.location,
           responsibilities: data["responsibilities"] as Array<string>,
         } as JobExperience;
       }

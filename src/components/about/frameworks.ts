@@ -84,6 +84,9 @@ export class FrameworkPage extends HTMLElement {
 
   connectedCallback() {
     this.bindEvents();
+    const web = this.root.querySelector(".web");
+    web?.classList.toggle("active", true);
+    this.navigation.web?.classList.toggle("active", true);
   }
 
   disconnectedCallback() {
@@ -96,25 +99,25 @@ export class FrameworkPage extends HTMLElement {
   cliClick = (e: Event) => this.openPage(3);
 
   private openPage(index: number) {
-    const web = this.root.querySelector(".web");
-    const mobile = this.root.querySelector(".mobile");
-    const languages = this.root.querySelector(".languages");
-    const cmdLine = this.root.querySelector(".cli");
+    const tabs = [
+      this.navigation.web,
+      this.navigation.mobile,
+      this.navigation.language,
+      this.navigation.cli,
+    ];
 
-    web?.classList.toggle("active", false);
-    mobile?.classList.toggle("active", false);
-    languages?.classList.toggle("active", false);
-    cmdLine?.classList.toggle("active", false);
+    const pages = [
+      this.root.querySelector(".web"),
+      this.root.querySelector(".mobile"),
+      this.root.querySelector(".languages"),
+      this.root.querySelector(".cli"),
+    ];
 
-    if (index === 0) {
-      web?.classList.toggle("active", true);
-    } else if (index == 1) {
-      mobile?.classList.toggle("active", true);
-    } else if (index == 2) {
-      languages?.classList.toggle("active", true);
-    } else if (index == 3) {
-      cmdLine?.classList.toggle("active", true);
-    }
+    tabs.forEach((tab) => tab?.classList.toggle("active", false));
+    pages.forEach((page) => page?.classList.toggle("active", false));
+
+    if (tabs[index]) tabs[index].classList.toggle("active", true);
+    if (pages[index]) pages[index].classList.toggle("active", true);
   }
 
   private bindEvents = () => {
