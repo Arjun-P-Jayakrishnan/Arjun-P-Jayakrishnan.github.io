@@ -153,8 +153,27 @@
     "type": "Experience",
     "data": [
       {
+        "title": "Full Stack Engineer",
+        "company": "Webomindapps",
+        "duration": "July 2025 - Present",
+        "location": "Banglore",
+        "responsibilities": [
+          "Custom Search Engine",
+          "Dealing multiple projects"
+        ]
+      },
+      {
+        "title": "Freelance Flutter Developer",
+        "company": "Self Employed",
+        "duration": "May 2025 - June 2025",
+        "location": "Remote",
+        "responsibilities": ["Companion app for thier website"]
+      },
+      {
         "title": "Software Development Engineer (SDE)",
-        "duration": "Sept 2024 - Present",
+        "company": "Monkey Science",
+        "duration": "Sept 2024 - April 2025",
+        "location": "Banglore",
         "responsibilities": [
           "Designed and optimized simulation platform architecture",
           "Developed 3D assets and graphics enhancements using Blender and custom shaders",
@@ -163,7 +182,9 @@
       },
       {
         "title": "Creative Engineer Intern",
+        "company": "Monkey Science",
         "duration": "May 2023 - Sept 2024",
+        "location": "Banglore",
         "responsibilities": [
           "Developed applications and tools using TypeScript",
           "Built foundational workflows to streamline creative processes",
@@ -172,7 +193,9 @@
       },
       {
         "title": "Freelance Developer",
+        "company": "Self Employed",
         "duration": "May 2022 - May 2023",
+        "location": "Remote",
         "responsibilities": [
           "Developed mobile-responsive websites tailored to client needs"
         ]
