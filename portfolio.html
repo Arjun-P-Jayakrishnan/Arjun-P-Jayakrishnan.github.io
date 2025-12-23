@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Split Card</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .project-card {
+        display: flex;
+        gap: 16px;
+        padding: 24px;
+        background: #1e1e2f;
+        border-radius: 18px;
+        cursor: pointer;
+        transition: transform 0.4s ease, box-shadow 0.4s ease,
+          background 0.4s ease;
+        max-width: 500px;
+        align-items: center;
+        position: relative;
+      }
+
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.5);
+        background: linear-gradient(135deg, #1e1e2f 0%, #272742 100%);
+      }
+
+      .project-card .icon {
+        font-size: 56px;
+        color: #6366f1;
+        transition: transform 0.4s ease, color 0.4s ease;
+      }
+
+      .project-card:hover .icon {
+        transform: scale(1.2) rotate(-10deg);
+        color: #c084fc;
+      }
+
+      .text {
+        flex: 1;
+      }
+
+      .text h3 {
+        margin: 0 0 6px 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #f8fafc;
+      }
+
+      .text h4 {
+        margin: 0 0 12px 0;
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: #94a3b8;
+      }
+
+      .text p {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+        color: #cbd5e1;
+      }
+
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+
+      .badges span {
+        background: rgba(99, 102, 241, 0.15);
+        color: #a5b4fc;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        border-radius: 999px;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+
+      .project-card:hover .badges span {
+        transform: translateY(-2px);
+        background: rgba(192, 132, 252, 0.2);
+      }
+
+      .links a {
+        text-decoration: none;
+        color: #818cf8;
+        margin-right: 12px;
+        font-size: 0.85rem;
+        transition: color 0.3s ease;
+      }
+
+      .links a:hover {
+        color: #c084fc;
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="project-card">
+      <i class="fas fa-code icon"></i>
+      <div class="text">
+        <h3>LCVS</h3>
+        <h4>Version Control System</h4>
+        <p>Custom version control tool with SQLite and Git-style workflows.</p>
+        <div class="badges">
+          <span>git</span>
+          <span>sqlite</span>
+          <span>cli</span>
+        </div>
+        <div class="links">
+          <a href="#">GitHub</a>
+          <a href="#">Live</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
