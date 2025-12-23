@@ -9,6 +9,10 @@ import { getServiceRegistry } from "./ServiceRegistry";
 import { createEventBusManager } from "./events/EventBusManager";
 import { createGlobalStateManager } from "./state/StateManager";
 
+/**
+ *
+ * @description Bootstrap i.e Primary endpoint  for starting the engine
+ */
 export const bootstrap = () => {
   const registry = getServiceRegistry();
 

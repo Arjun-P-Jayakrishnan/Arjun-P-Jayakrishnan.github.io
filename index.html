@@ -4,495 +4,636 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Arjun P Jayakrishnan</title>
+    <title>Arjun P Jayakrishnan — Visor Landing</title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-
-    <!-- Basic SEO -->
+    <!-- SEO -->
     <meta
       name="description"
-      content="Portfolio of Arjun P J - Developer,Engineer and Creator."
+      content="Portfolio of Arjun P J — creative engineer and interactive systems developer."
     />
     <meta name="author" content="Arjun P J" />
     <meta
       name="keywords"
-      content="Arjun P J, portfolio, developer, projects, resume, 3D, three.js, web development"
+      content="Arjun P J, portfolio, 3D, WebGL, developer, interactive, visor UI"
     />
 
-    <!-- Facebook -->
+    <!-- =========================
+     SOCIAL + SHARING META
+    ========================= -->
+
+    <!-- Open Graph -->
     <meta
       property="og:title"
-      content="Arjun P Jayakrishnan - 3D Developer & Engineer"
+      content="Arjun P Jayakrishnan — Creative Engineer"
     />
     <meta
       property="og:description"
-      content="Portfolio of Arjun P J — creative engineer and immersive web developer. Explore projects in 3D, web, and beyond."
+      content="Interactive visor-style portfolio showcasing creative engineering, WebGL systems, and immersive UI design."
     />
     <meta property="og:image" content="/assets/images/hero.png" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://arjun-p-jayakrishnan.github.io/" />
 
     <!-- Twitter -->
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Arjun P Jayakrishnan - 3D Developer & Engineer"
+      content="Arjun P Jayakrishnan — Visor Portfolio"
     />
     <meta
       name="twitter:description"
-      content="Interactive portfolio showcasing web, 3D, and immersive experiences."
+      content="A system-style interactive portfolio focused on engineering, design, and immersive interfaces."
     />
     <meta name="twitter:image" content="/assets/images/hero.png" />
-    <!-- <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src *; style-src 'self' 'unsafe-inline'; script-src 'self' https://cdn.jsdelivr.net;"
-    /> -->
 
-    <!-- Style -->
+    <!-- =========================
+     STRUCTURED DATA
+    ========================= -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Arjun P Jayakrishnan",
+        "url": "https://arjun-p-jayakrishnan.github.io/",
+        "jobTitle": "Creative Engineer & Interactive Systems Developer",
+        "sameAs": [
+          "https://github.com/Arjun-P-Jayakrishnan",
+          "https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
+        ]
+      }
+    </script>
 
-    <!-- Prefetch important css -->
-    <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="/style/portfolio-2d.css" />
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" href="/style/navbar.css" defer />
-
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Load Font Awesome non-blocking -->
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="/index.css" />
+    <link rel="stylesheet" href="/panels.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      media="print"
-      onload="this.onload=null;this.media='all';"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      />
-    </noscript>
-
-    <link
-      rel="preload"
-      as="image"
-      href="/assets/images/logo.png"
-      fetchpriority="high"
+      href="https://cdn.jsdelivr.net/npm/devicon@2.2/devicon.min.css"
     />
   </head>
   <body>
-    <main>
-      <div class="portfolio-2d" id="portfolio-2d">
-        <!-------------------------------------------------------------------------->
+    <main id="portfolio">
+      <!-- =========================
+       2D PORTFOLIO
+      ========================= -->
+      <section id="portfolio-2d">
+        <div class="visor" id="visor">
+          <!-- Boot -->
+          <section
+            class="visor-boot"
+            id="visor-boot"
+            aria-live="assertive"
+            aria-label="System boot sequence"
+          >
+            <div class="boot-terminal">
+              <div class="boot-frame">
+                <p
+                  class="boot-line sys"
+                  data-text="INITIALIZING VISOR SYSTEM"
+                ></p>
+                <p
+                  class="boot-line sys"
+                  data-text="LOADING SUBJECT PROFILE"
+                ></p>
+                <p
+                  class="boot-line accent"
+                  data-text="ARJUN P JAYAKRISHNAN"
+                ></p>
+                <p class="boot-line sys" data-text="HUD ONLINE"></p>
+              </div>
+            </div>
+          </section>
 
-        <!-- Navbar -->
-
-        <!----------------------------------------------------------------------- -->
-        <header class="site-header">
-          <nav class="navigation">
-            <!-- Logo -->
-            <div class="logo">
-              <img
-                src="/assets/images/logo.png"
-                alt="Logo"
-                height="32"
-                width="32"
-                loading="lazy"
-              />
+          <!-- ================================
+            SYSTEM OVERLAY (NON-SCROLLING)
+            ================================= -->
+          <header class="visor-system" role="banner">
+            <div class="system-control" id="boot-button">
+              <button id="toggle3D">BOOT SYSTEM</button>
             </div>
 
-            <!-- Navigation Links -->
-            <ul class="nav_links">
-              <li><a href="#hero">Hero</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
+            <div id="story-hud" class="system-hud" aria-live="polite">
+              <p class="story-title">INTRODUCTION</p>
+              <p class="story-subtitle">DECODING SUBJECT</p>
+            </div>
+          </header>
 
-            <!-- Resume Button -->
-            <a
-              href="/assets/resume.pdf"
-              target="_blank"
-              class="resume-link"
-              aria-label="Explore portfolio in 3D"
-              rel="noopener noreferrer"
+          <!-- ================================
+          VISOR PANELS (SCROLLING)
+          ================================= -->
+          <div class="visor-panels">
+            <!-- INTRO -->
+            <article
+              class="visor-section visor-intro"
+              id="section-intro"
+              aria-labelledby="intro-title"
             >
-              <svg
-                class="resume-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 846.66 846.66"
-                fill="currentColor"
-              >
-                <path
-                  d="M174.61 513.03l0 -481.99c0,-11.4 9.24,-20.64 20.64,-20.64l458.76 0c87.86,0 159.66,71.8 159.66,159.66l0 503.93c0,11.41 -9.24,20.65 -20.64,20.65l-436.81 0c-10.26,80.85 -79.33,141.62 -160.97,141.62 -89.61,0 -162.26,-72.65 -162.26,-162.27 0,-81.63 60.78,-150.7 141.62,-160.96zm-59.12 194.24c-19.2,-19.2 10,-48.39 29.2,-29.19l28.09 28.09 70.38 -108.12c14.72,-22.67 49.24,-0.25 34.52,22.42l-83.38 128.07c-6.51,12.05 -22.93,14.61 -32.76,4.78l-46.05 -46.05zm240.73 -53.92l416.16 0 0 -483.29c0,-65.06 -53.31,-118.37 -118.37,-118.37l-438.11 0 0 461.34c73.1,9.28 131.04,67.21 140.32,140.32zm-160.97 -100.33c-66.81,0 -120.97,54.16 -120.97,120.97 0,66.82 54.16,120.98 120.97,120.98 66.82,0 120.98,-54.16 120.98,-120.98 0,-66.81 -54.16,-120.97 -120.98,-120.97zm428.34 -254.17l92.1 0c11.4,0 20.64,9.25 20.64,20.65l0 217.21c0,11.4 -9.24,20.65 -20.64,20.65l-92.1 0c-11.4,0 -20.65,-9.25 -20.65,-20.65l0 -217.21c0,-11.4 9.25,-20.65 20.65,-20.65zm71.45 41.29l-50.81 0 0 175.92 50.81 0 0 -175.92zm-170.49 -163.34c-27.16,0 -27.16,-41.29 0,-41.29l156.39 0c27.16,0 27.16,41.29 0,41.29l-156.39 0zm0 69.51c-27.16,0 -27.16,-41.29 0,-41.29l156.39 0c27.16,0 27.16,41.29 0,41.29l-156.39 0zm-255.44 218.95c-27.16,0 -27.16,-41.29 0,-41.29l284.98 0c27.15,0 27.15,41.29 0,41.29l-284.98 0zm0 -59.08c-27.16,0 -27.16,-41.29 0,-41.29l284.98 0c27.15,0 27.15,41.29 0,41.29l-284.98 0zm0 -59.08c-27.16,0 -27.16,-41.3 0,-41.3l205.04 0c27.16,0 27.16,41.3 0,41.3l-205.04 0zm4.34 -253.29l152.92 0c11.4,0 20.64,9.24 20.64,20.64l0 152.92c0,11.4 -9.24,20.65 -20.64,20.65l-152.92 0c-11.4,0 -20.64,-9.25 -20.64,-20.65l0 -152.92c0,-11.4 9.24,-20.64 20.64,-20.64zm132.27 41.29l-111.62 0 0 111.63 111.62 0 0 -111.63z"
-                />
-              </svg>
-              Resume
-            </a>
-          </nav>
-        </header>
-        <!------------------------------------------------------------------->
+              <div class="intro-layout panel-frame">
+                <!-- LEFT: SYSTEM READOUT -->
+                <dl class="intro-data">
+                  <dt>SUBJECT</dt>
+                  <dd class="name">ARJUN P JAYAKRISHNAN</dd>
 
-        <!-- Hero Section -->
+                  <dt>ROLE</dt>
+                  <dd>CREATIVE ENGINEER</dd>
 
-        <!------------------------------------------------------------------->
-        <section id="hero" class="hero">
-          <div class="hero-content">
-            <!-- Left Side: Text -->
-            <div class="hero-text">
-              <h1 class="headline">
-                <span>Hi, I’m </span
-                ><span class="highlight">Arjun P Jayakrishnan</span>
-              </h1>
+                  <dt>STATUS</dt>
+                  <dd class="active">ACTIVE</dd>
 
-              <p class="subline">
-                I’m a <strong>Web Developer</strong> and
-                <strong>Creative Engineer</strong> who blends
-                <em>scalable engineering</em> with <em>imaginative design</em> —
-                building digital experiences that are fast, fluid, and
-                unforgettable.
-              </p>
+                  <dt>PRIMARY ACTIVITY</dt>
+                  <dd>
+                    DESIGN AND CONSTRUCTION OF INTERACTIVE SYSTEMS WITH
+                    REAL-TIME FEEDBACK.
+                  </dd>
+                </dl>
 
-              <!-- CTA Buttons -->
-              <div class="cta-row">
-                <button id="toggle3D" class="icon-button">
-                  <span class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 640 640"
+                <!-- RIGHT: SUBJECT FEED -->
+                <div class="intro-subject">
+                  <div class="subject-frame">
+                    <div class="subject-readout">
+                      <p><span class="key">CAPTURE MODE</span> STATIC</p>
+                      <p><span class="key">SIGNAL</span> CLEAN</p>
+                      <p><span class="key">FOCUS</span> SYSTEM DESIGN</p>
+                    </div>
+                    <img src="public/profile.png" alt="Subject profile image" />
+                    <span class="tag">PROFILE CAPTURE</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- ABOUT -->
+            <section class="visor-section visor-about" id="section-about">
+              <div class="panel-frame about-layout">
+                <!-- Left Column -->
+                <div class="about-column">
+                  <div class="about-item">
+                    <p class="meta">🌍 NATIONALITY</p>
+                    <p class="description">INDIAN</p>
+                  </div>
+
+                  <div class="about-item">
+                    <p class="meta">🎓 EDUCATION</p>
+                    <p class="description">B. TECH. IN COMPUTER SCIENCE</p>
+                  </div>
+
+                  <div class="about-item">
+                    <p class="meta">💻 FOCUS AREA</p>
+                    <p class="description">
+                      INTERACTIVE 3D, WEBGL, FULL-STACK WEB DEVELOPMENT
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="about-column">
+                  <div class="about-item">
+                    <p class="meta">🎮 HOBBIES</p>
+                    <p class="description">GAMING, MUSIC, TECH EXPERIMENTS</p>
+                  </div>
+
+                  <div class="about-item">
+                    <p class="meta">🗣 LANGUAGES</p>
+                    <p class="description">ENGLISH, HINDI, MALAYALAM</p>
+                  </div>
+
+                  <div class="about-item">
+                    <p class="meta">⏳ EXPERIENCE</p>
+                    <p class="description">3+ YEARS</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- EXPERIENCE -->
+            <section
+              class="visor-section visor-experience"
+              id="section-experience"
+              aria-labelledby="experience-title"
+            >
+              <div class="panel-frame experience-panel">
+                <h2 id="experience-title">EXPERIENCE</h2>
+
+                <div class="timeline-wrapper">
+                  <button class="timeline-nav prev" aria-label="Previous">
+                    ◀
+                  </button>
+
+                  <div class="timeline-viewport">
+                    <div class="timeline-track">
+                      <div class="timeline-geometry">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-dot"></div>
+                      </div>
+
+                      <div class="timeline-content">
+                        <!-- Each card as <article> with semantic markup -->
+                        <article class="timeline-card">
+                          <h3 class="role">Freelance Developer</h3>
+                          <p class="company">Flutter & Web Applications</p>
+                          <time class="duration" datetime="2022-12"
+                            >Dec 2022</time
+                          >
+                          →
+                          <time class="duration" datetime="2023-03"
+                            >Mar 2023</time
+                          >
+                        </article>
+
+                        <article class="timeline-card">
+                          <h3 class="role">Creative Engineer Intern</h3>
+                          <p class="company">Monkey Science</p>
+                          <time class="duration" datetime="2023-05"
+                            >May 2023</time
+                          >
+                          →
+                          <time class="duration" datetime="2024-09"
+                            >Sept 2024</time
+                          >
+                        </article>
+
+                        <article class="timeline-card">
+                          <h3 class="role">Associate Creative Engineer</h3>
+                          <p class="company">Monkey Science</p>
+                          <time class="duration" datetime="2024-09"
+                            >Sept 2024</time
+                          >
+                          →
+                          <time class="duration" datetime="2025-05"
+                            >May 2025</time
+                          >
+                        </article>
+
+                        <article class="timeline-card">
+                          <h3 class="role">Freelance Developer</h3>
+                          <p class="company">Full-Stack / 3D</p>
+                          <time class="duration" datetime="2025-05"
+                            >May 2025</time
+                          >
+                          →
+                          <time class="duration" datetime="2025-07"
+                            >July 2025</time
+                          >
+                        </article>
+
+                        <article class="timeline-card">
+                          <h3 class="role">Full-Stack Developer</h3>
+                          <p class="company">Webomindapps</p>
+                          <time class="duration" datetime="2025-07"
+                            >July 2025</time
+                          >
+                          →
+                          <time class="duration" datetime="2025-12"
+                            >Present</time
+                          >
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button class="timeline-nav next" aria-label="Next">▶</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- PROJECTS -->
+            <section
+              class="visor-section visor-projects"
+              id="section-projects"
+              aria-labelledby="projects-title"
+            >
+              <div class="panel-frame projects-panel">
+                <h2 id="projects-title">PROJECTS</h2>
+
+                <div class="projects-layout">
+                  <!-- LEFT PANEL: Project List -->
+                  <div class="projects-left">
+                    <h3 class="projects-left-title">All Projects</h3>
+
+                    <ul class="projects-grid">
+                      <li class="project-item active" data-index="0">
+                        <span class="project-icon">💻</span>
+                        <span class="project-title">LCVS</span>
+                      </li>
+                      <li class="project-item" data-index="1">
+                        <span class="project-icon">🖥️</span>
+                        <span class="project-title"
+                          >VS Code GLSL Highlighter</span
+                        >
+                      </li>
+                      <li class="project-item" data-index="2">
+                        <span class="project-icon">🛠️</span>
+                        <span class="project-title">Developer Tools</span>
+                      </li>
+                      <li class="project-item" data-index="3">
+                        <span class="project-icon">🎨</span>
+                        <span class="project-title"
+                          >AGI Animated Graphical Illustrator</span
+                        >
+                      </li>
+                      <li class="project-item" data-index="4">
+                        <span class="project-icon">⚡</span>
+                        <span class="project-title">Static Bundler</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- VERTICAL DIVIDER -->
+                  <div class="projects-divider"></div>
+
+                  <!-- RIGHT PANEL: Project Details -->
+                  <div class="projects-right">
+                    <article class="project-details">
+                      <div class="project-icon-large">💻</div>
+                      <h3 class="project-name">
+                        LCVS — Localized Version Control System
+                      </h3>
+                      <p class="project-subtitle">
+                        Version Control Tool for Localized Projects
+                      </p>
+                      <p class="project-description">
+                        LCVS is a tool designed to manage multiple versions of
+                        projects with localization support, enabling developers
+                        to easily switch between languages and environments.
+                      </p>
+                      <div class="project-buttons">
+                        <a href="#" class="btn visit">Visit</a>
+                        <a href="#" class="btn github">GitHub</a>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- TECH -->
+            <section class="visor-section visor-tech" id="section-techstack">
+              <div class="panel-frame tech-panel">
+                <h2>TECH STACK</h2>
+
+                <div class="tech-carousel">
+                  <button class="tech-nav prev">‹</button>
+
+                  <div class="tech-viewport">
+                    <div class="tech-track">
+                      <!-- Languages -->
+                      <div class="tech-category-card">
+                        <h3>Languages</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
+                            /><span>C</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
+                            /><span>Go</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                            /><span>Java</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                            /><span>JavaScript</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                            /><span>TypeScript</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                            /><span>Python</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                            /><span>C++</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
+                            /><span>Dart</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/glsl/glsl-original.svg"
+                            /><span>GLSL</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Databases -->
+                      <div class="tech-category-card">
+                        <h3>Databases</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                            /><span>Postgres</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                            /><span>MySQL</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Frontend -->
+                      <div class="tech-category-card">
+                        <h3>Frontend</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                            /><span>Flutter</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                            /><span>React</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                            /><span>Next.js</span>
+                          </div>
+                          <div class="tech-item"><span>HTML / CSS</span></div>
+                        </div>
+                      </div>
+
+                      <!-- Backend -->
+                      <div class="tech-category-card">
+                        <h3>Backend</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                            /><span>Node + Express</span>
+                          </div>
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
+                            /><span>Go</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- API -->
+                      <div class="tech-category-card">
+                        <h3>API</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item"><span>REST</span></div>
+                          <div class="tech-item"><span>GraphQL</span></div>
+                        </div>
+                      </div>
+
+                      <!-- Mobile -->
+                      <div class="tech-category-card">
+                        <h3>Mobile</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                            /><span>Flutter</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- 3D -->
+                      <div class="tech-category-card">
+                        <h3>3D</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"
+                            /><span>Three.js</span>
+                          </div>
+                          <div class="tech-item"><span>Babylon.js</span></div>
+                        </div>
+                      </div>
+
+                      <!-- Tools -->
+                      <div class="tech-category-card">
+                        <h3>Other Tools</h3>
+                        <div class="tech-grid">
+                          <div class="tech-item">
+                            <img
+                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg"
+                            /><span>Blender</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button class="tech-nav next">›</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- CONTACT -->
+            <section
+              class="visor-section visor-contact"
+              id="section-contact"
+              aria-labelledby="contact-title"
+            >
+              <div class="panel-frame contact-panel">
+                <h2 id="contact-title">CONTACT</h2>
+
+                <div class="contact-layout">
+                  <!-- LEFT PANEL: Contact Links -->
+                  <address class="contact-left">
+                    <a href="#" class="contact-icon-btn" title="Email">
+                      <span class="icon">✉</span>
+                      <span class="label">EMAIL</span>
+                    </a>
+
+                    <a
+                      href="https://github.com/Arjun-P-Jayakrishnan"
+                      target="_blank"
+                      class="contact-icon-btn"
+                      title="GitHub"
                     >
-                      <path
-                        d="M288.3 61.5C308.1 50.1 332.5 50.1 352.3 61.5L528.2 163C548 174.4 560.2 195.6 
-           560.2 218.4L560.2 421.4C560.2 444.3 548 465.4 528.2 476.8L352.3 578.5C332.5 
-           589.9 308.1 589.9 288.3 578.5L112.5 477C92.7 465.6 80.5 444.4 80.5 421.6L80.5 
-           218.6C80.5 195.7 92.7 174.6 112.5 163.2L288.3 61.5zM496.1 421.5L496.1 
-           255.4L352.3 338.4L352.3 504.5L496.1 421.5z"
-                      />
-                    </svg>
-                  </span>
-                  <span class="label">Explore in 3D</span>
-                </button>
+                      <span class="icon"></span>
+                      <span class="label">GITHUB</span>
+                    </a>
 
-                <a href="#projects" class="btn-secondary"> 🚀 View My Work </a>
+                    <a
+                      href="https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
+                      target="_blank"
+                      class="contact-icon-btn"
+                      title="LinkedIn"
+                    >
+                      <span class="icon">in</span>
+                      <span class="label">LINKEDIN</span>
+                    </a>
+                  </address>
+
+                  <!-- RIGHT PANEL: System Greeting -->
+                  <div class="contact-right">
+                    <p class="system-greeting">SYSTEM ONLINE</p>
+
+                    <p class="system-message">
+                      Welcome, operator.<br />
+                      Boot up modules to explore projects, experience, and tech
+                      stack.
+                    </p>
+
+                    <p class="system-hint">
+                      Use navigation or scroll to continue.
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
 
-            <!-- Right Side: Visual -->
-            <div class="hero-visual"></div>
+            <section
+              id="visorOutro"
+              class="visor-outro"
+              aria-live="assertive"
+              aria-label="Transition to 3D experience"
+            >
+              <div class="outro-panel">
+                <p class="outro-label">SYSTEM TRANSITION</p>
+
+                <div class="outro-log" id="outroLog">
+                  <div>Initializing spatial renderer…</div>
+                </div>
+
+                <div class="outro-progress">
+                  <div class="outro-progress-bar" id="outroProgress"></div>
+                </div>
+
+                <p class="outro-hint">Do not adjust viewport</p>
+              </div>
+            </section>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!------------------------------------------------------------------------- -->
-
-        <!-- About Section -->
-
-        <!-- ----------------------------------------------------------------------------- -->
-        <section id="about">
-          <div class="about-container">
-            <h2>About Me</h2>
-            <p class="intro">
-              I’m <strong>Arjun P Jayakrishnan</strong>, a developer passionate
-              about blending <em>creativity</em> with <em>engineering</em>.
-            </p>
-
-            <!-- Focus Cards -->
-            <div class="focus-grid">
-              <div class="focus-card">
-                <h3>🎨 Immersive 3D</h3>
-                <p>
-                  2+ years with Babylon.js, shaders, and real-time graphics.
-                </p>
-              </div>
-              <div class="focus-card">
-                <h3>⚡ Web Engineering</h3>
-                <p>Building performant, modern apps with Next.js.</p>
-              </div>
-              <div class="focus-card">
-                <h3>🛠️ Backend & Scale</h3>
-                <p>
-                  Reliable systems with Go + PostgreSQL powering apps at scale.
-                </p>
-              </div>
-            </div>
-
-            <!-- Tech Stack Marquee -->
-            <div class="tech-stack">
-              <div class="marquee">
-                <div class="marquee-group">
-                  <img
-                    src="https://cdn.simpleicons.org/babylonjs/5C2D91"
-                    alt="Babylon.js"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/next.js/000000"
-                    alt="Next.js"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/go/00ADD8"
-                    alt="Go"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/postgresql/4169E1"
-                    alt="PostgreSQL"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/amazonaws/FF9900"
-                    alt="AWS"
-                    loading="lazy"
-                  />
-                  <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
-                </div>
-                <div class="marquee-group">
-                  <img
-                    src="https://cdn.simpleicons.org/babylondotjs"
-                    alt="Babylon.js"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/next.js/000000"
-                    alt="Next.js"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/go/00ADD8"
-                    alt="Go"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/postgresql/4169E1"
-                    alt="PostgreSQL"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/amazonaws/FF9900"
-                    alt="AWS"
-                    loading="lazy"
-                  />
-                  <img
-                    src="https://cdn.simpleicons.org/git/F05032"
-                    alt="Git"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-------------------------------------------------------------------------------------------- -->
-
-        <!-- Projects -->
-
-        <!-- --------------------------------------------------------------------------------------------- -->
-        <section id="projects" class="portfolio-2d-projects">
-          <h2>Projects</h2>
-
-          <div class="project-grid">
-            <!-- Featured Project -->
-            <div class="project-card">
-              <div class="project-header">
-                <img src="/assets/images/lcvs.svg" alt="LCVS Icon" />
-                <div class="project-info">
-                  <h3>LCVS</h3>
-                  <h4>Localized Version Control System</h4>
-                </div>
-              </div>
-              <p>
-                A custom version control tool with local DB using SQLite and
-                Git-style workflows.
-              </p>
-              <ul class="project-tags">
-                <li>version control</li>
-                <li>sqlite</li>
-                <li>git</li>
-              </ul>
-              <div class="project-links">
-                <a href="#" target="_blank">🔗 GitHub</a>
-                <a href="#" target="_blank">🚀 Demo</a>
-              </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="project-card">
-              <div class="project-header">
-                <img src="/assets/images/opengl.svg" alt="OpenGL Icon" />
-                <div class="project-info">
-                  <h3>OpenGL</h3>
-                  <h4>Game Engine Fundamentals</h4>
-                </div>
-              </div>
-              <p>
-                Low-level graphics engine written using OpenGL, GLSL, and C++.
-              </p>
-              <ul class="project-tags">
-                <li>cpp</li>
-                <li>glsl</li>
-                <li>opengl</li>
-                <li>cmake</li>
-              </ul>
-              <div class="project-links">
-                <a href="#">🔗 GitHub</a>
-              </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="project-card">
-              <div class="project-header">
-                <img src="/assets/images/tools.svg" alt="Tools Icon" />
-                <div class="project-info">
-                  <h3>Dev Tools</h3>
-                  <h4>Developer Resource Hub</h4>
-                </div>
-              </div>
-              <p>
-                A curated personal dev toolkit and resource manager built with
-                Next.js.
-              </p>
-              <ul class="project-tags">
-                <li>nextjs</li>
-                <li>vercel</li>
-                <li>react</li>
-              </ul>
-              <div class="project-links">
-                <a href="#">🔗 GitHub</a>
-              </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="project-card">
-              <div class="project-header">
-                <img src="/assets/images/animation.svg" alt="AGI Icon" />
-                <div class="project-info">
-                  <h3>AGI</h3>
-                  <h4>SVG Animation NPM Package</h4>
-                </div>
-              </div>
-              <p>A lightweight NPM package for animated SVGs in React apps.</p>
-              <ul class="project-tags">
-                <li>svg</li>
-                <li>react</li>
-                <li>npm</li>
-              </ul>
-              <div class="project-links">
-                <a href="#">🔗 GitHub</a>
-              </div>
-            </div>
-
-            <!-- Project 5 -->
-            <div class="project-card">
-              <div class="project-header">
-                <img src="/assets/images/extension.svg" alt="Extension Icon" />
-                <div class="project-info">
-                  <h3>GLSL Extension</h3>
-                  <h4>VS Code Syntax Highlighter</h4>
-                </div>
-              </div>
-              <p>
-                A VS Code extension for GLSL, .frag, and .vert syntax
-                highlighting.
-              </p>
-              <ul class="project-tags">
-                <li>glsl</li>
-                <li>vs-code</li>
-              </ul>
-              <div class="project-links">
-                <a href="#">🔗 GitHub</a>
-              </div>
-            </div>
-
-            <!-- Project 6 -->
-            <div class="project-card">
-              <div class="project-header">
-                <img src="/assets/images/other.svg" alt="Other Icon" />
-                <div class="project-info">
-                  <h3>Other Projects</h3>
-                  <h4>AI, Encryption & More</h4>
-                </div>
-              </div>
-              <p>
-                Experiments with Rust encryption, AI fundamentals, and more
-                emerging ideas.
-              </p>
-              <ul class="project-tags">
-                <li>python</li>
-                <li>rust</li>
-                <li>encryption</li>
-                <li>ai</li>
-              </ul>
-              <div class="project-links">
-                <a href="#">🔗 GitHub</a>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!--------------------------------------------------------------------------------------------------- -->
-        <!-- Contacts -->
-        <!--------------------------------------------------------------------------------------------------- -->
-        <section id="contact" class="contact">
-          <h2>Let's Connect</h2>
-          <p class="contact-intro">
-            Interested in working together or just want to say hello? Reach out
-            on your preferred platform:
-          </p>
-
-          <div class="contact-cards">
-            <div class="contact-card">
-              <a
-                href="mailto:yourname@example.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Email"
-              >
-                <i class="fas fa-envelope"></i>
-                <span>Email</span>
-              </a>
-            </div>
-            <div class="contact-card">
-              <a
-                href="https://github.com/Arjun-P-Jayakrishnan"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="GitHub"
-              >
-                <i class="fab fa-github"></i>
-                <span>GitHub</span>
-              </a>
-            </div>
-            <div class="contact-card">
-              <a
-                href="https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="LinkedIn"
-              >
-                <i class="fab fa-linkedin"></i>
-                <span>LinkedIn</span>
-              </a>
-            </div>
-          </div>
-        </section>
-        <!-- ------------------------------------------------------------------------------ -->
-        <!-- Footer -->
-        <!-- ------------------------------------------------------------- -->
-        <footer class="site-footer">
-          <div class="footer-content">
-            <p class="languages">🌐 Languages: English · Malayalam · Hindi</p>
-            <p>&copy; 2025 Arjun P J. Built with care and coffee ☕</p>
-            <p class="last-update">Last updated: 2025</p>
-          </div>
-        </footer>
-      </div>
-
-      <!-- 3D  -->
-      <div class="portfolio-3d" id="portfolio-3d" style="display: none">
-        <loading-modal id="#loading-modal"></loading-modal>
+      <!-- =========================
+       3D PORTFOLIO
+      ========================= -->
+      <section
+        id="portfolio-3d"
+        role="application"
+        aria-label="Interactive 3D portfolio"
+        hidden
+      >
+        <loading-modal id="loading-modal"></loading-modal>
         <nav-bar></nav-bar>
         <project-gallery></project-gallery>
         <about-page>
@@ -503,7 +644,7 @@
         </about-page>
         <scene-inspector></scene-inspector>
         <div id="game-engine"></div>
-      </div>
+      </section>
     </main>
 
     <!-- Import Maps for three js -->
@@ -515,21 +656,6 @@
         }
       }
     </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Arjun P Jayakrishnan",
-        "url": "https://arjun-p-jayakrishnan.github.io/",
-        "sameAs": [
-          "https://github.com/Arjun-P-Jayakrishnan",
-          "https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
-        ],
-        "jobTitle": "Web Developer & Creative Engineer"
-      }
-    </script>
-
-    <!-- Load The Javascript -->
     <script type="module" src="./dist/index.js" defer></script>
   </body>
 </html>
