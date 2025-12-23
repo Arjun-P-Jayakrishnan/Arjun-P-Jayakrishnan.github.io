@@ -1,0 +1,844 @@
+/* ============================
+   INTRO PANEL
+============================ */
+
+.visor-intro {
+  --accent: #4fd1c5;
+}
+
+/* ---------------------------
+   LAYOUT
+--------------------------- */
+.intro-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* ---------------------------
+   LEFT PANEL (SEMANTIC DL)
+--------------------------- */
+
+.intro-data {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Labels / meta (dt) - uppercase */
+.intro-data dt {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-transform: uppercase; /* ADD THIS */
+}
+
+/* Name - uppercase to match previous style */
+.intro-data dd.name {
+  color: var(--accent);
+  margin: 4px 0 8px;
+  text-transform: uppercase; /* ADD THIS */
+}
+
+/* Values */
+.intro-data dd {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+/* Active state */
+.intro-data dd.active {
+  color: var(--accent);
+  text-transform: uppercase; /* ADD THIS if needed */
+}
+
+/* Optional: Primary activity can stay normal case */
+.intro-data .primary-activity dd {
+  text-transform: none;
+}
+
+/* ---------------------------
+   PRIMARY ACTIVITY SECTION
+--------------------------- */
+.primary-activity {
+  margin-top: 16px; /* move section lower in panel */
+}
+
+.primary-activity .meta {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-secondary);
+  margin: 0; /* heading margin reset */
+}
+
+.primary-activity .description {
+  margin-top: 6px; /* space between heading and description */
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  max-width: 38ch;
+  animation: fadeUp 0.6s ease both;
+}
+
+/* ---------------------------
+   RIGHT PANEL
+--------------------------- */
+.intro-subject {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.subject-frame {
+  position: relative;
+  border: 1px solid var(--accent);
+  padding: 8px;
+}
+
+.subject-frame img {
+  width: 220px;
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.subject-frame .tag {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  background: var(--color-bg);
+  color: var(--accent);
+  font-size: 10px;
+  padding: 2px 6px;
+  letter-spacing: 0.1em;
+}
+
+/* Subject readout below image */
+.subject-readout {
+  margin-top: 12px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-text-secondary);
+}
+
+.subject-readout .key {
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+/* ---------------------------
+   ANIMATION
+--------------------------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================
+  ABOUT PANEL
+============================ */
+
+/* Layout */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px; /* more vertical/horizontal spacing */
+  align-items: start;
+}
+
+.about-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* About items */
+.about-item {
+  margin-top: 24px; /* increased spacing between items */
+}
+
+.about-item .meta {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.about-item .description {
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: var(--color-accent);
+  margin-top: 6px;
+  text-transform: uppercase;
+  max-width: 38ch;
+  animation: fadeUp 0.6s ease both;
+
+  /* Increased left indent */
+  margin-left: 24px; /* more noticeable offset from heading */
+}
+
+/* ============================
+   EXPERIENCE PANEL
+============================ */
+
+.visor-experience {
+  display: flex;
+  align-items: center;
+}
+
+.experience-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ============================
+   TIMELINE WRAPPER
+============================ */
+
+.timeline-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Arrows */
+.timeline-nav {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.timeline-nav:hover {
+  opacity: 1;
+}
+
+.timeline-nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* ============================
+   VIEWPORT
+============================ */
+
+.timeline-viewport {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+}
+
+/* ============================
+   TRACK
+============================ */
+
+.timeline-track {
+  position: relative;
+  display: grid;
+  grid-template-rows: 40px auto;
+  row-gap: 28px;
+  justify-content: center;
+  transition: transform 0.45s ease;
+}
+
+/* ============================
+   GEOMETRY ROW (DOTS + LINE)
+============================ */
+
+.timeline-geometry {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 140px;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  z-index: 1; /* dots above line */
+}
+
+/* Solid line connecting dots */
+.timeline-geometry::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  opacity: 0.35;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0; /* behind dots */
+}
+
+/* Timeline dots */
+.timeline-dot {
+  justify-self: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-accent);
+  z-index: 1; /* above line */
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.timeline-dot.active {
+  background: var(--color-accent);
+  transform: scale(1.4);
+}
+
+/* Timeline dots */
+.timeline-dot {
+  justify-self: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-accent);
+  z-index: 1;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+/* ============================
+   CONTENT ROW
+============================ */
+
+.timeline-content {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 140px;
+  justify-content: center;
+}
+
+/* Card aligned to same column as dot */
+.timeline-card {
+  padding-left: 18px; /* aligns text start under dot center */
+  text-align: left;
+  opacity: 0.55;
+  transition: opacity 0.25s ease;
+}
+
+.timeline-card.active {
+  opacity: 1;
+}
+
+/* ============================
+   TEXT STYLES
+============================ */
+
+.role {
+  font-size: 13px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.company {
+  font-size: 12px;
+  margin: 2px 0 6px;
+}
+
+.duration {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+/* ============================
+   PROJECTS LAYOUT
+============================ */
+
+/* ---------------------------
+   PROJECTS PANEL LAYOUT
+--------------------------- */
+.projects-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Horizontal layout: 50% each */
+.projects-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ---------------------------
+   LEFT PANEL
+--------------------------- */
+.projects-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.projects-left-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+/* Grid of projects */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 100px; /* fixed height for each cell */
+  gap: 12px;
+}
+
+.project-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08); /* subtle white background */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+  padding: 6px;
+  text-align: center;
+}
+
+.project-item:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.project-item.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.project-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.project-title {
+  font-size: 11px;
+  color: var(--color-accent);
+  line-height: 1.2;
+}
+
+/* ---------------------------
+   VERTICAL DIVIDER
+--------------------------- */
+.projects-divider {
+  width: 2px;
+  background: var(--color-accent);
+  opacity: 0.35;
+}
+
+/* ---------------------------
+   RIGHT PANEL
+--------------------------- */
+.projects-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-icon-large {
+  font-size: 48px;
+}
+
+.project-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.project-subtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.project-description {
+  font-size: 12px;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.project-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.project-buttons .btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  text-decoration: none;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  border-radius: 4px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.project-buttons .btn:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ============================
+   TECH STACK PANEL
+============================ */
+
+.tech-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ============================
+   CAROUSEL WRAPPER
+============================ */
+
+.tech-carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Navigation arrows */
+.tech-nav {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--color-accent);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.tech-nav:hover {
+  opacity: 1;
+}
+
+.tech-nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* ============================
+   VIEWPORT
+============================ */
+
+.tech-viewport {
+  overflow: hidden;
+  position: relative;
+}
+
+/* ============================
+   TRACK
+============================ */
+
+.tech-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 320px; /* CATEGORY CARD WIDTH */
+  gap: 32px;
+  transition: transform 0.45s ease;
+}
+
+/* ============================
+   CATEGORY CARD
+============================ */
+
+.tech-category-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.tech-category-card h3 {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ============================
+   TECH GRID
+============================ */
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* inner grid */
+  gap: 12px;
+}
+
+/* ============================
+   TECH ITEM
+============================ */
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 42px;
+  padding: 0 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+/* Hover effect */
+.tech-item:hover {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ============================
+   LOGOS
+============================ */
+
+.tech-logo,
+.tech-item img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(1.2);
+  flex-shrink: 0;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media (max-width: 900px) {
+  .tech-track {
+    grid-auto-columns: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tech-carousel {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-nav {
+    display: none;
+  }
+}
+
+/* ============================
+   CONTACT PANEL
+============================ */
+/* ============================
+   CONTACT PANEL
+============================ */
+
+.contact-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Layout */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* ----------------------------
+   LEFT: ICON LINKS
+---------------------------- */
+
+.contact-left {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.contact-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  color: var(--color-accent);
+  transition: all 0.25s ease;
+}
+
+.contact-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+
+.contact-icon-btn .icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.contact-icon-btn .label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--color-text-secondary);
+}
+
+/* ----------------------------
+   RIGHT: SYSTEM TEXT
+---------------------------- */
+
+.contact-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.system-greeting {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.system-message {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  max-width: 42ch;
+}
+
+.system-hint {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+}
+
+/* ============================
+   OUTRO OVERLAY
+============================ */
+
+.visor-outro {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 14, 0.45);
+  backdrop-filter: blur(6px) saturate(1.2);
+  z-index: 9999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ACTIVE */
+.visor-outro.active {
+  display: flex;
+}
+
+/* ============================
+   PANEL
+============================ */
+
+.outro-panel {
+  width: 420px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.35);
+
+  font-family: monospace;
+  color: var(--color-text-primary);
+}
+
+/* ============================
+   TEXT
+============================ */
+
+.outro-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.outro-log {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  min-height: 72px;
+}
+
+/* ============================
+   PROGRESS
+============================ */
+
+.outro-progress {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.outro-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--color-accent);
+  transition: width 0.4s ease;
+}
+
+/* ============================
+   HINT
+============================ */
+
+.outro-hint {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.visor-outro {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.visor-outro.active {
+  opacity: 1;
+  pointer-events: all;
+}
