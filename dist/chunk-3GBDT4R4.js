@@ -1,0 +1,3 @@
+function g(){return new Promise(i=>{console.log("shwoing into // / / / // / // /");let t=document.getElementById("visor-boot");if(!t){console.log("showIntro:No boot"),i();return}let r=Array.from(t.querySelectorAll(".boot-line")),n=0,c=(o,e)=>{let s=0,d=setInterval(()=>{o.textContent+=e[s],s++,s>=e.length&&(clearInterval(d),setTimeout(()=>{n++,n<r.length?l():a();},200));},25);},l=()=>{let o=r[n],e=o.dataset.text;e&&c(o,e);},a=()=>{setTimeout(()=>{t.classList.add("hidden"),setTimeout(()=>{t.remove(),console.log("[BOOT] Visor online"),i();},500);},400);};l();})}
+export{g as a};//# sourceMappingURL=chunk-3GBDT4R4.js.map
+//# sourceMappingURL=chunk-3GBDT4R4.js.map

@@ -1,0 +1,2 @@
+var n=[],i=(e,t,s,r)=>{e.addEventListener(t,s,r),n.push(()=>e.removeEventListener(t,s,r));},o=()=>{n.forEach(e=>e()),n.length=0;};export{i as a,o as b};//# sourceMappingURL=chunk-4WAHVNWO.js.map
+//# sourceMappingURL=chunk-4WAHVNWO.js.map

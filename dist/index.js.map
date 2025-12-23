@@ -1,1 +1,1 @@
-{"version":3,"sources":["../src/index.ts"],"names":["bootstrap"],"mappings":"orDAEAA,CAAU,EAAA","file":"index.js","sourcesContent":["import { bootstrap } from \"engine/core/Bootstrap\";\n\nbootstrap();\n"]}
+{"version":3,"sources":["../src/index.ts"],"names":["bootstrap"],"mappings":"41DAEAA,CAAAA,EAAU","file":"index.js","sourcesContent":["import { bootstrap } from \"engine/core/Bootstrap\";\n\nbootstrap();\n"]}

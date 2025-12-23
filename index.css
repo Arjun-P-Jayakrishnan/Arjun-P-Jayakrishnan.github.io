@@ -1,14 +1,283 @@
-body {
+/* =========================================================
+   VISOR CORE STYLES
+   (Never panel-specific)
+========================================================= */
+
+/* ---------------------------
+   RESET
+--------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
-  height: 100%;
-  position: relative;
+  padding: 0;
 }
 
-main {
+/* ---------------------------
+   DOCUMENT BASE
+--------------------------- */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-color: #0a0b0d;
+  color: #e6e6e6;
+  font-family: "JetBrains Mono", monospace;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------
+   DESIGN TOKENS
+--------------------------- */
+:root {
+  --color-bg: #0a0b0d;
+  --color-text-primary: #e6e6e6;
+  --color-text-secondary: #9a9a9a;
+  --color-accent: #4fd1c5;
+
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-md: 15px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  --visor-padding: 24px;
+  --visor-radius: 10px;
+}
+
+/* ---------------------------
+   TYPOGRAPHY
+--------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: var(--text-xl);
+}
+h2 {
+  font-size: var(--text-lg);
+}
+h3 {
+  font-size: var(--text-md);
+}
+
+/* ---------------------------
+   TEXT UTILITIES
+--------------------------- */
+.text-muted {
+  color: var(--color-text-secondary);
+}
+.text-accent {
+  color: var(--color-accent);
+}
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---------------------------
+   INTERACTIVE BASICS
+--------------------------- */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-accent);
+}
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+button:focus {
+  outline: none;
+}
+
+/* =========================================================
+   VISOR SYSTEM
+========================================================= */
+
+.visor {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: var(--visor-padding);
+  scroll-snap-type: y mandatory;
+  border-radius: var(--visor-radius);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.visor::after {
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 10;
+}
+
+.visor-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg);
+  scroll-snap-align: start;
+}
+
+/* =========================================================
+   SYSTEM UI
+========================================================= */
+
+#boot-button {
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 101;
+}
+
+#boot-button button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  transition: all 0.2s ease;
+}
+
+#boot-button button:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+#story-hud {
+  position: fixed;
+  bottom: var(--space-lg);
+  left: var(--space-lg);
+  z-index: 100;
+  pointer-events: none;
+  width: 250px;
+  padding: var(--space-md);
+  background: rgba(10, 11, 13, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+#story-hud::before {
+  content: "";
+  display: block;
+  height: 2px;
+  background: var(--color-accent);
+  margin-bottom: var(--space-xs);
+}
+
+.story-title {
+  color: var(--color-accent);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: var(--text-lg);
+}
+
+.story-subtitle {
+  margin-top: var(--space-xs);
+  padding-top: var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================================
+   GENERIC PANEL SHELL
+========================================================= */
+.panel-frame {
+  width: 100%;
+  max-width: 900px;
+  padding: var(--space-xl);
+  background: rgba(10, 11, 13, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================================
+   BOOT OVERLAY
+========================================================= */
+
+.visor-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(20, 24, 30, 0.95),
+    #0a0b0d 70%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boot-frame {
+  padding: 28px 36px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 11, 13, 0.55);
+  min-width: 420px;
+}
+
+.boot-frame::before {
+  content: "SYSTEM BOOT";
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--color-text-secondary);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.boot-line {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  line-height: 1.8;
+}
+
+.boot-line.accent {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.visor-boot.hidden {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
