@@ -1,3 +1,4 @@
+import { createScene2DManager, Scene2DManager } from "2d/scene2DManager";
 import { queueStep } from "@utils/dsl";
 import { createDomManager, DOMManager } from "engine/managers/DOMManger";
 import {
@@ -26,12 +27,18 @@ const createEngine = (): Engine => {
 
   let domManager: DOMManager;
   let renderManager: RenderManager;
+  let scene2DManager: Scene2DManager;
 
   const onInit = () => {
-    console.log("Engine initialized");
+    console.log("[Engine]: Engine initialized");
     domManager = createDomManager();
     renderManager = createRenderManager();
+    scene2DManager = createScene2DManager();
 
+    //2D
+    lifecycleScheduler.schedule(scene2DManager.onInit);
+
+    //3D
     lifecycleScheduler.schedule(storage.inflate);
     lifecycleScheduler.schedule(input.onInit);
     lifecycleScheduler.schedule(domManager.onInit);
@@ -39,6 +46,10 @@ const createEngine = (): Engine => {
   };
 
   const onLoad = () => {
+    //2D
+    lifecycleScheduler.schedule(scene2DManager.onLoad);
+
+    //3D
     lifecycleScheduler.schedule(domManager.onLoad);
     lifecycleScheduler.schedule(renderManager.onLoad);
     lifecycleScheduler.schedule(queueStep(logger.onLoad, { origin: "Engine" }));
@@ -47,16 +58,28 @@ const createEngine = (): Engine => {
   const onMount = () => {
     logger.onMount({ origin: "Engine" });
 
+    //2D
+    lifecycleScheduler.schedule(scene2DManager.onMount);
+
+    //3D
     lifecycleScheduler.schedule(domManager.onMount);
     lifecycleScheduler.schedule(renderManager.onMount);
   };
 
   const onUpdate = () => {
+    //2D
+    scene2DManager.onUpdate();
+
+    //3D
     domManager.onUpdate();
     lifecycleScheduler.schedule(renderManager.onUpdate);
   };
 
   const onUnmount = () => {
+    //2D
+    scene2DManager.onUnmount();
+
+    //3D
     logger.onUnmount({ origin: "Engine" });
     lifecycleScheduler.schedule(domManager.onUnmount);
     lifecycleScheduler.schedule(renderManager.onUnmount);
@@ -64,6 +87,10 @@ const createEngine = (): Engine => {
   };
 
   const onDispose = () => {
+    //2D
+    scene2DManager.onDestroy();
+
+    //3D
     logger.onDestroy({ origin: "Engine" });
     lifecycleScheduler.schedule(domManager.onDestroy);
     lifecycleScheduler.schedule(renderManager.onDestroy);

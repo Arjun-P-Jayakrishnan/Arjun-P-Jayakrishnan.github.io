@@ -1,54 +1,66 @@
-export const initProjects = (): void => {
+/**
+ * @file projects.ts
+ * @description Handles the project items and updates the details panel.
+ */
+
+interface Project {
+  name: string;
+  subtitle: string;
+  description: string;
+  visit: string;
+  github: string;
+}
+
+/**
+ * Initialize projects section
+ * @returns A cleanup function to remove click listeners
+ */
+export function initProjects(): () => void {
   const items = Array.from(
     document.querySelectorAll<HTMLDivElement>(".project-item")
   );
   const details = document.querySelector<HTMLDivElement>(".project-details");
+  if (!details || items.length === 0) return () => {};
 
-  const projects = [
+  const projects: Project[] = [
     {
       name: "LCVS",
       subtitle: "Localized Version Control System",
-      description:
-        "Git-like version control tool, not Git, ideal for learning semantic versioning (semver).",
+      description: "Git-like version control tool",
       visit: "#",
       github: "#",
     },
     {
       name: "VS Code GLSL Highlighter",
       subtitle: "GLSL Highlighting & Live Preview",
-      description:
-        "VS Code extension that provides GLSL syntax highlighting, grammar checking, and live shader preview.",
+      description: "Live shader preview",
       visit: "#",
       github: "#",
     },
     {
       name: "Developer Tools",
       subtitle: "Custom Developer Utilities",
-      description:
-        "A set of tools for developers including a ticketing system similar to Jira and automation scripts for easier workflows.",
+      description: "Ticketing & automation tools",
       visit: "#",
       github: "#",
     },
     {
       name: "AGI - Animated Graphical Illustrator",
       subtitle: "Custom Animation Tool",
-      description:
-        "Used to create animations based on a custom file type with procedural animation features.",
+      description: "Procedural animation editor",
       visit: "#",
       github: "#",
     },
     {
       name: "OpenGL Local Version",
       subtitle: "Static Bundler / Renderer",
-      description:
-        "A static bundler that handles OpenGL assets locally with a rendering pipeline for quick previews.",
+      description: "OpenGL preview pipeline",
       visit: "#",
       github: "#",
     },
-    // Add more projects as needed...
   ];
 
-  if (!details) return;
+  const listeners: Array<() => void> = [];
 
   const updateDetails = (index: number) => {
     items.forEach((item, i) => item.classList.toggle("active", i === index));
@@ -73,8 +85,12 @@ export const initProjects = (): void => {
   };
 
   items.forEach((item, i) => {
-    item.addEventListener("click", () => updateDetails(i));
+    const handler = () => updateDetails(i);
+    item.addEventListener("click", handler);
+    listeners.push(() => item.removeEventListener("click", handler));
   });
 
-  updateDetails(0); // initial selection
-};
+  updateDetails(0);
+
+  return () => listeners.forEach((fn) => fn());
+}
