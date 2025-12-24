@@ -290,3 +290,154 @@ button:focus {
     opacity: 0;
   }
 }
+
+/* ============================
+   BASE MOBILE SETTINGS
+============================ */
+
+/* Mobile-first font sizing */
+body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings */
+h1 {
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+h3 {
+  font-size: 14px;
+  margin: 0 0 4px;
+}
+
+/* General links/buttons */
+a,
+button {
+  font-size: 12px;
+  text-decoration: none;
+  color: var(--color-accent);
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:hover,
+a:hover {
+  opacity: 0.8;
+}
+
+/* ============================
+   VISOR LAYOUT BASE
+============================ */
+.visor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.visor-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Panel frames */
+.panel-frame {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+/* ============================
+   HUD + BOOT BUTTON
+============================ */
+.system-hud {
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+#boot-button button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+/* ============================
+   IMAGES
+============================ */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+/* ============================
+   RESPONSIVE MEDIA QUERIES
+============================ */
+@media (min-width: 601px) {
+  /* Tablet and above */
+  body {
+    font-size: 14px;
+  }
+
+  .visor {
+    padding: 24px;
+  }
+
+  .panel-frame {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  h3 {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 901px) {
+  /* Desktop and above */
+  body {
+    font-size: 15px;
+  }
+
+  .visor {
+    padding: 32px;
+  }
+
+  .panel-frame {
+    padding: 24px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+}
