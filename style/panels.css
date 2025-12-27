@@ -1,9 +1,10 @@
 /* ============================
-   INTRO PANEL
-============================ */
-
+   INTRO PANEL / FILE
+=========================== */
 .visor-intro {
   --accent: #4fd1c5;
+  padding: 2.5em;
+  box-sizing: border-box;
 }
 
 /* ---------------------------
@@ -11,83 +12,57 @@
 --------------------------- */
 .intro-layout {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: 2fr 1fr; /* LEFT = IDENTITY+IMAGE, RIGHT = SUMMARY */
+  column-gap: 32px;
+  row-gap: 0;
 }
 
 /* ---------------------------
-   LEFT PANEL (SEMANTIC DL)
+   IDENTITY + IMAGE GROUP
 --------------------------- */
+.identity-capture-group {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* LEFT PANEL: IDENTITY */
+.top-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+}
 
 .intro-data {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px; /* spacing between each item */
 }
 
-/* Labels / meta (dt) - uppercase */
-.intro-data dt {
-  font-size: 11px;
-  letter-spacing: 0.15em;
+.intro-item dt {
+  font-size: 13px;
+  letter-spacing: 0.1em;
   color: var(--color-text-secondary);
-  margin: 0;
-  text-transform: uppercase; /* ADD THIS */
+  text-transform: uppercase;
+  margin-bottom: 2px;
 }
 
-/* Name - uppercase to match previous style */
-.intro-data dd.name {
-  color: var(--accent);
-  margin: 4px 0 8px;
-  text-transform: uppercase; /* ADD THIS */
-}
-
-/* Values */
-.intro-data dd {
+.intro-item dd {
   margin: 0;
+  font-size: 14px;
   color: var(--color-text-primary);
 }
 
-/* Active state */
-.intro-data dd.active {
+.intro-item dd.name {
   color: var(--accent);
-  text-transform: uppercase; /* ADD THIS if needed */
-}
-
-/* Optional: Primary activity can stay normal case */
-.intro-data .primary-activity dd {
-  text-transform: none;
-}
-
-/* ---------------------------
-   PRIMARY ACTIVITY SECTION
---------------------------- */
-.primary-activity {
-  margin-top: 16px; /* move section lower in panel */
-}
-
-.primary-activity .meta {
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--color-text-secondary);
-  margin: 0; /* heading margin reset */
-}
-
-.primary-activity .description {
-  margin-top: 6px; /* space between heading and description */
-  font-size: 13px;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  color: var(--color-accent);
   text-transform: uppercase;
-  max-width: 38ch;
-  animation: fadeUp 0.6s ease both;
 }
 
-/* ---------------------------
-   RIGHT PANEL
---------------------------- */
-.intro-subject {
+/* RIGHT PANEL: IMAGE + READOUT */
+.top-image {
   display: flex;
   justify-content: flex-end;
 }
@@ -109,15 +84,14 @@
   left: 12px;
   background: var(--color-bg);
   color: var(--accent);
-  font-size: 10px;
+  font-size: 11px;
   padding: 2px 6px;
   letter-spacing: 0.1em;
 }
 
-/* Subject readout below image */
 .subject-readout {
   margin-top: 12px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--color-text-secondary);
 }
@@ -128,8 +102,43 @@
 }
 
 /* ---------------------------
-   ANIMATION
+   SUMMARY
 --------------------------- */
+.primary-activity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.primary-activity .description {
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  /* max-width: 38ch; */
+  animation: fadeUp 0.6s ease both;
+
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.summary-item {
+  margin-top: 16px; /* spacing between groups */
+}
+
+.summary-item:first-child {
+  margin-top: 0; /* no extra space before first group */
+}
+
+.section-title {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+/* ANIMATION */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -141,6 +150,75 @@
   }
 }
 
+/* ---------------------------
+   METADATA STRIP
+--------------------------- */
+.file-metadata {
+  margin-top: 16px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+/* ============================
+   MOBILE LAYOUT
+=========================== */
+@media (max-width: 768px) {
+  .intro-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .identity-capture-group {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: space-between;
+    height: 25vh;
+  }
+
+  .top-info dt {
+    font-size: 14px;
+  }
+
+  .top-info dd {
+    font-size: 13px;
+  }
+
+  .subject-frame img {
+    width: 140px;
+  }
+
+  .primary-activity {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 12px;
+  }
+
+  .primary-activity .description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* HIDE METADATA ON MOBILE */
+  .file-metadata {
+    display: none;
+  }
+}
+
+/**
+
+
+
+
+
+
+
+
+*/
 /* ============================
   ABOUT PANEL
 ============================ */
@@ -178,7 +256,7 @@
   color: var(--color-accent);
   margin-top: 6px;
   text-transform: uppercase;
-  max-width: 38ch;
+  /* max-width: 38ch; */
   animation: fadeUp 0.6s ease both;
 
   /* Increased left indent */
@@ -841,4 +919,104 @@
 .visor-outro.active {
   opacity: 1;
   pointer-events: all;
+}
+
+.visor-power-on {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background: black;
+  overflow: hidden;
+
+  /* Base radial glow */
+  background: radial-gradient(circle, #0a0b0d 0%, black 80%);
+
+  animation: visorBoot 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Brightness pulses and glitch flickers */
+@keyframes visorBoot {
+  0% {
+    opacity: 1;
+    filter: brightness(0);
+  }
+  20% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  40% {
+    opacity: 1;
+    filter: brightness(0.9);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.3);
+  }
+  80% {
+    opacity: 0.3;
+    filter: brightness(1);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(1);
+    display: none;
+  }
+}
+
+/* Optional grain overlay for subtle noise */
+.visor-power-on::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  animation: grainMove 0.3s infinite steps(1);
+}
+
+@keyframes grainMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(1px, -1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Optional horizontal scanline sweep */
+.visor-power-on::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: scanline 1.2s ease-in-out forwards;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
 }

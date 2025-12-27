@@ -86,9 +86,10 @@
       ========================= -->
       <section id="portfolio-2d">
         <div class="visor" id="visor">
+          <div class="visor-power-on"></div>
           <!-- Boot -->
           <section
-            class="visor-boot hidden"
+            class="visor-boot"
             id="visor-boot"
             aria-live="assertive"
             aria-label="System boot sequence"
@@ -130,91 +131,87 @@
           VISOR PANELS (SCROLLING)
           ================================= -->
           <div class="visor-panels">
-            <!-- INTRO -->
+            <!-- INTRO PANEL -->
+
             <article
-              class="visor-section visor-intro"
+              class="visor-section visor-intro subject-file"
               id="section-intro"
-              aria-labelledby="intro-title"
+              aria-labelledby="subject-file-title"
             >
-              <div class="intro-layout panel-frame">
-                <!-- LEFT: SYSTEM READOUT -->
-                <dl class="intro-data">
-                  <dt>SUBJECT</dt>
-                  <dd class="name">ARJUN P JAYAKRISHNAN</dd>
+              <div class="panel-frame">
+                <!-- FILE TITLE -->
+                <header class="file-header">
+                  <h2 id="subject-file-title" class="file-title">
+                    SUBJECT FILE
+                  </h2>
+                </header>
 
-                  <dt>ROLE</dt>
-                  <dd>CREATIVE ENGINEER</dd>
+                <!-- MAIN BODY -->
+                <div class="intro-layout">
+                  <!-- LEFT COLUMN: IDENTITY + IMAGE -->
+                  <div class="identity-capture-group">
+                    <!-- IDENTITY -->
+                    <div class="top-info identity-block">
+                      <dl class="intro-data">
+                        <div class="intro-item">
+                          <dt>SUBJECT</dt>
+                          <dd class="name">ARJUN P JAYAKRISHNAN</dd>
+                        </div>
 
-                  <dt>STATUS</dt>
-                  <dd class="active">ACTIVE</dd>
+                        <div class="intro-item">
+                          <dt>CURRENT ROLE</dt>
+                          <dd>CREATIVE ENGINEER</dd>
+                        </div>
 
-                  <dt>PRIMARY ACTIVITY</dt>
-                  <dd>
-                    DESIGN AND CONSTRUCTION OF INTERACTIVE SYSTEMS WITH
-                    REAL-TIME FEEDBACK.
-                  </dd>
-                </dl>
-
-                <!-- RIGHT: SUBJECT FEED -->
-                <div class="intro-subject">
-                  <div class="subject-frame">
-                    <div class="subject-readout">
-                      <p><span class="key">CAPTURE MODE</span> STATIC</p>
-                      <p><span class="key">SIGNAL</span> CLEAN</p>
-                      <p><span class="key">FOCUS</span> SYSTEM DESIGN</p>
+                        <div class="intro-item">
+                          <dt>CURRENTLY WORKING UNDER</dt>
+                          <dd>INDEPENDENT PRACTICE</dd>
+                        </div>
+                      </dl>
                     </div>
-                    <img
-                      src="public/profile.png"
-                      alt="Portrait of Arjun P Jayakrishnan, creative engineer"
-                    />
-                    <span class="tag">PROFILE CAPTURE</span>
+
+                    <!-- IMAGE + READOUT -->
+                    <div class="top-image capture-block">
+                      <div class="subject-frame">
+                        <img src="public/profile.png" alt="PROFILE CAPTURE" />
+                        <span class="tag">PROFILE CAPTURE</span>
+                        <div class="subject-readout">
+                          <p><span class="key">CAPTURE MODE</span> STATIC</p>
+                          <p><span class="key">SIGNAL</span> CLEAN</p>
+                          <p><span class="key">FOCUS</span> SYSTEM DESIGN</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  <!-- RIGHT COLUMN: DESCRIPTION -->
+                  <div class="primary-activity summary-block">
+                    <!-- First group: heading + value -->
+                    <div class="summary-item">
+                      <h3 class="section-title">PROFILE SUMMARY</h3>
+                      <p class="description">
+                        SPECIALIZES IN INTERACTIVE SYSTEMS WITH REAL-TIME
+                        FEEDBACK AND INTEGRATED DESIGN.
+                      </p>
+                    </div>
+
+                    <!-- Second group: heading + value -->
+                    <div class="summary-item">
+                      <h3 class="section-title">EXPERTISE</h3>
+                      <p class="description">
+                        SYSTEM ARCHITECTURE, STATE MANAGEMENT, RUNTIME CONTROL.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- METADATA -->
+                <div class="file-metadata">
+                  FILE TYPE: SUBJECT PROFILE | ACCESS LEVEL: PUBLIC | LAST
+                  UPDATED: 2025
                 </div>
               </div>
             </article>
-
-            <!-- ABOUT -->
-            <section class="visor-section visor-about" id="section-about">
-              <div class="panel-frame about-layout">
-                <!-- Left Column -->
-                <div class="about-column">
-                  <div class="about-item">
-                    <p class="meta">🌍 NATIONALITY</p>
-                    <p class="description">INDIAN</p>
-                  </div>
-
-                  <div class="about-item">
-                    <p class="meta">🎓 EDUCATION</p>
-                    <p class="description">B. TECH. IN COMPUTER SCIENCE</p>
-                  </div>
-
-                  <div class="about-item">
-                    <p class="meta">💻 FOCUS AREA</p>
-                    <p class="description">
-                      INTERACTIVE 3D, WEBGL, FULL-STACK WEB DEVELOPMENT
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Right Column -->
-                <div class="about-column">
-                  <div class="about-item">
-                    <p class="meta">🎮 HOBBIES</p>
-                    <p class="description">GAMING, MUSIC, TECH EXPERIMENTS</p>
-                  </div>
-
-                  <div class="about-item">
-                    <p class="meta">🗣 LANGUAGES</p>
-                    <p class="description">ENGLISH, HINDI, MALAYALAM</p>
-                  </div>
-
-                  <div class="about-item">
-                    <p class="meta">⏳ EXPERIENCE</p>
-                    <p class="description">3+ YEARS</p>
-                  </div>
-                </div>
-              </div>
-            </section>
 
             <!-- EXPERIENCE -->
             <section
