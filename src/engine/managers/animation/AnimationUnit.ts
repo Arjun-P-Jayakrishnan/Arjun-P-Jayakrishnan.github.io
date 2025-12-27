@@ -1,56 +1,114 @@
-import { AnimationAction, AnimationMixer } from "three";
+import {
+  AnimationAction,
+  AnimationClip,
+  AnimationMixer,
+  Object3D,
+} from "three";
 import { Nullable } from "types/generic.types";
 
-interface AnimationUnit<T extends string> {
-  /**Initialize animation mixer for the model */
-  onMount: (mixer: AnimationMixer) => void;
+/**
+ * Interface for a generic animation unit controlling Three.js animations.
+ *
+ * @template T - String literal type representing animation names
+ */
+export interface AnimationUnit<T extends string = string> {
+  /**
+   * Play a specific animation by name.
+   * Crossfades from the current animation if any.
+   *
+   * @param animationName - Name of the animation to play
+   * @param blendDuration - Optional crossfade duration (seconds)
+   */
+  play(animationName: T, blendDuration?: number): void;
 
-  /** if the fsm state chnage s to a new state it will enable crossfade to the new animation*/
-  play: (animationName: T, blendDuration?: number) => void;
+  /** Stop the currently playing animation */
+  stop(): void;
 
-  /**stops all related animation*/
-  stop: () => void;
+  /** Get the currently playing animation name */
+  getCurrentAnimation(): T | null;
 
-  /**gets current animation */
-  getCurrentAnimation: () => string | null;
+  /**
+   * Update the animation mixer with delta time.
+   * Should be called every frame.
+   *
+   * @param deltaTime - Time elapsed since last update (in seconds)
+   */
+  update(deltaTime: number): void;
 
-  /** update animation mixers to show animations */
-  update: (deltaTime: number) => void;
+  /**
+   * Called when the unit is mounted or initialized.
+   * Initializes the AnimationMixer and all actions.
+   *
+   * @param mixer - Optional externally provided AnimationMixer
+   */
+  onMount(mixer?: AnimationMixer): void;
 
-  /**clean up for unmount */
-  onUnmount: () => void;
+  /** Called when the unit is unmounted, cleans up actions and mixer */
+  onUnmount(): void;
+
+  /**
+   * Set playback speed of the current animation.
+   *
+   * @param speed - Speed multiplier (1 = normal, 0.5 = half speed, etc.)
+   */
+  setSpeed(speed: number): void;
+
+  /**
+   * Set playback direction of the current animation.
+   *
+   * @param direction - 1 = forward, -1 = backward
+   */
+  setDirection(direction: 1 | -1): void;
 }
 
-type AnimationFSM = {};
-
-const createAnimationUnit = <T extends string>({
+/**
+ * Factory function to create a reusable AnimationUnit.
+ * Handles mixer, actions, crossfading, speed, and direction.
+ *
+ * @template T - String literal type representing animation names
+ * @param root - Root Object3D to animate
+ * @param clips - Array of AnimationClips available for this unit
+ * @param crossfadeDuration - Default crossfade duration (seconds)
+ * @returns A fully initialized AnimationUnit
+ */
+export const createAnimationUnit = <T extends string = string>({
+  root,
+  clips,
   crossfadeDuration,
-  actions,
 }: {
+  root: Object3D;
+  clips: AnimationClip[];
   crossfadeDuration: number;
-  actions: Record<T, AnimationAction>;
 }): AnimationUnit<T> => {
-  let mixer: AnimationMixer;
-  let currentAnimation: Nullable<string> = null;
-  let blendTime: number = 0;
+  /** Three.js animation mixer, initialized on mount */
+  let mixer: AnimationMixer | null = null;
+
+  /** Map of animation name -> action */
+  const actions = new Map<T, AnimationAction>();
+
+  /** Currently playing animation name */
+  let currentAnimation: Nullable<T> = null;
+
+  /** Currently active animation action */
   let currentAction: Nullable<AnimationAction> = null;
 
-  const onMount = (_mixer: AnimationMixer) => {
-    mixer = _mixer;
-  };
+  /**
+   * Play an animation by name.
+   * Crossfades from the current action if present.
+   */
+  const play = (animationName: T, blendDuration?: number) => {
+    if (!mixer) return; // mixer not initialized yet
+    if (currentAnimation === animationName) return; // already playing
 
-  const play = (animationName: T, blendDuration = 0) => {
-    if (currentAnimation === animationName) return;
-
-    const nextAction = actions[animationName];
+    const nextAction = actions.get(animationName.toLowerCase() as T);
     if (!nextAction) return;
-    nextAction.reset();
-    nextAction.play();
 
-    if (currentAction != null) {
-      (currentAction as AnimationAction).crossFadeTo(
+    nextAction.reset().play();
+
+    if (currentAction) {
+      currentAction.crossFadeTo(
         nextAction,
-        crossfadeDuration,
+        blendDuration ?? crossfadeDuration,
         false
       );
     }
@@ -59,28 +117,65 @@ const createAnimationUnit = <T extends string>({
     currentAnimation = animationName;
   };
 
-  const stop = () => {};
-
-  const getCurrentAnimation = () => {
-    return currentAnimation;
+  /** Stop the current animation */
+  const stop = () => {
+    currentAction?.stop();
+    currentAction = null;
+    currentAnimation = null;
   };
 
+  /**
+   * Update mixer on each frame.
+   * Should be called in the animation loop.
+   */
   const update = (deltaTime: number) => {
-    if (deltaTime !== undefined) mixer.update(deltaTime);
+    mixer?.update(deltaTime);
   };
 
-  const onUnmount = () => {};
+  /**
+   * Mount the unit.
+   * Initializes the AnimationMixer and sets up all actions.
+   */
+  const onMount = (mountedMixer?: AnimationMixer) => {
+    mixer = mountedMixer ?? new AnimationMixer(root);
+
+    // Create actions for each clip
+    clips.forEach((clip) => {
+      actions.set(clip.name.toLowerCase() as T, mixer!.clipAction(clip));
+    });
+  };
+
+  /** Unmount the unit and clean up resources */
+  const onUnmount = () => {
+    stop();
+    actions.forEach((action) => action.stop());
+    actions.clear();
+    mixer = null;
+  };
+
+  /**
+   * Set playback speed for the current animation.
+   */
+  const setSpeed = (speed: number) => {
+    if (currentAction) currentAction.setEffectiveTimeScale(speed);
+  };
+
+  /**
+   * Set playback direction for the current animation.
+   */
+  const setDirection = (direction: 1 | -1) => {
+    if (!currentAction) return;
+    currentAction.timeScale = Math.abs(currentAction.timeScale) * direction;
+  };
 
   return {
-    onMount,
-    getCurrentAnimation,
     play,
     stop,
+    getCurrentAnimation: () => currentAnimation,
     update,
+    onMount,
     onUnmount,
+    setSpeed,
+    setDirection,
   };
 };
-
-export { createAnimationUnit };
-
-export type { AnimationUnit };

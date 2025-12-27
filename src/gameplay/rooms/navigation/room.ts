@@ -5,7 +5,9 @@ import { ModelIdentifier, Room } from "types/rooms.types";
 import { ObjectStorageUnit } from "types/storage.types";
 import { CameraManager, createCameraManager } from "./camera";
 import { createGround, Ground } from "./ground";
-import { createPlayer, Player } from "./player";
+
+import { createPlayer, Player } from "gameplay/player/player";
+import { Nullable } from "types/generic.types";
 
 export interface NavigationRoomProps {
   player: ModelIdentifier;

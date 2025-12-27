@@ -2,6 +2,7 @@ import { Logger } from "@utils/Logger";
 import { GlobalStorageManager } from "engine/managers/storage/storageTypes";
 import { createGridMaterial, GridMaterial } from "materials/grid/grid-material";
 import { Mesh, PerspectiveCamera } from "three";
+import { Nullable } from "types/generic.types";
 import { ModelIdentifier } from "types/rooms.types";
 
 export interface GroundProps {

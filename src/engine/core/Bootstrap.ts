@@ -1,7 +1,7 @@
 import { createLogger } from "@utils/Logger";
 import { createThreeJsContextManager } from "engine/managers/ContextManager";
 import { createInputManager } from "engine/managers/InputManager";
-import { createAnimationManager } from "engine/managers/animation/AnimationManager";
+import { createAnimationOrchestrator } from "engine/managers/animation/AnimationManager";
 import { createGlobalStorageManager } from "engine/managers/storage/StorageManager";
 import { createEngine, Engine } from "./Engine";
 import { createLifecycleScheduler } from "./LifecycleScheduler";
@@ -25,7 +25,7 @@ export const bootstrap = () => {
   registry.register("GlobalStorageManager", createGlobalStorageManager());
   registry.register("ThreeJSContextManager", createThreeJsContextManager());
   registry.register("InputManager", createInputManager());
-  registry.register("AnimationManager", createAnimationManager());
+  registry.register("AnimationManager", createAnimationOrchestrator());
 
   const logger = registry.get("Logger");
   logger.onLoad({ origin: "Bootstrap" });
