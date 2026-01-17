@@ -1,0 +1,2 @@
+var c=()=>{let i={},o=n=>{i[n.id]=n;},a=n=>{delete i[n];};return {addEntity:o,removeEntity:a,mount:()=>{},unmount:()=>{Object.keys(i).forEach(a);},update:n=>{Object.values(i).forEach(t=>{console.log("[update:AnimationOrchestrator] entity",t),t.fsm.tick(t.params),t.playback.tick(n,t.graph,t.params,t.fsm);});},getPlayingAnimations:n=>i[n]?.playback.getPlayingAnimations()??[]}};export{c as a};//# sourceMappingURL=chunk-QXLXZT3E.js.map
+//# sourceMappingURL=chunk-QXLXZT3E.js.map

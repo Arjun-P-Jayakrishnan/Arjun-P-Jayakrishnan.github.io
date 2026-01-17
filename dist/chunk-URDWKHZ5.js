@@ -1,0 +1,2 @@
+var n=class{constructor(e){this.active=[];this.nodes=new Map(e.map(t=>[t.name,t]));}tick(e,t){let i=this.nodes.get(e.currentState);if(!i){this.active=[];return}if(this.active=[],i.clip)this.active.push({clip:i.clip,weight:1});else if(i.blend){let a=i.blend(t);i.clip&&this.active.push({clip:i.clip,weight:a});}}getCurrentAnimations(){return [...this.active]}};export{n as a};//# sourceMappingURL=chunk-URDWKHZ5.js.map
+//# sourceMappingURL=chunk-URDWKHZ5.js.map

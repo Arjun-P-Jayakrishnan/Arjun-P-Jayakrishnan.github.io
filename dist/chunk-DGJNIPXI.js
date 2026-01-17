@@ -1,2 +1,0 @@
-var b=({crossfadeDuration:r,actions:a})=>{let e,i=null,o=null;return {onMount:n=>{e=n;},getCurrentAnimation:()=>i,play:(n,p=0)=>{if(i===n)return;let t=a[n];t&&(t.reset(),t.play(),o?.crossFadeTo(t,r,false),o=t,i=n);},stop:()=>{},update:n=>{n!==void 0&&e.update(n);},onUnmount:()=>{}}};export{b as a};//# sourceMappingURL=chunk-DGJNIPXI.js.map
-//# sourceMappingURL=chunk-DGJNIPXI.js.map

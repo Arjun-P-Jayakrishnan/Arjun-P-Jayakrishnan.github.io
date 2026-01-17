@@ -1,0 +1,2 @@
+var t=class{constructor(a){this.values=new Map;this.listeners=new Set;for(let i of a)this.values.set(i.name,i.defaultValue);}get(a){return this.values.get(a)}set(a,i){this.values.set(a,i),this.listeners.forEach(e=>e(a,i));}onChange(a){return this.listeners.add(a),()=>this.listeners.delete(a)}};export{t as AnimationParametersManager};//# sourceMappingURL=ParamaterManager.js.map
+//# sourceMappingURL=ParamaterManager.js.map

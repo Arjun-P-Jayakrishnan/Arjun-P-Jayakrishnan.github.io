@@ -1,0 +1,2 @@
+export{a as createPlayerAnimationEntity}from'../../../chunk-OGB6CUJQ.js';import'../../../chunk-4N5VRYQU.js';import'../../../chunk-P5JPHKTW.js';import'../../../chunk-CNBMV74T.js';import'../../../chunk-DEUTJOB7.js';import'../../../chunk-URDWKHZ5.js';//# sourceMappingURL=playerAnimationEntity.js.map
+//# sourceMappingURL=playerAnimationEntity.js.map

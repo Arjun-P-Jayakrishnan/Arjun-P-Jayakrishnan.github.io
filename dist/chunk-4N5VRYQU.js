@@ -1,0 +1,2 @@
+var i=t=>{let e=new Map;for(let a of t)e.set(a.name,a.defaultValue);return {set(a,n){e.set(a,n);},get(a){return e.get(a)}}};export{i as a};//# sourceMappingURL=chunk-4N5VRYQU.js.map
+//# sourceMappingURL=chunk-4N5VRYQU.js.map
