@@ -1,143 +1,292 @@
 /* ============================
    INTRO PANEL
 ============================ */
-
-.visor-intro {
-  --accent: #4fd1c5;
-}
-
-/* ---------------------------
-   LAYOUT
---------------------------- */
 .intro-layout {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: 1fr 1fr; /* 2-column layout for desktop */
+  grid-template-rows: auto;
+  gap: 16px; /* spacing between columns/rows */
+  min-height: 400px; /* ensures a minimum height */
+}
+
+.file-title {
+  padding: 1em;
 }
 
 /* ---------------------------
-   LEFT PANEL (SEMANTIC DL)
+   Left Pane: Identity Section
 --------------------------- */
+.left-pane {
+  grid-column: 1; /* first column in the grid */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 1.5em; /* spacing between items */
+  padding: 16px; /* internal padding */
+}
 
 .intro-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1em; /* spacing between each intro item */
+}
+
+.intro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em; /* spacing between label (dt) and value (dd) */
+}
+
+.intro-item dt {
+  font-size: 14px; /* smaller for labels */
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin: 0;
+
+  width: fit-content;
+  display: inline-block; /* underline only spans text width */
+  border-bottom: 2px solid var(--color-accent); /* underline color & thickness */
+  padding-bottom: 4px; /* spacing between text and underline */
+}
+
+.intro-item dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 100;
+  color: var(--color-text-secondary);
+  padding-left: 0.3em;
+  padding-top: 0.3em;
+}
+
+.intro-item dd.name {
+  font-family: "Montserrat", sans-serif; /* standout font for name */
+  font-size: 22px; /* larger for emphasis */
+  font-weight: 700;
+  color: var(--color-text-primary); /* prominent color */
+  text-transform: none; /* keep natural capitalization */
+  letter-spacing: 0.02em;
+}
+
+/* ---------------------------
+   Right Pane: Image + Behavioral Readout
+--------------------------- */
+.right-pane {
+  grid-column: 2; /* second column in grid */
+  grid-row: 1 / span 2; /* span both rows for alignment */
+}
+
+.subject-frame {
+  border: 1px solid var(--color-accent);
+  padding: 8px;
+  display: grid;
+  justify-items: center;
+  background: var(--color-bg);
+  margin-right: 1em;
+  height: 100%;
+}
+
+.image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* keep image square */
+  overflow: hidden;
+  position: relative;
+  background: #0b0b0b;
+  max-height: 40vh; /* limits image height */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) contrast(1.15) brightness(0.95);
+  display: block;
+}
+
+.tag {
+  position: relative;
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.subject-readout.behavioral-markers {
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-text-secondary);
+  font-size: 1em;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}
+
+.readout-title {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.readout-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-/* Labels / meta (dt) - uppercase */
-.intro-data dt {
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--color-text-secondary);
-  margin: 0;
-  text-transform: uppercase; /* ADD THIS */
-}
-
-/* Name - uppercase to match previous style */
-.intro-data dd.name {
-  color: var(--accent);
-  margin: 4px 0 8px;
-  text-transform: uppercase; /* ADD THIS */
-}
-
-/* Values */
-.intro-data dd {
-  margin: 0;
-  color: var(--color-text-primary);
-}
-
-/* Active state */
-.intro-data dd.active {
-  color: var(--accent);
-  text-transform: uppercase; /* ADD THIS if needed */
-}
-
-/* Optional: Primary activity can stay normal case */
-.intro-data .primary-activity dd {
-  text-transform: none;
-}
-
-/* ---------------------------
-   PRIMARY ACTIVITY SECTION
---------------------------- */
-.primary-activity {
-  margin-top: 16px; /* move section lower in panel */
-}
-
-.primary-activity .meta {
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--color-text-secondary);
-  margin: 0; /* heading margin reset */
-}
-
-.primary-activity .description {
-  margin-top: 6px; /* space between heading and description */
-  font-size: 13px;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  max-width: 38ch;
-  animation: fadeUp 0.6s ease both;
-}
-
-/* ---------------------------
-   RIGHT PANEL
---------------------------- */
-.intro-subject {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.subject-frame {
+.readout-list li {
   position: relative;
-  border: 1px solid var(--accent);
-  padding: 8px;
+  padding-left: 14px;
+  line-height: 1.4;
 }
 
-.subject-frame img {
-  width: 220px;
-  filter: grayscale(100%) contrast(1.1);
-}
-
-.subject-frame .tag {
+/* subtle indicator dot (LED-like) */
+.readout-list li::before {
+  content: "";
   position: absolute;
-  top: -10px;
-  left: 12px;
-  background: var(--color-bg);
-  color: var(--accent);
-  font-size: 10px;
-  padding: 2px 6px;
-  letter-spacing: 0.1em;
+  left: 0;
+  top: 0.45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.7;
 }
 
-/* Subject readout below image */
-.subject-readout {
-  margin-top: 12px;
+/* ---------------------------
+   Description / Personal Statement
+--------------------------- */
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1em; /* space between section title and blockquote */
+  padding-left: 16px; /* horizontal alignment */
+  padding-right: 16px;
+}
+
+.section-title {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: lighter;
+
+  display: inline-block; /* underline only spans the text */
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 4px;
+}
+
+.description-text {
+  margin: 0;
+  padding-left: 16px; /* accent spacing */
+  border-left: 3px solid var(--color-accent);
+  font-style: italic;
+  color: var(--color-text-primary);
+  font-size: 1em;
+  line-height: 1.6;
+  position: relative;
+}
+
+.description-text .highlight {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.description-text::before {
+  content: "“";
+  font-size: 24px;
+  line-height: 0;
+  margin-right: 4px;
+  vertical-align: text-top;
+  color: var(--color-accent);
+}
+
+/* ---------------------------
+   File Metadata / Badges
+--------------------------- */
+.file-metadata {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap; /* allows badges to move to next line on smaller widths */
+  gap: 8px; /* spacing between badges */
   font-size: 11px;
   letter-spacing: 0.14em;
   color: var(--color-text-secondary);
+  text-transform: uppercase;
+  justify-content: flex-end; /* align badges to the right */
+  padding: 1em; /* inner spacing for container */
 }
 
-.subject-readout .key {
-  color: var(--accent);
-  margin-right: 6px;
+.metadata-badge {
+  border: 1px solid var(--color-text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap; /* prevents text from wrapping */
+  background: transparent; /* keeps badges consistent with dark background */
+  display: inline-block;
 }
 
 /* ---------------------------
-   ANIMATION
+   Mobile Layout (≤768px)
 --------------------------- */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+@media (max-width: 768px) {
+  /* Stack layout vertically */
+  .intro-layout {
+    grid-template-rows: auto auto;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .left-pane {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .right-pane {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .description {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  /* Shrink images slightly for mobile */
+  .image-container {
+    max-height: 30vh; /* keeps profile image from dominating screen */
+    max-width: 180px; /* prevents it from stretching too wide */
+  }
+
+  .subject-frame img {
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.1);
+  }
+
+  /* Reduce font size of readout markers for mobile */
+  .subject-readout.behavioral-markers {
+    font-size: 0.85em;
+  }
+
+  /* Adjust tag font size and spacing for mobile */
+  .tag {
+    margin-top: 6px;
+    font-size: 10px;
+  }
+
+  /* File metadata badges adjustments */
+  .file-metadata {
+    justify-content: flex-start; /* left align for small screens */
+    gap: 6px;
+    padding: 0.5em 1em;
+  }
+
+  .metadata-badge {
+    font-size: 10px;
+    padding: 3px 6px;
   }
 }
 
@@ -153,6 +302,17 @@
   align-items: start;
 }
 
+.panel-title {
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  color: var(--color-text-primary);
+  margin: 0 0 32px 0;
+  text-transform: uppercase;
+}
+
+.about-layout-wrapper {
+  padding: 3em;
+}
 .about-column {
   display: flex;
   flex-direction: column;
@@ -178,7 +338,7 @@
   color: var(--color-accent);
   margin-top: 6px;
   text-transform: uppercase;
-  max-width: 38ch;
+  /* max-width: 38ch; */
   animation: fadeUp 0.6s ease both;
 
   /* Increased left indent */
@@ -186,12 +346,14 @@
 }
 
 /* ============================
-   EXPERIENCE PANEL
+  EXPERIENCE PANEL
 ============================ */
-
 .visor-experience {
-  display: flex;
-  align-items: center;
+  padding: 2rem;
+  overflow-x: hidden;
+}
+.experience-title {
+  padding: 1em 1em;
 }
 
 .experience-panel {
@@ -200,78 +362,77 @@
   gap: 24px;
 }
 
-/* ============================
-   TIMELINE WRAPPER
-============================ */
-
+/* Timeline wrapper */
 .timeline-wrapper {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  position: relative;
 }
 
-/* Arrows */
+/* Navigation buttons */
 .timeline-nav {
   background: none;
   border: none;
   color: var(--color-accent);
-  font-size: 18px;
+  font-size: 24px;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
   transition: opacity 0.2s ease;
+  z-index: 2;
 }
-
 .timeline-nav:hover {
   opacity: 1;
 }
 
-.timeline-nav:disabled {
-  opacity: 0.25;
-  cursor: default;
-}
-
-/* ============================
-   VIEWPORT
-============================ */
-
+/* Viewport container with fade gradients */
 .timeline-viewport {
+  overflow-x: auto;
+  flex: 1;
   position: relative;
-  overflow: hidden;
-  height: 200px;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE / Edge (legacy) */
+  -ms-overflow-style: none;
 }
 
-/* ============================
-   TRACK
-============================ */
+/* Left and right fade */
+.timeline-viewport::before,
+.timeline-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
 
+.timeline-viewport::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg) 0%, transparent 100%);
+}
+
+.timeline-viewport::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg) 0%, transparent 100%);
+}
+
+/* Timeline track */
 .timeline-track {
-  position: relative;
-  display: grid;
-  grid-template-rows: 40px auto;
-  row-gap: 28px;
-  justify-content: center;
-  transition: transform 0.45s ease;
-}
-
-/* ============================
-   GEOMETRY ROW (DOTS + LINE)
-============================ */
-
-.timeline-geometry {
-  position: relative;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 140px;
+  grid-auto-columns: 180px;
+  gap: 40px;
+  position: relative;
   align-items: center;
-  justify-content: center;
-  height: 40px;
-  z-index: 1; /* dots above line */
+  padding: 0px 0;
 }
 
-/* Solid line connecting dots */
-.timeline-geometry::before {
+/* Central horizontal line */
+.timeline-track::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -279,32 +440,56 @@
   right: 0;
   height: 2px;
   background: var(--color-accent);
-  opacity: 0.35;
+  opacity: 0.3;
   transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 0; /* behind dots */
+  z-index: 0;
+  width: 200%;
 }
 
-/* Timeline dots */
+/* Timeline item */
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 60vh;
+}
+
+/* Top container for icon */
+.timeline-top {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Bottom container for card */
+.timeline-bottom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon styling */
+.timeline-icon {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.timeline-icon img {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Dot in middle */
 .timeline-dot {
-  justify-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--color-bg);
-  border: 2px solid var(--color-accent);
-  z-index: 1; /* above line */
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.timeline-dot.active {
-  background: var(--color-accent);
-  transform: scale(1.4);
-}
-
-/* Timeline dots */
-.timeline-dot {
-  justify-self: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -313,33 +498,25 @@
   z-index: 1;
   transition: transform 0.25s ease, background 0.25s ease;
 }
-
-/* ============================
-   CONTENT ROW
-============================ */
-
-.timeline-content {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 140px;
-  justify-content: center;
+.timeline-dot.active {
+  background: var(--color-accent);
+  transform: translateY(-50%) scale(1.4);
 }
 
-/* Card aligned to same column as dot */
+/* Timeline card */
 .timeline-card {
-  padding-left: 18px; /* aligns text start under dot center */
-  text-align: left;
-  opacity: 0.55;
+  text-align: center;
+  padding: 8px;
+  opacity: 0.7;
   transition: opacity 0.25s ease;
 }
-
-.timeline-card.active {
+.timeline-item.active .timeline-card {
   opacity: 1;
 }
 
-/* ============================
-   TEXT STYLES
-============================ */
+.timeline-item:not(.active) .timeline-card {
+  opacity: 0.5;
+}
 
 .role {
   font-size: 13px;
@@ -357,6 +534,49 @@
   font-size: 11px;
   color: var(--color-text-secondary);
   line-height: 1.4;
+}
+
+/* Scrollbar hidden */
+.timeline-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* Default: dim everything inside a timeline item */
+/* Base state: slightly softened */
+.timeline-item > .timeline-top,
+.timeline-item > .timeline-bottom,
+.timeline-item > .timeline-dot {
+  opacity: 0.35;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Active item */
+.timeline-item.active > .timeline-top,
+.timeline-item.active > .timeline-bottom,
+.timeline-item.active > .timeline-dot {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timeline-track {
+    grid-auto-columns: 140px;
+    gap: 24px;
+    padding: 0px 0;
+  }
+
+  .timeline-card {
+    font-size: 12px;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-icon img {
+    max-width: 90px;
+  }
 }
 
 /* ============================
@@ -566,6 +786,7 @@
   grid-auto-columns: 320px; /* CATEGORY CARD WIDTH */
   gap: 32px;
   transition: transform 0.45s ease;
+  padding: 1em 1em;
 }
 
 /* ============================
@@ -640,6 +861,29 @@
   flex-shrink: 0;
 }
 
+/* Default: everything slightly dim */
+.timeline-item > *,
+.tech-category-card > * {
+  opacity: 0.35;
+  transition: opacity 0.25s ease;
+}
+
+/* Active item = fully visible */
+.timeline-item.active > *,
+.tech-category-card.active > * {
+  opacity: 1;
+}
+
+.tech-category-card.active img {
+  filter: none;
+}
+
+.timeline-item.active,
+.tech-category-card.active {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
 /* ============================
    RESPONSIVE
 ============================ */
@@ -663,14 +907,15 @@
 /* ============================
    CONTACT PANEL
 ============================ */
-/* ============================
-   CONTACT PANEL
-============================ */
 
 .contact-panel {
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+.contact-title {
+  padding: 1em 1em;
 }
 
 /* Layout */
@@ -841,4 +1086,104 @@
 .visor-outro.active {
   opacity: 1;
   pointer-events: all;
+}
+
+.visor-power-on {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background: black;
+  overflow: hidden;
+
+  /* Base radial glow */
+  background: radial-gradient(circle, #0a0b0d 0%, black 80%);
+
+  animation: visorBoot 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Brightness pulses and glitch flickers */
+@keyframes visorBoot {
+  0% {
+    opacity: 1;
+    filter: brightness(0);
+  }
+  20% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  40% {
+    opacity: 1;
+    filter: brightness(0.9);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.3);
+  }
+  80% {
+    opacity: 0.3;
+    filter: brightness(1);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(1);
+    display: none;
+  }
+}
+
+/* Optional grain overlay for subtle noise */
+.visor-power-on::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  animation: grainMove 0.3s infinite steps(1);
+}
+
+@keyframes grainMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(1px, -1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Optional horizontal scanline sweep */
+.visor-power-on::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: scanline 1.2s ease-in-out forwards;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
 }

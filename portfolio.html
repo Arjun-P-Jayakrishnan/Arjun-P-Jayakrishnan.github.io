@@ -3,131 +3,356 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Enhanced Split Card</title>
+    <title>Experience Timeline</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+      :root {
+        --accent: #4fd1c5;
+        --color-bg: #111;
+        --color-text-primary: #fff;
+        --color-text-secondary: #888;
+      }
 
       body {
-        font-family: "Poppins", sans-serif;
-        background: #0f172a;
-        color: #e2e8f0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        font-family: "Inter", sans-serif;
+        background: var(--color-bg);
+        color: var(--color-text-primary);
         margin: 0;
+        padding: 0;
       }
 
-      .project-card {
+      .visor-experience {
+        padding: 2rem;
+        overflow-x: hidden;
+      }
+
+      .experience-panel {
         display: flex;
-        gap: 16px;
-        padding: 24px;
-        background: #1e1e2f;
-        border-radius: 18px;
-        cursor: pointer;
-        transition: transform 0.4s ease, box-shadow 0.4s ease,
-          background 0.4s ease;
-        max-width: 500px;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .timeline-wrapper {
+        display: flex;
         align-items: center;
-        position: relative;
+        gap: 10px;
       }
 
-      .project-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(99, 102, 241, 0.5);
-        background: linear-gradient(135deg, #1e1e2f 0%, #272742 100%);
+      .timeline-nav {
+        background: none;
+        border: none;
+        color: var(--accent);
+        font-size: 24px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
       }
 
-      .project-card .icon {
-        font-size: 56px;
-        color: #6366f1;
-        transition: transform 0.4s ease, color 0.4s ease;
+      .timeline-nav:hover {
+        opacity: 1;
       }
 
-      .project-card:hover .icon {
-        transform: scale(1.2) rotate(-10deg);
-        color: #c084fc;
-      }
-
-      .text {
+      .timeline-viewport {
+        overflow-x: auto;
         flex: 1;
       }
 
-      .text h3 {
-        margin: 0 0 6px 0;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #f8fafc;
+      /* Track */
+      .timeline-track {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 180px;
+        gap: 40px;
+        position: relative;
+        padding: 0;
+        align-items: center;
       }
 
-      .text h4 {
-        margin: 0 0 12px 0;
-        font-size: 0.9rem;
-        font-weight: 400;
-        color: #94a3b8;
+      /* Central line */
+      .timeline-track::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--accent);
+        opacity: 0.3;
+        z-index: 0;
+        transform: translateY(-50%);
       }
 
-      .text p {
-        font-size: 0.85rem;
-        margin-bottom: 12px;
-        color: #cbd5e1;
-      }
-
-      .badges {
+      /* Timeline item: icon + dot + card */
+      .timeline-item {
         display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 12px;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        height: 300px; /* height of the unit */
       }
 
-      .badges span {
-        background: rgba(99, 102, 241, 0.15);
-        color: #a5b4fc;
-        padding: 4px 8px;
-        font-size: 0.7rem;
-        border-radius: 999px;
-        transition: transform 0.3s ease, background 0.3s ease;
+      /* Dot in middle */
+      .timeline-dot {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--color-bg);
+        border: 2px solid var(--accent);
+        z-index: 1;
       }
 
-      .project-card:hover .badges span {
-        transform: translateY(-2px);
-        background: rgba(192, 132, 252, 0.2);
+      .timeline-dot.active {
+        background: var(--accent);
+        transform: scale(1.4) translateY(-40%);
       }
 
-      .links a {
-        text-decoration: none;
-        color: #818cf8;
-        margin-right: 12px;
-        font-size: 0.85rem;
-        transition: color 0.3s ease;
+      /* Top container takes space above dot */
+      .timeline-top {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
       }
 
-      .links a:hover {
-        color: #c084fc;
+      /* Bottom container takes space below dot */
+      .timeline-bottom {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Icon container */
+      .timeline-icon {
+        /* height: 50px; */
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .timeline-icon img {
+        /* max-height: 40px; */
+        max-width: 120px;
+      }
+
+      /* Card below dot */
+      .timeline-card {
+        text-align: center;
+        padding: 8px;
+        opacity: 0.7;
+        transition: opacity 0.25s ease;
+      }
+
+      .timeline-card.active {
+        opacity: 1;
+      }
+
+      .role {
+        font-size: 13px;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin: 0;
+      }
+
+      .company {
+        font-size: 12px;
+        margin: 2px 0 6px;
+      }
+
+      .duration {
+        font-size: 11px;
+        color: var(--color-text-secondary);
+        line-height: 1.4;
+      }
+
+      /* Scrollbar hidden */
+      .timeline-viewport::-webkit-scrollbar {
+        display: none;
+      }
+
+      .timeline-viewport {
+        overflow-x: auto;
+        flex: 1;
+        position: relative; /* needed for pseudo-elements */
+      }
+
+      /* Gradient overlays */
+      .timeline-viewport::before,
+      .timeline-viewport::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 60px; /* width of fade */
+        height: 100%;
+        pointer-events: none; /* let scroll work */
+        z-index: 2;
+      }
+
+      .timeline-viewport::before {
+        left: 0;
+        background: linear-gradient(to right, var(--color-bg), transparent);
+      }
+
+      .timeline-viewport::after {
+        right: 0;
+        background: linear-gradient(to left, var(--color-bg), transparent);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .timeline-track {
+          grid-auto-columns: 140px;
+          gap: 24px;
+        }
+
+        .timeline-card {
+          font-size: 12px;
+        }
+
+        .timeline-icon {
+          /* height: 40px; */
+        }
+
+        .timeline-icon img {
+          /* max-height: 32px; */
+        }
+
+        .timeline-dot {
+          width: 14px;
+          height: 14px;
+        }
       }
     </style>
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
   <body>
-    <div class="project-card">
-      <i class="fas fa-code icon"></i>
-      <div class="text">
-        <h3>LCVS</h3>
-        <h4>Version Control System</h4>
-        <p>Custom version control tool with SQLite and Git-style workflows.</p>
-        <div class="badges">
-          <span>git</span>
-          <span>sqlite</span>
-          <span>cli</span>
-        </div>
-        <div class="links">
-          <a href="#">GitHub</a>
-          <a href="#">Live</a>
+    <section
+      class="visor-section visor-experience"
+      id="section-experience"
+      aria-labelledby="experience-title"
+    >
+      <div class="panel-frame experience-panel">
+        <h2 id="experience-title">EXPERIENCE</h2>
+
+        <div class="timeline-wrapper">
+          <button class="timeline-nav prev" aria-label="Previous">◀</button>
+
+          <div class="timeline-viewport">
+            <div class="timeline-track">
+              <!-- Timeline Item 1 -->
+              <div class="timeline-item">
+                <div class="timeline-top">
+                  <div class="timeline-icon" title="Freelance">
+                    <img
+                      src="./public/company/freelancer.svg"
+                      alt="Freelance Icon"
+                    />
+                  </div>
+                </div>
+                <div class="timeline-dot active"></div>
+                <div class="timeline-bottom">
+                  <article class="timeline-card active">
+                    <h3 class="role">Freelance Developer</h3>
+                    <p class="company">Flutter & Web Applications</p>
+                    <time class="duration" datetime="2022-12">Dec 2022</time> →
+                    <time class="duration" datetime="2023-03">Mar 2023</time>
+                  </article>
+                </div>
+              </div>
+
+              <!-- Timeline Item 2 -->
+              <div class="timeline-item">
+                <div class="timeline-top">
+                  <div class="timeline-icon" title="Internship">
+                    <img
+                      src="./public/company/MonkeyScience.svg"
+                      alt="Internship Icon"
+                    />
+                  </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-bottom">
+                  <article class="timeline-card">
+                    <h3 class="role">Creative Engineer Intern</h3>
+                    <p class="company">Monkey Science</p>
+                    <time class="duration" datetime="2023-05">May 2023</time> →
+                    <time class="duration" datetime="2024-09">Sept 2024</time>
+                  </article>
+                </div>
+              </div>
+
+              <!-- Timeline Item 3 -->
+              <div class="timeline-item">
+                <div class="timeline-top">
+                  <div class="timeline-icon" title="Associate">
+                    <img
+                      src="./public/company/MonkeyScience.svg"
+                      alt="Associate Icon"
+                    />
+                  </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-bottom">
+                  <article class="timeline-card">
+                    <h3 class="role">Associate Creative Engineer</h3>
+                    <p class="company">Monkey Science</p>
+                    <time class="duration" datetime="2024-09">Sept 2024</time> →
+                    <time class="duration" datetime="2025-05">May 2025</time>
+                  </article>
+                </div>
+              </div>
+
+              <!-- Timeline Item 4 -->
+              <div class="timeline-item">
+                <div class="timeline-top">
+                  <div class="timeline-icon" title="Freelance">
+                    <img
+                      src="./public/company/freelancer.svg"
+                      alt="Freelance Icon"
+                    />
+                  </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-bottom">
+                  <article class="timeline-card">
+                    <h3 class="role">Freelance Developer</h3>
+                    <p class="company">Full-Stack / 3D</p>
+                    <time class="duration" datetime="2025-05">May 2025</time> →
+                    <time class="duration" datetime="2025-07">July 2025</time>
+                  </article>
+                </div>
+              </div>
+
+              <!-- Timeline Item 5 -->
+              <div class="timeline-item">
+                <div class="timeline-top">
+                  <div class="timeline-icon" title="Full-Stack">
+                    <img
+                      src="./public/company/webomindapps.svg"
+                      alt="Full-Stack Icon"
+                    />
+                  </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-bottom">
+                  <article class="timeline-card">
+                    <h3 class="role">Full-Stack Developer</h3>
+                    <p class="company">Webomindapps</p>
+                    <time class="duration" datetime="2025-07">July 2025</time> →
+                    <time class="duration" datetime="2025-12">Present</time>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="timeline-nav next" aria-label="Next">▶</button>
         </div>
       </div>
-    </div>
+    </section>
   </body>
 </html>
