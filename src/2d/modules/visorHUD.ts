@@ -17,10 +17,13 @@ interface SectionData {
 export function initVisorHUD(): () => void {
   const visor = document.getElementById("visor");
   const storyTitle = document.querySelector<HTMLDivElement>(
-    "#story-hud .story-title"
+    "#story-hud .story-title",
   );
   const storySubtitle = document.querySelector<HTMLDivElement>(
-    "#story-hud .story-subtitle"
+    "#story-hud .story-subtitle",
+  );
+  const sideNavLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>(".visor-sidenav a"),
   );
 
   if (!visor || !storyTitle || !storySubtitle) return () => {};
@@ -45,6 +48,11 @@ export function initVisorHUD(): () => void {
     if (closest.id !== lastSectionId) {
       storyTitle.textContent = closest.title;
       storySubtitle.textContent = closest.subtitle;
+
+      // 🔹 Side nav sync
+      sideNavLinks.forEach((link) =>
+        link.classList.toggle("active", link.dataset.section === closest.id),
+      );
       lastSectionId = closest.id;
     }
   };
