@@ -89,7 +89,7 @@
           <div class="visor-power-on"></div>
           <!-- Boot -->
           <section
-            class="visor-boot"
+            class="visor-boot hidden"
             id="visor-boot"
             aria-live="assertive"
             aria-label="System boot sequence"
@@ -134,84 +134,144 @@
             <!-- INTRO PANEL -->
 
             <article
-              class="visor-section visor-intro subject-file"
               id="section-intro"
+              class="visor-section visor-intro subject-file"
               aria-labelledby="subject-file-title"
             >
               <div class="panel-frame">
-                <!-- FILE TITLE -->
+                <!-- File Header -->
                 <header class="file-header">
                   <h2 id="subject-file-title" class="file-title">
-                    SUBJECT FILE
+                    Subject File
                   </h2>
                 </header>
 
-                <!-- MAIN BODY -->
+                <!-- Main Body -->
                 <div class="intro-layout">
-                  <!-- LEFT COLUMN: IDENTITY + IMAGE -->
-                  <div class="identity-capture-group">
-                    <!-- IDENTITY -->
-                    <div class="top-info identity-block">
-                      <dl class="intro-data">
-                        <div class="intro-item">
-                          <dt>SUBJECT</dt>
-                          <dd class="name">ARJUN P JAYAKRISHNAN</dd>
-                        </div>
-
-                        <div class="intro-item">
-                          <dt>CURRENT ROLE</dt>
-                          <dd>CREATIVE ENGINEER</dd>
-                        </div>
-
-                        <div class="intro-item">
-                          <dt>CURRENTLY WORKING UNDER</dt>
-                          <dd>INDEPENDENT PRACTICE</dd>
-                        </div>
-                      </dl>
-                    </div>
-
-                    <!-- IMAGE + READOUT -->
-                    <div class="top-image capture-block">
-                      <div class="subject-frame">
-                        <img src="public/profile.png" alt="PROFILE CAPTURE" />
-                        <span class="tag">PROFILE CAPTURE</span>
-                        <div class="subject-readout">
-                          <p><span class="key">CAPTURE MODE</span> STATIC</p>
-                          <p><span class="key">SIGNAL</span> CLEAN</p>
-                          <p><span class="key">FOCUS</span> SYSTEM DESIGN</p>
-                        </div>
+                  <!-- Left Pane: Identity -->
+                  <section
+                    class="left-pane top-info identity-block"
+                    aria-label="Subject identity details"
+                  >
+                    <dl class="intro-data">
+                      <div class="intro-item">
+                        <dt>Name</dt>
+                        <dd class="name">Arjun P Jayakrishnan</dd>
                       </div>
-                    </div>
-                  </div>
 
-                  <!-- RIGHT COLUMN: DESCRIPTION -->
-                  <div class="primary-activity summary-block">
-                    <!-- First group: heading + value -->
-                    <div class="summary-item">
-                      <h3 class="section-title">PROFILE SUMMARY</h3>
-                      <p class="description">
-                        SPECIALIZES IN INTERACTIVE SYSTEMS WITH REAL-TIME
-                        FEEDBACK AND INTEGRATED DESIGN.
-                      </p>
-                    </div>
+                      <div class="intro-item">
+                        <dt>Location</dt>
+                        <dd>Kerala, India</dd>
+                      </div>
 
-                    <!-- Second group: heading + value -->
+                      <div class="intro-item">
+                        <dt>Experience</dt>
+                        <dd>2+ Years</dd>
+                      </div>
+
+                      <div class="intro-item">
+                        <dt>Primary Focus</dt>
+                        <dd>Full-stack Development &amp; Web 3D Graphics</dd>
+                      </div>
+                    </dl>
+                  </section>
+
+                  <!-- Right Pane: Image + Readout -->
+                  <section
+                    class="right-pane top-image capture-block"
+                    aria-label="Profile capture and behavioral notes"
+                  >
+                    <figure class="subject-frame">
+                      <div class="image-container">
+                        <img
+                          src="public/profile.png"
+                          alt="Profile portrait of Arjun P Jayakrishnan"
+                        />
+                      </div>
+
+                      <figcaption class="tag">Profile Capture</figcaption>
+
+                      <div class="subject-readout behavioral-markers">
+                        <h4 class="readout-title">Behavioral Markers</h4>
+                        <ul class="readout-list">
+                          <li>Sustained attention on unresolved challenges</li>
+                          <li>Strong inclination toward structural thinking</li>
+                          <li>Solution-first mindset observed</li>
+                        </ul>
+                      </div>
+                    </figure>
+                  </section>
+
+                  <!-- Description -->
+                  <section
+                    class="description primary-activity summary-block"
+                    aria-label="Personal mindset summary"
+                  >
                     <div class="summary-item">
-                      <h3 class="section-title">EXPERTISE</h3>
-                      <p class="description">
-                        SYSTEM ARCHITECTURE, STATE MANAGEMENT, RUNTIME CONTROL.
-                      </p>
+                      <h3 class="section-title">Mindset</h3>
+                      <blockquote class="description-text">
+                        I explore deeply, build boldly, and enjoy bringing
+                        <span class="highlight">solutions</span> to life — even
+                        if it means figuring things out as I go.
+                      </blockquote>
                     </div>
-                  </div>
+                  </section>
                 </div>
 
-                <!-- METADATA -->
-                <div class="file-metadata">
-                  FILE TYPE: SUBJECT PROFILE | ACCESS LEVEL: PUBLIC | LAST
-                  UPDATED: 2025
-                </div>
+                <!-- File Metadata -->
+                <footer class="file-metadata" aria-label="File metadata">
+                  <span class="metadata-badge">File Type: Subject Profile</span>
+                  <span class="metadata-badge">Access Level: Public</span>
+                  <span class="metadata-badge">Last Updated: 2026</span>
+                </footer>
               </div>
             </article>
+
+            <!-- ABOUT -->
+            <section class="visor-section visor-about" id="section-about">
+              <div class="panel-frame about-layout-wrapper">
+                <h2 class="panel-title">ABOUT</h2>
+                <!-- Left Column -->
+                <div class="about-layout">
+                  <div class="about-column">
+                    <div class="about-item">
+                      <p class="meta">🌍 NATIONALITY</p>
+                      <p class="description">INDIAN</p>
+                    </div>
+
+                    <div class="about-item">
+                      <p class="meta">🎓 EDUCATION</p>
+                      <p class="description">B. TECH. IN COMPUTER SCIENCE</p>
+                    </div>
+
+                    <div class="about-item">
+                      <p class="meta">💻 FOCUS AREA</p>
+                      <p class="description">
+                        INTERACTIVE 3D, WEBGL, FULL-STACK WEB DEVELOPMENT
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Right Column -->
+                  <div class="about-column">
+                    <div class="about-item">
+                      <p class="meta">🎮 HOBBIES</p>
+                      <p class="description">GAMING, MUSIC, TECH EXPERIMENTS</p>
+                    </div>
+
+                    <div class="about-item">
+                      <p class="meta">🗣 LANGUAGES</p>
+                      <p class="description">ENGLISH, HINDI, MALAYALAM</p>
+                    </div>
+
+                    <div class="about-item">
+                      <p class="meta">⏳ EXPERIENCE</p>
+                      <p class="description">3+ YEARS</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
 
             <!-- EXPERIENCE -->
             <section
@@ -229,75 +289,134 @@
 
                   <div class="timeline-viewport">
                     <div class="timeline-track">
-                      <div class="timeline-geometry">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
+                      <!-- Timeline Item 1 -->
+                      <div class="timeline-item">
+                        <div class="timeline-top">
+                          <div class="timeline-icon" title="Freelance">
+                            <img
+                              src="./public/company/freelancer.svg"
+                              alt="Freelance Icon"
+                            />
+                          </div>
+                        </div>
+                        <div class="timeline-dot active"></div>
+                        <div class="timeline-bottom">
+                          <article class="timeline-card active">
+                            <h3 class="role">Freelance Developer</h3>
+                            <p class="company">Flutter & Web Applications</p>
+                            <time class="duration" datetime="2022-12"
+                              >Dec 2022</time
+                            >
+                            →
+                            <time class="duration" datetime="2023-03"
+                              >Mar 2023</time
+                            >
+                          </article>
+                        </div>
                       </div>
 
-                      <div class="timeline-content">
-                        <!-- Each card as <article> with semantic markup -->
-                        <article class="timeline-card">
-                          <h3 class="role">Freelance Developer</h3>
-                          <p class="company">Flutter & Web Applications</p>
-                          <time class="duration" datetime="2022-12"
-                            >Dec 2022</time
-                          >
-                          →
-                          <time class="duration" datetime="2023-03"
-                            >Mar 2023</time
-                          >
-                        </article>
+                      <!-- Timeline Item 2 -->
+                      <div class="timeline-item">
+                        <div class="timeline-top">
+                          <div class="timeline-icon" title="Internship">
+                            <img
+                              src="./public/company/MonkeyScience.svg"
+                              alt="Internship Icon"
+                            />
+                          </div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-bottom">
+                          <article class="timeline-card">
+                            <h3 class="role">Creative Engineer Intern</h3>
+                            <p class="company">Monkey Science</p>
+                            <time class="duration" datetime="2023-05"
+                              >May 2023</time
+                            >
+                            →
+                            <time class="duration" datetime="2024-09"
+                              >Sept 2024</time
+                            >
+                          </article>
+                        </div>
+                      </div>
 
-                        <article class="timeline-card">
-                          <h3 class="role">Creative Engineer Intern</h3>
-                          <p class="company">Monkey Science</p>
-                          <time class="duration" datetime="2023-05"
-                            >May 2023</time
-                          >
-                          →
-                          <time class="duration" datetime="2024-09"
-                            >Sept 2024</time
-                          >
-                        </article>
+                      <!-- Timeline Item 3 -->
+                      <div class="timeline-item">
+                        <div class="timeline-top">
+                          <div class="timeline-icon" title="Associate">
+                            <img
+                              src="./public/company/MonkeyScience.svg"
+                              alt="Associate Icon"
+                            />
+                          </div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-bottom">
+                          <article class="timeline-card">
+                            <h3 class="role">Associate Creative Engineer</h3>
+                            <p class="company">Monkey Science</p>
+                            <time class="duration" datetime="2024-09"
+                              >Sept 2024</time
+                            >
+                            →
+                            <time class="duration" datetime="2025-05"
+                              >May 2025</time
+                            >
+                          </article>
+                        </div>
+                      </div>
 
-                        <article class="timeline-card">
-                          <h3 class="role">Associate Creative Engineer</h3>
-                          <p class="company">Monkey Science</p>
-                          <time class="duration" datetime="2024-09"
-                            >Sept 2024</time
-                          >
-                          →
-                          <time class="duration" datetime="2025-05"
-                            >May 2025</time
-                          >
-                        </article>
+                      <!-- Timeline Item 4 -->
+                      <div class="timeline-item">
+                        <div class="timeline-top">
+                          <div class="timeline-icon" title="Freelance">
+                            <img
+                              src="./public/company/freelancer.svg"
+                              alt="Freelance Icon"
+                            />
+                          </div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-bottom">
+                          <article class="timeline-card">
+                            <h3 class="role">Freelance Developer</h3>
+                            <p class="company">Full-Stack / 3D</p>
+                            <time class="duration" datetime="2025-05"
+                              >May 2025</time
+                            >
+                            →
+                            <time class="duration" datetime="2025-07"
+                              >July 2025</time
+                            >
+                          </article>
+                        </div>
+                      </div>
 
-                        <article class="timeline-card">
-                          <h3 class="role">Freelance Developer</h3>
-                          <p class="company">Full-Stack / 3D</p>
-                          <time class="duration" datetime="2025-05"
-                            >May 2025</time
-                          >
-                          →
-                          <time class="duration" datetime="2025-07"
-                            >July 2025</time
-                          >
-                        </article>
-
-                        <article class="timeline-card">
-                          <h3 class="role">Full-Stack Developer</h3>
-                          <p class="company">Webomindapps</p>
-                          <time class="duration" datetime="2025-07"
-                            >July 2025</time
-                          >
-                          →
-                          <time class="duration" datetime="2025-12"
-                            >Present</time
-                          >
-                        </article>
+                      <!-- Timeline Item 5 -->
+                      <div class="timeline-item">
+                        <div class="timeline-top">
+                          <div class="timeline-icon" title="Full-Stack">
+                            <img
+                              src="./public/company/webomindapps.svg"
+                              alt="Full-Stack Icon"
+                            />
+                          </div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-bottom">
+                          <article class="timeline-card">
+                            <h3 class="role">Full-Stack Developer</h3>
+                            <p class="company">Webomindapps</p>
+                            <time class="duration" datetime="2025-07"
+                              >July 2025</time
+                            >
+                            →
+                            <time class="duration" datetime="2025-12"
+                              >Present</time
+                            >
+                          </article>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -27,11 +27,12 @@ export const initCarousel = (
   const items = track
     ? Array.from(track.querySelectorAll<HTMLDivElement>(config.itemSelector))
     : [];
-  const highlights = config.highlightSelector
-    ? Array.from(
-        document.querySelectorAll<HTMLDivElement>(config.highlightSelector)
-      )
-    : [];
+  const highlights =
+    config.highlightSelector && track
+      ? Array.from(
+          track.querySelectorAll<HTMLDivElement>(config.highlightSelector)
+        )
+      : [];
 
   if (!track || !viewport || !prev || !next || items.length === 0) {
     console.warn("[Carousel] Missing elements", config);
@@ -45,9 +46,24 @@ export const initCarousel = (
     prev.disabled = activeIndex === 0;
     next.disabled = activeIndex === items.length - 1;
 
-    // Center active item
-    const offset =
-      activeIndex * STEP - viewport.offsetWidth / 2 + items[0].offsetWidth / 2;
+    const item = items[activeIndex];
+    if (!item) return;
+
+    // Widths
+    const viewportWidth = viewport.offsetWidth;
+    const itemWidth = item.offsetWidth;
+
+    // Item position relative to the track
+    const itemLeft = item.offsetLeft;
+
+    // Center the active item
+    let offset = itemLeft - viewportWidth / 2 + itemWidth / 2;
+
+    // Clamp so we never scroll beyond the track
+    const maxOffset = track.scrollWidth - viewportWidth;
+    offset = Math.max(0, Math.min(offset, maxOffset));
+
+    // Apply transform
     track.style.transform = `translateX(${-offset}px)`;
 
     // Toggle active class for items
@@ -110,7 +126,7 @@ export const initTimelineCarousel = () => {
     viewportSelector: ".timeline-viewport",
     prevSelector: ".timeline-nav.prev",
     nextSelector: ".timeline-nav.next",
-    itemSelector: ".timeline-card",
+    itemSelector: ".timeline-item",
     step: 120,
     highlightSelector: ".timeline-dot", // optional: highlights active card
   });

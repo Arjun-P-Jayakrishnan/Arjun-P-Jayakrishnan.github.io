@@ -2,7 +2,6 @@
 
 import { initTechCarousel, initTimelineCarousel } from "./modules/carousels";
 import { removeAllListeners } from "./modules/events";
-import { showIntro } from "./modules/intro";
 import { initProjects } from "./modules/projects";
 import { initVisorHUD } from "./modules/visorHUD";
 
@@ -67,8 +66,8 @@ export const createScene2DManager = (): Scene2DManager => {
     // Play intro only once
     if (!introPlayed) {
       introPlayed = true;
-      showIntro().then(() => mountScene());
-      // mountScene();
+      // showIntro().then(() => mountScene());
+      mountScene();
     } else {
       mountScene();
     }
