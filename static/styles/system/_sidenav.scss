@@ -1,0 +1,85 @@
+/* ============================
+   SIDE NAVIGATION
+============================ */
+.visor-sidenav {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+}
+
+.visor-sidenav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.visor-sidenav li {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: end;
+}
+
+.visor-sidenav a {
+  position: relative;
+  padding-right: 28px; /* space for pointer on LEFT */
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  color: var(--color-text-secondary);
+  opacity: 0.35;
+
+  transition: opacity 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.visor-sidenav a::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 12px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.visor-sidenav a.active {
+  opacity: 1;
+  color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+.visor-sidenav a.active::before {
+  width: 18px;
+  background: var(--color-accent);
+}
+
+.visor-sidenav a.active::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 24px;
+  height: 10px;
+  background: radial-gradient(
+    circle,
+    rgba(79, 209, 197, 0.25),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+  .visor-sidenav {
+    display: none;
+  }
+}

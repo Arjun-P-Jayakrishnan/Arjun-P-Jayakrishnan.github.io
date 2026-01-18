@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  @@include("partials/head.html")
+
+  <body>
+    @@include("partials/sidenav.html")
+
+    <main id="portfolio">
+      <h1 class="visually-hidden">
+        Creative Engineer Portfolio of Arjun P Jayakrishnan
+      </h1>
+
+      <section id="portfolio-2d">
+        <div class="visor" id="visor">
+          @@include("partials/hud.html")
+
+          <div class="visor-panels">
+            @@include("sections/intro.html") @@include("sections/about.html")
+            @@include("sections/experience.html")
+            @@include("sections/projects.html") @@include("sections/tech.html")
+            @@include("sections/contact.html") @@include("partials/outro.html")
+          </div>
+        </div>
+      </section>
+
+      @@include("partials/portfolio-3d.html")
+    </main>
+
+    @@include("partials/scripts.html")
+  </body>
+</html>

@@ -1,0 +1,177 @@
+/* ============================
+   TECH STACK PANEL
+============================ */
+
+.tech-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ============================
+   CAROUSEL WRAPPER
+============================ */
+
+.tech-carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Navigation arrows */
+.tech-nav {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--color-accent);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.tech-nav:hover {
+  opacity: 1;
+}
+
+.tech-nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* ============================
+   VIEWPORT
+============================ */
+
+.tech-viewport {
+  overflow: hidden;
+  position: relative;
+}
+
+/* ============================
+   TRACK
+============================ */
+
+.tech-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 320px; /* CATEGORY CARD WIDTH */
+  gap: 32px;
+  transition: transform 0.45s ease;
+  padding: 1em 1em;
+}
+
+/* ============================
+   CATEGORY CARD
+============================ */
+
+.tech-category-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.tech-category-card h3 {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ============================
+   TECH GRID
+============================ */
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* inner grid */
+  gap: 12px;
+}
+
+/* ============================
+   TECH ITEM
+============================ */
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 42px;
+  padding: 0 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+/* Hover effect */
+.tech-item:hover {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ============================
+   LOGOS
+============================ */
+
+.tech-logo,
+.tech-item img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(1.2);
+  flex-shrink: 0;
+}
+
+/* Default: everything slightly dim */
+.timeline-item > *,
+.tech-category-card > * {
+  opacity: 0.35;
+  transition: opacity 0.25s ease;
+}
+
+/* Active item = fully visible */
+.timeline-item.active > *,
+.tech-category-card.active > * {
+  opacity: 1;
+}
+
+.tech-category-card.active img {
+  filter: none;
+}
+
+.timeline-item.active,
+.tech-category-card.active {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media (max-width: 900px) {
+  .tech-track {
+    grid-auto-columns: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tech-carousel {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-nav {
+    display: none;
+  }
+}

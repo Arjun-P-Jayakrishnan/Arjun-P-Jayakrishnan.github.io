@@ -1,0 +1,233 @@
+/* ============================
+  EXPERIENCE PANEL
+============================ */
+.visor-experience {
+  padding: 2rem;
+  overflow-x: hidden;
+}
+.experience-title {
+  padding: 1em 1em;
+}
+
+.experience-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Timeline wrapper */
+.timeline-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+/* Navigation buttons */
+.timeline-nav {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+.timeline-nav:hover {
+  opacity: 1;
+}
+
+/* Viewport container with fade gradients */
+.timeline-viewport {
+  overflow-x: auto;
+  flex: 1;
+  position: relative;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE / Edge (legacy) */
+  -ms-overflow-style: none;
+}
+
+/* Left and right fade */
+.timeline-viewport::before,
+.timeline-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.timeline-viewport::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg) 0%, transparent 100%);
+}
+
+.timeline-viewport::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg) 0%, transparent 100%);
+}
+
+/* Timeline track */
+.timeline-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 180px;
+  gap: 40px;
+  position: relative;
+  align-items: center;
+  padding: 0px 0;
+}
+
+/* Central horizontal line */
+.timeline-track::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  opacity: 0.3;
+  transform: translateY(-50%);
+  z-index: 0;
+  width: 200%;
+}
+
+/* Timeline item */
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 60vh;
+}
+
+/* Top container for icon */
+.timeline-top {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Bottom container for card */
+.timeline-bottom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon styling */
+.timeline-icon {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.timeline-icon img {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Dot in middle */
+.timeline-dot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-accent);
+  z-index: 1;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.timeline-dot.active {
+  background: var(--color-accent);
+  transform: translateY(-50%) scale(1.4);
+}
+
+/* Timeline card */
+.timeline-card {
+  text-align: center;
+  padding: 8px;
+  opacity: 0.7;
+  transition: opacity 0.25s ease;
+}
+.timeline-item.active .timeline-card {
+  opacity: 1;
+}
+
+.timeline-item:not(.active) .timeline-card {
+  opacity: 0.5;
+}
+
+.role {
+  font-size: 13px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.company {
+  font-size: 12px;
+  margin: 2px 0 6px;
+}
+
+.duration {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+/* Scrollbar hidden */
+.timeline-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* Default: dim everything inside a timeline item */
+/* Base state: slightly softened */
+.timeline-item > .timeline-top,
+.timeline-item > .timeline-bottom,
+.timeline-item > .timeline-dot {
+  opacity: 0.35;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Active item */
+.timeline-item.active > .timeline-top,
+.timeline-item.active > .timeline-bottom,
+.timeline-item.active > .timeline-dot {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timeline-track {
+    grid-auto-columns: 140px;
+    gap: 24px;
+    padding: 0px 0;
+  }
+
+  .timeline-card {
+    font-size: 12px;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-icon img {
+    max-width: 90px;
+  }
+}

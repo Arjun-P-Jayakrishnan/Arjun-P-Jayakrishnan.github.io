@@ -1,0 +1,31 @@
+<div class="visor-power-on"></div>
+<!-- Boot -->
+<section
+  class="visor-boot hidden"
+  id="visor-boot"
+  aria-live="assertive"
+  aria-label="System boot sequence"
+>
+  <div class="boot-terminal">
+    <div class="boot-frame">
+      <p class="boot-line sys" data-text="INITIALIZING VISOR SYSTEM"></p>
+      <p class="boot-line sys" data-text="LOADING SUBJECT PROFILE"></p>
+      <p class="boot-line accent" data-text="ARJUN P JAYAKRISHNAN"></p>
+      <p class="boot-line sys" data-text="HUD ONLINE"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================
+SYSTEM OVERLAY (NON-SCROLLING)
+================================= -->
+<header class="visor-system" role="banner">
+  <div class="system-control" id="boot-button">
+    <button id="toggle3D">BOOT SYSTEM</button>
+  </div>
+
+  <div id="story-hud" class="system-hud" aria-live="polite">
+    <p class="story-title">INTRODUCTION</p>
+    <p class="story-subtitle">DECODING SUBJECT</p>
+  </div>
+</header>

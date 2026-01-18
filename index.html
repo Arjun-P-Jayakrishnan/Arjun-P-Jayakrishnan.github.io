@@ -1,860 +1,811 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Arjun P Jayakrishnan — Visor Landing</title>
+  <title>Arjun P Jayakrishnan — Visor Landing</title>
 
-    <!-- SEO -->
-    <meta
-      name="description"
-      content="Creative engineer building interactive WebGL systems and visor-style interfaces. Portfolio showcasing projects, experience, and 3D work."
-    />
+  <!-- SEO -->
+  <meta
+    name="description"
+    content="Creative engineer building interactive WebGL systems and visor-style interfaces. Portfolio showcasing projects, experience, and 3D work."
+  />
 
-    <meta name="author" content="Arjun P J" />
-    <meta
-      name="keywords"
-      content="Arjun P J, portfolio, 3D, WebGL, developer, interactive, visor UI"
-    />
+  <meta name="author" content="Arjun P J" />
+  <meta
+    name="keywords"
+    content="Arjun P J, portfolio, 3D, WebGL, developer, interactive, visor UI"
+  />
 
-    <!-- =========================
+  <!-- =========================
      SOCIAL + SHARING META
     ========================= -->
 
-    <!-- Open Graph -->
-    <meta
-      property="og:title"
-      content="Arjun P Jayakrishnan — Creative Engineer"
-    />
-    <meta
-      property="og:description"
-      content="Interactive visor-style portfolio showcasing creative engineering, WebGL systems, and immersive UI design."
-    />
-    <meta property="og:image" content="./assets/images/hero.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://arjun-p-jayakrishnan.github.io/" />
+  <!-- Open Graph -->
+  <meta
+    property="og:title"
+    content="Arjun P Jayakrishnan — Creative Engineer"
+  />
+  <meta
+    property="og:description"
+    content="Interactive visor-style portfolio showcasing creative engineering, WebGL systems, and immersive UI design."
+  />
+  <meta property="og:image" content="./assets/images/hero.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://arjun-p-jayakrishnan.github.io/" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Arjun P Jayakrishnan — Visor Portfolio"
-    />
-    <meta
-      name="twitter:description"
-      content="A system-style interactive portfolio focused on engineering, design, and immersive interfaces."
-    />
-    <meta name="twitter:image" content="./assets/images/hero.png" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Arjun P Jayakrishnan — Visor Portfolio" />
+  <meta
+    name="twitter:description"
+    content="A system-style interactive portfolio focused on engineering, design, and immersive interfaces."
+  />
+  <meta name="twitter:image" content="./assets/images/hero.png" />
 
-    <!-- =========================
+  <!-- =========================
      STRUCTURED DATA
     ========================= -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Arjun P Jayakrishnan",
-        "url": "https://arjun-p-jayakrishnan.github.io/",
-        "jobTitle": "Creative Engineer & Interactive Systems Developer",
-        "sameAs": [
-          "https://github.com/Arjun-P-Jayakrishnan",
-          "https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
-        ]
-      }
-    </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Arjun P Jayakrishnan",
+      "url": "https://arjun-p-jayakrishnan.github.io/",
+      "jobTitle": "Creative Engineer & Interactive Systems Developer",
+      "sameAs": [
+        "https://github.com/Arjun-P-Jayakrishnan",
+        "https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
+      ]
+    }
+  </script>
 
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-    <!-- Base CSS -->
-    <link rel="stylesheet" href="./index.css" />
-    <link rel="stylesheet" href="./style//panels.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/devicon@2.2/devicon.min.css"
-    />
-  </head>
+  <!-- Base CSS -->
+  <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="./style//panels.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/devicon@2.2/devicon.min.css"
+  />
+</head>
+
+
   <body>
     <nav class="visor-sidenav" aria-label="Section navigation">
-      <ul>
-        <li><a href="#section-intro" data-section="section-intro">INTRO</a></li>
-        <li><a href="#section-about" data-section="section-about">ABOUT</a></li>
-        <li>
-          <a href="#section-experience" data-section="section-experience"
-            >EXPERIENCE</a
-          >
-        </li>
-        <li>
-          <a href="#section-projects" data-section="section-projects"
-            >PROJECTS</a
-          >
-        </li>
-        <li>
-          <a href="#section-techstack" data-section="section-techstack">TECH</a>
-        </li>
-        <li>
-          <a href="#section-contact" data-section="section-contact">CONTACT</a>
-        </li>
-      </ul>
-    </nav>
+  <ul>
+    <li><a href="#section-intro" data-section="section-intro">INTRO</a></li>
+    <li><a href="#section-about" data-section="section-about">ABOUT</a></li>
+    <li>
+      <a href="#section-experience" data-section="section-experience"
+        >EXPERIENCE</a
+      >
+    </li>
+    <li>
+      <a href="#section-projects" data-section="section-projects">PROJECTS</a>
+    </li>
+    <li>
+      <a href="#section-techstack" data-section="section-techstack">TECH</a>
+    </li>
+    <li>
+      <a href="#section-contact" data-section="section-contact">CONTACT</a>
+    </li>
+  </ul>
+</nav>
+
 
     <main id="portfolio">
       <h1 class="visually-hidden">
         Creative Engineer Portfolio of Arjun P Jayakrishnan
       </h1>
 
-      <!-- =========================
-       2D PORTFOLIO
-      ========================= -->
       <section id="portfolio-2d">
         <div class="visor" id="visor">
           <div class="visor-power-on"></div>
-          <!-- Boot -->
-          <section
-            class="visor-boot hidden"
-            id="visor-boot"
-            aria-live="assertive"
-            aria-label="System boot sequence"
-          >
-            <div class="boot-terminal">
-              <div class="boot-frame">
-                <p
-                  class="boot-line sys"
-                  data-text="INITIALIZING VISOR SYSTEM"
-                ></p>
-                <p
-                  class="boot-line sys"
-                  data-text="LOADING SUBJECT PROFILE"
-                ></p>
-                <p
-                  class="boot-line accent"
-                  data-text="ARJUN P JAYAKRISHNAN"
-                ></p>
-                <p class="boot-line sys" data-text="HUD ONLINE"></p>
-              </div>
-            </div>
-          </section>
+<!-- Boot -->
+<section
+  class="visor-boot hidden"
+  id="visor-boot"
+  aria-live="assertive"
+  aria-label="System boot sequence"
+>
+  <div class="boot-terminal">
+    <div class="boot-frame">
+      <p class="boot-line sys" data-text="INITIALIZING VISOR SYSTEM"></p>
+      <p class="boot-line sys" data-text="LOADING SUBJECT PROFILE"></p>
+      <p class="boot-line accent" data-text="ARJUN P JAYAKRISHNAN"></p>
+      <p class="boot-line sys" data-text="HUD ONLINE"></p>
+    </div>
+  </div>
+</section>
 
-          <!-- ================================
-            SYSTEM OVERLAY (NON-SCROLLING)
-            ================================= -->
-          <header class="visor-system" role="banner">
-            <div class="system-control" id="boot-button">
-              <button id="toggle3D">BOOT SYSTEM</button>
-            </div>
+<!-- ================================
+SYSTEM OVERLAY (NON-SCROLLING)
+================================= -->
+<header class="visor-system" role="banner">
+  <div class="system-control" id="boot-button">
+    <button id="toggle3D">BOOT SYSTEM</button>
+  </div>
 
-            <div id="story-hud" class="system-hud" aria-live="polite">
-              <p class="story-title">INTRODUCTION</p>
-              <p class="story-subtitle">DECODING SUBJECT</p>
-            </div>
-          </header>
+  <div id="story-hud" class="system-hud" aria-live="polite">
+    <p class="story-title">INTRODUCTION</p>
+    <p class="story-subtitle">DECODING SUBJECT</p>
+  </div>
+</header>
 
-          <!-- ================================
-          VISOR PANELS (SCROLLING)
-          ================================= -->
+
           <div class="visor-panels">
-            <!-- INTRO PANEL -->
-
             <article
-              id="section-intro"
-              class="visor-section visor-intro subject-file"
-              aria-labelledby="subject-file-title"
-            >
-              <div class="panel-frame">
-                <!-- File Header -->
-                <header class="file-header">
-                  <h2 id="subject-file-title" class="file-title">
-                    Subject File
-                  </h2>
-                </header>
+  id="section-intro"
+  class="visor-section visor-intro subject-file"
+  aria-labelledby="subject-file-title"
+>
+  <div class="panel-frame">
+    <!-- File Header -->
+    <header class="file-header">
+      <h2 id="subject-file-title" class="file-title">Subject File</h2>
+    </header>
 
-                <!-- Main Body -->
-                <div class="intro-layout">
-                  <!-- Left Pane: Identity -->
-                  <section
-                    class="left-pane top-info identity-block"
-                    aria-label="Subject identity details"
-                  >
-                    <dl class="intro-data">
-                      <div class="intro-item">
-                        <dt>Name</dt>
-                        <dd class="name">Arjun P Jayakrishnan</dd>
-                      </div>
+    <!-- Main Body -->
+    <div class="intro-layout">
+      <!-- Left Pane: Identity -->
+      <section
+        class="left-pane top-info identity-block"
+        aria-label="Subject identity details"
+      >
+        <dl class="intro-data">
+          <div class="intro-item">
+            <dt>Name</dt>
+            <dd class="name">Arjun P Jayakrishnan</dd>
+          </div>
 
-                      <div class="intro-item">
-                        <dt>Location</dt>
-                        <dd>Kerala, India</dd>
-                      </div>
+          <div class="intro-item">
+            <dt>Location</dt>
+            <dd>Kerala, India</dd>
+          </div>
 
-                      <div class="intro-item">
-                        <dt>Experience</dt>
-                        <dd>2+ Years</dd>
-                      </div>
+          <div class="intro-item">
+            <dt>Experience</dt>
+            <dd>2+ Years</dd>
+          </div>
 
-                      <div class="intro-item">
-                        <dt>Primary Focus</dt>
-                        <dd>Full-stack Development &amp; Web 3D Graphics</dd>
-                      </div>
-                    </dl>
-                  </section>
+          <div class="intro-item">
+            <dt>Primary Focus</dt>
+            <dd>Full-stack Development &amp; Web 3D Graphics</dd>
+          </div>
+        </dl>
+      </section>
 
-                  <!-- Right Pane: Image + Readout -->
-                  <section
-                    class="right-pane top-image capture-block"
-                    aria-label="Profile capture and behavioral notes"
-                  >
-                    <figure class="subject-frame">
-                      <div class="image-container">
-                        <img
-                          src="public/profile.png"
-                          alt="Profile portrait of Arjun P Jayakrishnan"
-                        />
-                      </div>
+      <!-- Right Pane: Image + Readout -->
+      <section
+        class="right-pane top-image capture-block"
+        aria-label="Profile capture and behavioral notes"
+      >
+        <figure class="subject-frame">
+          <div class="image-container">
+            <img
+              src="public/profile.png"
+              alt="Profile portrait of Arjun P Jayakrishnan"
+            />
+          </div>
 
-                      <figcaption class="tag">Profile Capture</figcaption>
+          <figcaption class="tag">Profile Capture</figcaption>
 
-                      <div class="subject-readout behavioral-markers">
-                        <h4 class="readout-title">Behavioral Markers</h4>
-                        <ul class="readout-list">
-                          <li>Sustained attention on unresolved challenges</li>
-                          <li>Strong inclination toward structural thinking</li>
-                          <li>Solution-first mindset observed</li>
-                        </ul>
-                      </div>
-                    </figure>
-                  </section>
+          <div class="subject-readout behavioral-markers">
+            <h4 class="readout-title">Behavioral Markers</h4>
+            <ul class="readout-list">
+              <li>Sustained attention on unresolved challenges</li>
+              <li>Strong inclination toward structural thinking</li>
+              <li>Solution-first mindset observed</li>
+            </ul>
+          </div>
+        </figure>
+      </section>
 
-                  <!-- Description -->
-                  <section
-                    class="description primary-activity summary-block"
-                    aria-label="Personal mindset summary"
-                  >
-                    <div class="summary-item">
-                      <h3 class="section-title">Mindset</h3>
-                      <blockquote class="description-text">
-                        I explore deeply, build boldly, and enjoy bringing
-                        <span class="highlight">solutions</span> to life — even
-                        if it means figuring things out as I go.
-                      </blockquote>
-                    </div>
-                  </section>
-                </div>
+      <!-- Description -->
+      <section
+        class="description primary-activity summary-block"
+        aria-label="Personal mindset summary"
+      >
+        <div class="summary-item">
+          <h3 class="section-title">Mindset</h3>
+          <blockquote class="description-text">
+            I explore deeply, build boldly, and enjoy bringing
+            <span class="highlight">solutions</span> to life — even if it means
+            figuring things out as I go.
+          </blockquote>
+        </div>
+      </section>
+    </div>
 
-                <!-- File Metadata -->
-                <footer class="file-metadata" aria-label="File metadata">
-                  <span class="metadata-badge">File Type: Subject Profile</span>
-                  <span class="metadata-badge">Access Level: Public</span>
-                  <span class="metadata-badge">Last Updated: 2026</span>
-                </footer>
-              </div>
-            </article>
+    <!-- File Metadata -->
+    <footer class="file-metadata" aria-label="File metadata">
+      <span class="metadata-badge">File Type: Subject Profile</span>
+      <span class="metadata-badge">Access Level: Public</span>
+      <span class="metadata-badge">Last Updated: 2026</span>
+    </footer>
+  </div>
+</article>
+ <!-- ABOUT -->
+<section class="visor-section visor-about" id="section-about">
+  <div class="panel-frame about-layout-wrapper">
+    <h2 class="about-title">ABOUT</h2>
+    <!-- Left Column -->
+    <div class="about-layout">
+      <div class="about-column">
+        <div class="about-item">
+          <p class="meta">🌍 NATIONALITY</p>
+          <p class="description">INDIAN</p>
+        </div>
 
-            <!-- ABOUT -->
-            <section class="visor-section visor-about" id="section-about">
-              <div class="panel-frame about-layout-wrapper">
-                <h2 class="panel-title">ABOUT</h2>
-                <!-- Left Column -->
-                <div class="about-layout">
-                  <div class="about-column">
-                    <div class="about-item">
-                      <p class="meta">🌍 NATIONALITY</p>
-                      <p class="description">INDIAN</p>
-                    </div>
+        <div class="about-item">
+          <p class="meta">🎓 EDUCATION</p>
+          <p class="description">B. TECH. IN COMPUTER SCIENCE</p>
+        </div>
 
-                    <div class="about-item">
-                      <p class="meta">🎓 EDUCATION</p>
-                      <p class="description">B. TECH. IN COMPUTER SCIENCE</p>
-                    </div>
+        <div class="about-item">
+          <p class="meta">💻 FOCUS AREA</p>
+          <p class="description">
+            INTERACTIVE 3D, WEBGL, FULL-STACK WEB DEVELOPMENT
+          </p>
+        </div>
+      </div>
 
-                    <div class="about-item">
-                      <p class="meta">💻 FOCUS AREA</p>
-                      <p class="description">
-                        INTERACTIVE 3D, WEBGL, FULL-STACK WEB DEVELOPMENT
-                      </p>
-                    </div>
-                  </div>
+      <!-- Right Column -->
+      <div class="about-column">
+        <div class="about-item">
+          <p class="meta">🎮 HOBBIES</p>
+          <p class="description">GAMING, MUSIC, TECH EXPERIMENTS</p>
+        </div>
 
-                  <!-- Right Column -->
-                  <div class="about-column">
-                    <div class="about-item">
-                      <p class="meta">🎮 HOBBIES</p>
-                      <p class="description">GAMING, MUSIC, TECH EXPERIMENTS</p>
-                    </div>
+        <div class="about-item">
+          <p class="meta">🗣 LANGUAGES</p>
+          <p class="description">ENGLISH, HINDI, MALAYALAM</p>
+        </div>
 
-                    <div class="about-item">
-                      <p class="meta">🗣 LANGUAGES</p>
-                      <p class="description">ENGLISH, HINDI, MALAYALAM</p>
-                    </div>
-
-                    <div class="about-item">
-                      <p class="meta">⏳ EXPERIENCE</p>
-                      <p class="description">3+ YEARS</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+        <div class="about-item">
+          <p class="meta">⏳ EXPERIENCE</p>
+          <p class="description">3+ YEARS</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
             <!-- EXPERIENCE -->
-            <section
-              class="visor-section visor-experience"
-              id="section-experience"
-              aria-labelledby="experience-title"
-            >
-              <div class="panel-frame experience-panel">
-                <h2 id="experience-title">EXPERIENCE</h2>
+<section
+  class="visor-section visor-experience"
+  id="section-experience"
+  aria-labelledby="experience-title"
+>
+  <div class="panel-frame experience-panel">
+    <h2 id="experience-title">EXPERIENCE</h2>
 
-                <div class="timeline-wrapper">
-                  <button class="timeline-nav prev" aria-label="Previous">
-                    ◀
-                  </button>
+    <div class="timeline-wrapper">
+      <button class="timeline-nav prev" aria-label="Previous">◀</button>
 
-                  <div class="timeline-viewport">
-                    <div class="timeline-track">
-                      <!-- Timeline Item 1 -->
-                      <div class="timeline-item">
-                        <div class="timeline-top">
-                          <div class="timeline-icon" title="Freelance">
-                            <img
-                              src="./public/company/freelancer.svg"
-                              alt="Freelance Icon"
-                            />
-                          </div>
-                        </div>
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-bottom">
-                          <article class="timeline-card active">
-                            <h3 class="role">Freelance Developer</h3>
-                            <p class="company">Flutter & Web Applications</p>
-                            <time class="duration" datetime="2022-12"
-                              >Dec 2022</time
-                            >
-                            →
-                            <time class="duration" datetime="2023-03"
-                              >Mar 2023</time
-                            >
-                          </article>
-                        </div>
-                      </div>
-
-                      <!-- Timeline Item 2 -->
-                      <div class="timeline-item">
-                        <div class="timeline-top">
-                          <div class="timeline-icon" title="Internship">
-                            <img
-                              src="./public/company/MonkeyScience.svg"
-                              alt="Internship Icon"
-                            />
-                          </div>
-                        </div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-bottom">
-                          <article class="timeline-card">
-                            <h3 class="role">Creative Engineer Intern</h3>
-                            <p class="company">Monkey Science</p>
-                            <time class="duration" datetime="2023-05"
-                              >May 2023</time
-                            >
-                            →
-                            <time class="duration" datetime="2024-09"
-                              >Sept 2024</time
-                            >
-                          </article>
-                        </div>
-                      </div>
-
-                      <!-- Timeline Item 3 -->
-                      <div class="timeline-item">
-                        <div class="timeline-top">
-                          <div class="timeline-icon" title="Associate">
-                            <img
-                              src="./public/company/MonkeyScience.svg"
-                              alt="Associate Icon"
-                            />
-                          </div>
-                        </div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-bottom">
-                          <article class="timeline-card">
-                            <h3 class="role">Associate Creative Engineer</h3>
-                            <p class="company">Monkey Science</p>
-                            <time class="duration" datetime="2024-09"
-                              >Sept 2024</time
-                            >
-                            →
-                            <time class="duration" datetime="2025-05"
-                              >May 2025</time
-                            >
-                          </article>
-                        </div>
-                      </div>
-
-                      <!-- Timeline Item 4 -->
-                      <div class="timeline-item">
-                        <div class="timeline-top">
-                          <div class="timeline-icon" title="Freelance">
-                            <img
-                              src="./public/company/freelancer.svg"
-                              alt="Freelance Icon"
-                            />
-                          </div>
-                        </div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-bottom">
-                          <article class="timeline-card">
-                            <h3 class="role">Freelance Developer</h3>
-                            <p class="company">Full-Stack / 3D</p>
-                            <time class="duration" datetime="2025-05"
-                              >May 2025</time
-                            >
-                            →
-                            <time class="duration" datetime="2025-07"
-                              >July 2025</time
-                            >
-                          </article>
-                        </div>
-                      </div>
-
-                      <!-- Timeline Item 5 -->
-                      <div class="timeline-item">
-                        <div class="timeline-top">
-                          <div class="timeline-icon" title="Full-Stack">
-                            <img
-                              src="./public/company/webomindapps.svg"
-                              alt="Full-Stack Icon"
-                            />
-                          </div>
-                        </div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-bottom">
-                          <article class="timeline-card">
-                            <h3 class="role">Full-Stack Developer</h3>
-                            <p class="company">Webomindapps</p>
-                            <time class="duration" datetime="2025-07"
-                              >July 2025</time
-                            >
-                            →
-                            <time class="duration" datetime="2025-12"
-                              >Present</time
-                            >
-                          </article>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button class="timeline-nav next" aria-label="Next">▶</button>
-                </div>
+      <div class="timeline-viewport">
+        <div class="timeline-track">
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item">
+            <div class="timeline-top">
+              <div class="timeline-icon" title="Freelance">
+                <img
+                  src="./public/company/freelancer.svg"
+                  alt="Freelance Icon"
+                />
               </div>
-            </section>
+            </div>
+            <div class="timeline-dot active"></div>
+            <div class="timeline-bottom">
+              <article class="timeline-card active">
+                <h3 class="role">Freelance Developer</h3>
+                <p class="company">Flutter & Web Applications</p>
+                <time class="duration" datetime="2022-12">Dec 2022</time>
+                →
+                <time class="duration" datetime="2023-03">Mar 2023</time>
+              </article>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item">
+            <div class="timeline-top">
+              <div class="timeline-icon" title="Internship">
+                <img
+                  src="./public/company/MonkeyScience.svg"
+                  alt="Internship Icon"
+                />
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-bottom">
+              <article class="timeline-card">
+                <h3 class="role">Creative Engineer Intern</h3>
+                <p class="company">Monkey Science</p>
+                <time class="duration" datetime="2023-05">May 2023</time>
+                →
+                <time class="duration" datetime="2024-09">Sept 2024</time>
+              </article>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="timeline-item">
+            <div class="timeline-top">
+              <div class="timeline-icon" title="Associate">
+                <img
+                  src="./public/company/MonkeyScience.svg"
+                  alt="Associate Icon"
+                />
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-bottom">
+              <article class="timeline-card">
+                <h3 class="role">Associate Creative Engineer</h3>
+                <p class="company">Monkey Science</p>
+                <time class="duration" datetime="2024-09">Sept 2024</time>
+                →
+                <time class="duration" datetime="2025-05">May 2025</time>
+              </article>
+            </div>
+          </div>
+
+          <!-- Timeline Item 4 -->
+          <div class="timeline-item">
+            <div class="timeline-top">
+              <div class="timeline-icon" title="Freelance">
+                <img
+                  src="./public/company/freelancer.svg"
+                  alt="Freelance Icon"
+                />
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-bottom">
+              <article class="timeline-card">
+                <h3 class="role">Freelance Developer</h3>
+                <p class="company">Full-Stack / 3D</p>
+                <time class="duration" datetime="2025-05">May 2025</time>
+                →
+                <time class="duration" datetime="2025-07">July 2025</time>
+              </article>
+            </div>
+          </div>
+
+          <!-- Timeline Item 5 -->
+          <div class="timeline-item">
+            <div class="timeline-top">
+              <div class="timeline-icon" title="Full-Stack">
+                <img
+                  src="./public/company/webomindapps.svg"
+                  alt="Full-Stack Icon"
+                />
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-bottom">
+              <article class="timeline-card">
+                <h3 class="role">Full-Stack Developer</h3>
+                <p class="company">Webomindapps</p>
+                <time class="duration" datetime="2025-07">July 2025</time>
+                →
+                <time class="duration" datetime="2025-12">Present</time>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="timeline-nav next" aria-label="Next">▶</button>
+    </div>
+  </div>
+</section>
 
             <!-- PROJECTS -->
-            <section
-              class="visor-section visor-projects"
-              id="section-projects"
-              aria-labelledby="projects-title"
+<section
+  class="visor-section visor-projects"
+  id="section-projects"
+  aria-labelledby="projects-title"
+>
+  <div class="panel-frame projects-panel">
+    <h2 id="projects-title">PROJECTS</h2>
+
+    <div class="projects-layout">
+      <!-- LEFT PANEL: Project List -->
+      <div class="projects-left">
+        <h3 class="projects-left-title">All Projects</h3>
+
+        <ul class="projects-grid">
+          <li class="project-item active" data-index="0">
+            <span class="project-icon">💻</span>
+            <span class="project-title">LCVS</span>
+          </li>
+          <li class="project-item" data-index="1">
+            <span class="project-icon">🖥️</span>
+            <span class="project-title">VS Code GLSL Highlighter</span>
+          </li>
+          <li class="project-item" data-index="2">
+            <span class="project-icon">🛠️</span>
+            <span class="project-title">Developer Tools</span>
+          </li>
+          <li class="project-item" data-index="3">
+            <span class="project-icon">🎨</span>
+            <span class="project-title"
+              >AGI Animated Graphical Illustrator</span
             >
-              <div class="panel-frame projects-panel">
-                <h2 id="projects-title">PROJECTS</h2>
+          </li>
+          <li class="project-item" data-index="4">
+            <span class="project-icon">⚡</span>
+            <span class="project-title">Static Bundler</span>
+          </li>
+        </ul>
+      </div>
 
-                <div class="projects-layout">
-                  <!-- LEFT PANEL: Project List -->
-                  <div class="projects-left">
-                    <h3 class="projects-left-title">All Projects</h3>
+      <!-- VERTICAL DIVIDER -->
+      <div class="projects-divider"></div>
 
-                    <ul class="projects-grid">
-                      <li class="project-item active" data-index="0">
-                        <span class="project-icon">💻</span>
-                        <span class="project-title">LCVS</span>
-                      </li>
-                      <li class="project-item" data-index="1">
-                        <span class="project-icon">🖥️</span>
-                        <span class="project-title"
-                          >VS Code GLSL Highlighter</span
-                        >
-                      </li>
-                      <li class="project-item" data-index="2">
-                        <span class="project-icon">🛠️</span>
-                        <span class="project-title">Developer Tools</span>
-                      </li>
-                      <li class="project-item" data-index="3">
-                        <span class="project-icon">🎨</span>
-                        <span class="project-title"
-                          >AGI Animated Graphical Illustrator</span
-                        >
-                      </li>
-                      <li class="project-item" data-index="4">
-                        <span class="project-icon">⚡</span>
-                        <span class="project-title">Static Bundler</span>
-                      </li>
-                    </ul>
-                  </div>
+      <!-- RIGHT PANEL: Project Details -->
+      <div class="projects-right">
+        <article class="project-details">
+          <div class="project-icon-large">💻</div>
+          <h3 class="project-name">LCVS — Localized Version Control System</h3>
+          <p class="project-subtitle">
+            Version Control Tool for Localized Projects
+          </p>
+          <p class="project-description">
+            LCVS is a tool designed to manage multiple versions of projects with
+            localization support, enabling developers to easily switch between
+            languages and environments.
+          </p>
+          <div class="project-buttons">
+            <a href="#" class="btn visit">Visit</a>
+            <a href="#" class="btn github">GitHub</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+ <!-- TECH -->
+<section class="visor-section visor-tech" id="section-techstack">
+  <div class="panel-frame tech-panel">
+    <h2>TECH STACK</h2>
 
-                  <!-- VERTICAL DIVIDER -->
-                  <div class="projects-divider"></div>
+    <div class="tech-carousel">
+      <button class="tech-nav prev">‹</button>
 
-                  <!-- RIGHT PANEL: Project Details -->
-                  <div class="projects-right">
-                    <article class="project-details">
-                      <div class="project-icon-large">💻</div>
-                      <h3 class="project-name">
-                        LCVS — Localized Version Control System
-                      </h3>
-                      <p class="project-subtitle">
-                        Version Control Tool for Localized Projects
-                      </p>
-                      <p class="project-description">
-                        LCVS is a tool designed to manage multiple versions of
-                        projects with localization support, enabling developers
-                        to easily switch between languages and environments.
-                      </p>
-                      <div class="project-buttons">
-                        <a href="#" class="btn visit">Visit</a>
-                        <a href="#" class="btn github">GitHub</a>
-                      </div>
-                    </article>
-                  </div>
-                </div>
+      <div class="tech-viewport">
+        <div class="tech-track">
+          <!-- Languages -->
+          <div class="tech-category-card">
+            <h3>Languages</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
+                  alt="C programming language logo"
+                /><span>C</span>
               </div>
-            </section>
-
-            <!-- TECH -->
-            <section class="visor-section visor-tech" id="section-techstack">
-              <div class="panel-frame tech-panel">
-                <h2>TECH STACK</h2>
-
-                <div class="tech-carousel">
-                  <button class="tech-nav prev">‹</button>
-
-                  <div class="tech-viewport">
-                    <div class="tech-track">
-                      <!-- Languages -->
-                      <div class="tech-category-card">
-                        <h3>Languages</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
-                              alt="C programming language logo"
-                            /><span>C</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
-                              alt="Go programming language logo"
-                            /><span>Go</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-                              alt="Java programming language logo"
-                            /><span>Java</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-                              alt="JavaScript programming language logo"
-                            /><span>JavaScript</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-                              alt="TypeScript programming language logo"
-                            /><span>TypeScript</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                              alt="Python programming language logo"
-                            /><span>Python</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
-                              alt="C++ programming language logo"
-                            /><span>C++</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
-                              alt="Dart programming language logo"
-                            /><span>Dart</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/glsl/glsl-original.svg"
-                              alt="GLSL shader language logo"
-                            /><span>GLSL</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Databases -->
-                      <div class="tech-category-card">
-                        <h3>Databases</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
-                              alt="PostgreSQL database logo"
-                            /><span>Postgres</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-                              alt="MySQL database logo"
-                            /><span>MySQL</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Frontend -->
-                      <div class="tech-category-card">
-                        <h3>Frontend</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
-                              alt="Flutter framework logo"
-                            /><span>Flutter</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                              alt="React JavaScript library logo"
-                            /><span>React</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
-                              alt="Next.js framework logo"
-                            /><span>Next.js</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-                              alt="HTML5 logo"
-                            />
-                            <span>HTML</span>
-                          </div>
-
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-                              alt="CSS3 logo"
-                            />
-                            <span>CSS</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Backend -->
-                      <div class="tech-category-card">
-                        <h3>Backend</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-                              alt="Node.js runtime logo"
-                            /><span>Node + Express</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
-                              alt="Go programming language logo"
-                            /><span>Go</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- API -->
-                      <div class="tech-category-card">
-                        <h3>API</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg"
-                              alt="REST API icon"
-                            />
-                            <span>REST</span>
-                          </div>
-
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg"
-                              alt="GraphQL logo"
-                            />
-                            <span>GraphQL</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Mobile -->
-                      <div class="tech-category-card">
-                        <h3>Mobile</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
-                              alt="Flutter mobile framework logo"
-                            /><span>Flutter</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- 3D -->
-                      <div class="tech-category-card">
-                        <h3>3D</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"
-                              alt="Three.js 3D library logo"
-                            /><span>Three.js</span>
-                          </div>
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babylonjs/babylonjs-original.svg"
-                              alt="Babylon.js logo"
-                            />
-                            <span>Babylon.js</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Tools -->
-                      <div class="tech-category-card">
-                        <h3>Other Tools</h3>
-                        <div class="tech-grid">
-                          <div class="tech-item">
-                            <img
-                              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg"
-                              alt="Blender 3D software logo"
-                            /><span>Blender</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button class="tech-nav next">›</button>
-                </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
+                  alt="Go programming language logo"
+                /><span>Go</span>
               </div>
-            </section>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                  alt="Java programming language logo"
+                /><span>Java</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                  alt="JavaScript programming language logo"
+                /><span>JavaScript</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                  alt="TypeScript programming language logo"
+                /><span>TypeScript</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                  alt="Python programming language logo"
+                /><span>Python</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                  alt="C++ programming language logo"
+                /><span>C++</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
+                  alt="Dart programming language logo"
+                /><span>Dart</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/glsl/glsl-original.svg"
+                  alt="GLSL shader language logo"
+                /><span>GLSL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Databases -->
+          <div class="tech-category-card">
+            <h3>Databases</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                  alt="PostgreSQL database logo"
+                /><span>Postgres</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                  alt="MySQL database logo"
+                /><span>MySQL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frontend -->
+          <div class="tech-category-card">
+            <h3>Frontend</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                  alt="Flutter framework logo"
+                /><span>Flutter</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  alt="React JavaScript library logo"
+                /><span>React</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                  alt="Next.js framework logo"
+                /><span>Next.js</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                  alt="HTML5 logo"
+                />
+                <span>HTML</span>
+              </div>
+
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                  alt="CSS3 logo"
+                />
+                <span>CSS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div class="tech-category-card">
+            <h3>Backend</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                  alt="Node.js runtime logo"
+                /><span>Node + Express</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
+                  alt="Go programming language logo"
+                /><span>Go</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- API -->
+          <div class="tech-category-card">
+            <h3>API</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg"
+                  alt="REST API icon"
+                />
+                <span>REST</span>
+              </div>
+
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg"
+                  alt="GraphQL logo"
+                />
+                <span>GraphQL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile -->
+          <div class="tech-category-card">
+            <h3>Mobile</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                  alt="Flutter mobile framework logo"
+                /><span>Flutter</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D -->
+          <div class="tech-category-card">
+            <h3>3D</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"
+                  alt="Three.js 3D library logo"
+                /><span>Three.js</span>
+              </div>
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babylonjs/babylonjs-original.svg"
+                  alt="Babylon.js logo"
+                />
+                <span>Babylon.js</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools -->
+          <div class="tech-category-card">
+            <h3>Other Tools</h3>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg"
+                  alt="Blender 3D software logo"
+                /><span>Blender</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="tech-nav next">›</button>
+    </div>
+  </div>
+</section>
 
             <!-- CONTACT -->
-            <section
-              class="visor-section visor-contact"
-              id="section-contact"
-              aria-labelledby="contact-title"
-            >
-              <div class="panel-frame contact-panel">
-                <h2 id="contact-title">CONTACT</h2>
+<section
+  class="visor-section visor-contact"
+  id="section-contact"
+  aria-labelledby="contact-title"
+>
+  <div class="panel-frame contact-panel">
+    <h2 id="contact-title">CONTACT</h2>
 
-                <div class="contact-layout">
-                  <!-- LEFT PANEL: Contact Links -->
-                  <address class="contact-left">
-                    <a href="#" class="contact-icon-btn" title="Email">
-                      <span class="icon">✉</span>
-                      <span class="label">EMAIL</span>
-                    </a>
+    <div class="contact-layout">
+      <!-- LEFT PANEL: Contact Links -->
+      <address class="contact-left">
+        <a href="#" class="contact-icon-btn" title="Email">
+          <span class="icon">✉</span>
+          <span class="label">EMAIL</span>
+        </a>
 
-                    <a
-                      href="https://github.com/Arjun-P-Jayakrishnan"
-                      target="_blank"
-                      class="contact-icon-btn"
-                      title="GitHub"
-                    >
-                      <span class="icon"></span>
-                      <span class="label">GITHUB</span>
-                    </a>
+        <a
+          href="https://github.com/Arjun-P-Jayakrishnan"
+          target="_blank"
+          class="contact-icon-btn"
+          title="GitHub"
+        >
+          <span class="icon"></span>
+          <span class="label">GITHUB</span>
+        </a>
 
-                    <a
-                      href="https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
-                      target="_blank"
-                      class="contact-icon-btn"
-                      title="LinkedIn"
-                    >
-                      <span class="icon">in</span>
-                      <span class="label">LINKEDIN</span>
-                    </a>
-                  </address>
+        <a
+          href="https://www.linkedin.com/in/arjun-p-jayakrishnan-5b971b244/"
+          target="_blank"
+          class="contact-icon-btn"
+          title="LinkedIn"
+        >
+          <span class="icon">in</span>
+          <span class="label">LINKEDIN</span>
+        </a>
+      </address>
 
-                  <!-- RIGHT PANEL: System Greeting -->
-                  <div class="contact-right">
-                    <p class="system-greeting">SYSTEM ONLINE</p>
+      <!-- RIGHT PANEL: System Greeting -->
+      <div class="contact-right">
+        <p class="system-greeting">SYSTEM ONLINE</p>
 
-                    <p class="system-message">
-                      Welcome, operator.<br />
-                      Boot up modules to explore projects, experience, and tech
-                      stack.
-                    </p>
+        <p class="system-message">
+          Welcome, operator.<br />
+          Boot up modules to explore projects, experience, and tech stack.
+        </p>
 
-                    <p class="system-hint">
-                      Use navigation or scroll to continue.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
+        <p class="system-hint">Use navigation or scroll to continue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ <section
+  id="visorOutro"
+  class="visor-outro"
+  aria-live="assertive"
+  aria-label="Transition to 3D experience"
+>
+  <div class="outro-panel">
+    <p class="outro-label">SYSTEM TRANSITION</p>
 
-            <section
-              id="visorOutro"
-              class="visor-outro"
-              aria-live="assertive"
-              aria-label="Transition to 3D experience"
-            >
-              <div class="outro-panel">
-                <p class="outro-label">SYSTEM TRANSITION</p>
+    <div class="outro-log" id="outroLog">
+      <div>Initializing spatial renderer…</div>
+    </div>
 
-                <div class="outro-log" id="outroLog">
-                  <div>Initializing spatial renderer…</div>
-                </div>
+    <div class="outro-progress">
+      <div class="outro-progress-bar" id="outroProgress"></div>
+    </div>
 
-                <div class="outro-progress">
-                  <div class="outro-progress-bar" id="outroProgress"></div>
-                </div>
+    <p class="outro-hint">Do not adjust viewport</p>
+  </div>
+</section>
 
-                <p class="outro-hint">Do not adjust viewport</p>
-              </div>
-            </section>
           </div>
         </div>
       </section>
 
       <!-- =========================
-       3D PORTFOLIO
-      ========================= -->
-      <section
-        id="portfolio-3d"
-        role="application"
-        aria-label="Interactive 3D portfolio"
-        hidden
-      >
-        <loading-modal id="loading-modal"></loading-modal>
-        <nav-bar></nav-bar>
-        <project-gallery></project-gallery>
-        <about-page>
-          <background-page slot="background"></background-page>
-          <experience-page slot="experience"></experience-page>
-          <resume-page slot="resume"></resume-page>
-          <frameworks-page slot="frameworks"></frameworks-page>
-        </about-page>
-        <scene-inspector></scene-inspector>
-        <div id="game-engine"></div>
-      </section>
+    3D PORTFOLIO
+========================= -->
+<section
+  id="portfolio-3d"
+  role="application"
+  aria-label="Interactive 3D portfolio"
+  hidden
+>
+  <loading-modal id="loading-modal"></loading-modal>
+  <nav-bar></nav-bar>
+  <project-gallery></project-gallery>
+  <about-page>
+    <background-page slot="background"></background-page>
+    <experience-page slot="experience"></experience-page>
+    <resume-page slot="resume"></resume-page>
+    <frameworks-page slot="frameworks"></frameworks-page>
+  </about-page>
+  <scene-inspector></scene-inspector>
+  <div id="game-engine"></div>
+</section>
+
     </main>
 
     <!-- Import Maps for three js -->
-    <script type="importmap" defer>
-      {
-        "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.min.js",
-          "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
-        }
-      }
-    </script>
-    <script type="module" src="./dist/index.js" defer></script>
+<script type="importmap" defer>
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.min.js",
+      "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
+    }
+  }
+</script>
+<script type="module" src="./dist/index.js" defer></script>
+
   </body>
 </html>

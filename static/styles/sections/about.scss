@@ -1,0 +1,53 @@
+/* ============================
+  ABOUT PANEL
+============================ */
+
+/* Layout */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px; /* more vertical/horizontal spacing */
+  align-items: start;
+}
+
+.about-title {
+  letter-spacing: 0.3em;
+  color: var(--color-text-primary);
+  margin: 0 0 32px 0;
+  text-transform: uppercase;
+}
+
+.about-layout-wrapper {
+  padding: 3em;
+}
+.about-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* About items */
+.about-item {
+  margin-top: 24px; /* increased spacing between items */
+}
+
+.about-item .meta {
+  font-size: 15px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.about-item .description {
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: var(--color-accent);
+  margin-top: 6px;
+  text-transform: uppercase;
+  /* max-width: 38ch; */
+  animation: fadeUp 0.6s ease both;
+
+  /* Increased left indent */
+  margin-left: 24px; /* more noticeable offset from heading */
+}

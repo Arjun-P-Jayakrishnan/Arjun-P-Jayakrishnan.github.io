@@ -1,0 +1,60 @@
+/* =========================================================
+  VISOR SYSTEM
+========================================================= */
+
+.visor {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: var(--visor-padding);
+  scroll-snap-type: y mandatory;
+  border-radius: var(--visor-radius);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.visor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 10;
+}
+
+.visor-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg);
+  scroll-snap-align: start;
+}
+
+/* ============================
+  VISOR LAYOUT BASE
+============================ */
+.visor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.visor-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Panel frames */
+.panel-frame {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}

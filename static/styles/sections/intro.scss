@@ -1,0 +1,291 @@
+/* ============================
+   INTRO PANEL
+============================ */
+.intro-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2-column layout for desktop */
+  grid-template-rows: auto;
+  gap: 16px; /* spacing between columns/rows */
+  min-height: 400px; /* ensures a minimum height */
+}
+
+.file-title {
+  padding: 1em;
+}
+
+/* ---------------------------
+   Left Pane: Identity Section
+--------------------------- */
+.left-pane {
+  grid-column: 1; /* first column in the grid */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 1.5em; /* spacing between items */
+  padding: 16px; /* internal padding */
+}
+
+.intro-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1em; /* spacing between each intro item */
+}
+
+.intro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em; /* spacing between label (dt) and value (dd) */
+}
+
+.intro-item dt {
+  font-size: 14px; /* smaller for labels */
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin: 0;
+
+  width: fit-content;
+  display: inline-block; /* underline only spans text width */
+  border-bottom: 2px solid var(--color-accent); /* underline color & thickness */
+  padding-bottom: 4px; /* spacing between text and underline */
+}
+
+.intro-item dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 100;
+  color: var(--color-text-secondary);
+  padding-left: 0.3em;
+  padding-top: 0.3em;
+}
+
+.intro-item dd.name {
+  font-family: "Montserrat", sans-serif; /* standout font for name */
+  font-size: 22px; /* larger for emphasis */
+  font-weight: 700;
+  color: var(--color-text-primary); /* prominent color */
+  text-transform: none; /* keep natural capitalization */
+  letter-spacing: 0.02em;
+}
+
+/* ---------------------------
+   Right Pane: Image + Behavioral Readout
+--------------------------- */
+.right-pane {
+  grid-column: 2; /* second column in grid */
+  grid-row: 1 / span 2; /* span both rows for alignment */
+}
+
+.subject-frame {
+  border: 1px solid var(--color-accent);
+  padding: 8px;
+  display: grid;
+  justify-items: center;
+  background: var(--color-bg);
+  margin-right: 1em;
+  height: 100%;
+}
+
+.image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* keep image square */
+  overflow: hidden;
+  position: relative;
+  background: #0b0b0b;
+  max-height: 40vh; /* limits image height */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) contrast(1.15) brightness(0.95);
+  display: block;
+}
+
+.tag {
+  position: relative;
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.subject-readout.behavioral-markers {
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-text-secondary);
+  font-size: 1em;
+  letter-spacing: 0.12em;
+  color: var(--color-text-secondary);
+}
+
+.readout-title {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.readout-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.readout-list li {
+  position: relative;
+  padding-left: 14px;
+  line-height: 1.4;
+}
+
+/* subtle indicator dot (LED-like) */
+.readout-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.7;
+}
+
+/* ---------------------------
+   Description / Personal Statement
+--------------------------- */
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1em; /* space between section title and blockquote */
+  padding-left: 16px; /* horizontal alignment */
+  padding-right: 16px;
+}
+
+.section-title {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: lighter;
+
+  display: inline-block; /* underline only spans the text */
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 4px;
+}
+
+.description-text {
+  margin: 0;
+  padding-left: 16px; /* accent spacing */
+  border-left: 3px solid var(--color-accent);
+  font-style: italic;
+  color: var(--color-text-primary);
+  font-size: 1em;
+  line-height: 1.6;
+  position: relative;
+}
+
+.description-text .highlight {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.description-text::before {
+  content: "“";
+  font-size: 24px;
+  line-height: 0;
+  margin-right: 4px;
+  vertical-align: text-top;
+  color: var(--color-accent);
+}
+
+/* ---------------------------
+   File Metadata / Badges
+--------------------------- */
+.file-metadata {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap; /* allows badges to move to next line on smaller widths */
+  gap: 8px; /* spacing between badges */
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  justify-content: flex-end; /* align badges to the right */
+  padding: 1em; /* inner spacing for container */
+}
+
+.metadata-badge {
+  border: 1px solid var(--color-text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap; /* prevents text from wrapping */
+  background: transparent; /* keeps badges consistent with dark background */
+  display: inline-block;
+}
+
+/* ---------------------------
+   Mobile Layout (≤768px)
+--------------------------- */
+@media (max-width: 768px) {
+  /* Stack layout vertically */
+  .intro-layout {
+    grid-template-rows: auto auto;
+  }
+
+  .left-pane {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .right-pane {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .description {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  /* Shrink images slightly for mobile */
+  .image-container {
+    max-height: 30vh; /* keeps profile image from dominating screen */
+    max-width: 180px; /* prevents it from stretching too wide */
+  }
+
+  .subject-frame img {
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.1);
+  }
+
+  /* Reduce font size of readout markers for mobile */
+  .subject-readout.behavioral-markers {
+    font-size: 0.85em;
+  }
+
+  /* Adjust tag font size and spacing for mobile */
+  .tag {
+    margin-top: 6px;
+    font-size: 10px;
+  }
+
+  /* File metadata badges adjustments */
+  .file-metadata {
+    justify-content: flex-start; /* left align for small screens */
+    gap: 6px;
+    padding: 0.5em 1em;
+  }
+
+  .metadata-badge {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}

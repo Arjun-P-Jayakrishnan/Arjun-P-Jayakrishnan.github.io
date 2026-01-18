@@ -1,0 +1,192 @@
+/* ============================
+   OUTRO OVERLAY
+============================ */
+
+.visor-outro {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 14, 0.45);
+  backdrop-filter: blur(6px) saturate(1.2);
+  z-index: 9999;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ACTIVE */
+.visor-outro.active {
+  display: flex;
+}
+
+/* ============================
+   PANEL
+============================ */
+
+.outro-panel {
+  width: 420px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.35);
+
+  font-family: monospace;
+  color: var(--color-text-primary);
+}
+
+/* ============================
+   TEXT
+============================ */
+
+.outro-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.outro-log {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  min-height: 72px;
+}
+
+/* ============================
+   PROGRESS
+============================ */
+
+.outro-progress {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.outro-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--color-accent);
+  transition: width 0.4s ease;
+}
+
+/* ============================
+   HINT
+============================ */
+
+.outro-hint {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.visor-outro {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.visor-outro.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.visor-power-on {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background: black;
+  overflow: hidden;
+
+  /* Base radial glow */
+  background: radial-gradient(circle, #0a0b0d 0%, black 80%);
+
+  animation: visorBoot 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Brightness pulses and glitch flickers */
+@keyframes visorBoot {
+  0% {
+    opacity: 1;
+    filter: brightness(0);
+  }
+  20% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  40% {
+    opacity: 1;
+    filter: brightness(0.9);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.3);
+  }
+  80% {
+    opacity: 0.3;
+    filter: brightness(1);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(1);
+    display: none;
+  }
+}
+
+/* Optional grain overlay for subtle noise */
+.visor-power-on::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  animation: grainMove 0.3s infinite steps(1);
+}
+
+@keyframes grainMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(1px, -1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Optional horizontal scanline sweep */
+.visor-power-on::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: scanline 1.2s ease-in-out forwards;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}

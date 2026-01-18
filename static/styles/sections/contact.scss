@@ -1,0 +1,90 @@
+/* ============================
+   CONTACT PANEL
+============================ */
+
+.contact-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact-title {
+  padding: 1em 1em;
+}
+
+/* Layout */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* ----------------------------
+   LEFT: ICON LINKS
+---------------------------- */
+
+.contact-left {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.contact-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  color: var(--color-accent);
+  transition: all 0.25s ease;
+}
+
+.contact-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+
+.contact-icon-btn .icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.contact-icon-btn .label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--color-text-secondary);
+}
+
+/* ----------------------------
+   RIGHT: SYSTEM TEXT
+---------------------------- */
+
+.contact-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.system-greeting {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.system-message {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  max-width: 42ch;
+}
+
+.system-hint {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+}
